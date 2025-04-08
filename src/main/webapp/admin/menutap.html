@@ -1,0 +1,94 @@
+<style>
+  aside {
+    width: 260px;
+    background-color: white;
+    border-right: 1px solid #e0e0e0;
+    height: 100vh;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+
+  .sidebar-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+  }
+
+  .sidebar-title::before {
+    content: "📁";
+    margin-right: 8px;
+  }
+
+  .menu-section {
+    margin-bottom: 20px;
+  }
+
+  .menu-button {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .submenu {
+    margin-left: 12px;
+    margin-top: 6px;
+    display: none;
+    flex-direction: column;
+  }
+
+  .submenu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    display: block;
+    margin: 2px 0;
+  }
+
+  .submenu a:hover {
+    background-color: #f0f0f0;
+  }
+
+  .submenu a.active {
+    background-color: #e6edff;
+    color: #1a3cff;
+  }
+</style>
+
+<aside>
+  <div class="sidebar-title">프로젝트 관리</div>
+
+  <!-- 사용자 관리 -->
+  <div class="menu-section">
+    <button class="menu-button" onclick="toggleMenu('userMenu')">사용자 관리</button>
+    <div class="submenu" id="userMenu">
+      <a href="user_info.html">전체 사용자 조회</a>
+    </div>
+  </div>
+
+  <!-- 프로젝트 관리 -->
+  <div class="menu-section">
+    <button class="menu-button" onclick="toggleMenu('projectMenu')">프로젝트 관리</button>
+    <div class="submenu" id="projectMenu">
+      <a href="project_list.html">프로젝트 조회</a>
+      <a href="settlement.html">정산 관리</a>
+    </div>
+  </div>
+
+  <!-- Q&A 관리 -->
+  <div class="menu-section">
+    <button class="menu-button" onclick="toggleMenu('qaMenu')">Q&A 관리</button>
+    <div class="submenu" id="qaMenu">
+      <a href="qna_manage.html">전체 문의 내역</a>
+    </div>
+  </div>
+
+</aside>

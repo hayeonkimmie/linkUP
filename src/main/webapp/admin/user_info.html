@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>사용자 정보 관리</title>
+  <script>
+    const defaultOpenMenuId = "projectMenu";
+  </script>
+  <script src="../js/include_common.js"></script>
+  <link rel="stylesheet" href="../css/admin_header.css">
+  <link rel="stylesheet" href="../css/admin_dashboard.css">
+  <link rel="stylesheet" href="../css/user_info.css">
+</head>
+<body>
+  <div id="header-include"></div>
+  <div class="layout">
+    <div id="menu-include"></div>
+    <div class="content">
+      <div class="search-bar">
+        <input type="text" placeholder="회원명, 아이디 또는 이메일로 검색">
+        <button>검색</button>
+      </div>
+      <div class="card">
+        <h2>구직자 목록</h2>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-no">번호</th>
+              <th class="col-name">회원명</th>
+              <th class="col-id">아이디</th>
+              <th class="col-email">이메일</th>
+              <th class="col-date">가입일</th>
+              <th class="col-phone">연락처</th>
+              <th class="col-type">구분</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>테크놀로지 주식회사</td>
+              <td>kim33</td>
+              <td>kim33@example.com</td>
+              <td>2023-02-05</td>
+              <td>010-1234-5678</td>
+              <td><span class="badge 구직자">구직자</span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>스마트 시스템즈</td>
+              <td>park22</td>
+              <td>park22@example.com</td>
+              <td>2023-04-02</td>
+              <td>010-3456-7890</td>
+              <td><span class="badge 구직자">구직자</span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>인텔리전스 앱</td>
+              <td>kff332</td>
+              <td>kff332@example.com</td>
+              <td>2023-04-21</td>
+              <td>010-5678-9012</td>
+              <td><span class="badge 구직자">구직자</span></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>디자인 허브</td>
+              <td>lim98</td>
+              <td>lim98@example.com</td>
+              <td>2023-01-11</td>
+              <td>010-7890-1234</td>
+              <td><span class="badge 구직자">구직자</span></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>넥스트 테크놀로지</td>
+              <td>songg</td>
+              <td>songg@example.com</td>
+              <td>2023-02-23</td>
+              <td>010-8901-2345</td>
+              <td><span class="badge 구직자">구직자</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h2>구인자 목록</h2>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-no">번호</th>
+              <th class="col-name">회원명</th>
+              <th class="col-id">아이디</th>
+              <th class="col-email">이메일</th>
+              <th class="col-date">가입일</th>
+              <th class="col-phone">연락처</th>
+              <th class="col-type">구분</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2</td>
+              <td>글로벌 솔루션즈</td>
+              <td>lee33</td>
+              <td>lee33@example.com</td>
+              <td>2023-03-17</td>
+              <td>010-2345-6789</td>
+              <td><span class="badge 구인자">구인자</span></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>세이프티 테크</td>
+              <td>choi2</td>
+              <td>choi2@example.com</td>
+              <td>2023-05-01</td>
+              <td>010-4567-8901</td>
+              <td><span class="badge 구인자">구인자</span></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>데이터 인사이트</td>
+              <td>hahn2</td>
+              <td>hahn2@example.com</td>
+              <td>2023-06-08</td>
+              <td>010-6789-0123</td>
+              <td><span class="badge 구인자">구인자</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/user_info.js"></script>
+</body>
+</html>

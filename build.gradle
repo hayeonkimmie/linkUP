@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'eclipse'
+}
+
+group 'com.linkup'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.10.2'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    implementation 'org.mybatis:mybatis:3.4.0' // mybatis
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1' // servlet
+    implementation 'mysql:mysql-connector-java:8.0.11' // mysql
+    // JSP 엔진 (Tomcat Jasper)
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.85'
+    // JSTL
+    implementation 'javax.servlet:jstl:1.2'
+    // Simple Json-Parser
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
+    // GSON
+    implementation("com.google.code.gson:gson:2.9.0")
+    // JUnit
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    // firebase admin
+    implementation("com.google.firebase:firebase-admin:9.2.0")
+    // Google OAuth2
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.20.0")
+}
+
+test {
+    useJUnitPlatform()
+}

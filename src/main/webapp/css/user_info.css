@@ -1,0 +1,88 @@
+/* user_info.css */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f6fa;
+}
+.layout {
+  display: flex;
+}
+.content {
+  flex: 1;
+  padding: 32px;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.search-bar button {
+  padding: 8px 12px;
+  border: 1px solid #888;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.card h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  table-layout: fixed;
+}
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+th.col-no, td.col-no { width: 5%; }
+th.col-name, td.col-name { width: 20%; }
+th.col-id, td.col-id { width: 15%; }
+th.col-email, td.col-email { width: 20%; }
+th.col-date, td.col-date { width: 15%; }
+th.col-phone, td.col-phone { width: 15%; }
+th.col-type, td.col-type { width: 10%; }
+th {
+  color: #888;
+  font-weight: normal;
+}
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+.구직자 {
+  background-color: #eef3ff;
+  color: #4361ee;
+}
+.구인자 {
+  background-color: #fff3d2;
+  color: #f59e0b;
+}
