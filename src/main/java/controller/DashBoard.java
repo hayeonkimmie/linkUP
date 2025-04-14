@@ -50,6 +50,27 @@ public class DashBoard extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
+        // 예: 로그인 확인 로직이 필요한 경우 여기에 추가할 수 있습니다.
+        // String id = request.getParameter("adminId");
+        // String pw = request.getParameter("adminPw");
+        // if (!id.equals("admin") || !pw.equals("1234")) { response.sendRedirect("login.jsp"); return; }
+
+        Integer totalPayment = 15689000;
+        Integer totalProjectCount = 283;
+        Integer completedProjectCount = 156;
+        List<Project> ongoingProjects = new ArrayList<>();
+
+        ongoingProjects.add(new Project("Project A", "Description A", "2023-01-01", "2023-12-31", "Ongoing", "Manager A"));
+        ongoingProjects.add(new Project("Project B", "Description B", "2023-02-01", "2023-11-30", "Ongoing", "Manager B"));
+        ongoingProjects.add(new Project("Project C", "Description C", "2023-03-01", "2023-10-31", "Ongoing", "Manager C"));
+
+        request.setAttribute("totalPayment", totalPayment);
+        request.setAttribute("totalProjectCount", totalProjectCount);
+        request.setAttribute("completedProjectCount", completedProjectCount);
+        request.setAttribute("ongoingProjects", ongoingProjects);
+
+        request.getRequestDispatcher("/admin/dashboard").forward(request, response);
     }
 }

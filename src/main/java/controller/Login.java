@@ -15,11 +15,13 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("admin/dash_dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/admin_login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+//        request.getRequestDispatcher("/admin/dashboard").forward(request, response);
         response.sendRedirect(request.getContextPath() + "/admin/dashboard");
     }
 }

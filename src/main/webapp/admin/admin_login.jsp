@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -63,14 +65,14 @@
 </head>
 <body>
 
-  <div class="login-container">
-    <div class="logo">관리자 페이지</div>
-    <form>
-      <input type="text" placeholder="아이디" required>
-      <input type="password" placeholder="비밀번호" required>
-      <button type="submit" onclick="location.href='admin_dashboard.jsp'">로그인</button>
-    </form>
-  </div>
+<div class="login-container">
+  <div class="logo">관리자 페이지</div>
+  <form id="loginForm" action="<c:url value="admin/login"/>" method="post">
+    <input type="text" name="adminId" placeholder="아이디" required>
+    <input type="password" name="adminPw" placeholder="비밀번호" required>
+    <button type="submit">로그인</button>
+  </form>
+</div>
 
 </body>
 </html>

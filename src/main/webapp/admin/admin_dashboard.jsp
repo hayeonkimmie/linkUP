@@ -18,12 +18,13 @@
   <title>관리자 대시보드</title>
   <link rel="stylesheet" href="../css/admin_header.css">
   <link rel="stylesheet" href="../css/admin_dashboard.css">
-  <script src="../js/include_common.js"></script>
 </head>
 <body>
-<div id="header-include"></div>
+<!-- ✅ JSP include 방식 -->
+<jsp:include page="/admin/admin_header.jsp" />
 <div class="layout">
-  <div id="menu-include"></div>
+  <!-- ✅ 메뉴탭도 JSP include 방식으로 -->
+  <jsp:include page="/admin/menutap.jsp" />
   <div class="content">
     <div class="cards">
       <div class="card">
@@ -33,7 +34,6 @@
           String formattedPayment = String.format("%,d", totalPayment);
         %>
         <div class="card-value">₩<%= formattedPayment %></div>
-
         <div class="card-sub">전월 대비 12% 증가</div>
       </div>
       <div class="card">
