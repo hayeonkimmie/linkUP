@@ -24,7 +24,8 @@ public class ClientListController extends HttpServlet {
         String comapnyid = request.getParameter("companyid");
         List<PrepareSettlement> settlements = new ArrayList<>();
         settlements.add(new PrepareSettlement(
-                "서비스 리뉴얼", // projectName
+                "웹사이트 리뉴얼", // projectName
+                "clientid", // projectName
                 "2023-10-01 ~ 2023-10-31", // projectDuration
                 "홍길동", // projectManager
                 "010-1234-5678", // managerPhone
@@ -37,6 +38,7 @@ public class ClientListController extends HttpServlet {
         ));
         settlements.add(new PrepareSettlement(
                 "웹사이트 개발", // projectName
+                "clientid", // projectName
                 "2023-09-01 ~ 2023-09-30", // projectDuration
                 "이순신", // projectManager
                 "010-2345-6789", // managerPhone

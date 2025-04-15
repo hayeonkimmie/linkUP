@@ -51,6 +51,29 @@ public class FreeLancer {
         this.type = type;
     }
 
+    public FreeLancer(String clientId, String name, String nickname, String email, String phoneNum,
+                      Date registrationDate, String academic, String skill, String desiredSalary,
+                      String desiredLocation, Boolean isResident, String introduction, String license,
+                      String attachment, String externalUrl, String otherRequests, String type, String address) {
+        this.clientId = clientId;
+        this.name = name;
+        this.nickname = nickname;
+        this.email = email;
+        this.phoneNum = phoneNum;
+        this.registrationDate = registrationDate;
+        this.academic = academic;
+        this.skill = skill;
+        this.desiredSalary = desiredSalary;
+        this.desiredLocation = desiredLocation;
+        this.isResident = isResident;
+        this.introduction = introduction;
+        this.license = license;
+        this.attachment = attachment;
+        this.externalUrl = externalUrl;
+        this.otherRequests = otherRequests;
+        this.type = type;
+        this.address = address;
+    }
 
 
     public String getClientId() {

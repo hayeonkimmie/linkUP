@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -78,79 +79,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 샘플 1: 정산 완료 -->
+                    <c:forEach var="p" items="${projectList}">
                         <tr>
-                          <td>AI 서비스 개발</td>
-                          <td>24.03.01 ~ 24.05.31</td>
-                          <td>박영희</td>
-                          <td>010-9876-5432</td>
-                          <td>24,250,000원</td>
-                          <td>727,500원</td>
-                          <td>24,977,500원</td>
-                          <td>4명</td>
-                          <td>12일</td>
-                          <td>
-                            <select class="settlement-status-select">
-                              <option>미납</option>
-                              <option>미결산</option>
-                              <option selected>완료</option>
-                            </select>
-                          </td>
-                          <td class="settlement-col">
-                            <a href="settlement_detail.jsp" class="settlement-btn">정산하기</a>
-                            <button class="settlement-btn light">정산 내역</button>
-                          </td>
+                            <td>${p.projectName}</td>
+                            <td>${p.projectDuration}</td>
+                            <td>${p.projectManager}</td>
+                            <td>${p.managerPhone}</td>
+                            <td><fmt:formatNumber value="${p.totalAmount}" type="currency" currencySymbol="₩"/></td>
+                            <td><fmt:formatNumber value="${p.totalFee}" type="currency" currencySymbol="₩"/></td>
+                            <td><fmt:formatNumber value="${p.totalSettlement}" type="currency" currencySymbol="₩"/></td>
+                            <td>${p.participant}명</td>
+                            <td>${p.settleDate}일</td>
+                            <td>
+                                <select class="settlement-status-select">
+                                    <option ${p.settleStatus eq '미납' ? 'selected' : ''}>미납</option>
+                                    <option ${p.settleStatus eq '미결산' ? 'selected' : ''}>미결산</option>
+                                    <option ${p.settleStatus eq '완료' ? 'selected' : ''}>완료</option>
+                                </select>
+                            </td>
+                            <td class="settlement-col">
+                                <c:choose>
+                                    <c:when test="${p.settleStatus eq '완료' || p.settleStatus eq '미납'}">
+                                        <a href="settlement_detail.jsp" class="settlement-btn">정산하기</a>
+                                        <a href="settlement_info.jsp" class="settlement-btn light">정산내역</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div style="height: 38px;"></div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                         </tr>
-                      
-                        <!-- 샘플 2: 결산일 도래, 미결산 상태 → 버튼 없음 -->
-                        <tr>
-                          <td>블록체인 플랫폼 개발</td>
-                          <td>24.04.01 ~ 24.06.30</td>
-                          <td>김철수</td>
-                          <td>010-1234-5678</td>
-                          <td>29,100,000원</td>
-                          <td>873,000원</td>
-                          <td>29,973,000원</td>
-                          <td>5명</td>
-                          <td>0일</td>
-                          <td>
-                            <select class="settlement-status-select">
-                              <option>미납</option>
-                              <option selected>미결산</option>
-                              <option>완료</option>
-                            </select>
-                          </td>
-                          <td class="settlement-col">
-                            <div style="height: 38px;"></div>
-                          </td>
-                        </tr>
-                      
-                        <!-- 샘플 3: 미납 -->
-                        <tr>
-                          <td>빅데이터 시각화 시스템</td>
-                          <td>24.02.15 ~ 24.04.30</td>
-                          <td>한지우</td>
-                          <td>010-2468-1357</td>
-                          <td>18,400,000원</td>
-                          <td>552,000원</td>
-                          <td>18,952,000원</td>
-                          <td>3명</td>
-                          <td>20일</td>
-                          <td>
-                            <select class="settlement-status-select">
-                              <option selected>미납</option>
-                              <option>미결산</option>
-                              <option>완료</option>
-                            </select>
-                          </td>
-                          <td class="settlement-col">
-                            <a href="settlement_detail.jsp" class="settlement-btn">정산하기</a>
-                            <a href="settlement_info.jsp" class="settlement-btn light">정산내역</a>
-                          </td>
-                        </tr>
-                      </tbody>
-                      
-                      
+                    </c:forEach>
+                    </tbody>
                 </table>
                 <div style="text-align: right; margin-top: 16px;">
                     <button class="settlement-save-btn">결산 상태 저장</button>

@@ -7,7 +7,7 @@ import java.sql.Date;
  * 사용되는 페이지 : /admin/client_project_list.jsp<br>
  * 데이터 : <br>
  *     Integer projectId; // 프로젝트 ID<br>
- *     String companyName; // 회사명<br>
+ *     String clientName; // 회사명<br>
  *     String projectName; // 프로젝트 명<br>
  *     String projectDuration; // 프로젝트 기간<br>
  *     String projectManager; // 프로젝트 담당자<br>
@@ -21,7 +21,8 @@ import java.sql.Date;
  */
 public class PrepareSettlement {
     private Integer projectId;        // 프로젝트 ID
-    private String companyName;       // 회사명
+    private String clientId;        // 회사 ID
+    private String clientName;       // 회사명
     private String projectName;       // 프로젝트 명
     private String projectDuration;   // 프로젝트 기간
     private String projectManager;    // 프로젝트 담당자
@@ -39,6 +40,7 @@ public class PrepareSettlement {
     /**
      * /admin/client_project_list.jsp 페이지에서 사용되는 생성자<br>
      * @param projectName 프로젝트 명
+     * @param clientId 회사 ID
      * @param projectDuration 프로젝트 기간
      * @param projectManager 프로젝트 담당자
      * @param managerPhone 담당자 전화번호
@@ -49,8 +51,9 @@ public class PrepareSettlement {
      * @param settleDate 정산일
      * @param settleStatus 정산 상태
      */
-    public PrepareSettlement(String projectName, String projectDuration, String projectManager, String managerPhone, Integer totalAmount, Integer totalFee, Integer totalSettlement, Integer participant, Integer settleDate, String settleStatus) {
+    public PrepareSettlement(String projectName, String clientId, String projectDuration, String projectManager, String managerPhone, Integer totalAmount, Integer totalFee, Integer totalSettlement, Integer participant, Integer settleDate, String settleStatus) {
         this.projectName = projectName;
+        this.clientId = clientId;
         this.projectDuration = projectDuration;
         this.projectManager = projectManager;
         this.managerPhone = managerPhone;
@@ -65,7 +68,8 @@ public class PrepareSettlement {
 
     /**
      * /admin/settlement.jsp 페이지에서 사용되는 생성자<br>
-     * @param companyName 회사명
+     * @param clientId 회사 ID
+     * @param clientName 회사명
      * @param projectId 프로젝트 ID
      * @param projectName 프로젝트 명
      * @param projectDuration 프로젝트 기간
@@ -78,11 +82,12 @@ public class PrepareSettlement {
      * @param settleDate 정산일
      * @param settleStatus 정산 상태
      */
-    public PrepareSettlement(String companyName, Integer projectId, String projectName, String projectDuration,
+    public PrepareSettlement(String clientId, String clientName, Integer projectId, String projectName, String projectDuration,
                              String projectManager, String managerPhone,
                              Integer totalAmount, Integer totalFee, Integer totalSettlement,
                              Integer participant, Integer settleDate, String settleStatus) {
-        this.companyName = companyName;
+        this.clientId = clientId;
+        this.clientName = clientName;
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectDuration = projectDuration;
@@ -96,14 +101,23 @@ public class PrepareSettlement {
         this.settleStatus = settleStatus;
     }
 
-
-    public String getCompanyName() {
-        return companyName;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+
 
     public Integer getProjectId() {
         return projectId;
