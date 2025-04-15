@@ -47,20 +47,15 @@
             </tr>
           </thead>
           <tbody>
+          <c:forEach var="s" items="${settlements}">
             <tr>
-              <td>서비스 리뉴얼</td>
-              <td>김민수</td>
-              <td>2023-05-01 ~ 2023-08-31</td>
-              <td><span class="status-badge">진행중</span></td>
-              <td>3명</td>
+              <td>${s.projectName}</td>
+              <td>${s.projectManager}</td>
+              <td>${s.projectDuration}</td>
+              <td><span class="status-badge">${s.settleStatus}</span></td>
+              <td>${s.participant}명</td>
             </tr>
-            <tr>
-              <td>모바일 앱 개발</td>
-              <td>이상철</td>
-              <td>2023-06-01 ~ 2023-12-31</td>
-              <td><span class="status-badge">진행중</span></td>
-              <td>5명</td>
-            </tr>
+          </c:forEach>
           </tbody>
         </table>
       </div>

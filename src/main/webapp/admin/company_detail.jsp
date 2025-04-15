@@ -20,9 +20,10 @@
   <div class="content">
     <div class="page-header">
       <h2>${company.name}</h2>
-      <a href="/admin/company_project_list.jsp?companyid=${company.id}" class="back-link">
+      <a href="<c:url value='/admin/company-list' />?companyid=${company.id}" class="back-link">
         ${company.name}의 프로젝트 목록 보기 →
       </a>
+
     </div>
 
     <!-- ✅ 기본 정보 -->
