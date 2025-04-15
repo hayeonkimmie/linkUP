@@ -5,16 +5,17 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("/admin")
-public class AdminWelcome extends HttpServlet {
+@WebServlet("/admin/freelancer")
+public class FreeLancerController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-    public AdminWelcome() {
+    public FreeLancerController() {
         super();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/admin/login").forward(request, response);
+
     }
 
     @Override

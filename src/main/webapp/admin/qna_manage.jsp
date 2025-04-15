@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -64,7 +66,6 @@
             <tr>
               <th><input type="checkbox" /></th>
               <th>번호</th>
-              <th>카테고리</th>
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
@@ -75,8 +76,7 @@
             <tr>
               <td><input type="checkbox" /></td>
               <td>1</td>
-              <td>채용문의</td>
-              <td class="q-title"><a href=qna_detail.html>채용 공고 등록 방법 문의</a></td>
+              <td class="q-title"><a href=qna_detail.jsp>채용 공고 등록 방법 문의</a></td>
               <td>홍길동</td>
               <td>2024-02-20</td>
               <td><span class="badge danger">미답변</span></td>

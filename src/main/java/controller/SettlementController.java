@@ -5,16 +5,18 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("/admin")
-public class AdminWelcome extends HttpServlet {
+@WebServlet("/admin/settlement")
+public class SettlementController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-    public AdminWelcome() {
+    public SettlementController() {
         super();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/admin/login").forward(request, response);
+        request.setCharacterEncoding("utf-8");
+        request.getRequestDispatcher("/admin/settlement.jsp").forward(request, response);
     }
 
     @Override

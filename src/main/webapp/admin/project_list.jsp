@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,11 +45,11 @@
           <tbody>
             <tr>
               <td>
-                <a href="project_detail.html" class="project-link">웹 서비스 리뉴얼</a>
-                <!-- <a href="project_detail.html?id=123" class="project-link">웹 서비스 리뉴얼</a> -->
+                <a href="project_detail.jsp" class="project-link">웹 서비스 리뉴얼</a>
+                <!-- <a href="project_detail.jsp?id=123" class="project-link">웹 서비스 리뉴얼</a> -->
               </td>
               <td>
-                <a href="company_detail.html" class="company-link">테크놀로지 주식회사</a>
+                <a href="company-list?company=" class="company-link">테크놀로지 주식회사</a>
               </td>
               <td>김민수<br></td>
               <td>2023-05-01 ~ 2023-08-31</td>
