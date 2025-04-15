@@ -18,10 +18,10 @@ import java.util.List;
  *  이번달 진행중인 프로젝트의 정보 : List(Project) <br>
  */
 @WebServlet("/admin/dashboard")
-public class DashBoard extends HttpServlet {
+public class DashBoardController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public DashBoard() {
+    public DashBoardController() {
         super();
     }
 
@@ -36,9 +36,10 @@ public class DashBoard extends HttpServlet {
         List<Project> ongoingProjects = new ArrayList<>();
 
         // 대시보드에 보여줄 데이터 지정하기
-        ongoingProjects.add(new Project("Project A", "Description A", "2023-01-01", "2023-12-31", "Ongoing", "Manager A"));
-        ongoingProjects.add(new Project("Project B", "Description B", "2023-02-01", "2023-11-30", "Ongoing", "Manager B"));
-        ongoingProjects.add(new Project("Project C", "Description C", "2023-03-01", "2023-10-31", "Ongoing", "Manager C"));
+
+        ongoingProjects.add(new Project(1, "테스트 상품 스펜 체인 풀 슬리드 티켓스", "2023-03-11", 1000000, "진행중", "김매니저", "대기중"));
+        ongoingProjects.add(new Project(2, "테스트 플랫폼 커뮤니티 개설", "2023-03-11", 1000000, "진행중", "이매니저","대기중"));
+        ongoingProjects.add(new Project(3, "테스트 상품3", "2023-02-11", 1000000, "진행중", "박매니저","대기중"));
 
         // 대시보드에 보여줄 데이터 request에 담기
         request.setAttribute("totalPayment", totalPayment);
@@ -52,25 +53,5 @@ public class DashBoard extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        // 예: 로그인 확인 로직이 필요한 경우 여기에 추가할 수 있습니다.
-        // String id = request.getParameter("adminId");
-        // String pw = request.getParameter("adminPw");
-        // if (!id.equals("admin") || !pw.equals("1234")) { response.sendRedirect("login.jsp"); return; }
-
-        Integer totalPayment = 15689000;
-        Integer totalProjectCount = 283;
-        Integer completedProjectCount = 156;
-        List<Project> ongoingProjects = new ArrayList<>();
-
-        ongoingProjects.add(new Project("Project A", "Description A", "2023-01-01", "2023-12-31", "Ongoing", "Manager A"));
-        ongoingProjects.add(new Project("Project B", "Description B", "2023-02-01", "2023-11-30", "Ongoing", "Manager B"));
-        ongoingProjects.add(new Project("Project C", "Description C", "2023-03-01", "2023-10-31", "Ongoing", "Manager C"));
-
-        request.setAttribute("totalPayment", totalPayment);
-        request.setAttribute("totalProjectCount", totalProjectCount);
-        request.setAttribute("completedProjectCount", completedProjectCount);
-        request.setAttribute("ongoingProjects", ongoingProjects);
-
-        request.getRequestDispatcher("/admin/dashboard").forward(request, response);
     }
 }

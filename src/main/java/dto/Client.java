@@ -2,35 +2,40 @@ package dto;
 
 import java.sql.Date;
 
-public class Company {
-    private int id;
-    private String email;
-    private String name;
-    private Date joinDate;
-    private String phone;
+public class Client {
+    private Integer id; // AUTO_INCREMENT
+    private String clientId; // 사용자 ID
+    private String email; // 담당자 이메일
+    private String name; // 회사명
+    private String phone; // 담당자 전화번호
     private String type; // 구직자 or 구인자
     private Date foundedDate; // 회사 설립일
-    private String ceo;
-    private String industry;
-    private String businessType;
-    private String address;
+    private String ceo; // CEO 이름
+    private String industry; // 업종
+    private String businessType; // 업태
+    private String address; // 회사 주소
+    private String businessNumber; // 사업자등록번호
+    private String fax; // 팩스번호
 
-    public Company(int id, String email, String name, Date joinDate, String phone, String type, Date foundedDate, String ceo, String industry, String businessType, String address) {
+    public Client(Integer id, String clientId, String email, String name, String phone, String type, Date foundedDate, String ceo, String industry, String businessType, String address, String businessNumber, String fax) {
         this.id = id;
+        this.clientId = clientId;
         this.email = email;
         this.name = name;
-        this.joinDate = joinDate;
         this.phone = phone;
         this.type = type;
-        this.foundedDate = foundedDate;
-        this.ceo = ceo;
-        this.industry = industry;
-        this.businessType = businessType;
-        this.address = address;
+        this.foundedDate = foundedDate; // 회사 설립일
+        this.ceo = ceo; // CEO 이름
+        this.industry = industry; // 업종
+        this.businessType = businessType; // 업태
+        this.address = address; // 회사 주소
+        this.businessNumber = businessNumber;
+        this.fax = fax; // 팩스번호
     }
 
-    public Company() {
+    public Client() {
     }
+
 
     public String getName() {
         return name;
@@ -40,11 +45,11 @@ public class Company {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -114,13 +119,27 @@ public class Company {
         this.address = address;
     }
 
-    public Date getJoinDate() {
-        return joinDate;
+    public String getBusinessNumber() {
+        return businessNumber;
     }
 
-    public void setJoinDate(Date joinDate) {
-        this.joinDate = joinDate;
+    public void setBusinessNumber(String businessNumber) {
+        this.businessNumber = businessNumber;
     }
 
+    public String getFax() {
+        return fax;
+    }
 
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 }

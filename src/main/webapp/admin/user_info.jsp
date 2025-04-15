@@ -41,23 +41,26 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="c" items="${companyList}">
-          <c:if test="${c.type eq '구직자'}">
+        <c:forEach var="f" items="${freelancerList}">
+          <c:if test="${f.type eq '구직자'}">
             <tr>
-              <td>${c.id}</td>
+              <td>${f.clientId}</td> <!-- 🔄 올바른 필드 사용 -->
               <td>
-                <a href="<c:url value='/admin/company'/>?companyid=${c.id}" class="project-link">${c.name}</a>
+                <a href="<c:url value='/admin/freelancer'/>?freelancerid=${f.clientId}" class="project-link">
+                    ${f.name}
+                </a>
               </td>
-              <td>${c.name}</td>
-              <td>${c.email}</td>
-              <td>${c.joinDate}</td>
-              <td>${c.phone}</td>
-              <td><span class="badge 구직자">구직자</span></td>
+              <td>${f.clientId}</td>
+              <td>${f.email}</td>
+              <td>${f.registrationDate}</td>
+              <td>${f.phoneNum}</td>
+              <td><span class="badge 구직자">${f.type}</span></td>
             </tr>
           </c:if>
         </c:forEach>
         </tbody>
       </table>
+
     </div>
 
     <!-- ✅ 구인자 목록 -->
@@ -67,25 +70,25 @@
         <thead>
         <tr>
           <th class="col-no">번호</th>
-          <th class="col-name">회원명</th>
           <th class="col-id">아이디</th>
+          <th class="col-name">회원명</th>
           <th class="col-email">이메일</th>
-          <th class="col-date">가입일</th>
+          <th class="col-date">설립일</th>
           <th class="col-phone">연락처</th>
           <th class="col-type">구분</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="c" items="${companyList}">
+        <c:forEach var="c" items="${clientList}">
           <c:if test="${c.type eq '구인자'}">
             <tr>
               <td>${c.id}</td>
+              <td>${c.clientId}</td>
               <td>
-                <a href="<c:url value='/admin/company'/>?companyid=${c.id}" class="project-link">${c.name}</a>
+                <a href="<c:url value='/admin/client'/>?clientid=${c.name}" class="project-link">${c.name}</a>
               </td>
-              <td>${c.name}</td>
               <td>${c.email}</td>
-              <td>${c.joinDate}</td>
+              <td>${c.foundedDate}</td>
               <td>${c.phone}</td>
               <td><span class="badge 구인자">구인자</span></td>
             </tr>

@@ -6,10 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
 @WebServlet("/admin/settlement")
-public class Settlement extends HttpServlet {
+public class SettlementController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public Settlement() {
+    public SettlementController() {
         super();
     }
 

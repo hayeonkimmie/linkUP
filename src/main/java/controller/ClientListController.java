@@ -1,6 +1,5 @@
 package controller;
 
-import dto.Company;
 import dto.PrepareSettlement;
 
 import javax.servlet.*;
@@ -11,11 +10,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/admin/company-list")
-public class CompanyList extends HttpServlet {
+@WebServlet("/admin/client-list")
+public class ClientListController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public CompanyList() {
+    public ClientListController() {
         super();
     }
 
@@ -50,7 +49,7 @@ public class CompanyList extends HttpServlet {
         ));
 
         request.setAttribute("settlements", settlements);
-        request.getRequestDispatcher("/admin/company_project_list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/client_project_list.jsp").forward(request, response);
 
     }
 

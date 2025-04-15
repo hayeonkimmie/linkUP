@@ -5,18 +5,18 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("")
-public class Logout extends HttpServlet {
+@WebServlet("/admin/project")
+public class ProjectController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public Logout() {
+    public ProjectController() {
         super();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        request.getRequestDispatcher("/admin/login").forward(request, response);
+        request.getRequestDispatcher("/admin/project_list.jsp").forward(request, response);
     }
 
     @Override

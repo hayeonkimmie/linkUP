@@ -56,12 +56,13 @@
       <table>
         <thead>
         <tr>
-          <th>프로젝트명</th>
-          <th>설명</th>
-          <th>시작일</th>
-          <th>종료일</th>
-          <th>상태</th>
+          <th>ID</th>
+          <th>프로젝트 명</th>
+          <th>금액</th>
+          <th>진행 상태</th>
+          <th>결제 상태</th>
           <th>담당자</th>
+          <th>등록일</th>
         </tr>
         </thead>
         <tbody>
@@ -70,12 +71,13 @@
           for (Project p : list) {
         %>
         <tr>
+          <td><%= p.getProjectId() %></td>
           <td><%= p.getProjectName() %></td>
-          <td><%= p.getProjectDescription() %></td>
-          <td><%= p.getProjectStartDate() %></td>
-          <td><%= p.getProjectEndDate() %></td>
+          <td><%= p.getTotalAmount() %></td>
           <td><span class="status 진행중"><%= p.getProjectStatus() %></span></td>
+          <td><span class="status 진행중"><%= p.getSettleStatus() %></span></td>
           <td><%= p.getProjectManager() %></td>
+          <td><%= p.getCreatedDate() %></td>
         </tr>
         <% } %>
         </tbody>
