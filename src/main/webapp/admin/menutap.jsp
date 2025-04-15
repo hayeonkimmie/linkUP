@@ -92,8 +92,10 @@
       <span class="toggle-icon" id="icon-projectMenu">▲</span>
     </div>
     <div class="submenu" id="projectMenu">
-      <a href="project_list.jsp">프로젝트 조회</a>
-      <a href="settlement.jsp">정산 관리</a>
+      <a href="<c:url value='/admin/project'/>">프로젝트 조회</a>
+<%--      <a href="project_list.jsp">프로젝트 조회</a>--%>
+      <a href="<c:url value='/admin/settlement'/>">정산 관리</a>
+<%--      <a href="settlement.jsp">정산 관리</a>--%>
     </div>
   </div>
 
@@ -104,7 +106,8 @@
       <span class="toggle-icon" id="icon-qaMenu">▲</span>
     </div>
     <div class="submenu" id="qaMenu">
-      <a href="qna_manage.jsp">전체 문의 내역</a>
+<%--      <a href="qna_manage.jsp">전체 문의 내역</a>--%>
+      <a href="<c:url value='/admin/qna'/>">전체 문의 내역</a>
     </div>
   </div>
 </aside>

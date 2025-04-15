@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,22 +8,24 @@
   <script>
     const defaultOpenMenuId = "projectMenu";
   </script>
-  <script src="../js/include_common.js"></script>
   <link rel="stylesheet" href="../css/admin_header.css">
-  <link rel="stylesheet" href="../css/admin_dashboard.css">
   <link rel="stylesheet" href="../css/user_info.css">
 </head>
 <body>
-<%-- 헤더 include --%>
+
+<!-- ✅ 헤더 include -->
 <jsp:include page="/admin/admin_header.jsp" />
 <div class="layout">
-  <%-- 메뉴탭 include --%>
+  <!-- ✅ 메뉴탭 include -->
   <jsp:include page="/admin/menutap.jsp" />
   <div class="content">
+
     <div class="search-bar">
       <input type="text" placeholder="회원명, 아이디 또는 이메일로 검색">
       <button>검색</button>
     </div>
+
+    <!-- ✅ 구직자 목록 -->
     <div class="card">
       <h2>구직자 목록</h2>
       <table>
@@ -38,54 +41,26 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>1</td>
-          <td>테크놀로지 주식회사</td>
-          <td>kim33</td>
-          <td>kim33@example.com</td>
-          <td>2023-02-05</td>
-          <td>010-1234-5678</td>
-          <td><span class="badge 구직자">구직자</span></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>스마트 시스템즈</td>
-          <td>park22</td>
-          <td>park22@example.com</td>
-          <td>2023-04-02</td>
-          <td>010-3456-7890</td>
-          <td><span class="badge 구직자">구직자</span></td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>인텔리전스 앱</td>
-          <td>kff332</td>
-          <td>kff332@example.com</td>
-          <td>2023-04-21</td>
-          <td>010-5678-9012</td>
-          <td><span class="badge 구직자">구직자</span></td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>디자인 허브</td>
-          <td>lim98</td>
-          <td>lim98@example.com</td>
-          <td>2023-01-11</td>
-          <td>010-7890-1234</td>
-          <td><span class="badge 구직자">구직자</span></td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>넥스트 테크놀로지</td>
-          <td>songg</td>
-          <td>songg@example.com</td>
-          <td>2023-02-23</td>
-          <td>010-8901-2345</td>
-          <td><span class="badge 구직자">구직자</span></td>
-        </tr>
+        <c:forEach var="c" items="${companyList}">
+          <c:if test="${c.type eq '구직자'}">
+            <tr>
+              <td>${c.id}</td>
+              <td>
+                <a href="<c:url value='/admin/company'/>?companyid=${c.id}" class="project-link">${c.name}</a>
+              </td>
+              <td>${c.name}</td>
+              <td>${c.email}</td>
+              <td>${c.joinDate}</td>
+              <td>${c.phone}</td>
+              <td><span class="badge 구직자">구직자</span></td>
+            </tr>
+          </c:if>
+        </c:forEach>
         </tbody>
       </table>
     </div>
+
+    <!-- ✅ 구인자 목록 -->
     <div class="card">
       <h2>구인자 목록</h2>
       <table>
@@ -101,38 +76,27 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>2</td>
-          <td>글로벌 솔루션즈</td>
-          <td>lee33</td>
-          <td>lee33@example.com</td>
-          <td>2023-03-17</td>
-          <td>010-2345-6789</td>
-          <td><span class="badge 구인자">구인자</span></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>세이프티 테크</td>
-          <td>choi2</td>
-          <td>choi2@example.com</td>
-          <td>2023-05-01</td>
-          <td>010-4567-8901</td>
-          <td><span class="badge 구인자">구인자</span></td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>데이터 인사이트</td>
-          <td>hahn2</td>
-          <td>hahn2@example.com</td>
-          <td>2023-06-08</td>
-          <td>010-6789-0123</td>
-          <td><span class="badge 구인자">구인자</span></td>
-        </tr>
+        <c:forEach var="c" items="${companyList}">
+          <c:if test="${c.type eq '구인자'}">
+            <tr>
+              <td>${c.id}</td>
+              <td>
+                <a href="<c:url value='/admin/company'/>?companyid=${c.id}" class="project-link">${c.name}</a>
+              </td>
+              <td>${c.name}</td>
+              <td>${c.email}</td>
+              <td>${c.joinDate}</td>
+              <td>${c.phone}</td>
+              <td><span class="badge 구인자">구인자</span></td>
+            </tr>
+          </c:if>
+        </c:forEach>
         </tbody>
       </table>
     </div>
+
   </div>
 </div>
-<script src="../js/user_info.js"></script>
+
 </body>
 </html>

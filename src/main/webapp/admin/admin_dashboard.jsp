@@ -51,7 +51,7 @@
     <div class="table-box">
       <div class="section-title">
         이번달 프로젝트 결제내역
-        <a href="project_list.html" class="view-more">전체 보기 →</a>
+        <a href="project_list.jsp" class="view-more">전체 보기 →</a>
       </div>
       <table>
         <thead>

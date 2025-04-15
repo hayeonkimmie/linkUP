@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -95,7 +97,7 @@
                             </select>
                           </td>
                           <td class="settlement-col">
-                            <a href="settlement_detail.html" class="settlement-btn">정산하기</a>
+                            <a href="settlement_detail.jsp" class="settlement-btn">정산하기</a>
                             <button class="settlement-btn light">정산 내역</button>
                           </td>
                         </tr>
@@ -142,8 +144,8 @@
                             </select>
                           </td>
                           <td class="settlement-col">
-                            <a href="settlement_detail.html" class="settlement-btn">정산하기</a>
-                            <a href="settlement_info.html" class="settlement-btn light">정산내역</a>
+                            <a href="settlement_detail.jsp" class="settlement-btn">정산하기</a>
+                            <a href="settlement_info.jsp" class="settlement-btn light">정산내역</a>
                           </td>
                         </tr>
                       </tbody>
