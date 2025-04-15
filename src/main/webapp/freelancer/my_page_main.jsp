@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html><html>
-<head>
+<head>s
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up 마이페이지</title>
-    <link rel="stylesheet" href="../css/freelancer_my_page.css">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
 </head>
 <body>
 <div class="header">
-<%--    <%@ include file="../common/header.jsp" %>--%>
 </div>
 <div class="container">
     <aside class="sidebar">
