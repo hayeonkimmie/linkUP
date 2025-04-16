@@ -3,9 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.project">
-    <insert id="" parameterType="">
-        insert ammount ()
-        values (#{}, #{},#{},#{})
+    <insert id="insertAmmount" parameterType="ammount">
+        insert ammount (id,project_id,total,fee) values (#{id}, #{project_id},#{total},#{fee})
     </insert>
 
 </mapper>

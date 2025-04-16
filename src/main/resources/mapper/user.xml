@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.project">
+    <insert id="insertUser" parameterType="user">
+        insert user (user_id,name,nickname,email,password,phone_num,profile_img,token,accept_noti,registration_date,withdrawal_date,accept_consent)
+        values (#{user_id}, #{name},#{nickname},#{email}, #{password},#{phone_num},#{profile_img}, #{token},#{accept_noti},#{registration_date}, #{withdrawal_date},#{accept_consent})
+    </insert>
+
+</mapper>

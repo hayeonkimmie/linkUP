@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.project">
+    <insert id="insertSettlement" parameterType="settlement">
+        insert settlement (settlement_id,slist_id,category_id,client_id,pname,pay,start_date,end_date,settleday,position,name,status,account)
+        values (#{settlement_id}, #{slist_id},#{category_id},#{client_id}, #{pname},#{pay},#{start_date}, #{end_date},#{settleday},#{position}, #{name},#{status},#{account})
+    </insert>
+
+</mapper>

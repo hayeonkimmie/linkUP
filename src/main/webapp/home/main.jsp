@@ -5,7 +5,9 @@
   Time: 오전 9:17
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -14,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Link Up</title>
 
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="${contextPath}/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=SUIT&display=swap" rel="stylesheet">
 </head>
 <header>

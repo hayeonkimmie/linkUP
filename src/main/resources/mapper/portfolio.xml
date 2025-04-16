@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.project">
+    <insert id="insertPortfolio" parameterType="portfolio">
+        insert portfolio (portfolio_id,freelancer_id,title,thumbnail,port_proj_start,port_proj_end,team_role,skill_description,introduce,project_id,attachment,external_url,created_date,is_temp_saved,is_user_deleted,is_deleted,priority)
+        values (#{portfolio_id}, #{freelancer_id},#{title},#{thumbnail}, #{port_proj_start},#{port_proj_end},#{team_role}, #{skill_description},#{introduce},#{project_id}, #{attachment},#{external_url},#{created_date}, #{is_temp_saved},#{is_user_deleted},#{is_deleted}, #{priority})
+    </insert>
+
+</mapper>

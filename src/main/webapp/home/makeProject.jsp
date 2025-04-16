@@ -5,7 +5,9 @@
   Time: 오전 9:20
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,7 +16,7 @@
   <title>구인 등록</title>
   <link rel="stylesheet" href="../css/headerLoginSt.css" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../css/makeProject.css">
+  <link rel="stylesheet" href="${contextPath}/css/makeProject.css">
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const workTypeButtons = document.querySelectorAll('[data-work-type]');

@@ -5,14 +5,16 @@
   Time: 오전 9:50
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>고객센터</title>
-  <link rel="stylesheet" href="../css/gogakCenter.css" />
+  <link rel="stylesheet" href="${contextPath}/css/gogakCenter.css" />
 </head>
 <body>
 <div class="container">

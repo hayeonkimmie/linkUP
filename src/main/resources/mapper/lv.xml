@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.project">
-    <insert id="" parameterType="">
-        insert ammount ()
-        values (#{}, #{},#{},#{})
+    <insert id="insertLv" parameterType="lv">
+        insert lv (Lv_id,Lv,start_month,end_month)
+        values (#{Lv_id}, #{Lv},#{start_month},#{end_month})
     </insert>
 
 </mapper>

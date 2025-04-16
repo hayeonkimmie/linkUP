@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.project">
-    <insert id="" parameterType="">
-        insert ammount ()
-        values (#{}, #{},#{},#{})
+    <insert id="insertJjimFree" parameterType="jjimFree">
+        insert jjimFree (jjim_id,client_id,freelancer_id)
+        values (#{jjim_id},#{client_id},#{freelancer_id},)
     </insert>
 
 </mapper>
