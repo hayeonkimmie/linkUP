@@ -1,11 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html><html>
-<head>s
+<!DOCTYPE html>
+<html>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up 마이페이지</title>
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
+    <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
 </head>
 <body>
 <div class="header">
@@ -13,17 +15,18 @@
 <div class="container">
     <aside class="sidebar">
         <div class="profile">
-            <img src="./../img/basic_profile_img.png" alt="profile"/>
+            <img src="<c:url value='/img/basic_profile_img.png' />" alt="프로필 이미지" />
+            <%--<img src="${pageContext.request.contextPath}/img/basic_profile_img.png" alt="프로필 이미지" />--%>
             <p>닉네임</p>
             <p>마이페이지</p>
         </div>
         <ul>
             <li class="profile-settings">
                 <h3>프로필 설정</h3>
-                <a href="#">기본 정보 설정</a>
-                <a href="#">전문가 정보 설정</a>
+                <a href="my-page/edit-info?type=basic">기본 정보 설정</a>
+                <a href="my-page/edit-info?type=expert">전문가 정보 설정</a>
             </li>
-            <li><a href="#"><h3>포트폴리오</h3></a></li>
+            <li><a href="my-page/portfolio-list"><h3>포트폴리오</h3></a></li>
             <li><h3><a href="#">찜한 프로젝트</a></h3></li>
             <li><h3><a href="#">지원한 프로젝트 내역</a></h3></li>
             <li><h3><a href="#">진행중인 / 완료된 프로젝트</a></h3></li>
@@ -47,7 +50,8 @@
                     <th>예산</th>
                     <th>고객사</th>
                     <th>요구 스킬/경력</th>
-                    <th>모집 마감일 <br/>D-Day</th>
+                    <th>모집 마감일</th>
+                    <th>D-Day</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,7 +62,8 @@
                     <td>2,500만원</td>
                     <td>패션스토어(주)</td>
                     <td>React, TypeScript, 3년 이상</td>
-                    <td>25. 04. 07
+                    <td>25. 04. 07</td>
+                    <td>
                         <span class="d-day">D-6</span>
                     </td>
                 </tr>
@@ -80,7 +85,8 @@
                     <th>기간</th>
                     <th>예산</th>
                     <th>요구사항</th>
-                    <th>프로젝트 마감일<br/>D-Day</th>
+                    <th>프로젝트 마감일</th>
+                    <th>D-Day</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,8 +97,8 @@
                     <td>2개월</td>
                     <td>1,800만원</td>
                     <td>D3.js, React, 2년 이상</td>
-                    <td>25. 04. 07
-                        <span class="d-day">D-6</span>
+                    <td>25. 04. 07</td>
+                    <td><span class="d-day">D-6</span>
                     </td>
                 </tr>
                 <tr>

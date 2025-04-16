@@ -6,9 +6,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>개인 프로젝트 지원 현황</title>
-  <link rel="stylesheet" href="./../css/freelancer_my_page.css"/>
-  <link rel="stylesheet" href="./../css/freelancer_my_apply_proj_list.css">
-  <script src="./../js/freelancer_apply_proj_list.js"></script>
+  <link rel="stylesheet" href="../css/freelancer_my_page.css"/>
+  <link rel="stylesheet" href="../css/freelancer_my_apply_proj_list.css">
+  <script src="../js/freelancer_apply_proj_list.js"></script>
 
 </head>
 
