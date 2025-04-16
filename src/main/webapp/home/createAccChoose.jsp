@@ -1,0 +1,39 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: KOSTA
+  Date: 25. 4. 16.
+  Time: 오전 9:13
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Link up 회원가입</title>
+  <link rel="stylesheet" href="../css/createAccChoose.css">
+</head>
+<body>
+<div class="container">
+  <a href="main.html" class="logo">
+    <img src="../img/링크업 로고.png" alt="Link up 로고">
+  </a>
+  <p>링크업에서 어떤 서비스를<br>이용하고 싶으신가요?</p>
+  <div class="subtitle">원하는 회원가입 유형을 선택하세요.</div>
+
+  <div class="section-title">의뢰를 맡기고 싶다면?</div>
+  <a href="createAccRecruiter.html">
+    <button class="button">
+      <span class="checkmark">✔</span> 의뢰인으로 가입하기
+    </button>
+  </a>
+
+  <div class="section-title">내 능력을 펼치고 싶다면?</div>
+  <a href="createAccJobseeker.html">
+    <button class="button">
+      <span class="checkmark">✔</span> 전문가로 가입하기
+    </button>
+  </a>
+</div>
+</body>
+</html>

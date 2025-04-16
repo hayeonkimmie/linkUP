@@ -19,7 +19,7 @@
 <body>
 <div class="container">
   <a href="#" class="logo">
-    <img src="../1x/링크업 로고.png" alt="Link up 로고">
+    <img src="../img/링크업 로고.png" alt="Link up 로고">
   </a>
 
   <div class="role-toggle">

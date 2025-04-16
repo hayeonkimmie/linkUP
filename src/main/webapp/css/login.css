@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;    
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+  body {
+    background-color: #ffffff;
+  }
+  
+  .container {
+    width: 360px;
+    margin: 80px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 30px 20px;
+    text-align: center;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #8000a6;
+    margin-bottom: 30px;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .login-btn {
+    background-color: #8000a6;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .sub-links {
+    font-size: 12px;
+    margin: 10px 0;
+    color: #777;
+  }
+  
+  .sub-links a {
+    text-decoration: none;
+    color: #777;
+  }
+  
+  .sns-login {
+    margin-top: 20px;
+  }
+  
+  .kakao-btn {
+    background-color: #ffeb00;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .google-btn {
+    background-color: #db4a39;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .signup-link {
+    display: inline-block;
+    font-size: 12px;
+    color: #777;
+    margin-top: 15px;
+    text-decoration: none;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    text-align: left;
+  
+    position: relative; /* 닫기 버튼 기준 위치를 위해 이것만 유지! */
+  }
+  
+  .popup-content h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .popup-content p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .popup-content label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
+  
+  .popup-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .disabled-btn {
+    width: 100%;
+    padding: 12px;
+    background: #e7e7f0;
+    color: #aaa;
+    border: none;
+    border-radius: 6px;
+    cursor: not-allowed;
+    font-weight: bold;
+  }
+
+  .active-btn {
+    background-color: #865894;
+    color: white;
+    cursor: pointer;
+  }
+  .popup-content button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .logo img {
+    height: 40px;
+    margin-bottom: 16px;
+  }
+
+  .role-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .role-btn {
+    padding: 10px 20px;
+    border: 0.5px solid #ccc;
+    background: #ffffff;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #585757;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .role-btn.selected {
+    background-color: #523b59;
+    color: white;
+    font-weight: bold;
+    border-color: #8000a6;
+  }

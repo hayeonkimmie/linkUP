@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.header {
+  border-bottom: 1px solid #eee;
+  padding: 10px 20px;
+  background-color: white;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-search {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logo img {
+  height: 40px;
+}
+
+
+
+.search-bar {
+  flex: 1;
+  margin: 0 30px;
+  padding: 10px 20px;
+  font-size: 19px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  color: black;
+  background-color: #fafafa;
+  min-width: 550px;
+  width: 100%;
+}
+
+/* ✅ 로그인/회원가입을 카테고리 옆에 배치 */
+.nav-auth-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 0 20px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-buttons a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+
+.signup {
+  background-color: #000000;
+  color: white !important;
+}
+
+/* 카테고리 네비게이션 */
+.category-nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  gap: 30px;
+  font-size: 16px;
+}
+
+.category-nav ul li a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.category-nav ul li a:hover {
+  color: #940683;
+}
+
+/* 드롭다운 */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none !important;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.dropdown.open .dropdown-menu {
+  display: block !important;
+}
+
+.dropdown-menu li {
+  margin: 8px 0;
+}
+
+.dropdown-menu li a {
+  display: block;              /* a 태그가 전체 너비 차지하도록 */
+  padding: 10px 16px;          /* 좌우 여백 주기 */
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.dropdown-menu li a:hover {
+  color: #940683;
+}

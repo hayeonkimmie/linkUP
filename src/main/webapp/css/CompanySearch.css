@@ -1,0 +1,93 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background: #fff;
+  }
+  
+  .breadcrumb {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  
+  .company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+  }
+  
+  .company-header h1 {
+    margin: 0 0 10px;
+    font-size: 1.8rem;
+  }
+  
+  .company-intro,
+  .contact-info,
+  .projects {
+    margin-top: 40px;
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+  }
+  
+  .contact-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .search-bar input,
+  .search-bar select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  th {
+    background: #f0f0f0;
+  }
+  
+  .status.active {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .status.ended {
+    color: red;
+    font-weight: bold;
+  }
+  
