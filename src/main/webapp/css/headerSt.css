@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+
+
+body {
+    margin: 0;
+    font-family: "Noto Sans KR", sans-serif;
+
+  }
+  
+  .header {
+    border-bottom: 1px solid #eee;
+    padding: 10px 20px;
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #940683;
+  }
+  
+  .logo .highlight {
+    color: #940683;
+  }
+  
+  .search-bar {
+    flex: 1;
+    margin: 0 30px;
+    padding: 10px 20px;
+    font-size: 19px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    background-color: #fafafa;
+    max-width: none;     /* 제한 해제 */
+    min-width: 550px;    /* 최소 크기 */
+    width: 100%;         /* 가능한 최대 너비 차지 */
+  }
+  
+  .auth-buttons a {
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #333;
+    padding: 6px 12px;
+    border-radius: 5px;
+  }
+  
+  .signup {
+    background-color: #000000;
+    color: white !important;
+  }
+  
+  .category-nav {
+    margin-top: 10px;
+  }
+  
+  .category-nav ul {
+    list-style: none;
+    padding: 0px 0px 0px 30px;
+    margin: 0;
+    display: flex;
+    gap: 30px;
+    font-size: 16px;
+  }
+  
+  .category-nav ul li a {
+    text-decoration: none;     
+    color: #333;               
+    transition: color 0.2s ease;   
+  }
+  
+  .category-nav ul li a:hover {
+    color: #940683;         
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-search {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 로고와 검색창 사이 여백 조정 */
+  }
+  .logo img {
+    height: 40px;  /* 필요에 따라 조정 가능 */
+  }
+
+/* 🔧 드롭다운 부모에 기준점 설정 (이게 중요!) */
+.dropdown {
+  position: relative;
+}
+
+/* ✅ 드롭다운 메뉴: 기본은 감춤 + 절대 위치 지정 */
+.dropdown-menu {
+  display: none !important;
+  position: absolute;
+  top: 100%;   /* 부모 요소 바로 아래에 위치 */
+  left: 0;
+  background-color: white;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+/* ✅ 드롭다운 열렸을 때 보여주기 */
+.dropdown.open .dropdown-menu {
+  display: block !important;
+}
+
+/* 드롭다운 메뉴 내 항목 */
+.dropdown-menu li {
+  margin: 8px 0;
+}
+
+.dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown-menu li a:hover {
+  color: #940683;
+}
