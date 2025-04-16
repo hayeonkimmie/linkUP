@@ -4,4 +4,9 @@
 
 <mapper namespace="mapper.project">
 
+    <select id="selectAllOngoingProjects" resultType="dto.Project">
+        SELECT *
+        FROM project
+        WHERE status = '진행중'
+    </select>
 </mapper>

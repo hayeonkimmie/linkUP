@@ -7,10 +7,11 @@
   *  이번달 총 거래액 : Integer / totalPayment
   *  이번달 계약이 성사 된 프로젝트의 수 : Integer / totalProjectCount
   *  이번달에 진행이 완료 된 프로젝트의 수 : Integer / completedProjectCount
-  *  이번달 진행중인 프로젝트의 정보 : List(Project) / ongoingProjects
+  *  이번달 진행중인 프로젝트의 정보 : List(DashboardProject) / ongoingProjects
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.*, dto.Project" %>
+<%@ page import="java.util.*" %>
+<%@ page import="dto.DashboardProject" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -60,24 +61,22 @@
           <th>프로젝트 명</th>
           <th>금액</th>
           <th>진행 상태</th>
-          <th>결제 상태</th>
           <th>담당자</th>
           <th>등록일</th>
         </tr>
         </thead>
         <tbody>
         <%
-          List<Project> list = (List<Project>) request.getAttribute("ongoingProjects");
-          for (Project p : list) {
+          List<DashboardProject> list = (List<DashboardProject>) request.getAttribute("ongoingProjects");
+          for (DashboardProject p : list) {
         %>
         <tr>
-          <td><%= p.getProjectId() %></td>
-          <td><%= p.getProjectName() %></td>
-          <td><%= p.getTotalAmount() %></td>
-          <td><span class="status 진행중"><%= p.getProjectStatus() %></span></td>
-          <td><span class="status 진행중"><%= p.getSettleStatus() %></span></td>
-          <td><%= p.getProjectManager() %></td>
-          <td><%= p.getCreatedDate() %></td>
+          <td><%= p.getProject_id() %></td>
+          <td><%= p.getProject_name() %></td>
+          <td><span class="status 진행중"><%= p.getProject_status() %></span></td>
+<%--          <td><span class="status 진행중"><%= p.get() %></span></td>--%>
+          <td><%= p.getManager() %></td>
+          <td><%= p.getCreated_date() %></td>
         </tr>
         <% } %>
         </tbody>

@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
     <typeAliases>
-        <typeAlias type="dto.Project" alias="project"/>
+        <typeAlias type="dto.LWYProject" alias="project"/>
+        <typeAlias type="dto.DashboardProject" alias="dproject"/>
     </typeAliases>
 
     <environments default="deveLopment">
@@ -21,6 +22,7 @@
 
     <mappers>
         <mapper resource="mapper/project.xml"/>
+        <mapper resource="mapper/dashboardproject.xml"/>
     </mappers>
 
 </configuration>

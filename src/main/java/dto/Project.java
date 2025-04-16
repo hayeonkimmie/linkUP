@@ -1,130 +1,203 @@
 package dto;
 
+import java.util.Date;
 
-/**
- * * 프로젝트 정보를 담는 DTO 클래스<br>
- *
- */
 public class Project {
-    private Integer projectId;           // 프로젝트 ID (추가 시 편리)
-    private String projectName;          // 프로젝트명
-    private String projectDescription;   // 설명
-    private String createdDate;          // 프로젝트 등록일
-    private String projectEndDate;       // 모집 마감일
-    private String projectStatus;        // 진행 상태
-    private String projectManager;       // 담당자
-    private String managerPhone;         // 담당자 전화번호
-    private Integer totalAmount;         // 총 금액
-    private Integer totalFee;            // 총 수수료
-    private Integer totalSettlement;     // 총 결제 금액
-    private Integer participant;         // 참여자 수
-    private Integer settleDate;          // 정산일 (ex: 30)
-    private String settleStatus;         // 정산 상태
+    int project_id;
+    String client_id;
+    String category;
+    String advertisement_title;
+    String project_name;
+    String thumbnail;
+    int duration;
+    Date created_date;
+    Date deadaline_date;
+    String project_desciirption;
+    String job_details;
+    String working_method;
+    String working_environment;
+    String working_hours;
+    String qualification;
+    String preferential_conditions;
+    Date settle_day;
+    String manager;
+    String mphone;
+    String status;
 
-    /**
-     * 기본 생성자<br>
-     * DTO 객체를 생성할 때 사용
-     */
     public Project() {}
 
-
-
-    /**
-     * /admin/admin_dashboard.jsp 페이지에서 보여줄 프로젝트 정보에 사용되는 생성자<br>
-     * @param projectId 프로젝트 ID
-     * @param projectName 프로젝트명
-     * @param createdDate 등록일
-     * @param totalAmount 총 금액
-     * @param projectStatus 진행 상태
-     * @param settleStatus 정산 상태
-     */
-    public Project(Integer projectId, String projectName, String createdDate, Integer totalAmount, String projectStatus, String projectManager,String settleStatus) {
-        this.projectId = projectId;
-        this.projectName = projectName;
-        this.createdDate = createdDate;
-        this.totalAmount = totalAmount;
-        this.projectStatus = projectStatus;
-        this.projectManager = projectManager;
-        this.settleStatus = settleStatus;
+    public Project(int project_id, String client_id, String category, String advertisement_title, String project_name, String thumbnail, int duration, Date created_date, Date deadaline_date, String project_desciirption, String job_details, String working_method, String working_environment, String working_hours, String qualification, String preferential_conditions, Date settle_day, String manager, String mphone, String status) {
+        this.project_id = project_id;
+        this.client_id = client_id;
+        this.category = category;
+        this.advertisement_title = advertisement_title;
+        this.project_name = project_name;
+        this.thumbnail = thumbnail;
+        this.duration = duration;
+        this.created_date = created_date;
+        this.deadaline_date = deadaline_date;
+        this.project_desciirption = project_desciirption;
+        this.job_details = job_details;
+        this.working_method = working_method;
+        this.working_environment = working_environment;
+        this.working_hours = working_hours;
+        this.qualification = qualification;
+        this.preferential_conditions = preferential_conditions;
+        this.settle_day = settle_day;
+        this.manager = manager;
+        this.mphone = mphone;
+        this.status = status;
     }
 
-    /**
-     * /admin/project_list.jsp 페이지에서 사용되는 생성자<br>
-     * @param projectName 프로젝트명
-     * @param projectDescription 설명
-     * @param projectEndDate 종료일
-     * @param projectStatus 진행 상태
-     * @param projectManager 담당자
-     * @param managerPhone 담당자 전화번호
-     * @param totalAmount 총 금액
-     * @param totalFee 총 수수료
-     * @param totalSettlement 총 결제 금액
-     * @param participant 참여자 수
-     * @param settleDate 정산일
-     * @param settleStatus 정산 상태
-     */
-    public Project(String projectName, String projectDescription, String createdDate, String projectEndDate,
-                   String projectStatus, String projectManager, String managerPhone, Integer totalAmount,
-                   Integer totalFee, Integer totalSettlement, Integer participant, Integer settleDate, String settleStatus) {
-        this.projectName = projectName;
-        this.projectDescription = projectDescription;
-        this.createdDate = createdDate;
-        this.projectEndDate = projectEndDate;
-        this.projectStatus = projectStatus;
-        this.projectManager = projectManager;
-        this.managerPhone = managerPhone;
-        this.totalAmount = totalAmount;
-        this.totalFee = totalFee;
-        this.totalSettlement = totalSettlement;
-        this.participant = participant;
-        this.settleDate = settleDate;
-        this.settleStatus = settleStatus;
+    public int getProject_id() {
+        return project_id;
     }
 
-    public String getCreatedDate() {
-        return createdDate;
+    public void setProject_id(int project_id) {
+        this.project_id = project_id;
     }
 
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
+    public String getClient_id() {
+        return client_id;
     }
 
-    public Integer getProjectId() { return projectId; }
-    public void setProjectId(Integer projectId) { this.projectId = projectId; }
+    public void setClient_id(String client_id) {
+        this.client_id = client_id;
+    }
 
-    public String getProjectName() { return projectName; }
-    public void setProjectName(String projectName) { this.projectName = projectName; }
+    public String getCategory() {
+        return category;
+    }
 
-    public String getProjectDescription() { return projectDescription; }
-    public void setProjectDescription(String projectDescription) { this.projectDescription = projectDescription; }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-    public String getProjectEndDate() { return projectEndDate; }
-    public void setProjectEndDate(String projectEndDate) { this.projectEndDate = projectEndDate; }
+    public String getAdvertisement_title() {
+        return advertisement_title;
+    }
 
-    public String getProjectStatus() { return projectStatus; }
-    public void setProjectStatus(String projectStatus) { this.projectStatus = projectStatus; }
+    public void setAdvertisement_title(String advertisement_title) {
+        this.advertisement_title = advertisement_title;
+    }
 
-    public String getProjectManager() { return projectManager; }
-    public void setProjectManager(String projectManager) { this.projectManager = projectManager; }
+    public String getProject_name() {
+        return project_name;
+    }
 
-    public String getManagerPhone() { return managerPhone; }
-    public void setManagerPhone(String managerPhone) { this.managerPhone = managerPhone; }
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
+    }
 
-    public Integer getTotalAmount() { return totalAmount; }
-    public void setTotalAmount(Integer totalAmount) { this.totalAmount = totalAmount; }
+    public String getThumbnail() {
+        return thumbnail;
+    }
 
-    public Integer getTotalFee() { return totalFee; }
-    public void setTotalFee(Integer totalFee) { this.totalFee = totalFee; }
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
-    public Integer getTotalSettlement() { return totalSettlement; }
-    public void setTotalSettlement(Integer totalSettlement) { this.totalSettlement = totalSettlement; }
+    public int getDuration() {
+        return duration;
+    }
 
-    public Integer getParticipant() { return participant; }
-    public void setParticipant(Integer participant) { this.participant = participant; }
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 
-    public Integer getSettleDate() { return settleDate; }
-    public void setSettleDate(Integer settleDate) { this.settleDate = settleDate; }
+    public Date getCreated_date() {
+        return created_date;
+    }
 
-    public String getSettleStatus() { return settleStatus; }
-    public void setSettleStatus(String settleStatus) { this.settleStatus = settleStatus; }
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
+    }
+
+    public Date getDeadaline_date() {
+        return deadaline_date;
+    }
+
+    public void setDeadaline_date(Date deadaline_date) {
+        this.deadaline_date = deadaline_date;
+    }
+
+    public String getProject_desciirption() {
+        return project_desciirption;
+    }
+
+    public void setProject_desciirption(String project_desciirption) {
+        this.project_desciirption = project_desciirption;
+    }
+
+    public String getJob_details() {
+        return job_details;
+    }
+
+    public void setJob_details(String job_details) {
+        this.job_details = job_details;
+    }
+
+    public String getWorking_method() {
+        return working_method;
+    }
+
+    public void setWorking_method(String working_method) {
+        this.working_method = working_method;
+    }
+
+    public String getWorking_environment() {
+        return working_environment;
+    }
+
+    public void setWorking_environment(String working_environment) {
+        this.working_environment = working_environment;
+    }
+
+    public String getWorking_hours() {
+        return working_hours;
+    }
+
+    public void setWorking_hours(String working_hours) {
+        this.working_hours = working_hours;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getPreferential_conditions() {
+        return preferential_conditions;
+    }
+
+    public void setPreferential_conditions(String preferential_conditions) {
+        this.preferential_conditions = preferential_conditions;
+    }
+
+    public Date getSettle_day() {
+        return settle_day;
+    }
+
+    public void setSettle_day(Date settle_day) {
+        this.settle_day = settle_day;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
+    }
+
+    public String getMphone() {
+        return mphone;
+    }
+
+    public void setMphone(String mphone) {
+        this.mphone = mphone;
+    }
 }

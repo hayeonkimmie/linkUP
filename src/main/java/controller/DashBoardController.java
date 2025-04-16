@@ -1,6 +1,7 @@
 package controller;
 
-import dto.Project;
+import dto.DashboardProject;
+import service.ProjectService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -33,13 +34,16 @@ public class DashBoardController extends HttpServlet {
         Integer totalPayment = 15689000;
         Integer totalProjectCount = 283;
         Integer completedProjectCount = 156;
-        List<Project> ongoingProjects = new ArrayList<>();
+        List<DashboardProject> ongoingProjects = new ArrayList<>();
+
+        ProjectService projectService = new ProjectService();
 
         // 대시보드에 보여줄 데이터 지정하기
+        ongoingProjects = (projectService.getDashboardProjectList());
 
-        ongoingProjects.add(new Project(1, "테스트 상품 스펜 체인 풀 슬리드 티켓스", "2023-03-11", 1000000, "진행중", "김매니저", "대기중"));
-        ongoingProjects.add(new Project(2, "테스트 플랫폼 커뮤니티 개설", "2023-03-11", 1000000, "진행중", "이매니저","대기중"));
-        ongoingProjects.add(new Project(3, "테스트 상품3", "2023-02-11", 1000000, "진행중", "박매니저","대기중"));
+//        ongoingProjects.add(new Project(1, "테스트 상품 스펜 체인 풀 슬리드 티켓스", "2023-03-11", 1000000, "진행중", "김매니저", "대기중"));
+//        ongoingProjects.add(new Project(2, "테스트 플랫폼 커뮤니티 개설", "2023-03-11", 1000000, "진행중", "이매니저","대기중"));
+//        ongoingProjects.add(new Project(3, "테스트 상품3", "2023-02-11", 1000000, "진행중", "박매니저","대기중"));
 
         // 대시보드에 보여줄 데이터 request에 담기
         request.setAttribute("totalPayment", totalPayment);
