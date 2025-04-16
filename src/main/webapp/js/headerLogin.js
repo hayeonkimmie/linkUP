@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (profileMenu) profileMenu.style.display = 'none';
   });
 });
-fetch("headerLogin.html")
+fetch("headerLogin.jsp")
 .then(res => res.text())
 .then(data => {
   document.getElementById("header-login-placeholder").innerHTML = data;

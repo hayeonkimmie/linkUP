@@ -14,7 +14,6 @@
   <title>구인 · 구직 플랫폼</title>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/catalog.css">
-  <link rel="stylesheet" href="../css/sideBar.css">
 </head>
 <body>
 
@@ -22,7 +21,6 @@
 
 
 <div class="container">
-  <div id="sidebar-placeholder"></div>
   <main class="main">
     <h1 class="breadcrumb"> KOSTA 검색결과</h1>
 
@@ -82,7 +80,6 @@
 <!-- 기본 스크립트 -->
 <script src="../js/catalog.js"></script>
 <script src="../js/header.js"></script>
-<script src="../js/sideBar.js"></script>
 
 
 </body>

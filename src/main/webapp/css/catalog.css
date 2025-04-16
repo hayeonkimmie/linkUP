@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 body {
-    font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   margin: 0;
   background-color: #fff;
   color: #333;
@@ -9,7 +9,7 @@ body {
   display: flex;
   padding: 2rem 3rem;
   /* 이거 화면 가운데로 보낸거임 */
-  max-width: 1500px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 

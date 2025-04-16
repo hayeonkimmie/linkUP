@@ -14,7 +14,6 @@
     <title>구인 · 구직 플랫폼</title>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../css/catalog.css">
-    <link rel="stylesheet" href="../css/sideBar.css">
 </head>
 <body>
 
@@ -116,6 +115,5 @@
 
 <script src="../js/catalogWebProduction.js"></script>
 <script src="../js/header.js"></script>
-<script src="../js/sideBar.js"></script>
 </body>
 </html>
