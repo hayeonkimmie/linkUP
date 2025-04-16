@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 
-
-
 body {
     margin: 0;
     font-family: "Noto Sans KR", sans-serif;
@@ -98,7 +96,7 @@ body {
   position: relative;
 }
 
-/* ✅ 드롭다운 메뉴: 기본은 감춤 + 절대 위치 지정 */
+/* 드롭다운 메뉴: 기본은 감춤 + 절대 위치 지정 */
 .dropdown-menu {
   display: none !important;
   position: absolute;
@@ -112,7 +110,7 @@ body {
   z-index: 1000;
 }
 
-/* ✅ 드롭다운 열렸을 때 보여주기 */
+/* 드롭다운 열렸을 때 보여주기 */
 .dropdown.open .dropdown-menu {
   display: block !important;
 }

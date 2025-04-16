@@ -6,15 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./../css/freelancer_my_page.css">
-    <link rel="stylesheet" href="./../css/freelancer_my_get_my_proj.css">
-    <script src="./../js/freelancer_my_get_my_proj.js"></script>
+    <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_get_my_proj.css'/>">
+    <script src="/../js/freelancer_my_get_my_proj.js"></script>
 </head>
 <body>
 <!-- header include -->

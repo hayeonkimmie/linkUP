@@ -6,11 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up 마이페이지</title>
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
     <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css' />">
 </head>
 <body>
 <div class="header">
+    <%@ include file="/common/header.jsp" %>
 </div>
 <div class="container">
     <aside class="sidebar">
@@ -27,11 +28,11 @@
                 <a href="my-page/edit-info?type=expert">전문가 정보 설정</a>
             </li>
             <li><a href="my-page/portfolio-list"><h3>포트폴리오</h3></a></li>
-            <li><h3><a href="#">찜한 프로젝트</a></h3></li>
-            <li><h3><a href="#">지원한 프로젝트 내역</a></h3></li>
-            <li><h3><a href="#">진행중인 / 완료된 프로젝트</a></h3></li>
-            <li><h3><a href="#">프로젝트 후기</a></h3></li>
-            <li><h3><a href="#">문의내역</a></h3></li>
+            <li><h3><a href="my-page/jjim-projs-list">찜한 프로젝트</a></h3></li>
+            <li><h3><a href="my-page/apply-proj-list">지원한 프로젝트 내역</a></h3></li>
+            <li><h3><a href="my-page/project-status/">진행중인 / 완료된 프로젝트</a></h3></li>
+            <li><h3><a href="my-page/project-review-list">프로젝트 후기</a></h3></li>
+            <li><h3><a href="my-page/qna-list">문의내역</a></h3></li>
         </ul>
     </aside>
     <main class="content">

@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.project">
-
+<mapper namespace="mapper.portfolio">
+    <select id="select_portfolio_list_by_page" parameterType="Map" resultType="portfolio">
+        SELECT portfolio_id, title, thumbnail, introduce, skill_description, created_date, is_temp_saved
+        FROM portfolio
+        where freelancer_id = ${user_id}
+          and is_deleted is false order by portfolio_id desc limit #{row},10;
+    </select>
+    <select id="select_portfolio_by_Id" parameterType="Integer" resultType="portfolio">
+        SELECT * FROM portfolio where portfolio_id = #{portfolio_id} and is_deleted is false;
+    </select>
+    <select id="select_portfolio_cnt" parameterType="String" resultType="portfolio">
+        SELECT row_count() FROM portfolio where portfolio_id = #{user_id} and is_deleted is false and is_temp_saved is false;
+    </select>
+    <update id="update_portfolio" parameterType="portfolio"></update>
+    <insert id="insert_portfolio_complete" parameterType="portfolio">
+        INSERT INTO portfolio (title, thumbnail, introduce, skill_description, created_date, is_temp_saved)
+        VALUES (#{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{created_date}, #{is_temp_saved});
+    </insert>
 </mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.project">
+    <insert id="insertCategory" parameterType="category">
+        insert category (category_id,category_name) values (#{category_id}, #{category_name})
+    </insert>
+
+</mapper>

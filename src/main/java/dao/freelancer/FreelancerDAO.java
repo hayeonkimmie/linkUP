@@ -1,4 +1,4 @@
-package dao;
+package dao.freelancer;
 
 public interface FreelancerDAO {
 }
