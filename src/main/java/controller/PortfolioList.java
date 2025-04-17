@@ -23,6 +23,7 @@ public class PortfolioList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
+        String userId = request.getParameter("id");
         String page_str = request.getParameter("page");
         Integer page = null;
         if(page_str == null) {
@@ -31,19 +32,25 @@ public class PortfolioList extends HttpServlet {
             page = Integer.parseInt(page_str);
         }
 
-        PageInfo page_info = new PageInfo(page);
+        PageInfo pageInfo = new PageInfo(page);
         IPortfolioService service = new PortfolioService();
+        userId = "A";
+        List<Portfolio> portfolioList;
         try {
-            List<Portfolio> portfolio_list = service.select_portfolio_list_by_page(page_info, "A");
-            request.setAttribute("page_info", page_info);
-            request.setAttribute("portfolio_list", portfolio_list);
-            request.getRequestDispatcher("/freelancer/portfolio_list.jsp").forward(request, response);
+            Integer portfolioCnt = service.selectPortfolioCnt(userId);
+            if (portfolioCnt > 0) {
+                portfolioList = service.selectPortfolioListByPage(pageInfo, userId);
+                request.setAttribute("pageInfo", pageInfo);
+                request.setAttribute("portfolioList", null);
+            } else if (portfolioCnt == 0){
+                request.setAttribute("portfolioList", "등록된 포트폴리오가 없습니다.");
+            }
+            request.getRequestDispatcher("/freelancer/my_page_portfolio_list.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("err", "게시판 목록 조회를 실패했습니다.");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.setAttribute("err", "포트폴리오 목록 조회를 실패했습니다.");
+            request.getRequestDispatcher("/freelancer/my_page_portfolio_list.jsp").forward(request, response);
+//            request.getRequestDispatcher("/freelancer/error.jsp").forward(request, response);
         }
-
-
     }
 }

@@ -11,7 +11,8 @@
 </head>
 <body>
 <div class="header">
-    <%@ include file="/common/header.jsp" %>
+    <jsp:include page="/common/header.jsp" />
+   <%-- <%@ include file="<c:url value='/common/header.jsp'/>" %>--%>
 </div>
 <div class="container">
     <aside class="sidebar">

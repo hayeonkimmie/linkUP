@@ -1,25 +1,29 @@
 package dao.freelancer;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+
 import dto.Portfolio;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PortfolioDAO implements IPortfolioDAO {
     private SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
     @Override
-    public Integer select_portfolio_count(String user_id) {
-        return sqlSession.selectOne("mapper.portfolio.select_portfolio_cnt", user_id);
+    public Integer selectPortfolioCnt(String user_id) {
+        System.out.println("user_id:"+user_id);
+        return sqlSession.selectOne("mapper.portfolio.selectPortfolioCnt", user_id);
     }
 
     @Override
-    public List<Portfolio> select_portfolio_list_by_page(Integer row, String user_id) throws Exception {
+    public List<Portfolio> selectPortfolioListByPage(Integer row, String user_id) throws Exception {
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", user_id);
         param.put("row", row);
-        return sqlSession.selectList("mapper.portfolio.select_portfolio_list_by_page",param);
+        System.out.println(param);
+        return sqlSession.selectList("mapper.portfolio.selectPortfolioListByPage",param);
     }
 /*
     @Override

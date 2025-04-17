@@ -1,46 +1,47 @@
 package util;
 
 public class PageInfo {
-	private Integer cur_page;
-	private Integer all_page;
-	private Integer start_page;
-	private Integer end_page;
+	private Integer curPage;
+	private Integer allPage;
+	private Integer startPage;
+	private Integer endPage;
 
-	public PageInfo() {}
-
-	public PageInfo(Integer cur_page) {
-		this.cur_page = cur_page;
+	public PageInfo() {
+		super();
 	}
 
-	public Integer get_cur_page() {
-		return cur_page;
+	public PageInfo(Integer curPage) {
+		this.curPage=curPage;
+	}
+	public Integer getCurPage() {
+		return curPage;
 	}
 
-	public void set_cur_page(Integer cur_page) {
-		this.cur_page = cur_page;
+	public void setCurPage(Integer curPage) {
+		this.curPage = curPage;
 	}
 
-	public Integer get_all_page() {
-		return all_page;
+	public Integer getAllPage() {
+		return allPage;
 	}
 
-	public void set_all_page(Integer all_page) {
-		this.all_page = all_page;
+	public void setAllPage(Integer allPage) {
+		this.allPage = allPage;
 	}
 
-	public Integer get_start_page() {
-		return start_page;
+	public Integer getStartPage() {
+		return startPage;
 	}
 
-	public void set_start_page(Integer start_page) {
-		this.start_page = start_page;
+	public void setStartPage(Integer startPage) {
+		this.startPage = startPage;
 	}
 
-	public Integer get_end_page() {
-		return end_page;
+	public Integer getEndPage() {
+		return endPage;
 	}
 
-	public void set_end_page(Integer end_page) {
-		this.end_page = end_page;
+	public void setEndPage(Integer endPage) {
+		this.endPage = endPage;
 	}
 }

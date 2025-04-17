@@ -1,37 +1,31 @@
 package dto;
 
-import java.sql.Date;
+import java.util.Date;
 
-public class QNA {
-    Integer qna_id;
+public class Qna {
+    int qna_id;
     String user_id;
-    String qna_title;
-    String qna_content;
-    Date qna_date;
-    boolean is_answered;
+    String question_title;
+    String question_content;
+    Date question_date;
     String answer_content;
-    Date answer_date;
+    Date created_date;
 
-    public QNA() {
-        super();
-    }
-
-    public QNA(Integer qna_id, String user_id, String qna_title, String qna_content, Date qna_date, boolean is_answered, String answer_content, Date answer_date) {
+    public Qna(int qna_id, String user_id, String question_title, String question_content, Date question_date, String answer_content, Date created_date) {
         this.qna_id = qna_id;
         this.user_id = user_id;
-        this.qna_title = qna_title;
-        this.qna_content = qna_content;
-        this.qna_date = qna_date;
-        this.is_answered = is_answered;
+        this.question_title = question_title;
+        this.question_content = question_content;
+        this.question_date = question_date;
         this.answer_content = answer_content;
-        this.answer_date = answer_date;
+        this.created_date = created_date;
     }
 
-    public Integer getQna_id() {
+    public int getQna_id() {
         return qna_id;
     }
 
-    public void setQna_id(Integer qna_id) {
+    public void setQna_id(int qna_id) {
         this.qna_id = qna_id;
     }
 
@@ -43,36 +37,28 @@ public class QNA {
         this.user_id = user_id;
     }
 
-    public String getQna_title() {
-        return qna_title;
+    public String getQuestion_title() {
+        return question_title;
     }
 
-    public void setQna_title(String qna_title) {
-        this.qna_title = qna_title;
+    public void setQuestion_title(String question_title) {
+        this.question_title = question_title;
     }
 
-    public String getQna_content() {
-        return qna_content;
+    public String getQuestion_content() {
+        return question_content;
     }
 
-    public void setQna_content(String qna_content) {
-        this.qna_content = qna_content;
+    public void setQuestion_content(String question_content) {
+        this.question_content = question_content;
     }
 
-    public Date getQna_date() {
-        return qna_date;
+    public Date getQuestion_date() {
+        return question_date;
     }
 
-    public void setQna_date(Date qna_date) {
-        this.qna_date = qna_date;
-    }
-
-    public boolean isIs_answered() {
-        return is_answered;
-    }
-
-    public void setIs_answered(boolean is_answered) {
-        this.is_answered = is_answered;
+    public void setQuestion_date(Date question_date) {
+        this.question_date = question_date;
     }
 
     public String getAnswer_content() {
@@ -83,11 +69,12 @@ public class QNA {
         this.answer_content = answer_content;
     }
 
-    public Date getAnswer_date() {
-        return answer_date;
+    public Date getCreated_date() {
+        return created_date;
     }
 
-    public void setAnswer_date(Date answer_date) {
-        this.answer_date = answer_date;
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
     }
 }
+
