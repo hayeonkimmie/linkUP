@@ -8,4 +8,5 @@
         values (#{apply_id}, #{freelancer_id},#{category},#{project_id},#{apply_date},#{cancel_date},#{is_approved},#{approval_change_date})
     </insert>
 
+
 </mapper>
