@@ -1,0 +1,53 @@
+@import url('./common.css'); /* 공통 스타일 가져오기 */
+
+/* 리뷰 관리 페이지 전용 스타일 */
+.review-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.review-box {
+  width: 250px;
+  padding: 30px;
+  text-align: center;
+  border-radius: 20px;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.box-received {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.box-written {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.box-score {
+  background: #fef9c3;
+  color: #92400e;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 20px;
+}
+
+.tabs button.active {
+  border-bottom: 3px solid #3b82f6;
+  font-weight: bold;
+}
+
+.review-card .stars {
+  color: #f59e0b;
+  margin: 8px 0 4px;
+  font-size: 15px;
+}
