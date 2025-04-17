@@ -3,59 +3,68 @@ package dto;
 import java.sql.Date;
 
 public class DashboardProject {
-    private int project_id;
-    private String project_name;
-    private Date created_date;
-    private String project_status;
+    private int projectId;
+    private String projectName;
+    private Integer totalPay;
+    private Date createdDate;
+    private String projectStatus;
     private String manager;
-    private Date apply_date;
-    private boolean is_approved;
+    private Date applyDate;
+    private boolean isApproved;
 
     public DashboardProject() {
         super();
     }
 
-    public DashboardProject(int project_id, String project_name, Date created_date,
-                          String project_status, String manager, Date apply_date, boolean is_approved) {
-        this.project_id = project_id;
-        this.project_name = project_name;
-        this.created_date = created_date;
-        this.project_status = project_status;
+    public DashboardProject(int projectId, String projectName, Integer totalPay, Date createdDate, String projectStatus, String manager, Date applyDate, boolean isApproved) {
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.totalPay = totalPay;
+        this.createdDate = createdDate;
+        this.projectStatus = projectStatus;
         this.manager = manager;
-        this.apply_date = apply_date;
-        this.is_approved = is_approved;
+        this.applyDate = applyDate;
+        this.isApproved = isApproved;
     }
 
-    public int getProject_id() {
-        return project_id;
+    public Integer getTotalPay() {
+        return totalPay;
     }
 
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
+    public void setTotalPay(Integer totalPay) {
+        this.totalPay = totalPay;
     }
 
-    public String getProject_name() {
-        return project_name;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getProject_status() {
-        return project_status;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setProject_status(String project_status) {
-        this.project_status = project_status;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getProjectStatus() {
+        return projectStatus;
+    }
+
+    public void setProjectStatus(String projectStatus) {
+        this.projectStatus = projectStatus;
     }
 
     public String getManager() {
@@ -66,19 +75,19 @@ public class DashboardProject {
         this.manager = manager;
     }
 
-    public Date getApply_date() {
-        return apply_date;
+    public Date getApplyDate() {
+        return applyDate;
     }
 
-    public void setApply_date(Date apply_date) {
-        this.apply_date = apply_date;
+    public void setApplyDate(Date applyDate) {
+        this.applyDate = applyDate;
     }
 
-    public boolean isIs_approved() {
-        return is_approved;
+    public boolean isApproved() {
+        return isApproved;
     }
 
-    public void setIs_approved(boolean is_approved) {
-        this.is_approved = is_approved;
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 }

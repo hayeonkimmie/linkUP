@@ -9,21 +9,21 @@ public class User {
         String email;
         String password;
         String phone_num;
-        String profil_img;
+        String profile_img;
         boolean accept_noti;
         String token;
         Date registration_date;
         Date withdrawal_date;
         boolean accept_consent;
 
-        public User(String user_id, String name, String nickname, String email, String password, String phone_num, String profil_img, boolean accept_noti, String token, Date registration_date, Date withdrawal_date, boolean accept_consent) {
+        public User(String user_id, String name, String nickname, String email, String password, String phone_num, String profile_img, boolean accept_noti, String token, Date registration_date, Date withdrawal_date, boolean accept_consent) {
             this.user_id = user_id;
             this.name = name;
             this.nickname = nickname;
             this.email = email;
             this.password = password;
             this.phone_num = phone_num;
-            this.profil_img = profil_img;
+            this.profile_img = profile_img;
             this.accept_noti = accept_noti;
             this.token = token;
             this.registration_date = registration_date;
@@ -79,12 +79,12 @@ public class User {
             this.phone_num = phone_num;
         }
 
-        public String getProfil_img() {
-            return profil_img;
+        public String getProfile_img() {
+            return profile_img;
         }
 
-        public void setProfil_img(String profil_img) {
-            this.profil_img = profil_img;
+        public void setProfile_img(String profile_img) {
+            this.profile_img = profile_img;
         }
 
         public boolean isAccept_noti() {

@@ -1,6 +1,6 @@
 package controller;
 
-import dto.FreeLancer;
+import dto.Freelancer;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -21,7 +21,7 @@ public class FreeLancerController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String freelancerid = request.getParameter("freelancerid");
 
-        FreeLancer freelancer = new FreeLancer(
+        Freelancer freelancer = new Freelancer(
                 freelancerid,
                 "홍길동",
                 "길동이",

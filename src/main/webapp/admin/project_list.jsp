@@ -55,7 +55,8 @@
         <c:forEach var="p" items="${projectList}">
           <tr>
             <td>
-              <a href="project_detail.jsp?id=${p.projectId}" class="project-link">${p.projectName}</a>
+              <a href="<c:url value='/admin/project'/>?id=${p.projectId}" class="project-link">${p.projectName}</a>
+<%--              <a href="project_detail.jsp?id=${p.projectId}" class="project-link">${p.projectName}</a>--%>
             </td>
             <td>
               <a href="client?clientid=${p.clientId}" class="company-link">${p.clientName}</a>
