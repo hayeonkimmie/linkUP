@@ -5,16 +5,18 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("/admin")
-public class AdminWelcome extends HttpServlet {
+@WebServlet("/admin/qna")
+public class QnaController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-    public AdminWelcome() {
+    public QnaController() {
         super();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/admin/login").forward(request, response);
+        request.setCharacterEncoding("utf-8");
+        request.getRequestDispatcher("/admin/qna_manage.jsp").forward(request, response);
     }
 
     @Override

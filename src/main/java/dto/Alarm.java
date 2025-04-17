@@ -1,13 +1,14 @@
 package dto;
 
 public class Alarm {
-    private String alarm_id;
-    private String user_id;
-    private String title;
-    private String content;
-    private boolean confirm;
 
-    public Alarm(String alarm_id, String user_id, String title, String content, boolean confirm) {
+    Integer alarm_id;
+    String user_id;
+    String title;
+    String content;
+    Boolean confirm;
+
+    public Alarm(Integer alarm_id, String user_id, String title, String content, Boolean confirm) {
         this.alarm_id = alarm_id;
         this.user_id = user_id;
         this.title = title;
@@ -15,11 +16,11 @@ public class Alarm {
         this.confirm = confirm;
     }
 
-    public String getAlarm_id() {
+    public Integer getAlarm_id() {
         return alarm_id;
     }
 
-    public void setAlarm_id(String alarm_id) {
+    public void setAlarm_id(Integer alarm_id) {
         this.alarm_id = alarm_id;
     }
 
@@ -47,11 +48,11 @@ public class Alarm {
         this.content = content;
     }
 
-    public boolean isConfirm() {
+    public Boolean getConfirm() {
         return confirm;
     }
 
-    public void setConfirm(boolean confirm) {
+    public void setConfirm(Boolean confirm) {
         this.confirm = confirm;
     }
 }

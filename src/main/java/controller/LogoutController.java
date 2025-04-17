@@ -5,15 +5,17 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("/admin")
-public class AdminWelcome extends HttpServlet {
+@WebServlet("")
+public class LogoutController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-    public AdminWelcome() {
+    public LogoutController() {
         super();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         request.getRequestDispatcher("/admin/login").forward(request, response);
     }
 

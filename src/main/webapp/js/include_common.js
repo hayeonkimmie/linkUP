@@ -34,8 +34,8 @@ function toggleMenu(id) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  includeHTML("header-include", "admin_header.html");
-  includeHTML("menu-include", "menutap.html", () => {
+  includeHTML("header-include", "admin_header.jsp");
+  includeHTML("menu-include", "menutap.jsp", () => {
     const currentPage = window.location.pathname.split("/").pop();
     const links = document.querySelectorAll(".submenu a");
 

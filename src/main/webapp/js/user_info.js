@@ -9,8 +9,8 @@ function includeHTML(id, file, callback) {
     .catch(err => console.error(`Error loading ${file}:`, err));
 }
 
-includeHTML("header-include", "admin_header.html");
-includeHTML("menu-include", "menutap.html", () => {
+includeHTML("header-include", "admin_header.jsp");
+includeHTML("menu-include", "menutap.jsp", () => {
   const defaultOpen = document.getElementById("userMenu");
   if (defaultOpen) defaultOpen.style.display = "flex";
 

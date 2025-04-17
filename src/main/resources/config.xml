@@ -24,6 +24,8 @@
         <typeAlias type="dto.Settlement" alias="settlement"/>
         <typeAlias type="dto.SubCategory" alias="subCategory"/>
         <typeAlias type="dto.Alarm" alias="alarm"/>
+        <typeAlias type="dto.LWYProject" alias="project"/>
+        <typeAlias type="dto.DashboardProject" alias="dproject"/>
     </typeAliases>
 
 

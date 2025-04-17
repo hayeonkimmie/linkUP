@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.dproject">
+    <select id="selectAllOngoingProjects" resultType="dto.DashboardProject">
+        SELECT
+            p.project_id,
+            p.project_name,
+            p.created_date,
+            p.status AS project_status,
+            p.manager,
+            a.apply_date,
+            a.is_approved
+        FROM
+            apply a
+                INNER JOIN
+            project p ON a.project_id = p.project_id
+    </select>
+
+</mapper>
