@@ -2,7 +2,7 @@ package dto;
 
 import java.sql.Date;
 
-public class FreeLancer {
+public class Freelancer {
     private String clientId;
     private String name;
     private String nickname;
@@ -31,7 +31,7 @@ public class FreeLancer {
     private String externalUrl;
     private String type;
 
-    public FreeLancer() {}
+    public Freelancer() {}
 
     /**
      * /admin/client_list.jsp 페이지에서 사용되는 생성자<br>
@@ -42,7 +42,7 @@ public class FreeLancer {
      * @param phoneNum 연락처
      * @param type 사용자 구분 (구인자/구직자)
      */
-    public FreeLancer(String clientId, String name, String email, Date registrationDate, String phoneNum, String type) {
+    public Freelancer(String clientId, String name, String email, Date registrationDate, String phoneNum, String type) {
         this.clientId = clientId;
         this.name = name;
         this.email = email;
@@ -51,7 +51,7 @@ public class FreeLancer {
         this.type = type;
     }
 
-    public FreeLancer(String clientId, String name, String nickname, String email, String phoneNum,
+    public Freelancer(String clientId, String name, String nickname, String email, String phoneNum,
                       Date registrationDate, String academic, String skill, String desiredSalary,
                       String desiredLocation, Boolean isResident, String introduction, String license,
                       String attachment, String externalUrl, String otherRequests, String type, String address) {

@@ -23,23 +23,23 @@ public class ClientController extends HttpServlet {
         System.out.println(clientId);
         // 임시 CompanyDTO 생성 (DB 연동 가능)
 
-        Client client = new Client(
-                1,
-                clientId,
-                "sample@sample.com",
-                "글로벌 솔루션즈",
-                "010-1234-5678",
-                "구인자",
-                 Date.valueOf("2010-01-01"),
-                "홍길동",
-                "소프트웨어 개발",
-                "융합 소프트웨어",
-                "서울시 강남구 역삼동",
-                "123-45-67890",
-                "02-1234-5679"
-        );
+//        Client client = new Client(
+//                1,
+//                clientId,
+//                "sample@sample.com",
+//                "글로벌 솔루션즈",
+//                "010-1234-5678",
+//                "구인자",
+//                 Date.valueOf("2010-01-01"),
+//                "홍길동",
+//                "소프트웨어 개발",
+//                "융합 소프트웨어",
+//                "서울시 강남구 역삼동",
+//                "123-45-67890",
+//                "02-1234-5679"
+//        );
 
-        request.setAttribute("client", client);
+//        request.setAttribute("client", client);
         request.getRequestDispatcher("/admin/client_detail.jsp").forward(request, response);
     }
 

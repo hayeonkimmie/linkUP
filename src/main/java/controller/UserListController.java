@@ -1,7 +1,7 @@
 package controller;
 
 import dto.Client;
-import dto.FreeLancer;
+import dto.Freelancer;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -22,40 +22,40 @@ public class UserListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<FreeLancer> freelancerList = new ArrayList<>();
+        List<Freelancer> freelancerList = new ArrayList<>();
         List<Client> clientList = new ArrayList<>();
-        clientList.add(new Client(
-                1,
-                "techcorp2",
-                "info@techcorp.kr",
-                "테크놀로지 주식회사",
-                "010-1234-5678",
-                "구인자",
-                Date.valueOf("2010-01-01"),
-                "김민수",
-                "소프트웨어 개발",
-                "서비스업",
-                "서울시 강남구 역삼동",
-                "123-45-67890",
-                "02-1234-5679"
-        ));
-        clientList.add(new Client(
-                2,
-                 "sample23",
-                "sample@sample.com",
-                "글로벌 솔루션즈",
-                "010-1234-5678",
-                "구인자",
-                 Date.valueOf("2010-01-01"),
-                "홍길동",
-                "소프트웨어 개발",
-                "융합 소프트웨어",
-                "서울시 강남구 역삼동",
-                "123-45-67890",
-                "02-1234-5679"
-        ));
+//        clientList.add(new Client(
+//                1,
+//                "techcorp2",
+//                "info@techcorp.kr",
+//                "테크놀로지 주식회사",
+//                "010-1234-5678",
+//                "구인자",
+//                Date.valueOf("2010-01-01"),
+//                "김민수",
+//                "소프트웨어 개발",
+//                "서비스업",
+//                "서울시 강남구 역삼동",
+//                "123-45-67890",
+//                "02-1234-5679"
+//        ));
+//        clientList.add(new Client(
+//                2,
+//                 "sample23",
+//                "sample@sample.com",
+//                "글로벌 솔루션즈",
+//                "010-1234-5678",
+//                "구인자",
+//                 Date.valueOf("2010-01-01"),
+//                "홍길동",
+//                "소프트웨어 개발",
+//                "융합 소프트웨어",
+//                "서울시 강남구 역삼동",
+//                "123-45-67890",
+//                "02-1234-5679"
+//        ));
 
-        freelancerList.add(new FreeLancer(
+        freelancerList.add(new Freelancer(
                 "1",
                 "김철수",
                 "kim33@example.com",
