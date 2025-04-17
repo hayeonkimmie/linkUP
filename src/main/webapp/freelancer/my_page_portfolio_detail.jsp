@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="ko">
 <head>
     <meta charset="UTF-8"/>
     <title>포트폴리오 조회</title>
-    <link rel="stylesheet" href="./../css/freelancer_my_page.css"/>
-    <link rel="stylesheet" href="./../css/freelancer_main_portfolio_detail.css"/>
+    <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio_detail.css'/>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -16,7 +17,7 @@
 <div class="container">
     <aside class="sidebar">
         <div class="profile">
-            <img src="./../img/basic_profile_img.png" alt="profile"/>
+            <img src="../img/basic_profile_img.png" alt="profile"/>
             <p>닉네임</p>
             <p>마이페이지</p>
         </div>

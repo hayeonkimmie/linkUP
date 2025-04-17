@@ -6,14 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Link up Profile</title>
-    <link href="./../css/freelancer_my_page.css" rel="stylesheet"/>
-    <link href="./../css/freelancer_main_portfolio.css" rel="stylesheet">
+    <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio.css'/>">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
@@ -112,8 +113,35 @@
 
             <!-- 포트폴리오 카드 3 - 작성완료 -->
 
-            <div class="pagination">
-                <!-- 페이지네이션-->
+            <div class="pagination" id="paging">
+                <c:choose>
+                    <c:when test="${pageInfo.curPage > 1}">
+                        <a href="my-page/portfolio-list?page=${pageInfo.curPage-1 }">&lt;</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a>&lt;</a>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1" var="page">
+                    <c:choose>
+                        <c:when test="${page eq pageInfo.curPage }">
+                            <a href="my-page/portfolio-list?page=${page }" class="select">${page }</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="my-page/portfolio-list?page=${page }" class="btn">${page }</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <c:choose>
+                    <c:when test="${pageInfo.curPage<pageInfo.allPage }">
+                        <a href="my-page/portfolio-list?page=${pageInfo.curPage+1 }">&gt;</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a>&gt;</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </main>

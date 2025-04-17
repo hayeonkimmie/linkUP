@@ -1,18 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up Profile</title>
-    <!--    <link rel="stylesheet" href="./../css/freelancer_main_info_edit.css">-->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/freelancer_my_page.css">
-    <link rel="stylesheet" href="../css/freelancer_my_page_info_edit.css">
+    <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page_info_edit.css'/>">
     <script src="../js/freelancer_my_page_info_edit.js"></script>
-    <link rel="stylesheet" href="../css/alarm_settings.css">
-    <script src="../js/alarm_settings.js"></script>
+<%--    <link rel="stylesheet" href="../css/alarm_settings.css">
+    <script src="../js/alarm_settings.js"></script>--%>
 </head>
 <body>
 <div class="header" style="height: 100px;">

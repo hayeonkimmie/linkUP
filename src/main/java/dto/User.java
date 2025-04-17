@@ -1,134 +1,129 @@
 package dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class User {
-    String user_id;
-    String name;
-    String nickname;
-    String password;
-    String email;
-    String profile_img;
-    boolean accept_noti; // 알림 수신 동의 여부
-    String token;
-    Date withdrawal_date;
-    String profileImage;
-    boolean accept_consent;// 개인정보 수집 및 이용 동의 여부
+        String user_id;
+        String name;
+        String nickname;
+        String email;
+        String password;
+        String phone_num;
+        String profil_img;
+        boolean accept_noti;
+        String token;
+        Date registration_date;
+        Date withdrawal_date;
+        boolean accept_consent;
 
-    public User() {
-        super();
-    }
+        public User(String user_id, String name, String nickname, String email, String password, String phone_num, String profil_img, boolean accept_noti, String token, Date registration_date, Date withdrawal_date, boolean accept_consent) {
+            this.user_id = user_id;
+            this.name = name;
+            this.nickname = nickname;
+            this.email = email;
+            this.password = password;
+            this.phone_num = phone_num;
+            this.profil_img = profil_img;
+            this.accept_noti = accept_noti;
+            this.token = token;
+            this.registration_date = registration_date;
+            this.withdrawal_date = withdrawal_date;
+            this.accept_consent = accept_consent;
+        }
 
-    public User(String user_id, String name, String nickname, String password, String email, String profile_img, boolean accept_noti, String token, Date withdrawal_date, String detailAddress, String profileImage, boolean accept_consent) {
-        this.user_id = user_id;
-        this.name = name;
-        this.nickname = nickname;
-        this.password = password;
-        this.email = email;
-        this.profile_img = profile_img;
-        this.accept_noti = accept_noti;
-        this.token = token;
-        this.withdrawal_date = withdrawal_date;
-        this.profileImage = profileImage;
-        this.accept_consent = accept_consent;
-    }
+        public String getUser_id() {
+            return user_id;
+        }
 
-    public User(String user_id, String name, String nickname, String password, String email, String profile_img, boolean accept_noti, String profileImage) {
-        this.user_id = user_id;
-        this.name = name;
-        this.nickname = nickname;
-        this.password = password;
-        this.email = email;
-        this.profile_img = profile_img;
-        this.accept_noti = accept_noti;
-        this.profileImage = profileImage;
-    }
+        public void setUser_id(String user_id) {
+            this.user_id = user_id;
+        }
 
-    public String getUser_id() {
-        return user_id;
-    }
+        public String getName() {
+            return name;
+        }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
+        public void setName(String name) {
+            this.name = name;
+        }
 
-    public String getName() {
-        return name;
-    }
+        public String getNickname() {
+            return nickname;
+        }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
 
-    public String getNickname() {
-        return nickname;
-    }
+        public String getEmail() {
+            return email;
+        }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+        public void setEmail(String email) {
+            this.email = email;
+        }
 
-    public String getPassword() {
-        return password;
-    }
+        public String getPassword() {
+            return password;
+        }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        public void setPassword(String password) {
+            this.password = password;
+        }
 
-    public String getEmail() {
-        return email;
-    }
+        public String getPhone_num() {
+            return phone_num;
+        }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        public void setPhone_num(String phone_num) {
+            this.phone_num = phone_num;
+        }
 
-    public String getProfile_img() {
-        return profile_img;
-    }
+        public String getProfil_img() {
+            return profil_img;
+        }
 
-    public void setProfile_img(String profile_img) {
-        this.profile_img = profile_img;
-    }
+        public void setProfil_img(String profil_img) {
+            this.profil_img = profil_img;
+        }
 
-    public boolean isAccept_noti() {
-        return accept_noti;
-    }
+        public boolean isAccept_noti() {
+            return accept_noti;
+        }
 
-    public void setAccept_noti(boolean accept_noti) {
-        this.accept_noti = accept_noti;
-    }
+        public void setAccept_noti(boolean accept_noti) {
+            this.accept_noti = accept_noti;
+        }
 
-    public String getToken() {
-        return token;
-    }
+        public String getToken() {
+            return token;
+        }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+        public void setToken(String token) {
+            this.token = token;
+        }
 
-    public Date getWithdrawal_date() {
-        return withdrawal_date;
-    }
+        public Date getRegistration_date() {
+            return registration_date;
+        }
 
-    public void setWithdrawal_date(Date withdrawal_date) {
-        this.withdrawal_date = withdrawal_date;
-    }
+        public void setRegistration_date(Date registration_date) {
+            this.registration_date = registration_date;
+        }
 
-    public String getProfileImage() {
-        return profileImage;
-    }
+        public Date getWithdrawal_date() {
+            return withdrawal_date;
+        }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
+        public void setWithdrawal_date(Date withdrawal_date) {
+            this.withdrawal_date = withdrawal_date;
+        }
 
-    public boolean isAccept_consent() {
-        return accept_consent;
-    }
+        public boolean getAccept_consent() {
+            return accept_consent;
+        }
 
-    public void setAccept_consent(boolean accept_consent) {
-        this.accept_consent = accept_consent;
+        public void setAccept_consent(boolean accept_consent) {
+            this.accept_consent = accept_consent;
+        }
     }
-}

@@ -33,5 +33,6 @@ public class FreeMyPageMainController extends HttpServlet {
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
         session.setAttribute("id", id);
+        request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
     }
 }
