@@ -310,4 +310,44 @@ public class Freelancer {
     public void setProjectCount(int projectCount) {
         this.projectCount = projectCount;
     }
+
+
+    @Override
+    public String toString() {
+        return "Freelancer{" +
+                "userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", profilImg='" + profilImg + '\'' +
+                ", acceptNoti=" + acceptNoti +
+                ", token='" + token + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", withdrawalDate=" + withdrawalDate +
+                ", acceptConsent=" + acceptConsent +
+                ", isNaver=" + isNaver +
+                ", isKakao=" + isKakao +
+                ", type='" + type + '\'' +
+                ", freelancerId='" + freelancerId + '\'' +
+                ", category='" + category + '\'' +
+                ", skill='" + skill + '\'' +
+                ", address='" + address + '\'' +
+                ", academic='" + academic + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", license='" + license + '\'' +
+                ", bank='" + bank + '\'' +
+                ", accountNum='" + accountNum + '\'' +
+                ", isNegotiable=" + isNegotiable +
+                ", isResident=" + isResident +
+                ", desiredSalary=" + desiredSalary +
+                ", desiredLocation='" + desiredLocation + '\'' +
+                ", otherRequest='" + otherRequest + '\'' +
+                ", attachment='" + attachment + '\'' +
+                ", externalUrl='" + externalUrl + '\'' +
+                ", averageScore=" + averageScore +
+                ", projectCount=" + projectCount +
+                '}';
+    }
 }

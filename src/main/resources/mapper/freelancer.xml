@@ -5,13 +5,13 @@
 <mapper namespace="mapper.freelancer">
     <insert id="insertFreelancer" parameterType="freelancer">
         insert freelancer (freelancer_id,category,skill,address,academic,introduction,license,bank,account_num,is_negotiable,is_resident,desired_salary,desired_location,other_requests,attachment,external_url)
-        values (#{freelancer_id}, #{category},#{skill},#{address}, #{academic},#{introduction},#{license}, #{bank},#{account_num},#{is_negotiable}, #{is_resident},#{desired_salary},#{desired_location}, #{other_requests},#{attachment},#{external_url})
+        values (#{freelancerId}, #{category},#{skill},#{address}, #{academic},#{introduction},#{license}, #{bank},#{account_num},#{is_negotiable}, #{is_resident},#{desired_salary},#{desired_location}, #{other_requests},#{attachment},#{external_url})
     </insert>
 
 
     <select id="selectAllFreelancer" resultType="freelancer">
         SELECT
-            u.user_id,
+            f.freelancer_id,
             u.name,
             u.email,
             u.registration_date,

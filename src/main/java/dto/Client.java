@@ -123,11 +123,4 @@ public class Client {
         this.companyFaxNum = companyFaxNum;
     }
 
-    public String getCeo() {
-        return ceo;
-    }
-
-    public void setCeo(String ceo) {
-        this.ceo = ceo;
-    }
 }

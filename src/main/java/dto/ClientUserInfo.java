@@ -69,4 +69,16 @@ public class ClientUserInfo {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "ClientUserInfo{" +
+                "name='" + name + '\'' +
+                ", userId='" + userId + '\'' +
+                ", email='" + email + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

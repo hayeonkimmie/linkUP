@@ -47,7 +47,7 @@ public class CreateAccRecruiterController extends HttpServlet {
         user.setEmail(email);
         user.setPassword(password);
         user.setPhoneNum(phone);
-        user.setProfilImg(null);
+        user.setProfileImg(null);
         user.setToken(null);
         user.setAcceptNoti(true);
         user.setAcceptConsent(true);

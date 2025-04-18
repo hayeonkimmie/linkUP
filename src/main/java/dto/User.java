@@ -15,14 +15,14 @@ public class User {
     Date withdrawalDate;
     boolean acceptConsent;
     String snsType;
-
+    String profileImg;
 
 
     public User() {
         super();
     }
 
-    public User(String userId, String name, String nickname, String email, String password, String phoneNum, String profilImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String snsType) {
+    public User(String userId, String name, String nickname, String email, String password, String phoneNum, String profileImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String snsType) {
         this.userId = userId;
         this.name = name;
         this.nickname = nickname;
@@ -36,8 +36,6 @@ public class User {
         this.withdrawalDate = withdrawalDate;
         this.acceptConsent = acceptConsent;
         this.snsType = snsType;
-        this.isNaver = isNaver;
-        this.isKakao = isKakao;
     }
 
     public String getPhoneNum() {
@@ -89,12 +87,12 @@ public class User {
     }
 
 
-    public String getProfilImg() {
-        return profilImg;
+    public String getProfileImg() {
+        return profileImg;
     }
 
-    public void setProfilImg(String profilImg) {
-        this.profilImg = profilImg;
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
     }
 
     public boolean isAcceptNoti() {
@@ -137,21 +135,7 @@ public class User {
         this.acceptConsent = acceptConsent;
     }
 
-    public boolean isNaver() {
-        return isNaver;
-    }
 
-    public void setNaver(boolean naver) {
-        isNaver = naver;
-    }
-
-    public boolean isKakao() {
-        return isKakao;
-    }
-
-    public void setKakao(boolean kakao) {
-        isKakao = kakao;
-    }
 
     @Override
     public String toString() {

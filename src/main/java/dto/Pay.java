@@ -11,15 +11,10 @@ public class Pay {
     private Integer pay; // 금액 4/18 추가
     private int fee; // 수수료 금액의 0.3% 추가
 
-    // pay 테이블은 어떤 카테고리의 어떤 포지션이 얼마인지 알아야되는데 목적에 맞지 않게 생성되어있음 컬럼 추가가 필요
-    private Integer subCategoryId; // 서브 카테고리 ID
-    private String categoryName; // 서브 카테고리 이름
-
     public Pay() {
-        super();
     }
 
-    public Pay(int projectFeeId, int projectId, int lvId, int projectFee, Integer pay, int fee, Integer subCategoryId, String categoryName) {
+    public Pay(int projectFeeId, int projectId, int lvId, Integer subCategoryId, String categoryName, int projectFee, Integer pay, int fee) {
         this.projectFeeId = projectFeeId;
         this.projectId = projectId;
         this.lvId = lvId;
@@ -28,8 +23,6 @@ public class Pay {
         this.projectFee = projectFee;
         this.pay = pay;
         this.fee = fee;
-        this.subCategoryId = subCategoryId;
-        this.categoryName = categoryName;
     }
 
     public int getProjectFeeId() {
@@ -56,6 +49,7 @@ public class Pay {
         this.lvId = lvId;
     }
 
+    public Integer getSubCategoryId() {
         return subCategoryId;
     }
 
@@ -93,21 +87,5 @@ public class Pay {
 
     public void setFee(int fee) {
         this.fee = fee;
-    }
-
-    public Integer getSubCategoryId() {
-        return subCategoryId;
-    }
-
-    public void setSubCategoryId(Integer subCategoryId) {
-        this.subCategoryId = subCategoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 }
