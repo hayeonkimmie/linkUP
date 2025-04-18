@@ -23,27 +23,28 @@ public class PortfolioList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String userId = request.getParameter("id");
-        String page_str = request.getParameter("page");
+        String userId = (String) request.getAttribute("userId");
+        userId = "free002"; // 로그인 구현 이후 빼기
+        String pageStr = request.getParameter("page");
+        System.out.println("page = " + pageStr);
         Integer page = null;
-        if(page_str == null) {
+        if(pageStr == null) {
             page = 1;
         } else {
-            page = Integer.parseInt(page_str);
+            page = Integer.parseInt(pageStr);
         }
-
         PageInfo pageInfo = new PageInfo(page);
+
         IPortfolioService service = new PortfolioService();
-        userId = "A";
         List<Portfolio> portfolioList;
         try {
             Integer portfolioCnt = service.selectPortfolioCnt(userId);
             if (portfolioCnt > 0) {
                 portfolioList = service.selectPortfolioListByPage(pageInfo, userId);
                 request.setAttribute("pageInfo", pageInfo);
-                request.setAttribute("portfolioList", null);
+                request.setAttribute("portfolioList", portfolioList);
             } else if (portfolioCnt == 0){
-                request.setAttribute("portfolioList", "등록된 포트폴리오가 없습니다.");
+                request.setAttribute("portfolioList", null);
             }
             request.getRequestDispatcher("/freelancer/my_page_portfolio_list.jsp").forward(request, response);
         } catch (Exception e) {
