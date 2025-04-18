@@ -4,86 +4,101 @@ import java.util.Date;
 
 
 public class Apply {
-    int apply_id;
-    String freelancer_id;
-    int project_id;
-    Date apply_date;
-    Date cancel_date;
-    boolean is_approved;
-    Date approval_change_date;
+    private int applyId;
+    private String freelancerId;
+    private int projectId;
+    private Date applyDate;
+    private Date cancelDate;
+    private boolean isApproved;
+    private Date approvalChangeDate;
+    private Integer subCategoryId;
+    private String subCategoryName;
 
-    public Apply(int apply_id, String freelancer_id, int project_id, Date apply_date, Date cancel_date, boolean is_approved) {
-        this.apply_id = apply_id;
-        this.freelancer_id = freelancer_id;
-        this.project_id = project_id;
-        this.apply_date = apply_date;
-        this.cancel_date = cancel_date;
-        this.is_approved = is_approved;
+    public Apply() {
+        super();
     }
 
-    public Apply(int apply_id, String freelancer_id, int project_id, Date apply_date, Date cancel_date, boolean is_approved, Date approval_change_date) {
-        this.apply_id = apply_id;
-        this.freelancer_id = freelancer_id;
-        this.project_id = project_id;
-        this.apply_date = apply_date;
-        this.cancel_date = cancel_date;
-        this.is_approved = is_approved;
-        this.approval_change_date = approval_change_date;
+    public Apply(int applyId, String freelancerId, int projectId, Date applyDate, Date cancelDate, boolean isApproved, Date approvalChangeDate, Integer subCategoryId, String subCategoryName) {
+        this.applyId = applyId;
+        this.freelancerId = freelancerId;
+        this.projectId = projectId;
+        this.applyDate = applyDate;
+        this.cancelDate = cancelDate;
+        this.isApproved = isApproved;
+        this.approvalChangeDate = approvalChangeDate;
+        this.subCategoryId = subCategoryId;
+        this.subCategoryName = subCategoryName;
     }
 
-    public int getApply_id() {
-        return apply_id;
+    public int getApplyId() {
+        return applyId;
     }
 
-    public void setApply_id(int apply_id) {
-        this.apply_id = apply_id;
+    public void setApplyId(int applyId) {
+        this.applyId = applyId;
     }
 
-    public String getFreelancer_id() {
-        return freelancer_id;
+    public String getFreelancerId() {
+        return freelancerId;
     }
 
-    public void setFreelancer_id(String freelancer_id) {
-        this.freelancer_id = freelancer_id;
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
-    public int getProject_id() {
-        return project_id;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
-    public Date getApply_date() {
-        return apply_date;
+    public Date getApplyDate() {
+        return applyDate;
     }
 
-    public void setApply_date(Date apply_date) {
-        this.apply_date = apply_date;
+    public void setApplyDate(Date applyDate) {
+        this.applyDate = applyDate;
     }
 
-    public Date getCancel_date() {
-        return cancel_date;
+    public Date getCancelDate() {
+        return cancelDate;
     }
 
-    public void setCancel_date(Date cancel_date) {
-        this.cancel_date = cancel_date;
+    public void setCancelDate(Date cancelDate) {
+        this.cancelDate = cancelDate;
     }
 
-    public boolean isIs_approved() {
-        return is_approved;
+    public boolean isApproved() {
+        return isApproved;
     }
 
-    public void setIs_approved(boolean is_approved) {
-        this.is_approved = is_approved;
+    public void setApproved(boolean isApproved) {
+        this.isApproved = isApproved;
     }
 
-    public Date getApproval_change_date() {
-        return approval_change_date;
+    public Date getApprovalChangeDate() {
+        return approvalChangeDate;
     }
 
-    public void setApproval_change_date(Date approval_change_date) {
-        this.approval_change_date = approval_change_date;
+    public void setApprovalChangeDate(Date approvalChangeDate) {
+        this.approvalChangeDate = approvalChangeDate;
+    }
+
+    public Integer getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
     }
 }

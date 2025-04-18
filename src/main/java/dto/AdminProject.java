@@ -1,4 +1,4 @@
-package dto.admin;
+package dto;
 
 /**
  * Project, Settlement 두 테이블의 조인 결과를 담는 DTO<br>

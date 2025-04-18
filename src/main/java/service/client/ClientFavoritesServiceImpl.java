@@ -30,5 +30,5 @@ public class ClientFavoritesServiceImpl implements IClientFavoritesService {
 
         return clientFavoritesDAO.selectJjimFree(row-1);
     }
-    }
+}
 

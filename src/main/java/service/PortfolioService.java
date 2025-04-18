@@ -49,7 +49,7 @@ public class PortfolioService implements IPortfolioService{
         for (Portfolio p : portfolioList) {
             System.out.println(p.toString());
             Portfolio portfolio = new Portfolio();
-            portfolio.setPortfolio_id(p.getPortfolioId());
+            portfolio.setPortfolioId(p.getPortfolioId());
             portfolio.setTitle(p.getTitle());
             portfolio.setThumbnail(p.getThumbnail());
             portfolio.setIntroduce(p.getIntroduce());
@@ -86,8 +86,29 @@ public class PortfolioService implements IPortfolioService{
         }
         return portfolio;
     }
+
+    @Override
+    public Map<Integer, String> projectInfoForProtfolio(String userId) {
+        try {
+            return iportfolioDAO.projectInfoForProtfolio(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public void deletePortfolio(Integer num) throws Exception {
         iportfolioDAO.deletePortfolio(num);
+    }
+
+    @Override
+    public Integer writePortfolio(Portfolio portfolio) throws Exception {
+        return iportfolioDAO.writePortfolio(portfolio);
+    }
+
+    @Override
+    public void modifyPortfolio(Portfolio portfolio) throws Exception {
+        iportfolioDAO.modifyPortfolio(portfolio);
     }
 }

@@ -21,9 +21,10 @@ public class PortfolioDAO implements IPortfolioDAO {
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
         param.put("row", row);
-        System.out.println("PortfolioDAO.java 24"+ param);
-        return sqlSession.selectList("mapper.portfolio.selectPortfolioListByPage",param);
+        System.out.println("PortfolioDAO.java 24" + param);
+        return sqlSession.selectList("mapper.portfolio.selectPortfolioListByPage", param);
     }
+
     @Override
     public Portfolio selectPortfolioListById(Integer portfoId) throws Exception {
         return sqlSession.selectOne("mapper.portfolio.selectPortfolioById", portfoId);
@@ -32,31 +33,40 @@ public class PortfolioDAO implements IPortfolioDAO {
     @Override
     public void deletePortfolio(Integer num) throws Exception {
         try {
-        sqlSession.delete("mapper.portfolio.deletePortfolioById", num);
-        sqlSession.commit();
+            sqlSession.delete("mapper.portfolio.deletePortfolioById", num);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    /*
+
+    public Map<Integer, String> projectInfoForProtfolio(String userId) {
+        return sqlSession.selectOne("mapper.project.projectInfoForProtfolio", userId);
+    }
+
     @Override
-    public Portfolio insertPortfolio(Portfolio Portfolio) throws Exception {
+    public Integer writePortfolio(Portfolio portfolio) throws Exception {
         try {
-            sqlSession.insert("mapper.portfolio.selectArticleListByPage", portfolio);
+            if(portfolio.getIsTempSaved() == true) {
+                sqlSession.insert("mapper.portfolio.insertPortfolioIncomplete", portfolio);
+            } else {
+                sqlSession.insert("mapper.portfolio.insertPortfolioComplete", portfolio);
+            }
 //			sqlSession.select("");
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return portfolio;
+        return portfolio.getPortfolioId();
     }
 
-	@Override
-	public void updateArticle(Article article) throws Exception {
-		sqlSession.update("mapper.article.updateArticle", article);
-//		sqlSession.update("mapper.article.updateArticle", param);
-		sqlSession.commit();
-	}
-}
-    */
+    @Override
+    public void modifyPortfolio(Portfolio portfolio) throws Exception {
+        try {
+            sqlSession.update("mapper.article.updatePortfolio", portfolio);
+            sqlSession.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

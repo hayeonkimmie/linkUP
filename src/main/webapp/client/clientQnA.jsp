@@ -130,12 +130,12 @@
     </tr>
   <c:forEach var="qna" items ="${qnaList}">
     <tr>
-      <td>${qna.qna_id}</td>
-      <td>${qna.user_id}</td>
-      <td>${qna.question_title}</td>
-      <td>${qna.question_content}</td>
-      <td>${qna.created_date}</td>
-      <td>${qna.answer_content}</td>
+      <td>${qna.qnaId}</td>
+      <td>${qna.userId}</td>
+      <td>${qna.questionTitle}</td>
+      <td>${qna.questionContent}</td>
+      <td>${qna.answerDate}</td>
+      <td>${qna.answerContent}</td>
     </tr>
   </c:forEach>
 </table>

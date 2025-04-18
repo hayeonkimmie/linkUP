@@ -35,10 +35,10 @@
     </tr>
     <c:forEach var="notice" items="${noticeList}">
       <tr>
-        <td>${notice.notice_id}</td>
+        <td>${notice.noticeId}</td>
         <td>${notice.title}</td>
         <td>${notice.content}</td>
-        <td>${notice.created_at}</td>
+        <td>${notice.createdAt}</td>
       </tr>
     </c:forEach>
   </table>

@@ -4,7 +4,7 @@
 
 <mapper namespace="mapper.aproject">
 
-    <select id="selectAllOngoingProject" resultType="dto.admin.AdminProject">
+    <select id="selectAllOngoingProject" resultType="dto.AdminProject">
         SELECT
             p.project_id AS projectId,
             p.client_id AS clientId,
@@ -56,7 +56,7 @@
         WHERE p.project_id = #{projectId}
     </select>
 
-    <select id="selectProjectsForSettlement" resultType="dto.admin.AdminProject">
+    <select id="selectProjectsForSettlement" resultType="dto.AdminProject">
     <![CDATA[
         SELECT
             p.project_id,
@@ -95,7 +95,7 @@
 
 
     <!-- 복합 결과 매핑 -->
-    <resultMap id="ProjectDetailMap" type="dto.admin.AdminProjectDetail" >
+    <resultMap id="ProjectDetailMap" type="dto.AdminProjectDetail" >
         <id property="projectId" column="project_id"/>
         <result property="projectName" column="project_name"/>
         <result property="projectDescription" column="project_description"/>
@@ -108,7 +108,7 @@
 
 
         <!-- 참여자 리스트 매핑 -->
-        <collection property="participants" ofType="dto.admin.ProjectParticipant">
+        <collection property="participants" ofType="dto.ProjectParticipant">
             <result property="participantName" column="participant_name"/>
             <result property="participantRole" column="participant_role"/>
             <result property="participantEmail" column="participant_email"/>

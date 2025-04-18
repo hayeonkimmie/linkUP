@@ -18,7 +18,6 @@
 <%--   <link rel="stylesheet" href="${contextPath}/css/headerSt.css"/>--%>
 <%--   <link rel="stylesheet" href="${contextPath}/css/freelancer_my_page.css'/>">--%>
 <%--    <link rel="stylesheet" href="${contextPath}/css/freelancer_main_portfolio_detail.css'/>"/>--%>
-
    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio_detail.css'/>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -1,70 +1,25 @@
 package dto;
 
-import io.grpc.internal.JsonUtil;
+import java.sql.Date;
 
 import java.sql.Date;
 
 public class Freelancer {
-    private String freelancerId;
-    private String name;
-    private String nickname;
-    private String email;
-    private String password;
-    private String phoneNum;
-    private String profileImg;
-    private Boolean acceptNoti;
-    private String token;
-    private Date withdrawalDate;
-    private Date registrationDate;
-    private Boolean acceptConsent;
-    private Integer rolesId;
-    private String skill;
-    private String address;
-    private String academic;
-    private String introduction;
-    private String license;
-    private String desiredSalary;
-    private String bank;
-    private String accountNum;
-    private Boolean isResident;
-    private String desiredLocation;
-    private String otherRequests;
-    private String attachment;
-    private String externalUrl;
-    private String type;
+    String userId;
+    String name;
+    String nickname;
+    String email;
+    String password;
+    String phoneNum;
+    String profilImg;
+    boolean acceptNoti;
+    String token;
+    Date registrationDate;
+    Date withdrawalDate;
+    boolean acceptConsent;
+    boolean isNaver;
+    boolean isKakao;
 
-
-    public Freelancer() {}
-
-    /**
-     * /admin/client_list.jsp 페이지에서 사용되는 생성자<br>
-     * @param freelancerId 사용자 ID
-     * @param name 이름
-     * @param email 이메일
-     * @param registrationDate 가입일
-     * @param phoneNum 연락처
-     * @param type 사용자 구분 (구인자/구직자)
-     */
-    public Freelancer(String freelancerId, String name, String email, Date registrationDate, String phoneNum, String type) {
-        this.freelancerId = freelancerId;
-        this.name = name;
-        this.email = email;
-        this.registrationDate = registrationDate;
-        this.phoneNum = phoneNum;
-        this.type = type;
-    }
-
-    public Freelancer(String freelancerId, String name, String nickname, String email, String phoneNum,
-                      Date registrationDate, String academic, String skill, String desiredSalary,
-                      String desiredLocation, Boolean isResident, String introduction, String license,
-                      String attachment, String externalUrl, String otherRequests, String type, String address) {
-        this.freelancerId = freelancerId;
-        this.name = name;
-        this.nickname = nickname;
-        this.email = email;
-        this.phoneNum = phoneNum;
-        this.registrationDate = registrationDate;
-        this.academic = academic;
     String freelancerId;
     String category;
     String skill;
@@ -86,29 +41,116 @@ public class Freelancer {
         super();
     }
 
-    public Freelancer(String freelancerId, String bank, String accountNum) {
-        this.freelancerId = freelancerId;
-        this.bank = bank;
-        this.accountNum = accountNum;
+    public String getUserId() {
+        return userId;
     }
 
-    public Freelancer(String freelancerId, String category, String skill, String address, String academic, String introduction, String license, String bank, String accountNum, boolean isNegotiable, boolean isResident, int desiredSalary, String desiredLocation, String otherRequest, String attachment, String externalUrl) {
-        this.freelancerId = freelancerId;
-        this.category = category;
-        this.skill = skill;
-        this.address = address;
-        this.academic = academic;
-        this.introduction = introduction;
-        this.license = license;
-        this.bank = bank;
-        this.accountNum = accountNum;
-        this.isNegotiable = isNegotiable;
-        this.isResident = isResident;
-        this.desiredSalary = desiredSalary;
-        this.desiredLocation = desiredLocation;
-        this.otherRequest = otherRequest;
-        this.attachment = attachment;
-        this.externalUrl = externalUrl;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getProfilImg() {
+        return profilImg;
+    }
+
+    public void setProfilImg(String profilImg) {
+        this.profilImg = profilImg;
+    }
+
+    public boolean isAcceptNoti() {
+        return acceptNoti;
+    }
+
+    public void setAcceptNoti(boolean acceptNoti) {
+        this.acceptNoti = acceptNoti;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Date getWithdrawalDate() {
+        return withdrawalDate;
+    }
+
+    public void setWithdrawalDate(Date withdrawalDate) {
+        this.withdrawalDate = withdrawalDate;
+    }
+
+    public boolean isAcceptConsent() {
+        return acceptConsent;
+    }
+
+    public void setAcceptConsent(boolean acceptConsent) {
+        this.acceptConsent = acceptConsent;
+    }
+
+    public boolean isNaver() {
+        return isNaver;
+    }
+
+    public void setNaver(boolean naver) {
+        isNaver = naver;
+    }
+
+    public boolean isKakao() {
+        return isKakao;
+    }
+
+    public void setKakao(boolean kakao) {
+        isKakao = kakao;
     }
 
     public String getFreelancerId() {
@@ -143,13 +185,12 @@ public class Freelancer {
         this.address = address;
     }
 
-
-    public String getFreelancerId() {
-        return freelancerId;
+    public String getAcademic() {
+        return academic;
     }
 
-    public void setFreelancerId(String freelancerId) {
-        this.freelancerId = freelancerId;
+    public void setAcademic(String academic) {
+        this.academic = academic;
     }
 
     public String getIntroduction() {
@@ -208,8 +249,9 @@ public class Freelancer {
         this.desiredSalary = desiredSalary;
     }
 
-    public String getUserId() { return freelancerId; }
-    public void setUserId(String userId) { this.freelancerId = userId; }
+    public String getDesiredLocation() {
+        return desiredLocation;
+    }
 
     public void setDesiredLocation(String desiredLocation) {
         this.desiredLocation = desiredLocation;

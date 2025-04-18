@@ -2,7 +2,7 @@ package controller;
 
 import dao.admin.ClientDAO;
 import dao.admin.IClientDAO;
-import dto.admin.ClientUserDetail;
+import dto.ClientUserDetail;
 import service.admin.ClientService;
 import service.admin.IClientService;
 import javax.servlet.*;

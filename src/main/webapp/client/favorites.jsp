@@ -150,9 +150,9 @@
             </tr>
             <c:forEach var="jjimlist" items="${jjimList}">
                 <tr>
-                    <td>${jjimlist.jjim_id}</td>
-                    <td>${jjimlist.client_id}</td>
-                    <td>${jjimlist.freelancer_id}</td>
+                    <td>${jjimlist.jjimId}</td>
+                    <td>${jjimlist.clientId}</td>
+                    <td>${jjimlist.freelancerId}</td>
                 </tr>
             </c:forEach>
         </table>

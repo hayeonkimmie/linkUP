@@ -21,16 +21,8 @@ public class FreeLancerController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String freelancerid = request.getParameter("freelancerid");
 
-        Freelancer freelancer = new Freelancer(
-                freelancerid,
-                "홍길동",
-                "길동이",
-                Date.valueOf("2024-10-01"),
-                "서울대학교 컴퓨터공학과",
-                "Java, Spring, MyBatis, React"
-        );
 
-        request.setAttribute("freelancer", freelancer);
+//        request.setAttribute("freelancer", freelancer);
         request.getRequestDispatcher("/admin/freelancer_detail.jsp").forward(request, response);
     }
 

@@ -14,10 +14,16 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Link up Profile</title>
+    <title>Link up Profile List</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
+<%--    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio.css'/>">
+--%>
+    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
+    <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio_write_and_modify.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio.css'/>">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
@@ -40,7 +46,7 @@
                         <%--<p>${nickname}님의 최고의 프로젝트를 선보이세요.</p>--%>
                         <p>닉네임님의 최고의 프로젝트를 선보이세요.</p>
                     </span>
-                    <button class="add-portfolio" onclick="location.href='my-page/portfolio-write'">+ 포트폴리오 등록</button>
+                    <button class="add-portfolio" onclick="location.href='linkup/my-page/portfolio-write'">+ 포트폴리오 등록</button>
                 </div>
             </div>
         </section>

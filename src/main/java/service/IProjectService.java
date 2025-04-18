@@ -9,7 +9,7 @@ import dto.DashboardProject;
 import java.util.List;
 
 public interface IProjectService {
-    Integer selectProjectCnt(String userId);
-    List<Project> selectPortfolioListByPage(PageInfo pageInfo, String userId) throws Exception;
-
+    List<DashboardProject> getDashboardProjectList() throws Exception;
+    Integer selectProjectCnt(String userId) throws Exception;
+    List<Project> selectProjectListByPage(PageInfo pageInfo, String userId) throws Exception;
 }

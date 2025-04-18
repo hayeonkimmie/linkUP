@@ -10,4 +10,7 @@
     <select id="selectUserById" parameterType="String" resultType="user">
         select * from user where user_id = #{user_id}
     </select>
+    <select id="minSelectUserById" parameterType="String" resultType="user">
+        select nickname, profile_img from user where user_id = #{user_id}
+    </select>
 </mapper>

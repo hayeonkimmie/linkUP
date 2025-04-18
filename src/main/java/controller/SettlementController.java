@@ -2,7 +2,7 @@ package controller;
 
 import dao.admin.ISettlementDAO;
 import dao.admin.SettlementDAO;
-import dto.admin.AdminProject;
+import dto.AdminProject;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
