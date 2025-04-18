@@ -1,4 +1,7 @@
 package dao.freelancer;
 
-public interface FreelancerDAO {
+import dao.common.*;
+
+public class FreelancerDAO extends UserDAO implements IFreelancerDAO, IUserDAO {
+
 }

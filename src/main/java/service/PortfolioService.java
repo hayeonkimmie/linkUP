@@ -49,7 +49,7 @@ public class PortfolioService implements IPortfolioService{
         for (Portfolio p : portfolioList) {
             System.out.println(p.toString());
             Portfolio portfolio = new Portfolio();
-            portfolio.setPortfolioId(p.getPortfolioId());
+            portfolio.setPortfolio_id(p.getPortfolioId());
             portfolio.setTitle(p.getTitle());
             portfolio.setThumbnail(p.getThumbnail());
             portfolio.setIntroduce(p.getIntroduce());

@@ -14,7 +14,7 @@ public class AdminWelcome extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/admin/admin_login.html").forward(request, response);
+        request.getRequestDispatcher("/admin/login").forward(request, response);
     }
 
     @Override

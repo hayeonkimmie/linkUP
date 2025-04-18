@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.aclient">
+
+    <select id="selectAllClients" resultType="adminclient">
+        SELECT
+            c.company_name as name,
+            u.user_id,
+            u.email,
+            u.registration_date,
+            c.company_phone_number as phone_number,
+            '구인자' AS user_type
+        FROM
+            client c
+                INNER JOIN user u ON c.client_id = u.user_id
+    </select>
+
+    <select id="selectClientById" resultType="adminuserdetail">
+        SELECT
+            c.client_id as id,
+            c.company_name as name,
+            c.ceo,
+            c.business_type,
+            u.nickname,
+            u.email,
+            u.registration_date,
+            c.company_description,
+            c.company_reg_no,
+            c.company_website_url,
+            c.company_address,
+            c.company_phone_number,
+            c.company_fax_num
+        FROM user u
+                 JOIN client c ON u.user_id = c.client_id
+        WHERE u.user_id = #{clientId}
+    </select>
+
+
+</mapper>

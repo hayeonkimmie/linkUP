@@ -2,10 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.project">
-    <insert id="insertApply" parameterType="apply">
-        insert apply (apply_id,freelancer_id,category,project_id,apply_date,cancel_date,is_approved,approval_change_date)
-        values (#{apply_id}, #{freelancer_id},#{category},#{project_id},#{apply_date},#{cancel_date},#{is_approved},#{approval_change_date})
-    </insert>
+<mapper namespace="mapper.apply">
+
 
 </mapper>

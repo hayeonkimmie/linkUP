@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="linkup@svc.sel4.cloudtype.app" uuid="a7a89643-86e5-4897-a53c-6e179c3c2741">
+    <data-source source="LOCAL" name="linkup@svc.sel4.cloudtype.app" uuid="afe25639-1350-42bb-869f-78d93930534f">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

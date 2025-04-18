@@ -3,8 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.alarm">
-    <insert id="insertAlarm" parameterType="alarm">
-        insert alarm (alarm_id,user_id,title,content,confirm) values (#{alarm_id}, #{user_id},#{title},#{content},#{confirm})
+    <select id="selectAlarmList" parameterType="map" resultType="map">
+        SELECT * FROM alarm
+        WHERE user_id = #{userId}
+        ORDER BY created_at DESC
+    </select>
+
+    <insert id="insertAlarm" parameterType="map">
+        INSERT INTO alarm (user_id, message, created_at)
+        VALUES (#{userId}, #{message}, NOW())
     </insert>
+
+    <delete id="deleteAlarm" parameterType="map">
+        DELETE FROM alarm
+        WHERE id = #{id}
+    </delete>
 
 </mapper>

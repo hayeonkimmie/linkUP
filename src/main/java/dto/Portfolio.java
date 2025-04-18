@@ -3,14 +3,23 @@ import java.sql.Date;
 import java.util.Arrays;
 
 public class Portfolio {
-    private Integer portfolioId;
-    private String freelancerId;
-    private String title;
-    private String thumbnail;
-    private Date portProjStart;
-    private Date portProjEnd;
-    private String teamRole;
-    private String skillDescription;
+    int portfolio_id;
+    String freelancer_id;
+    String title;
+    String thumbnail;
+    Date port_proj_start;
+    Date port_proj_end;
+    String team_role;
+    String skill_description;
+    String introduce;
+    int project_id;
+    String attachment;
+    String external_url;
+    Date created_date;
+    boolean is_temp_saved;
+    boolean is_user_deleted;
+    boolean is_deleted;
+    int priority;
     private String[] skillList;
     private String introduce;
     private Integer projectId;
@@ -24,18 +33,15 @@ public class Portfolio {
     private boolean isDeleted;
     private Integer priority;
 
-    // Constructor
     public Portfolio() {
-        super();
-    }
-//포폴 목록
-    public Portfolio(Integer portfolioId, String freelancerId, String title, String thumbnail, String[] skillList, boolean isTempSaved, String introduce, Date createdDate) {
-        this.portfolioId = portfolioId;
-        this.freelancerId = freelancerId;
+        this.portfolio_id = portfolio_id;
+        this.freelancer_id = freelancer_id;
         this.title = title;
         this.thumbnail = thumbnail;
-        this.skillList = skillList;
-        this.isTempSaved = isTempSaved;
+        this.port_proj_start = port_proj_start;
+        this.port_proj_end = port_proj_end;
+        this.team_role = team_role;
+        this.skill_description = skill_description;
         this.introduce = introduce;
         this.createdDate = createdDate;
     }
@@ -95,12 +101,12 @@ public class Portfolio {
         this.priority = priority;
     }
 
-    public Integer getPortfolioId() {
-        return portfolioId;
+    public int getPortfolio_id() {
+        return portfolio_id;
     }
 
-    public void setPortfolioId(Integer portfolioId) {
-        this.portfolioId = portfolioId;
+    public void setPortfolio_id(int portfolio_id) {
+        this.portfolio_id = portfolio_id;
     }
 
     public String getProjectName() {
@@ -115,8 +121,8 @@ public class Portfolio {
         return freelancerId;
     }
 
-    public void setFreelancerId(String freelancerId) {
-        this.freelancerId = freelancerId;
+    public void setFreelancer_id(String freelancer_id) {
+        this.freelancer_id = freelancer_id;
     }
 
     public String getTitle() {
@@ -135,36 +141,36 @@ public class Portfolio {
         this.thumbnail = thumbnail;
     }
 
-    public Date getPortProjStart() {
-        return portProjStart;
+    public Date getPort_proj_start() {
+        return port_proj_start;
     }
 
-    public void setPortProjStart(Date portProjStart) {
-        this.portProjStart = portProjStart;
+    public void setPort_proj_start(Date port_proj_start) {
+        this.port_proj_start = port_proj_start;
     }
 
-    public Date getPortProjEnd() {
-        return portProjEnd;
+    public Date getPort_proj_end() {
+        return port_proj_end;
     }
 
-    public void setPortProjEnd(Date portProjEnd) {
-        this.portProjEnd = portProjEnd;
+    public void setPort_proj_end(Date port_proj_end) {
+        this.port_proj_end = port_proj_end;
     }
 
-    public String getTeamRole() {
-        return teamRole;
+    public String getTeam_role() {
+        return team_role;
     }
 
-    public void setTeamRole(String teamRole) {
-        this.teamRole = teamRole;
+    public void setTeam_role(String team_role) {
+        this.team_role = team_role;
     }
 
-    public String getSkillDescription() {
-        return skillDescription;
+    public String getSkill_description() {
+        return skill_description;
     }
 
-    public void setSkillDescription(String skillDescription) {
-        this.skillDescription = skillDescription;
+    public void setSkill_description(String skill_description) {
+        this.skill_description = skill_description;
     }
 
     public String getIntroduce() {
@@ -175,12 +181,12 @@ public class Portfolio {
         this.introduce = introduce;
     }
 
-    public Integer getProjectId() {
-        return projectId;
+    public int getProject_id() {
+        return project_id;
     }
 
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
+    public void setProject_id(int project_id) {
+        this.project_id = project_id;
     }
 
     public String getAttachment() {
@@ -191,40 +197,46 @@ public class Portfolio {
         this.attachment = attachment;
     }
 
-    public String getExternalUrl() {
-        return externalUrl;
+    public String getExternal_url() {
+        return external_url;
     }
 
-    public void setExternalUrl(String externalUrl) {
-        this.externalUrl = externalUrl;
+    public void setExternal_url(String external_url) {
+        this.external_url = external_url;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getCreated_date() {
+        return created_date;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
     }
 
     public boolean getIsTempSaved() {
         return isTempSaved;
     }
 
-    public void setTempSaved(boolean tempSaved) {
-        isTempSaved = tempSaved;
+    public void setIs_temp_saved(boolean is_temp_saved) {
+        this.is_temp_saved = is_temp_saved;
     }
 
     public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(int priority) {
         this.priority = priority;
     }
-    public String[] getSkillList() {
-        return skillList;
+
+    public int getPortfolioId() {
+        return 0;
     }
+
+    public String getSkillDescription() {
+        return "";
+    }
+
     public void setSkillList(String[] skillList) {
         this.skillList = skillList;
     }

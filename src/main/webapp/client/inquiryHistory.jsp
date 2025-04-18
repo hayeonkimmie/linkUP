@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -7,8 +9,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>문의 내역</title>
-  <link rel="stylesheet" href="../css/headerSt.css" />
-  <link rel="stylesheet" href="../css/inquiryHistory.css" />
+  <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/inquiryHistory.css" />
 </head>
 <body>
 <div class="layout">

@@ -44,4 +44,14 @@ public class PageInfo {
 	public void setEndPage(Integer endPage) {
 		this.endPage = endPage;
 	}
+
+	@Override
+	public String toString() {
+		return "PageInfo{" +
+				"curPage=" + curPage +
+				", allPage=" + allPage +
+				", startPage=" + startPage +
+				", endPage=" + endPage +
+				'}';
+	}
 }

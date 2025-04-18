@@ -6,38 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>개인 프로젝트 지원 현황</title>
   <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
+  <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
   <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
   <link rel="stylesheet" href="<c:url value='/css/freelancer_my_apply_proj_list.css'/>">
   <script src="../js/freelancer_apply_proj_list.js"></script>
-
 </head>
 
 <body>
+<div class="header">
+  <!-- 헤더 인클루드 영역 -->
+  <jsp:include page="/common/header.jsp"/>
+</div>
 <div class="container">
-    <aside class="sidebar">
-      <div class="profile">
-        <img src="./../img/basic_profile_img.png" alt=" " />
-        <p>닉네임</p>
-        <p>마이페이지</p>
-      </div>
-      <ul>
-        <ul class="profile-settings">
-          <h3>프로필 설정</h3>
-          <li>
-            <a href="#">기본 정보 설정</a>
-          </li>
-          <li>
-            <a href="#">전문가 정보 설정</a>
-          </li>
-        </ul>
-        <li><a href="#">포트폴리오</a></li>
-        <li><a href="#">찜한 프로젝트</a></li>
-        <li><a href="#">지원한 프로젝트 내역</a></li>
-        <li class="active"><a href="#">진행중인 / 완료된 프로젝트</a></li>
-        <li><a href="#">프로젝트 후기</a></li>
-        <li><a href="#">문의내역</a></li>
-      </ul>
-    </aside>
+  <!-- 사이드바 -->
+  <jsp:include page="/freelancer/sidebar.jsp"/>
       <main class="content">
         <section class="section">
           <h3>내 프로젝트 지원 현황</h3>

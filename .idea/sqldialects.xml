@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/RepresenPortfolio.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/adminclient.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/alarm.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/ammount.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/apply.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/category.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/contract.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/freelancer.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/jjimProj.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/jjimfree.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/lv.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/news.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/notice.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/pay.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/portfolio.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/qna.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/riview.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/settlelist.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/settlement.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/subCategory.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/user.xml" dialect="MySQL" />
+  </component>
+</project>

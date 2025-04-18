@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.review">
+    <insert id="insert_review" parameterType="review">
+        insert review (review_id,project_id,w_user_id,r_user_id,star,comment,create_date)
+        values (#{review_id}, #{project_id},#{w_user_id},#{r_user_id},#{star},#{comment},#{create_date})
+    </insert>
+
+</mapper>

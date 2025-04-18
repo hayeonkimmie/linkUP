@@ -8,4 +8,17 @@
         values (#{freelancer_id}, #{category},#{skill},#{address}, #{academic},#{introduction},#{license}, #{bank},#{account_num},#{is_negotiable}, #{is_resident},#{desired_salary},#{desired_location}, #{other_requests},#{attachment},#{external_url})
     </insert>
 
+    <select id="selectAllFreelancer" resultType="freelancer">
+        SELECT
+            u.user_id,
+            u.name,
+            u.email,
+            u.registration_date,
+            u.phone_num,
+            '구직자' AS type
+        FROM
+            freelancer f
+                INNER JOIN user u ON f.freelancer_id = u.user_id
+    </select>
+
 </mapper>

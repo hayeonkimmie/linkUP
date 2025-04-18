@@ -37,7 +37,7 @@
             <h2>${portfolio.title}</h2>
             <div class="portfolio-info">
                 <div class="portfolio-thumbnail">
-                    <img src="${portfolio.thumbnail}" alt='포트폴리오 썸네일 이미지'
+                    <img src="image?filename=${portfolio.thumbnail}" alt='포트폴리오 썸네일 이미지'
                          style="width: 100%; height: 100%; border-radius: 8px;"/>
                 </div>
                 <div class="portfolio-meta">
