@@ -3,17 +3,47 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.portfolio">
-    <select id="select_portfolio_list_by_page" parameterType="Map" resultType="portfolio">
+    <select id="selectPortfolioCnt" parameterType="String" resultType="Integer">
+        SELECT count(*) FROM portfolio where freelancer_id = #{user_id} and is_deleted = false
+    </select>
+    <!--포트폴리오 목록 조회-->
+    <select id="selectPortfolioListByPage" parameterType="Map" resultType="portfolio">
         SELECT portfolio_id, title, thumbnail, introduce, skill_description, created_date, is_temp_saved
         FROM portfolio
-        where freelancer_id = ${user_id}
-          and is_deleted is false order by portfolio_id desc limit #{row},10;
+        where freelancer_id = #{user_id}
+          and is_deleted is false order by portfolio_id desc limit #{row}, 10
     </select>
-    <select id="select_portfolio_by_Id" parameterType="Integer" resultType="portfolio">
-        SELECT * FROM portfolio where portfolio_id = #{portfolio_id} and is_deleted is false;
+    <!--포츠폴리오 상세 조회-->
+    <select id="selectPortfolioById" parameterType="Integer" resultType="portfolio">
+        SELECT
+            p.*,
+            pr.project_name
+        FROM
+            portfolio p
+                LEFT JOIN
+            project pr ON p.project_id = pr.project_id
+        WHERE
+            p.portfolio_id = #{portfolio_id}
     </select>
-    <select id="select_portfolio_cnt" parameterType="String" resultType="portfolio">
-        SELECT row_count() FROM portfolio where portfolio_id = #{user_id} and is_deleted is false and is_temp_saved is false;
-    </select>
-
+    <update id="updatePortfolio" parameterType="portfolio">
+        UPDATE portfolio
+        SET title = #{title},
+            thumbnail = #{thumbnail},
+            introduce = #{introduce},
+            skill_description = #{skill_description}
+            
+        WHERE portfolio_id = #{portfolio_id}
+    </update>
+    <insert id="insertPortfolioComplete" parameterType="portfolio">
+        INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, created_date, is_temp_saved)
+        VALUES (#{user_id}, #{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{project_id}, #{attachment}, #{external_url}, #{created_date}, 0)
+    </insert>
+    <insert id="insertPortfolio " parameterType="portfolio"> /*미완인 포폴*/
+    INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, created_date, is_temp_saved)
+    VALUES (#{user_id}, #{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{project_id}, #{attachment}, #{external_url}, #{created_date},true)
+    </insert>
+    <update id="deletePortfolioById" parameterType="Integer">
+        update portfolio set is_deleted=true
+        WHERE portfolio_id = #{portfolio_id}
+    </update>
 </mapper>

@@ -2,10 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.project">
+<mapper namespace="mapper.qna">
+    <select id="selectQnACntByUserId" parameterType="String" resultType="Integer">
+        SELECT count(*) FROM qna where user_id = #{userId};
+    </select>
+    <select id="selectQnAListByPage" parameterType="Map" resultType="qna">
+        select *
+        from qna
+        where user_id = #{userId}
+        order by qna_id desc
+        limit #{row}, 10
     <insert id="insertQna" parameterType="qna">
         insert qna (qna_id,user_id,question_title,question_content,question_date,answer_content,created_date)
         values (#{qna_id}, #{user_id}, #{question_title},#{question_content},#{question_date},#{answer_content},#{created_date})
     </insert>
-
+    </select>
 </mapper>

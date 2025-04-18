@@ -2,10 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.project">
-    <insert id="insertJjimProj" parameterType="jjimProj">
-        insert jjimProj (jjim_id,project_id,freelancer_id)
-        values (#{jjim_id}, #{project_id},#{freelancer_id})
+<mapper namespace="mapper.jjimProj">
+    <insert id="insertJjimProj" parameterType="Map">
+        insert jjimProj (project_id,freelancer_id)
+        values (#{project_id}, #{freelancer_id})
     </insert>
-
+    <select id="selectJjimProjlistByUserId" parameterType="Map" resultType="jjimProj">
+        select * from jjimProj
+        where freelancer_id = #{freelancer_id}
+        order by jjim_id desc
+        limit #{row}, 10
+    </select>
+    <select id="selectJjimProjlistForMyPageMain" parameterType="Map" resultType="jjimProj">
+        select * from jjimProj
+        where freelancer_id = #{freelancer_id}
+        order by jjim_id desc
+        LIMIT 5
+    </select>
+    <delete id="deleteJjimProj" parameterType="Map">
+        delete
+        from jjimProj
+        where project_id = #{project_id}
+          and freelancer_id = #{freelancer_id}
+    </delete>
 </mapper>

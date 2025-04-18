@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.project">
+<mapper namespace="mapper.pay">
     <insert id="insertPay" parameterType="pay">
         insert pay (project_fee_id,project_id,lv_id,project_fee)
         values (#{project_fee_id}, #{project_id},#{lv_id},#{project_fee})

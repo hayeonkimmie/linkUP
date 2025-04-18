@@ -1,4 +1,4 @@
-@import url('./common.css'); /* 공통 스타일 가져오기 */
+
 
 /* 리뷰 관리 페이지 전용 스타일 */
 .review-stats {
@@ -50,4 +50,62 @@
   color: #f59e0b;
   margin: 8px 0 4px;
   font-size: 15px;
+
+  .tab-content {
+    display: none;
+  }
+  .tab-content.active {
+    display: block;
+  }
+
+  .review-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .review-header .left {
+    display: flex;
+    align-items: center;
+  }
+
+  .profile-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+
+  .review-buttons {
+    text-align: right;
+    margin-top: 10px;
+  }
+
+  .review-buttons button {
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .review-buttons .edit {
+    background-color: #f3f4f6;
+  }
+
+  .review-buttons .delete {
+    background-color: #fee2e2;
+    color: #dc2626;
+  }
+
 }

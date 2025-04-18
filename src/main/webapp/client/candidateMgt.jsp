@@ -1,13 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>지원자 관리</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/candidateMgt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/style.css" />
+  <link rel="stylesheet" href="${contextPath}/css/style.css" />
   <style>
     /* 그대로 복붙해도 되지만, 가독성을 위해 style은 필요 시 따로 분리 권장 */
     /* ... 기존 CSS는 그대로 유지 ... */

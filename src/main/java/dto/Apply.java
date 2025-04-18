@@ -1,21 +1,29 @@
 package dto;
+import java.time.LocalDate;
 import java.util.Date;
 
 
 public class Apply {
     int apply_id;
     String freelancer_id;
-    String category;
     int project_id;
     Date apply_date;
     Date cancel_date;
     boolean is_approved;
     Date approval_change_date;
 
-    public Apply(int apply_id, String freelancer_id, String category, int project_id, Date apply_date, Date cancel_date, boolean is_approved, Date approval_change_date) {
+    public Apply(int apply_id, String freelancer_id, int project_id, Date apply_date, Date cancel_date, boolean is_approved) {
         this.apply_id = apply_id;
         this.freelancer_id = freelancer_id;
-        this.category = category;
+        this.project_id = project_id;
+        this.apply_date = apply_date;
+        this.cancel_date = cancel_date;
+        this.is_approved = is_approved;
+    }
+
+    public Apply(int apply_id, String freelancer_id, int project_id, Date apply_date, Date cancel_date, boolean is_approved, Date approval_change_date) {
+        this.apply_id = apply_id;
+        this.freelancer_id = freelancer_id;
         this.project_id = project_id;
         this.apply_date = apply_date;
         this.cancel_date = cancel_date;
@@ -37,14 +45,6 @@ public class Apply {
 
     public void setFreelancer_id(String freelancer_id) {
         this.freelancer_id = freelancer_id;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public int getProject_id() {

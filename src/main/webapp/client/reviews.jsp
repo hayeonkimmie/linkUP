@@ -1,18 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>리뷰 내역</title>
-  <link rel="stylesheet" href="<c:url value='/css/headerSt.css' />" />
-  <link rel="stylesheet" href="<c:url value='/css/style.css' />" />
-  <link rel="stylesheet" href="<c:url value='/css/reviewMgt.css' />" />
+  <link rel="stylesheet" href="${contextPath}/css/style.css" />
+  <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/reviewMgt.css" />
 </head>
 <body>
   <%-- 공통 헤더 (선택) --%>
-  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../home/header.jsp" />
 
   <div class="layout">
     <!-- 사이드바 -->

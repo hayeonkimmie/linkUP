@@ -20,7 +20,7 @@
 <header class="header-header">
   <div class="header-header-container">
     <div class="header-logo-search">
-      <a href="main.jsp" class="header-logo">
+      <a href="${contextPath}/home/main.jsp" class="header-logo">
         <img src="../img/링크업 로고.png" alt="Link up 로고">
       </a>
       <input type="text" class="header-search-bar" placeholder="어떤 전문가를 찾고 계신가요" />
@@ -33,7 +33,7 @@
         <li class="header-dropdown">
           <a href="#" class="header-dropdown-toggle">웹제작</a>
           <ul class="header-dropdown-menu">
-            <li><a href="#">홈페이지 신규 제작</a></li>
+            <li><a href="${contextPath}/home/catalogWebProduction.jsp">홈페이지 신규 제작</a></li>
             <li><a href="#">쇼핑몰 신규 제작</a></li>
             <li><a href="#">랜딩페이지</a></li>
           </ul>

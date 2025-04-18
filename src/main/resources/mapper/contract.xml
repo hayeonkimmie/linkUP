@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.project">
+<mapper namespace="mapper.contract">
     <insert id="insertContract" parameterType="contract">
         insert contract (id,apply_id,project_fee_id,project_id,client_id,settle_day,start_date,end_date,projectid,pname,fee,pmanager,total_pay,status,fphone,account)
                values (#{id}, #{apply_id},#{project_fee_id},#{project_id},#{client_id},#{settle_day},#{start_date},#{end_date},#{projectid},#{pname},#{fee},#{pmanager},#{total_pay},#{status},#{fphone},#{account})

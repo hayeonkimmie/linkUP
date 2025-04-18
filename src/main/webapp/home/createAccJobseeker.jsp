@@ -20,7 +20,7 @@
 
 <body>
 <div class="container">
-    <a href="main.html" class="logo">
+    <a href="${pageContext}/home/main.jsp" class="logo">
         <img src="../img/링크업 로고.png" alt="Link up 로고">
     </a>
     <p class="text1">간단한 정보로<br>바로 가입 가능!</p>
