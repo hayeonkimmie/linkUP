@@ -12,9 +12,9 @@
         where user_id = #{userId}
         order by qna_id desc
         limit #{row}, 10
-    <insert id="insertQna" parameterType="qna">
-        insert qna (qna_id,user_id,question_title,question_content,question_date,answer_content,created_date)
-        values (#{qna_id}, #{user_id}, #{question_title},#{question_content},#{question_date},#{answer_content},#{created_date})
-    </insert>
     </select>
+    <insert id="insertQna" parameterType="qna">
+        insert qna (user_id,question_title,question_content,question_date,answer_content,answer_date)
+        values (#{userId}, #{questionTitle},#{questionContent},#{questionDate},#{answerContent},#{answerDate})
+    </insert>
 </mapper>
