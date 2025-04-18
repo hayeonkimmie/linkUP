@@ -29,4 +29,9 @@ public class NoticeDAOImpl implements INoticeDAO {
 
         return noticeList;
     }
+
+    @Override
+    public Notice selectNoticePage(Integer id) throws Exception {
+        return sqlSession.selectOne("mapper.notice.selectNoticeById", id);
+    }
 }

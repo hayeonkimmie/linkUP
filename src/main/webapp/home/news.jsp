@@ -18,18 +18,18 @@
 </head>
 <body>
 <div class="container">
-  <div class="path"><a href="gogakCenter.jsp" style="text-decoration:none; color:inherit;">고객센터</a> &gt; 새소식</div>
+  <div class="path"><a href="${contextPath}/gogakCenter" style="text-decoration:none; color:inherit;">고객센터</a> &gt; 새소식</div>
   <h2>➕ 새 소식</h2>
   <ul class="news-list">
-<%--    <li><a href="newsPage.jsp">링크업에서 주최하는 취업박람회 소개</a><span>2025.04.01</span></li>--%>
-<%--    <li><a href="news-detail.html">링크업 홈페이지 리뉴얼</a><span>2025.03.26</span></li>--%>
-<%--    <li><a href="news-detail.html">창업을 위한 링크업 이벤트(3/2~)</a><span>2025.03.04</span></li>--%>
-<%--    <li><a href="news-detail.html">2월 우리는 오늘도 프로젝트</a><span>2025.02.26</span></li>--%>
-<%--    <li><a href="news-detail.html">2월 링크업이 아메리카노 쏜다!</a><span>2025.04.01</span></li>--%>
     <c:forEach var="news" items="${newsList}">
-      <li><a href="?newsId=${news.newsId}"> &nbsp;&nbsp; ${news.title}</a> ${news.createdAt}</li>
+      <li><a href="${contextPath}/newsPage?id=${news.newsId}"> &nbsp;&nbsp; ${news.title}</a> ${news.createdAt}</li>
     </c:forEach>
   </ul>
+  <%--    <li><a href="newsPage.jsp">링크업에서 주최하는 취업박람회 소개</a><span>2025.04.01</span></li>--%>
+  <%--    <li><a href="news-detail.html">링크업 홈페이지 리뉴얼</a><span>2025.03.26</span></li>--%>
+  <%--    <li><a href="news-detail.html">창업을 위한 링크업 이벤트(3/2~)</a><span>2025.03.04</span></li>--%>
+  <%--    <li><a href="news-detail.html">2월 우리는 오늘도 프로젝트</a><span>2025.02.26</span></li>--%>
+  <%--    <li><a href="news-detail.html">2월 링크업이 아메리카노 쏜다!</a><span>2025.04.01</span></li>--%>
 </div>
 </body>
 </html>

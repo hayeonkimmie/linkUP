@@ -23,11 +23,10 @@
 
     <select id="selectQnACount" resultType="Integer">
         select count(*) from qna
-
     </select>
 
     <insert id="insertQna" parameterType="qna">
         insert qna (qna_id,user_id,question_title,question_content,question_date,answer_content,answer_date)
-        values (#{qna_id}, #{user_id}, #{question_title},#{question_content},#{question_date},#{answer_content},#{answer_date})
+        values (#{qnaId}, #{userId}, #{questionTitle},#{questionContent},#{questionDate},#{answerContent},#{answerDate})
     </insert>
 </mapper>

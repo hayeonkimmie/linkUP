@@ -24,4 +24,11 @@ public class QnADAO implements IQnADAO{
         param.put("row", row);
         return sqlSession.selectList("mapper.qna.selectQnAListByPage", param);
     }
+
+    @Override
+    public Integer insertQnA(QnA qna) throws Exception {
+        Integer result = sqlSession.insert("mapper.qna.insertQna", qna);
+        sqlSession.commit(); // INSERT는 반드시 commit 해줘야 반영됨
+        return result;
+    }
 }

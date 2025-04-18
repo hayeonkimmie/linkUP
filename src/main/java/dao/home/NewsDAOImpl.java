@@ -1,6 +1,7 @@
 package dao.home;
 
 import dto.News;
+import dto.Notice;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
 
@@ -24,5 +25,10 @@ public class NewsDAOImpl implements INewsDAO{
             System.out.println(n.getTitle());
         }
         return newsList;
+    }
+
+    @Override
+    public News selectNewsPage(Integer id) throws Exception {
+        return sqlSession.selectOne("mapper.news.selectNewsById", id);
     }
 }

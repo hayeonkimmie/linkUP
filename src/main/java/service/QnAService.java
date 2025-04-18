@@ -48,4 +48,9 @@ private IQnADAO iQnADAO;
         System.out.println("QnAService.java 29 qnaList = " + qnaList);
         return qnaList;
     }
+
+    @Override
+    public Integer insertQnA(QnA qna) throws Exception {
+        return iQnADAO.insertQnA(qna);
+    }
 }

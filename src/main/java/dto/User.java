@@ -48,6 +48,14 @@ public class User {
         this.isKakao = isKakao;
     }
 
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
     public String getUserId() {
         return userId;
     }

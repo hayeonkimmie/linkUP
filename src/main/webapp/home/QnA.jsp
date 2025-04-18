@@ -18,11 +18,11 @@
 </head>
 <body>
 <div class="container">
-  <div class="path"><a href="gogakCenter.jsp" style="text-decoration:none; color:inherit;">고객센터</a> &gt; 문의</div>
+  <div class="path"><a href="${contextPath}/gogakCenter" style="text-decoration:none; color:inherit;">고객센터</a> &gt; 문의</div>
   <h2>❓ 문의하기</h2>
-  <form>
-    <input type="text" placeholder="제목을 입력해주세요" required />
-    <textarea rows="10" placeholder="문의 내용을 입력해주세요" required></textarea>
+  <form action="${contextPath}/QnA" method="post">
+    <input type="text" name="questionTitle" placeholder="제목을 입력해주세요" required />
+    <textarea name="questionContent" rows="10" placeholder="문의 내용을 입력해주세요" required></textarea>
     <button type="submit" class="submit-btn">등록하기</button>
   </form>
 </div>
