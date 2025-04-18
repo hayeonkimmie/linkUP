@@ -56,6 +56,44 @@
         WHERE p.project_id = #{projectId}
     </select>
 
+    <select id="selectProjectsForSettlement" resultType="dto.admin.AdminProject">
+    <![CDATA[
+        SELECT
+            p.project_id,
+            p.client_id,
+            c.company_name,
+            p.project_name,
+            CONCAT(DATE_FORMAT(p.created_date, '%y.%m.%d'), ' ~ ', DATE_FORMAT(p.settle_day, '%y.%m.%d')) AS project_duration,
+            p.manager,
+            p.mphone,
+            IFNULL(SUM(ct.total_pay - ct.fee), 0) AS total_amount,
+            IFNULL(SUM(ct.fee), 0) AS total_fee,
+            IFNULL(SUM(ct.total_pay), 0) AS total_settlement,
+            COUNT(DISTINCT a.freelancer_id) AS participant,
+            DATEDIFF(p.settle_day, NOW()) AS settle_date,
+            MAX(ct.status) AS settle_status
+        FROM project p
+                 LEFT JOIN client c ON p.client_id = c.client_id
+                 LEFT JOIN apply a ON a.project_id = p.project_id AND a.is_approved = TRUE
+                 LEFT JOIN contract ct ON ct.project_id = p.project_id
+        WHERE p.settle_day <= CURDATE()
+        GROUP BY
+            p.project_id,
+            p.client_id,
+            c.company_name,
+            p.project_name,
+            p.created_date,
+            p.settle_day,
+            p.manager,
+            p.mphone
+        ORDER BY p.settle_day DESC
+        ]]>
+    </select>
+
+
+
+
+
     <!-- 복합 결과 매핑 -->
     <resultMap id="ProjectDetailMap" type="dto.admin.AdminProjectDetail" >
         <id property="projectId" column="project_id"/>

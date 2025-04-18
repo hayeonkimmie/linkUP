@@ -6,9 +6,6 @@ public class ProjectParticipant {
     private String participantEmail;
     private String participantPhone;
 
-    // getter/setter 전부 포함
-
-
     public ProjectParticipant() {
     }
 

@@ -31,6 +31,7 @@ public class Freelancer {
     private String externalUrl;
     private String type;
 
+
     public Freelancer() {}
 
     /**

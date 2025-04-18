@@ -204,4 +204,23 @@ public class AdminProject {
     public void setSettleStatus(String settleStatus) {
         this.settleStatus = settleStatus;
     }
+
+    @Override
+    public String toString() {
+        return "AdminProject{" +
+                "projectId=" + projectId +
+                ", clientId='" + clientId + '\'' +
+                ", clientName='" + clientName + '\'' +
+                ", projectName='" + projectName + '\'' +
+                ", projectDuration='" + projectDuration + '\'' +
+                ", projectManager='" + projectManager + '\'' +
+                ", managerPhone='" + managerPhone + '\'' +
+                ", totalAmount=" + totalAmount +
+                ", totalFee=" + totalFee +
+                ", totalSettlement=" + totalSettlement +
+                ", participant=" + participant +
+                ", settleDate=" + settleDate +
+                ", settleStatus='" + settleStatus + '\'' +
+                '}';
+    }
 }

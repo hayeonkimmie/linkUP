@@ -31,13 +31,21 @@ public class DashBoardController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        Integer totalPayment = 15689000;
-        Integer totalProjectCount = 283;
-        Integer completedProjectCount = 156;
+        Integer totalPayment = 0;
+        Integer totalProjectCount = 0;
+        Integer completedProjectCount = 0;
         List<DashboardProject> ongoingProjects = new ArrayList<>();
         ProjectService projectService = new ProjectService();
+
         try{
             ongoingProjects = (projectService.getDashboardProjectList());
+            for(DashboardProject dproject : ongoingProjects){
+                totalPayment += dproject.getTotalPay();
+                totalProjectCount++;
+                if(dproject.getProjectStatus().equals("완료됨")){
+                    completedProjectCount++;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
