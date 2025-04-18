@@ -20,7 +20,7 @@ public class NoticeDAOImpl implements INoticeDAO {
     }
 
     @Override
-    public List<Notice> getGogakCenterNoticesList(Integer row) throws Exception {
+    public List<Notice> selectGogakCenterNoticesList(Integer row) throws Exception {
         List<Notice> noticeList = sqlSession.selectList("mapper.notice.selectGogakCenterNoticeList", row);
 
         for (Notice n : noticeList){
