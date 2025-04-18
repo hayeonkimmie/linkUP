@@ -11,7 +11,7 @@
             u.email,
             u.registration_date,
             c.company_phone_number as phone_number,
-            '구인자' AS user_type
+            '구인자' as type
         FROM
             client c
                 INNER JOIN user u ON c.client_id = u.user_id

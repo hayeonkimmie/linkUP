@@ -44,7 +44,7 @@
 
             -- 참여자 정보
             u.name AS participant_name,
-            a.category AS participant_role,
+            a.sub_category_name AS participant_role,
             u.email AS participant_email,
             u.phone_num AS participant_phone
 
@@ -57,21 +57,24 @@
     </select>
 
     <select id="selectProjectsForSettlement" resultType="dto.AdminProject">
-    <![CDATA[
+        <![CDATA[
         SELECT
+            ct.id as contract_id,
             p.project_id,
             p.client_id,
             c.company_name,
             p.project_name,
             CONCAT(DATE_FORMAT(p.created_date, '%y.%m.%d'), ' ~ ', DATE_FORMAT(p.settle_day, '%y.%m.%d')) AS project_duration,
-            p.manager,
-            p.mphone,
+            p.manager as project_manager,
+            p.mphone as manager_phone,
             IFNULL(SUM(ct.total_pay - ct.fee), 0) AS total_amount,
             IFNULL(SUM(ct.fee), 0) AS total_fee,
             IFNULL(SUM(ct.total_pay), 0) AS total_settlement,
             COUNT(DISTINCT a.freelancer_id) AS participant,
             DATEDIFF(p.settle_day, NOW()) AS settle_date,
+            ct.client_status AS client_status,
             MAX(ct.status) AS settle_status
+
         FROM project p
                  LEFT JOIN client c ON p.client_id = c.client_id
                  LEFT JOIN apply a ON a.project_id = p.project_id AND a.is_approved = TRUE
@@ -86,11 +89,10 @@
             p.settle_day,
             p.manager,
             p.mphone
+        HAVING settle_status IN ('정산완료', '진행중')
         ORDER BY p.settle_day DESC
         ]]>
     </select>
-
-
 
 
 

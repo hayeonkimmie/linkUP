@@ -77,7 +77,7 @@
         </thead>
         <tbody>
         <c:forEach var="c" items="${clientList}">
-          <c:if test="${c.userType eq '구인자'}">
+          <c:if test="${c.type eq '구인자'}">
             <tr>
               <td>
                 <a href="<c:url value='/admin/client'/>?clientid=${c.userId}" class="project-link">${c.userId}</a>
@@ -86,7 +86,7 @@
               <td>${c.email}</td>
               <td>${c.registrationDate}</td>
               <td>${c.phoneNumber}</td>
-              <td><span class="badge 구인자">${c.userType}</span></td>
+              <td><span class="badge 구인자">${c.type}</span></td>
             </tr>
           </c:if>
         </c:forEach>

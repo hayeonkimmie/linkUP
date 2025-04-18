@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import dao.admin.ClientDAO;
 import dao.admin.FreelancerDAO;
@@ -41,6 +41,10 @@ public class UserListController extends HttpServlet {
             freelancerList =  freelancerService.selectAllFreelancer();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        for(ClientUserInfo client : clientList) {
+            System.out.println(client);
         }
 
         request.setCharacterEncoding("UTF-8");

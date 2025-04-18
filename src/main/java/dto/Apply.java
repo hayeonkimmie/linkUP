@@ -11,6 +11,8 @@ public class Apply {
     private Date cancelDate;
     private boolean isApproved;
     private Date approvalChangeDate;
+    private Integer subCategoryId; // 서브 카테고리 ID
+    private String subCategoryName; // 서브 카테고리 이름
 
     public Apply(int applyId, String freelancerId, int projectId, Date applyDate, Date cancelDate, boolean isApproved) {
         this.applyId = applyId;

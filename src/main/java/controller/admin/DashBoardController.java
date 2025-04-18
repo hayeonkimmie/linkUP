@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import dto.DashboardProject;
 import service.ProjectService;
