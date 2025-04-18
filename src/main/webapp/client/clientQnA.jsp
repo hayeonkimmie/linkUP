@@ -1,17 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>문의 내역</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/headerSt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/style.css" />
+  <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
 </head>
 <body>
 
 <!-- 공통 헤더 -->
-<jsp:include page="/common/header.jsp" />
+<jsp:include page="/home/header.jsp" />
 
 <div class="layout">
   <!-- 공통 사이드바 -->
@@ -117,5 +118,56 @@
     document.getElementById("successModal").style.display = "none";
   }
 </script>
+
+<table border="1">
+    <tr>
+      <th>질문번호</th>
+      <th>작성자</th>
+      <th>제목</th>
+      <th>내용</th>
+      <th>작성일</th>
+      <th>답변</th>
+    </tr>
+  <c:forEach var="qna" items ="${qnaList}">
+    <tr>
+      <td>${qna.qna_id}</td>
+      <td>${qna.user_id}</td>
+      <td>${qna.question_title}</td>
+      <td>${qna.question_content}</td>
+      <td>${qna.created_date}</td>
+      <td>${qna.answer_content}</td>
+    </tr>
+  </c:forEach>
+</table>
+<div>
+  <c:choose>
+    <c:when test="${pageInfo.curPage>1}">
+      <a href="inquiry?page=${pageInfo.curPage-1}">&lt;</a>
+    </c:when>
+    <c:otherwise>
+      <a>&lt;</a>
+    </c:otherwise>
+  </c:choose>
+
+  <c:forEach begin = "${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
+    <c:choose>
+      <c:when test="${page eq pageInfo.curPage}">
+        <a href="inquiry?page=${page }" class = "select">${page }</a>
+      </c:when>
+      <c:otherwise>
+        <a href="inquiry?page=${page }" class = "btn">${page }</a>
+      </c:otherwise>
+    </c:choose>
+  </c:forEach>
+
+  <c:choose>
+    <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+      <a href="inquiry?page=${pageInfo.curPage+1}">&gt;</a>
+    </c:when>
+    <c:otherwise>
+      <a>&gt;</a>
+    </c:otherwise>
+  </c:choose>
+</div>
 </body>
 </html>

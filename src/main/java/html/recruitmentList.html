@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>구인 관리</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/headerSt.css" />
+</head>
+<body>
+  <div> 
+    <header class="header">
+      <div class="header-container">
+        <div class="logo-search">
+          <a href="" class="logo">
+            <img src="/Users/hayeon/Documents/devs/workspace/mini-project/링크업 로고.png" alt="Link up 로고">
+          </a>
+          <input type="text" class="search-bar" placeholder="어떤 전문가를 찾고 계신가요" />
+        </div>
+        <div class="auth-buttons">
+          <a href="#" class="login">로그인</a>
+          <a href="#" class="signup">회원가입</a>
+        </div>
+      </div>
+      
+      <nav class="category-nav">
+        <ul>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">■ 전체보기</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">비즈니스</a></li>
+              <li><a href="#">디자인</a></li>
+              <li><a href="#">IT·프로그래밍</a></li>
+              <li><a href="#">영상·사진·음향</a></li>
+              <li><a href="#">마케팅</a></li>
+              <li><a href="#">번역·통역</a></li>
+              <li><a href="#">문서·글쓰기</a></li>
+              <li><a href="#">창업·사업</a></li>
+              <li><a href="#">세무·법무·노무</a></li>
+              <li><a href="#">취미 레슨</a></li>
+              <!-- 전체 보기 목록 - 추가되어야함 -->
+              <!-- 임시로 href 를 #으로 해놨음 -->
+            </ul>
+          </li>
+          <li><a href="">디자인</a></li>
+          <li><a href="">IT·프로그래밍</a></li>
+          <li><a href="">영상·사진·음향</a></li>
+          <li><a href="">마케팅</a></li>
+          <li><a href="">번역·통역</a></li>
+          <li><a href="">문서·글쓰기</a></li>
+          <li><a href="">창업·사업</a></li>
+          <li><a href="">세무·법인·노무</a></li>
+          <li><a href="">취미 레슨</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+</div>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="https://via.placeholder.com/80" alt="프로필 이미지" />
+        <label class="camera-icon" for="profile-upload"></label>
+        <input type="file" id="profile-upload" accept="image/*" />
+        <p>닉네임</p>
+        <p>마이페이지</p><br />
+      </div>
+      <h3>프로필 설정</h3>
+      <h3>프로젝트</h3>
+      <ul>
+        <li><a href="#">구인 수정</a></li>
+        <li><a href="#">구인 관리</a></li>
+        <li><a href="#">지원자 관리</a></li>
+      </ul>
+      <h3>찜한 구인자</h3>
+      <h3>리뷰 내역</h3>
+      <h3>문의 내역</h3>
+      <h3>알림 설정</h3>
+    </aside>
+
+    <main class="main">
+      <h2 class="section-title">구인 관리</h2>
+      <div class="filter-tabs">
+        <div class="filter-tab active" data-status="all">전체보기</div>
+        <div class="filter-tab" data-status="open">구인중</div>
+        <div class="filter-tab" data-status="temp">임시저장</div>
+        <div class="filter-tab" data-status="done">구인완료</div>
+      </div>
+      <div class="job-card" data-status="open">
+        <div class="job-card-badge">
+          <span class="badge" data-status="open">지원자 8명</span>
+          <span class="badge" data-status="open">구인중</span><br><br />
+        </div>
+        <div class="job-card-header">
+          <div class="job-title">웹사이트 유지보수</div>
+          <div class="tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div><br />
+          <div class="job-meta">웹 개발 / 2024.10.01 등록</div><br />
+          <strong>프로젝트 기간</strong><br />
+          2023.10.15 ~ 2023.12.15
+          <div class="job-card-status">
+            <div class="total-price">총 프로젝트 금액 2,000,000원</div>
+          </div>
+
+          <div class="highlight">구인 인원 및 페이</div>
+          <div class="pay-section">
+            <div class="pay-box">
+              <h4>초급</h4>
+              <p>1,000,000원/인</p>
+              <p>1명</p>
+            </div>
+            <div class="pay-box">
+              <h4>중급</h4>
+              <p>1,500,000원/인</p>
+              <p>2명</p>
+            </div>
+            <div class="pay-box">
+              <h4>고급</h4>
+              <p>2,000,000원/인</p>
+              <p>1명</p>
+            </div>
+          </div>
+          <div class="buttons">
+            <button class="btn btn-delete">삭제하기</button>
+            <button class="btn btn-edit">구인인원 및 상태 수정</button>
+            <button class="btn btn-edit">수정하기</button>
+            <button class="btn btn-manage">지원자 관리</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-card" data-status="temp">
+        <div class="job-card-badge">
+          <span class="badge" data-status="temp">임시저장</span><br><br />
+        </div>
+        <div class="job-card-header">
+          <div class="job-title">백앤드 API 개발</div>
+          <div class="tags">
+            <span>Python</span>
+            <span>Java</span>
+          </div><br />
+          <div class="job-meta">백엔드 개발 / 2024.10.05 저장</div><br />
+          <strong>프로젝트 기간</strong><br />
+          2024.10.15 ~ 2024.12.15
+          <div class="job-card-status">
+            <div class="total-price">총 프로젝트 금액 3,000,000원</div>
+          </div>
+
+          <div class="highlight">구인 인원 및 페이</div>
+          <div class="pay-section">
+            <div class="pay-box">
+              <h4>중급</h4>
+              <p>1,500,000원/인</p>
+              <p>2명</p>
+            </div>
+          </div>
+          <div class="buttons">
+            <button class="btn btn-edit">수정하기</button>
+            <button class="btn btn-delete">삭제하기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-card" data-status="done">
+        <div class="job-card-badge">
+          <span class="badge" data-status="done">구인완료</span><br><br>
+        </div>
+        <div class="job-card-header">
+          <div class="job-title">웹사이트 유지보수</div>
+          <div class="tags">
+            <span>HTML</span>
+            <span>CSS</span>
+          </div><br />
+          <div class="job-meta">웹 개발 · 지원자 3명 · 2023.07.20 등록</div>
+          <strong>프로젝트 기간</strong><br />
+          2023.08.01 ~ 2023.09.01
+          <div class="job-card-status">
+            <div class="total-price">총 프로젝트 금액 1,000,000원</div>
+            <div class="settlement-status">
+              <span class="status-label">정산 상태</span>
+              <span class="status-value">정산 완료</span>
+            </div>
+          </div>
+
+          <div class="highlight">구인 인원 및 페이</div>
+          <div class="pay-section">
+            <div class="pay-box">
+              <h4>초급</h4>
+              <p>500,000원/인</p>
+              <p>2명</p>
+            </div>
+            <div class="pay-box">
+              <h4>중급</h4>
+              <p>1,000,000원/인</p>
+              <p>1명</p>
+            </div>
+            <div class="pay-box">
+              <h4>고급</h4>
+              <p>1,500,000원/인</p>
+              <p>1명</p>
+            </div>
+          </div>
+          <div class="buttons">
+            <button class="btn btn-settle">정산하기</button>
+            <button class="btn btn-review">리뷰작성</button>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.job-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const status = tab.getAttribute('data-status');
+
+        cards.forEach(card => {
+          if (status === 'all') {
+            card.style.display = 'block';
+          } else {
+            card.style.display = card.getAttribute('data-status') === status ? 'block' : 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
