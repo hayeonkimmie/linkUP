@@ -32,7 +32,7 @@
             -- 기본 정보
             p.project_id,
             p.project_name,
-            p.project_descirption,
+            p.project_description,
             p.created_date,
             p.deadline_date,
 
@@ -57,8 +57,9 @@
     </select>
 
     <select id="selectProjectsForSettlement" resultType="dto.AdminProject">
-    <![CDATA[
+        <![CDATA[
         SELECT
+            ct.id as contract_id,
             p.project_id,
             p.client_id,
             c.company_name,
@@ -71,7 +72,9 @@
             IFNULL(SUM(ct.total_pay), 0) AS total_settlement,
             COUNT(DISTINCT a.freelancer_id) AS participant,
             DATEDIFF(p.settle_day, NOW()) AS settle_date,
+            ct.client_status AS client_status,
             MAX(ct.status) AS settle_status
+
         FROM project p
                  LEFT JOIN client c ON p.client_id = c.client_id
                  LEFT JOIN apply a ON a.project_id = p.project_id AND a.is_approved = TRUE
@@ -86,11 +89,10 @@
             p.settle_day,
             p.manager,
             p.mphone
+        HAVING settle_status IN ('정산완료', '진행중')
         ORDER BY p.settle_day DESC
         ]]>
     </select>
-
-
 
 
 

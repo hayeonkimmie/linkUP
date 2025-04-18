@@ -17,11 +17,16 @@ public class Contract {
     private int fee; // 수수료 금액의 0.3% 14:44 추가
     private String pmanager;
     private int totalPay;
+    private String clientStatus;
     private String status;
     private String fphone;
     private String account;
 
-    public Contract(String id, int applyId, int projectFeeId, int projectId, String freelancerId, String clientId, Date settleDay, Date startDate, Date endDate, String pname, int fee, String pmanager, int totalPay, String status, String fphone, String account) {
+
+    public Contract() {
+    }
+
+    public Contract(String id, int applyId, int projectFeeId, int projectId, String freelancerId, String clientId, Date settleDay, Date startDate, Date endDate, String pname, Integer pay, int fee, String pmanager, int totalPay, String clientStatus, String status, String fphone, String account) {
         this.id = id;
         this.applyId = applyId;
         this.projectFeeId = projectFeeId;
@@ -32,9 +37,11 @@ public class Contract {
         this.startDate = startDate;
         this.endDate = endDate;
         this.pname = pname;
+        this.pay = pay;
         this.fee = fee;
         this.pmanager = pmanager;
         this.totalPay = totalPay;
+        this.clientStatus = clientStatus;
         this.status = status;
         this.fphone = fphone;
         this.account = account;
@@ -46,14 +53,6 @@ public class Contract {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getFreelancerId() {
-        return freelancerId;
-    }
-
-    public void setFreelancerId(String freelancerId) {
-        this.freelancerId = freelancerId;
     }
 
     public int getApplyId() {
@@ -78,6 +77,14 @@ public class Contract {
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
+    }
+
+    public String getFreelancerId() {
+        return freelancerId;
+    }
+
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
     public String getClientId() {
@@ -120,6 +127,14 @@ public class Contract {
         this.pname = pname;
     }
 
+    public Integer getPay() {
+        return pay;
+    }
+
+    public void setPay(Integer pay) {
+        this.pay = pay;
+    }
+
     public int getFee() {
         return fee;
     }
@@ -142,6 +157,14 @@ public class Contract {
 
     public void setTotalPay(int totalPay) {
         this.totalPay = totalPay;
+    }
+
+    public String getClientStatus() {
+        return clientStatus;
+    }
+
+    public void setClientStatus(String clientStatus) {
+        this.clientStatus = clientStatus;
     }
 
     public String getStatus() {

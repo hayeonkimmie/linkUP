@@ -29,11 +29,36 @@ public class AdminProject {
     private Integer totalFee;         // 총 수수료
     private Integer totalSettlement;  // 총 결제 금액
     private Integer participant;      // 참여자 수
-    private Integer settleDate;       // 정산일
+    private Integer settleDate;        // 정산일
+    private String clientStatus;      // 회사 상태
     private String settleStatus;      // 정산 상태
+    private String contractId;     // 계약 ID
 
     public AdminProject() {
     }
+
+    public AdminProject(String contractId, String clientId, String clientName, Integer projectId, String projectName, String projectDuration,
+                        String projectManager, String managerPhone,
+                        Integer totalAmount, Integer totalFee, Integer totalSettlement,
+                        Integer participant, Integer settleDate, String clientStatus, String settleStatus) {
+        this.contractId = contractId;
+        this.projectId = projectId;
+        this.clientId = clientId;
+        this.clientName = clientName;
+        this.projectName = projectName;
+        this.projectDuration = projectDuration;
+        this.projectManager = projectManager;
+        this.managerPhone = managerPhone;
+        this.totalAmount = totalAmount;
+        this.totalFee = totalFee;
+        this.totalSettlement = totalSettlement;
+        this.participant = participant;
+        this.settleDate = settleDate;
+        this.clientStatus = clientStatus;
+        this.settleStatus = settleStatus;
+    }
+
+
 
     /**
      * /admin/client_project_list.jsp 페이지에서 사용되는 생성자<br>
@@ -97,6 +122,22 @@ public class AdminProject {
         this.participant = participant;
         this.settleDate = settleDate;
         this.settleStatus = settleStatus;
+    }
+
+    public String getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
+    }
+
+    public String getClientStatus() {
+        return clientStatus;
+    }
+
+    public void setClientStatus(String clientStatus) {
+        this.clientStatus = clientStatus;
     }
 
     public String getClientId() {
@@ -208,6 +249,7 @@ public class AdminProject {
     @Override
     public String toString() {
         return "AdminProject{" +
+                "contractId='" + contractId + '\'' +
                 "projectId=" + projectId +
                 ", clientId='" + clientId + '\'' +
                 ", clientName='" + clientName + '\'' +
@@ -220,6 +262,7 @@ public class AdminProject {
                 ", totalSettlement=" + totalSettlement +
                 ", participant=" + participant +
                 ", settleDate=" + settleDate +
+                ", clientStatus='" + clientStatus + '\'' +
                 ", settleStatus='" + settleStatus + '\'' +
                 '}';
     }

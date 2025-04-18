@@ -92,21 +92,26 @@
                             <td>${p.settleDate}일</td>
                             <td>
                                 <select class="settlement-status-select">
-                                    <option ${p.settleStatus eq '미납' ? 'selected' : ''}>미납</option>
-                                    <option ${p.settleStatus eq '미결산' ? 'selected' : ''}>미결산</option>
-                                    <option ${p.settleStatus eq '완료' ? 'selected' : ''}>완료</option>
+                                    <option ${p.clientStatus eq 'N' ? 'selected' : ''}>미납</option>
+                                    <option ${p.clientStatus eq 'T' ? 'selected' : ''}>미결산</option>
+                                    <option ${p.clientStatus eq 'C' ? 'selected' : ''}>완료</option>
                                 </select>
                             </td>
                             <td class="settlement-col">
                                 <c:choose>
-                                    <c:when test="${p.settleStatus eq '완료' || p.settleStatus eq '미납'}">
-                                        <a href="settlement_detail.jsp" class="settlement-btn">정산하기</a>
-                                        <a href="settlement_info.jsp" class="settlement-btn light">정산내역</a>
+                                    <c:when test="${p.settleStatus eq '진행중' || p.settleStatus eq '정산완료'}">
+                                        <a href="<c:url value='/admin/settlement'>
+                                        <c:param name='slistid' value='${p.projectId}'/>
+                                        </c:url>" class="settlement-btn">정산하기</a>
+                                        <a href="<c:url value='/admin/settlement'>
+                                        <c:param name='contractid' value='${p.projectId}'/>
+                                    </c:url>" class="settlement-btn light">정산내역</a>
                                     </c:when>
                                     <c:otherwise>
                                         <div style="height: 38px;"></div>
                                     </c:otherwise>
                                 </c:choose>
+
                             </td>
                         </tr>
                     </c:forEach>

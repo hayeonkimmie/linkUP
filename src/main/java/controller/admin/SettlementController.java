@@ -3,6 +3,8 @@ package controller.admin;
 import dao.admin.ISettlementDAO;
 import dao.admin.SettlementDAO;
 import dto.AdminProject;
+import dto.AdminProjectDetail;
+import dto.Contract;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,23 +20,39 @@ public class SettlementController extends HttpServlet {
     public SettlementController() {
         super();
     }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
+        request.setCharacterEncoding("UTF-8");
 
         ISettlementDAO settlementDAO = new SettlementDAO();
-        List<AdminProject> projectList = new ArrayList<>();
+        String contractIdParam = request.getParameter("contractid");
+        String slistIdParam = request.getParameter("slistid");
 
-        try{
-            projectList = settlementDAO.selectProjectsForSettlement();
+        try {
+            if (contractIdParam != null) {
+                // 👉 정산내역 페이지 (settlement_info.jsp)
+                int contractId = Integer.parseInt(contractIdParam);
+//                AdminProjectDetail detail = settlementDAO.selectSettlementInfoByContractId(contractId);
+//                request.setAttribute("settlementInfo", detail);
+                request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
+            } else if (slistIdParam != null) {
+                // 👉 정산하기 페이지 (settlement_detail.jsp)
+                int projectId = Integer.parseInt(slistIdParam);
+
+//                request.setAttribute("contractList", contractList);
+                request.getRequestDispatcher("/admin/settlement_detail.jsp").forward(request, response);
+            } else {
+                // 👉 기본 목록 페이지 (settlement.jsp)
+                List<AdminProject> projectList = settlementDAO.selectProjectsForSettlement();
+                request.setAttribute("projectList", projectList);
+                request.getRequestDispatcher("/admin/settlement.jsp").forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            request.setAttribute("projectList", projectList);
-            request.getRequestDispatcher("/admin/settlement.jsp").forward(request, response);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "정산 페이지 처리 중 오류 발생");
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
