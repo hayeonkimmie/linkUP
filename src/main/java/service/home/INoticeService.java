@@ -10,4 +10,6 @@ public interface INoticeService {
     //    List<Notice> getNoticesList(PageInfo pageInfo) throws Exception;
 
     public List<Notice> getGogakCenterNoticesList(Integer row) throws Exception;
+
+    public Notice getNoticePage(Integer id) throws Exception;
 }

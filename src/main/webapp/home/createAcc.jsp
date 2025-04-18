@@ -29,7 +29,7 @@
 
     <hr class="divider">
     <!-- divider은 얇은 구분선임 -->
-    <a href="${contextPath}/home/createAccChoose.jsp">
+    <a href="${contextPath}/createAccEmail">
         <button class="btn email">
             이메일로 가입하기
         </button></a>

@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="container">
-  <div class="path"><a href="gogakCenter.jsp" style="text-decoration:none; color:inherit;">고객센터</a> &gt; 공지사항</div>
+  <div class="path"><a href="${contextPath}/gogakCenter" style="text-decoration:none; color:inherit;">고객센터</a> &gt; 공지사항</div>
   <h2>➕ 공지사항</h2>
   <ul class="news-list">
 <%--    <li><a href="newsPage.jsp">링크업에서 주최하는 취업박람회 소개</a><span>2025.04.01</span></li>--%>
@@ -26,22 +26,9 @@
 <%--    <li><a href="news-detail.html">창업을 위한 링크업 이벤트(3/2~)</a><span>2025.03.04</span></li>--%>
 <%--    <li><a href="news-detail.html">2월 우리는 오늘도 프로젝트</a><span>2025.02.26</span></li>--%>
 <%--    <li><a href="news-detail.html">2월 링크업이 아메리카노 쏜다!</a><span>2025.04.01</span></li>--%>
-  <table border="1">
-    <tr>
-      <th>공지번호</th>
-      <th>제목</th>
-      <th>내용</th>
-      <th>날짜</th>
-    </tr>
     <c:forEach var="notice" items="${noticeList}">
-      <tr>
-        <td>${notice.noticeId}</td>
-        <td>${notice.title}</td>
-        <td>${notice.content}</td>
-        <td>${notice.createdAt}</td>
-      </tr>
+      <li><a href="${contextPath}/noticePage?id=${notice.noticeId}"> &nbsp;&nbsp;${notice.title}</a> ${notice.createdAt}</li>
     </c:forEach>
-  </table>
   </ul>
 </div>
 </body>

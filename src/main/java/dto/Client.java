@@ -1,18 +1,37 @@
 package dto;
 
+import java.util.Date;
+
 public class Client {
     private String clientId;
-    private String ceo;
     private String companyRegNo;
+    private String companyName;
     private String companyPhoneNumber;
     private String companyAddress;
     private String companyWebsiteUrl;
     private String companyDescription;
+    private String businessType;
+    private Date foundedDate;
     private String companyFaxNum;
-    private String type;
+    private String ceo;
 
+    public Client(String clientId, String companyRegNo, String companyName, String companyPhoneNumber, String companyAddress, String companyWebsiteUrl, String companyDescription, String businessType, Date foundedDate, String companyFaxNum, String ceo) {
+        this.clientId = clientId;
+        this.companyRegNo = companyRegNo;
+        this.companyName = companyName;
+        this.companyPhoneNumber = companyPhoneNumber;
+        this.companyAddress = companyAddress;
+        this.companyWebsiteUrl = companyWebsiteUrl;
+        this.companyDescription = companyDescription;
+        this.businessType = businessType;
+        this.foundedDate = foundedDate;
+        this.companyFaxNum = companyFaxNum;
+        this.ceo = ceo;
+    }
 
-    public Client() {}
+    public Client() {
+
+    }
 
     public String getClientId() {
         return clientId;
@@ -38,6 +57,14 @@ public class Client {
 
     public void setCompanyRegNo(String companyRegNo) {
         this.companyRegNo = companyRegNo;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getCompanyPhoneNumber() {
@@ -72,6 +99,22 @@ public class Client {
         this.companyDescription = companyDescription;
     }
 
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
+    }
+
+    public Date getFoundedDate() {
+        return foundedDate;
+    }
+
+    public void setFoundedDate(Date foundedDate) {
+        this.foundedDate = foundedDate;
+    }
+
     public String getCompanyFaxNum() {
         return companyFaxNum;
     }
@@ -80,26 +123,11 @@ public class Client {
         this.companyFaxNum = companyFaxNum;
     }
 
-    public String getType() {
-        return type;
+    public String getCeo() {
+        return ceo;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "clientId='" + clientId + '\'' +
-                ", ceo='" + ceo + '\'' +
-                ", companyRegNo='" + companyRegNo + '\'' +
-                ", companyPhoneNumber='" + companyPhoneNumber + '\'' +
-                ", companyAddress='" + companyAddress + '\'' +
-                ", companyWebsiteUrl='" + companyWebsiteUrl + '\'' +
-                ", companyDescription='" + companyDescription + '\'' +
-                ", companyFaxNum='" + companyFaxNum + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+    public void setCeo(String ceo) {
+        this.ceo = ceo;
     }
 }

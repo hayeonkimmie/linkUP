@@ -27,12 +27,10 @@
 
   <!-- 공지사항 (100%) -->
   <div class="full-box">
-    <a href="#">
-      <h3>공지사항</h3>
-    </a>
+      <h3><a href="${contextPath}/notice">공지사항</a></h3>
     <ul class="list">
       <c:forEach var="notice" items="${noticeList}">
-        <li><a href="?noticeId=${notice.noticeId}">${notice.title}</a> ${notice.createdAt}</li>
+        <li><a href="${contextPath}/noticePage?id=${notice.noticeId}">${notice.title}</a> ${notice.createdAt}</li>
       </c:forEach>
 
 <%--      <li><span>4월 고객센터 운영시간 안내</span><span>2025.04.01</span></li>--%>
@@ -49,19 +47,17 @@
     <div class="QAHalf-box inquiry">
       <div class="section-title">문의관리</div>
       <div class="btn-wrap">
-        <a href="Q&A.jsp" class="btn">문의하기 <span>&#8250;</span></a>
+        <a href="${contextPath}/QnA" class="btn">문의하기 <span>&#8250;</span></a>
         <a href="#" class="btn">문의내역 <span>&#8250;</span></a>
       </div>
     </div>
 
     <!-- 새 소식 -->
     <div class="newHalf-box">
-      <a href="notice.jsp">
-        <h3>새 소식</h3>
-      </a>
+      <h3> <a href="${contextPath}/news"> ❤ 새 소식 </a></h3>
       <ul class="list">
         <c:forEach var="news" items="${newsList}">
-          <li><a href="?newsId=${news.newsId}">${news.title}</a> ${news.createdAt}</li>
+          <li><a href="${contextPath}/newsPage?id=${news.newsId}">${news.title}</a> ${news.createdAt}</li>
         </c:forEach>
       </ul>
 <%--        <table border="0">--%>
