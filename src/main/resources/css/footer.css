@@ -1,0 +1,84 @@
+.footer {
+    background-color: #fafafa;
+    color: #333;
+    padding: 60px 40px 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+  }
+  
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  
+  .footer-contact {
+    max-width: 300px;
+  }
+  
+  .footer-contact h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-contact .phone {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .footer-contact .phone span {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+  
+  .footer-contact .hours,
+  .footer-contact .email {
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 60px;
+  }
+  
+  .footer-links div h5 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-links ul li {
+    margin-bottom: 6px;
+  }
+  
+  .footer-links ul li a {
+    text-decoration: none;
+    color: #555;
+    transition: color 0.2s;
+  }
+  
+  .footer-links ul li a:hover {
+    color: #940683;
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+    color: #888;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  
+  .footer-bottom p {
+    margin: 4px 0;
+  }
+  

@@ -1,0 +1,206 @@
+/* 탭 버튼 */
+.tabs {
+    display: flex;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    border-bottom: 2px solid #4a4af2;
+    font-weight: bold;
+}
+
+.badge {
+    background: #fba;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    margin-left: 0.3rem;
+}
+
+/* 리뷰 카드 */
+.review-card, .review-form {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.review-user-icon {
+    width: 40px;
+    height: 40px;
+    background: #ddd;
+    border-radius: 50%;
+}
+/* 후기 작성 폼 전체 영역 */
+.review-form {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+/* 개별 입력 줄 */
+.form-row {
+    margin-bottom: 1.5rem;
+}
+
+/* 라벨 스타일 */
+.form-row label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 0.5rem;
+}
+
+/* 텍스트 입력/출력 박스 스타일 */
+.form-row input[type="text"],
+.form-row textarea {
+    width: 80%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #333;
+    background-color: #fafafa;
+    resize: none;
+}
+
+/* textarea placeholder 스타일 */
+.form-row textarea::placeholder {
+    color: #bbb;
+    font-size: 0.9rem;
+}
+
+/* 별점 선택 영역 */
+.rating-select {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+/* 별점 기본 스타일 */
+.rating-select .star {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+/* 선택된 별점 스타일 */
+.rating-select .star.selected {
+    color: #b23ea5;
+}
+
+/* 버튼 그룹 정렬 */
+.btn-group.right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    text-align: right;
+}
+
+/* 버튼 스타일 */
+.btn {
+    /*padding: 0.5rem 1.2rem;*/
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 0.4rem 1rem;
+    background: #eac3e8;
+    margin-left: 0.5rem;
+}
+
+.btn.light {
+    background-color: #f3f3f3;
+    color: #444;
+}
+
+.btn:not(.light) {
+    background-color: #e8c7e6;
+    color: #444;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* 버튼 */
+.btn-group {
+    margin-top: 1rem;
+}
+
+
+/* 별점 표시 */
+.stars {
+    color: #d35fc5;
+    font-size: 1.2rem;
+}
+
+.rating-select .star {
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.rating-select .star.selected {
+    color: #d35fc5;
+}
+
+.review-text {
+    font-size: 0.95rem;
+    color: #333;
+}
+/* 아코디언 헤더 */
+.accordion-header {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.accordion-header:hover {
+    background: #f9f9f9;
+}
+
+/* 폼 영역 기본 숨김 */
+.accordion-body {
+    display: none;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+}
+
+/* 열림 상태 */
+.accordion-item.active .accordion-body {
+    display: block;
+}

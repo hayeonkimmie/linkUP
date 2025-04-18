@@ -35,6 +35,9 @@ public class Freelancer {
     String attachment;
     String externalUrl;
 
+    double averageScore; //평점
+    int projectCount; //프로젝트 수
+
     public Freelancer() {
         super();
     }
@@ -277,5 +280,21 @@ public class Freelancer {
 
     public void setExternalUrl(String externalUrl) {
         this.externalUrl = externalUrl;
+    }
+
+    public double getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(double averageScore) {
+        this.averageScore = averageScore;
+    }
+
+    public int getProjectCount() {
+        return projectCount;
+    }
+
+    public void setProjectCount(int projectCount) {
+        this.projectCount = projectCount;
     }
 }

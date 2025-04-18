@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+  }
+  
+  .layout-wrapper {
+    display: flex;
+    height: 100vh;
+  }
+  
+  #menu-include {
+    width: 260px;
+    min-width: 260px;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 32px;
+    overflow-y: auto;
+  }
+  
+  .page-title {
+    font-size: 24px; /* 기존 20px → 약 20% 증가 */
+    font-weight: bold;
+    margin-bottom: 24px;
+  }
+  
+  .card.detail-box {
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .title-box {
+    font-size: 18px; /* 기존 15px → 증가 */
+    font-weight: bold;
+    padding: 12px 16px;
+    background-color: #f0f2f5;
+    border-radius: 6px;
+    margin-bottom: 24px;
+  }
+  
+  .detail-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    font-size: 16px; /* 기존 14px → 증가 */
+    margin-bottom: 24px;
+    color: #333;
+  }
+  
+  .question-section h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  
+  .question-section p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
+    white-space: pre-wrap;
+  }
+  
+  .answer-section {
+    margin-top: 32px;
+  }
+  
+  .answer-section label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .answer-section textarea {
+    width: 100%;
+    height: 160px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  .actions .btn {
+    padding: 10px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .actions .btn.cancel {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .actions .btn.confirm {
+    background-color: #1a3cff;
+    color: white;
+  }
+  

@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  background-color: #fff;
+  color: #333;
+}
+.container {
+  display: flex;
+  padding: 2rem 3rem;
+  /* 이거 화면 가운데로 보낸거임 */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.dropdown-menu{
+  list-style: none;
+}
+.main {
+  flex: 1;
+  min-width: 0;
+}
+.breadcrumb {
+  font-size: 25px;
+  color: #332b34;
+  margin-bottom: 1.25rem;
+}
+h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem;
+}
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.tab {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  color: #aaa;
+}
+.tab.active {
+  color: #000;
+  border-bottom: 2px solid #000;
+  font-weight: bold;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+.filters {
+  margin-bottom: 1rem;
+  position: relative;
+}
+.dropdown-toggle {
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #555;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem 0;
+  width: 150px;
+  z-index: 10;
+}
+.dropdown-menu.show {
+  display: block;
+}
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.dropdown-menu li:hover {
+  background: #f0f0f0;
+}
+.job-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.job-card {
+  background: #ead7ee;
+  padding: 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  position: relative;
+}
+.job-image {
+  width: 100%;
+  height: 100px;
+  background: #d8b7dd;
+  border-radius: 15px;
+  margin-bottom: 0.75rem;
+}
+.job-card h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: #222;
+}
+.job-card p {
+  font-size: 0.85rem;
+  color: #444;
+  margin: 0.5rem 0;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.avatar {
+  width: 20px;
+  height: 20px;
+  background: #5b4b52;
+  border-radius: 50%;
+}
+.post-button {
+  margin-left: auto;
+  background-color: #a64cc1;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}

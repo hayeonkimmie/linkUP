@@ -1,0 +1,206 @@
+.page-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.qna-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  flex: 1;
+  padding: 16px;
+  background-color: #f6f7fa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-box .label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.stat-box .value {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.stat-box.danger .value {
+  color: #e53935;
+}
+
+.qna-filter {
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.qna-filter .filter-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.qna-filter select,
+.qna-filter input[type="date"],
+.qna-filter input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.qna-filter .search-box {
+  display: flex;
+  align-items: center;
+}
+
+.qna-filter .search-box button {
+  margin-left: 6px;
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.qna-table {
+  padding: 0;
+}
+
+.qna-table .table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.qna-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.qna-table th, .qna-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 14px;
+}
+
+.qna-table td.q-title {
+  font-weight: bold;
+  color: #333;
+}
+
+.qna-table .badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 12px;
+  background-color: #f1f1f1;
+  color: #555;
+}
+
+.qna-table .badge.danger {
+  background-color: #fdecea;
+  color: #e53935;
+}
+
+.pagination {
+  padding: 16px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 4px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination button.curpage {
+  font-weight: bold;
+  background-color: #e6edff;
+  color: #1a3cff;
+}
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fb;
+}
+
+.layout-wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+#menu-include {
+  width: 260px;
+  min-width: 260px;
+  background-color: white;
+  border-right: 1px solid #eee;
+}
+
+.content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.card-stats-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  min-width: 300px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-value.answered {
+  color: lightgreen;
+}
+
+
+.stat-value.danger {
+  color: #e53935;
+}

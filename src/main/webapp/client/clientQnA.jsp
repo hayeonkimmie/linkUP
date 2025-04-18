@@ -1,173 +1,134 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>문의 내역</title>
   <link rel="stylesheet" href="${contextPath}/css/style.css" />
   <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/inquiryHistory.css" />
 </head>
 <body>
-
-<!-- 공통 헤더 -->
-<jsp:include page="/home/header.jsp" />
+<jsp:include page="../home/header.jsp" />
 
 <div class="layout">
-  <!-- 공통 사이드바 -->
-<jsp:include page="/common/sidebar.jsp" />
+  <!-- 사이드바 -->
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/80" alt="프로필 이미지" />
+      <p>${nickname}</p>
+      <p><a href="${contextPath}/client/profileSetting.jsp">마이페이지</a></p>
+    </div>
+    <h3>프로필 설정</h3>
+    <h3>프로젝트</h3>
+    <ul>
+      <li><a href="${contextPath}/client/register.jsp">내 프로젝트 조회</a></li>
+      <li><a href="${contextPath}/applicant/manage.jsp">지원자 관리</a></li>
+    </ul>
+    <h3><a href="${contextPath}/bookmark.jsp">찜한 구인자</a></h3>
+    <h3><a href="${contextPath}/review/history.jsp">리뷰 내역</a></h3>
+    <h3><a href="${contextPath}/clientQnA" class="active">문의 내역</a></h3>
+    <h3><a href="${contextPath}/alarm/setting.jsp">알림 설정</a></h3>
+  </aside>
 
+  <!-- 본문 -->
   <main class="main">
     <div class="top-bar">
       <h2>문의 내역</h2>
-      <button type="button" onclick="toggleModal(true)">+ 문의하기</button>
+      <a href="${contextPath}/home/Q&A.jsp" class="btn-submit">+ 문의하기</a>
     </div>
 
-    <!-- 알림 모달 -->
-    <div class="alert-modal" id="successModal">
-      <div class="alert-content">
-        <p>문의가 성공적으로 등록되었습니다.</p>
-        <button onclick="closeSuccessModal()">OK</button>
-      </div>
-    </div>
+    <!-- 검색 & 필터 바 -->
+    <form method="get" action="clientQnA" id="filterForm" class="search-filter-bar">
+      <input
+              type="text"
+              name="keyword"
+              value="${keyword}"
+              placeholder="문의 제목 검색"
+              aria-label="문의 제목 검색"
+              style="margin-right: 10px;"
+      />
 
-    <!-- 검색 바 & 필터 -->
-    <div class="search-filter-bar">
-      <input type="text" placeholder="문의 제목 검색" />
-      <div class="filters">
-        <select>
-          <option>모든 상태</option>
-          <option>답변 대기</option>
-          <option>답변 완료</option>
+      <div class="filters" style="display: flex; gap: 10px;">
+        <select name="status" onchange="document.getElementById('filterForm').submit()" aria-label="답변 상태 필터">
+          <option value="" ${empty status ? 'selected' : ''}>모든 상태</option>
+          <option value="waiting" ${status == 'waiting' ? 'selected' : ''}>답변 대기</option>
+          <option value="complete" ${status == 'complete' ? 'selected' : ''}>답변 완료</option>
         </select>
-        <select>
-          <option>최신순</option>
-          <option>오래된순</option>
+
+        <select name="sort" onchange="document.getElementById('filterForm').submit()" aria-label="정렬 기준">
+          <option value="desc" ${sort == 'desc' || empty sort ? 'selected' : ''}>최신순</option>
+          <option value="asc" ${sort == 'asc' ? 'selected' : ''}>오래된순</option>
         </select>
       </div>
-    </div>
+    </form>
 
-    <!-- 문의 카드 목록: 예시 데이터 -->
-    <c:forEach var="inquiry" items="${inquiryList}">
+    <!-- QnA 카드 목록 -->
+    <c:forEach var="qna" items="${qnaList}">
       <section class="inquiry-card">
         <div class="inquiry-title">
-          ${inquiry.title}
-          <span class="badge ${inquiry.status eq '답변 완료' ? 'complete' : 'waiting'}">
-            ${inquiry.status}
-          </span>
+            ${qna.questionTitle}
+          <c:choose>
+            <c:when test="${not empty qna.answerContent}">
+              <span class="badge complete">답변 완료</span>
+            </c:when>
+            <c:otherwise>
+              <span class="badge waiting">답변 대기</span>
+            </c:otherwise>
+          </c:choose>
         </div>
-        <div class="inquiry-meta">${inquiry.date}</div>
-        <div class="inquiry-body">${inquiry.content}</div>
+        <div class="inquiry-meta"><fmt:formatDate value="${qna.questionDate}" pattern="yyyy-MM-dd" /></div>
+        <div class="inquiry-body">${qna.questionContent}</div>
 
-        <c:if test="${inquiry.reply ne null}">
+        <c:if test="${not empty qna.answerContent}">
           <div class="admin-reply">
             <div class="reply-title">
               <span>👤 관리자 답변</span>
-              <time>${inquiry.replyDate}</time>
+              <time><fmt:formatDate value="${qna.answerDate}" pattern="yyyy-MM-dd" /></time>
             </div>
-            ${inquiry.reply}
+              ${qna.answerContent}
           </div>
         </c:if>
       </section>
     </c:forEach>
 
+    <!-- 페이징 -->
+    <div class="pagination">
+      <c:choose>
+        <c:when test="${pageInfo.curPage > 1}">
+          <a href="clientQnA?page=${pageInfo.curPage - 1}&status=${status}&sort=${sort}&keyword=${keyword}">&lt;</a>
+        </c:when>
+        <c:otherwise>
+          <a class="disabled">&lt;</a>
+        </c:otherwise>
+      </c:choose>
+
+      <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
+        <c:choose>
+          <c:when test="${page eq pageInfo.curPage}">
+            <a href="clientQnA?page=${page}&status=${status}&sort=${sort}&keyword=${keyword}" class="select">${page}</a>
+          </c:when>
+          <c:otherwise>
+            <a href="clientQnA?page=${page}&status=${status}&sort=${sort}&keyword=${keyword}">${page}</a>
+          </c:otherwise>
+        </c:choose>
+      </c:forEach>
+
+      <c:choose>
+        <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+          <a href="clientQnA?page=${pageInfo.curPage + 1}&status=${status}&sort=${sort}&keyword=${keyword}">&gt;</a>
+        </c:when>
+        <c:otherwise>
+          <a class="disabled">&gt;</a>
+        </c:otherwise>
+      </c:choose>
+    </div>
   </main>
-</div>
-
-<!-- 문의 등록 모달 -->
-<div class="modal" id="inquiryModal">
-  <div class="modal-content">
-    <button class="modal-close" onclick="toggleModal(false)">&times;</button>
-    <h3>문의하기</h3>
-    <form action="/submitInquiry" method="post" enctype="multipart/form-data">
-      <input type="text" name="title" placeholder="문의 제목을 입력하세요" required>
-      <textarea name="content" rows="5" placeholder="문의 내용을 자세히 적어주세요" required></textarea>
-
-      <div class="file-box">
-        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" width="40" alt="파일 아이콘">
-        <p><b>파일 업로드</b> 또는 여기에 파일을 끌어다 놓으세요</p>
-        <p>PNG, JPG, PDF 최대 10MB</p>
-        <input type="file" name="file" accept=".jpg,.png,.pdf" />
-      </div>
-
-      <div class="notice">
-        <ul>
-          <li>문의 내용은 관리자만 확인할 수 있습니다.</li>
-          <li>답변은 보통 1-2일 내에 처리됩니다.</li>
-        </ul>
-      </div>
-
-      <div class="button-group">
-        <button type="button" class="btn-cancel" onclick="toggleModal(false)">취소</button>
-        <button type="submit" class="btn-submit">문의 등록하기</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- 스크립트 -->
-<script src="../js/inquiry.js"></script>
-<script>
-  function toggleModal(show) {
-    const modal = document.getElementById("inquiryModal");
-    modal.style.display = show ? "flex" : "none";
-  }
-
-  function closeSuccessModal() {
-    document.getElementById("successModal").style.display = "none";
-  }
-</script>
-
-<table border="1">
-    <tr>
-      <th>질문번호</th>
-      <th>작성자</th>
-      <th>제목</th>
-      <th>내용</th>
-      <th>작성일</th>
-      <th>답변</th>
-    </tr>
-  <c:forEach var="qna" items ="${qnaList}">
-    <tr>
-      <td>${qna.qnaId}</td>
-      <td>${qna.userId}</td>
-      <td>${qna.questionTitle}</td>
-      <td>${qna.questionContent}</td>
-      <td>${qna.answerDate}</td>
-      <td>${qna.answerContent}</td>
-    </tr>
-  </c:forEach>
-</table>
-<div>
-  <c:choose>
-    <c:when test="${pageInfo.curPage>1}">
-      <a href="inquiry?page=${pageInfo.curPage-1}">&lt;</a>
-    </c:when>
-    <c:otherwise>
-      <a>&lt;</a>
-    </c:otherwise>
-  </c:choose>
-
-  <c:forEach begin = "${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
-    <c:choose>
-      <c:when test="${page eq pageInfo.curPage}">
-        <a href="inquiry?page=${page }" class = "select">${page }</a>
-      </c:when>
-      <c:otherwise>
-        <a href="inquiry?page=${page }" class = "btn">${page }</a>
-      </c:otherwise>
-    </c:choose>
-  </c:forEach>
-
-  <c:choose>
-    <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-      <a href="inquiry?page=${pageInfo.curPage+1}">&gt;</a>
-    </c:when>
-    <c:otherwise>
-      <a>&gt;</a>
-    </c:otherwise>
-  </c:choose>
 </div>
 </body>
 </html>

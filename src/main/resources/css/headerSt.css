@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.header-header {
+  border-bottom: 1px solid #eee;
+  padding: 10px 20px;
+  background-color: white;
+}
+
+.header-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo-search {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.header-logo img {
+  height: 40px;
+}
+
+.header-search-bar {
+  flex: 1;
+  margin: 0 30px;
+  padding: 10px 20px;
+  font-size: 19px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  color: black;
+  background-color: #fafafa;
+  min-width: 550px;
+  width: 100%;
+}
+
+.header-nav-auth-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 0 20px;
+}
+
+.header-auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.header-auth-buttons a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+
+.header-signup {
+  background-color: #000000;
+  color: white !important;
+}
+
+.header-category-nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  gap: 30px;
+  font-size: 16px;
+  position: relative;
+}
+
+.header-category-nav ul li a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.header-category-nav ul li a:hover {
+  color: #940683;
+}
+
+.header-category-nav .header-dropdown {
+  position: relative;
+}
+
+.header-category-nav .header-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 35px;
+  left: 0;
+  background-color: white;
+  border: 0.2px solid #eee;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 10px 0;
+  min-width: 200px;
+  z-index: 999;
+}
+
+.header-category-nav .header-dropdown.open .header-dropdown-menu {
+  display: block;
+}
+
+.header-category-nav .header-dropdown-menu li {
+  padding: 5px 20px;
+}
+
+.header-category-nav .header-dropdown-menu li a {
+  color: #333;
+  font-size: 14px;
+}
+
+.header-category-nav .header-dropdown-menu li a:hover {
+  color: #940683;
+}
