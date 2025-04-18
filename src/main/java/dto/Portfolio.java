@@ -1,61 +1,105 @@
 package dto;
-
-import java.util.Date;
+import java.sql.Date;
+import java.util.Arrays;
 
 public class Portfolio {
-    int portfolio_id;
-    String freelancer_id;
+    int portfolioId;
+    String freelancerId;
     String title;
     String thumbnail;
-    Date port_proj_start;
-    Date port_proj_end;
-    String team_role;
-    String skill_description;
+    Date portProjStart;
+    Date portProjEnd;
+    String teamRole;
+    String skillDescription;
     String introduce;
-    int project_id;
+    int projectId;
     String attachment;
-    String external_url;
+    String externalUrl;
     Date created_date;
-    boolean is_temp_saved;
-    boolean is_user_deleted;
-    boolean is_deleted;
+    boolean isTempSaved;
+    boolean isUserDeleted;
+    boolean isDeleted;
     int priority;
     private String[] skillList;
+    private String projectName;
+    private String[] attachmentList;
+    private String[] externalUrlList;
+    private Date createdDate;
 
     public Portfolio() {
-        this.portfolio_id = portfolio_id;
-        this.freelancer_id = freelancer_id;
+        super();
+    }
+//    //작성 및 수정
+    public Portfolio(Integer portfolioId, String freelancerId, String title, String thumbnail, String skillDescription, boolean isTempSaved, String introduce, Date createdDate) {
+        this.portfolioId = portfolioId;
+        this.freelancerId = freelancerId;
         this.title = title;
         this.thumbnail = thumbnail;
-        this.port_proj_start = port_proj_start;
-        this.port_proj_end = port_proj_end;
-        this.team_role = team_role;
-        this.skill_description = skill_description;
+        this.skillDescription = skillDescription;
+        this.isTempSaved = isTempSaved;
         this.introduce = introduce;
-        this.project_id = project_id;
+        this.createdDate = createdDate;
+    }
+//    //포폴 상세
+    public Portfolio(Integer portfolioId,String freelancerId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String[] skillList, String introduce, Integer projectId, String projectName, String[] attachmentList, String[] externalUrlList, Date createdDate, boolean isTempSaved) {
+        this.portfolioId = portfolioId;
+        this.freelancerId = freelancerId;
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.portProjStart = portProjStart;
+        this.portProjEnd = portProjEnd;
+        this.teamRole = teamRole;
+        this.skillDescription = skillDescription;
+        this.skillList = skillList;
+        this.introduce = introduce;
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.attachmentList = attachmentList;
+        this.externalUrlList = externalUrlList;
+        this.createdDate = createdDate;
+        this.isTempSaved = isTempSaved;
+    }
+//
+//    // 작성, 수정
+    public Portfolio(Integer portfolioId, String freelancerId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String introduce, Integer projectId, String attachment, String externalUrl, Date createdDate, boolean isTempSaved) {
+        this.portfolioId = portfolioId;
+        this.freelancerId = freelancerId;
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.portProjStart = portProjStart;
+        this.portProjEnd = portProjEnd;
+        this.teamRole = teamRole;
+        this.skillDescription = skillDescription;
+        this.introduce = introduce;
+        this.projectId = projectId;
         this.attachment = attachment;
-        this.external_url = external_url;
-        this.created_date = created_date;
-        this.is_temp_saved = is_temp_saved;
-        this.is_user_deleted = is_user_deleted;
-        this.is_deleted = is_deleted;
+        this.externalUrl = externalUrl;
+        this.createdDate = createdDate;
+        this.isTempSaved = isTempSaved;
+    }
+//
+//    //구직자 상세페이지용
+    public Portfolio(String title, Integer portfolioId, Integer priority) {
+        this.title = title;
+        this.portfolioId = portfolioId;
         this.priority = priority;
     }
 
-    public int getPortfolio_id() {
-        return portfolio_id;
+
+    public int getPortfolioId() {
+        return portfolioId;
     }
 
-    public void setPortfolio_id(int portfolio_id) {
-        this.portfolio_id = portfolio_id;
+    public void setPortfolioId(int portfolioId) {
+        this.portfolioId = portfolioId;
     }
 
-    public String getFreelancer_id() {
-        return freelancer_id;
+    public String getFreelancerId() {
+        return freelancerId;
     }
 
-    public void setFreelancer_id(String freelancer_id) {
-        this.freelancer_id = freelancer_id;
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
     public String getTitle() {
@@ -74,36 +118,36 @@ public class Portfolio {
         this.thumbnail = thumbnail;
     }
 
-    public Date getPort_proj_start() {
-        return port_proj_start;
+    public Date getPortProjStart() {
+        return portProjStart;
     }
 
-    public void setPort_proj_start(Date port_proj_start) {
-        this.port_proj_start = port_proj_start;
+    public void setPortProjStart(Date portProjStart) {
+        this.portProjStart = portProjStart;
     }
 
-    public Date getPort_proj_end() {
-        return port_proj_end;
+    public Date getPortProjEnd() {
+        return portProjEnd;
     }
 
-    public void setPort_proj_end(Date port_proj_end) {
-        this.port_proj_end = port_proj_end;
+    public void setPortProjEnd(Date portProjEnd) {
+        this.portProjEnd = portProjEnd;
     }
 
-    public String getTeam_role() {
-        return team_role;
+    public String getTeamRole() {
+        return teamRole;
     }
 
-    public void setTeam_role(String team_role) {
-        this.team_role = team_role;
+    public void setTeamRole(String teamRole) {
+        this.teamRole = teamRole;
     }
 
-    public String getSkill_description() {
-        return skill_description;
+    public String getSkillDescription() {
+        return skillDescription;
     }
 
-    public void setSkill_description(String skill_description) {
-        this.skill_description = skill_description;
+    public void setSkillDescription(String skillDescription) {
+        this.skillDescription = skillDescription;
     }
 
     public String getIntroduce() {
@@ -114,12 +158,12 @@ public class Portfolio {
         this.introduce = introduce;
     }
 
-    public int getProject_id() {
-        return project_id;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
     public String getAttachment() {
@@ -130,44 +174,44 @@ public class Portfolio {
         this.attachment = attachment;
     }
 
-    public String getExternal_url() {
-        return external_url;
+    public String getExternalUrl() {
+        return externalUrl;
     }
 
-    public void setExternal_url(String external_url) {
-        this.external_url = external_url;
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
     }
 
     public Date getCreated_date() {
         return created_date;
     }
 
-    public void setCreated_date(Date created_date) {
+    public void getsetCreated_date(Date created_date) {
         this.created_date = created_date;
     }
 
-    public boolean isIs_temp_saved() {
-        return is_temp_saved;
+    public boolean getIsTempSaved() {
+        return isTempSaved;
     }
 
-    public void setIs_temp_saved(boolean is_temp_saved) {
-        this.is_temp_saved = is_temp_saved;
+    public void setTempSaved(boolean tempSaved) {
+        isTempSaved = tempSaved;
     }
 
-    public boolean isIs_user_deleted() {
-        return is_user_deleted;
+    public boolean isUserDeleted() {
+        return isUserDeleted;
     }
 
-    public void setIs_user_deleted(boolean is_user_deleted) {
-        this.is_user_deleted = is_user_deleted;
+    public void setUserDeleted(boolean userDeleted) {
+        isUserDeleted = userDeleted;
     }
 
-    public boolean isIs_deleted() {
-        return is_deleted;
+    public boolean getIsDeleted() {
+        return isDeleted;
     }
 
-    public void setIs_deleted(boolean is_deleted) {
-        this.is_deleted = is_deleted;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public int getPriority() {
@@ -178,27 +222,71 @@ public class Portfolio {
         this.priority = priority;
     }
 
-    public int getPortfolioId() {
-        return 0;
-    }
-
-    public String getSkillDescription() {
-        return "";
+    public String[] getSkillList() {
+        return skillList;
     }
 
     public void setSkillList(String[] skillList) {
         this.skillList = skillList;
     }
 
-    public String[] getSkillList() {
-        return skillList;
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String[] getAttachmentList() {
+        return attachmentList;
+    }
+
+    public void setAttachmentList(String[] attachmentList) {
+        this.attachmentList = attachmentList;
+    }
+
+    public String[] getExternalUrlList() {
+        return externalUrlList;
+    }
+
+    public void setExternalUrlList(String[] externalUrlList) {
+        this.externalUrlList = externalUrlList;
     }
 
     public Date getCreatedDate() {
-        return null;
+        return createdDate;
     }
 
-    public String isTempSaved() {
-        return null;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Portfolio{" +
+                "portfolioId=" + portfolioId +
+                ", freelancerId='" + freelancerId + '\'' +
+                ", title='" + title + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", portProjStart=" + portProjStart +
+                ", portProjEnd=" + portProjEnd +
+                ", teamRole='" + teamRole + '\'' +
+                ", skillDescription='" + skillDescription + '\'' +
+                ", introduce='" + introduce + '\'' +
+                ", projectId=" + projectId +
+                ", attachment='" + attachment + '\'' +
+                ", externalUrl='" + externalUrl + '\'' +
+                ", created_date=" + created_date +
+                ", isTempSaved=" + isTempSaved +
+                ", isUserDeleted=" + isUserDeleted +
+                ", isDeleted=" + isDeleted +
+                ", priority=" + priority +
+                ", skillList=" + Arrays.toString(skillList) +
+                ", projectName='" + projectName + '\'' +
+                ", attachmentList=" + Arrays.toString(attachmentList) +
+                ", externalUrlList=" + Arrays.toString(externalUrlList) +
+                ", createdDate=" + createdDate +
+                '}';
     }
 }

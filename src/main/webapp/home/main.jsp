@@ -48,7 +48,7 @@
 </br>
 <div class="categories">
     <div class="category-item">
-        <a href="catalog.html">
+        <a href="${contextPath}/home/catalog.jsp">
             <img src="../img/웹제작.png" alt="웹제작" />
             <div class="category-label">웹제작</div>
         </a>

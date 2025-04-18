@@ -3,7 +3,12 @@
         PUBLIC "-//mybatis.org/DTO Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
     <typeAliases>
+        <typeAlias type="dto.ClientUserDetail" alias="adminuserdetail"/>
         <typeAlias type="dto.User" alias="user"/>
         <typeAlias type="dto.Project" alias="project"/>
         <typeAlias type="dto.Ammount" alias="ammount"/>
@@ -24,8 +29,12 @@
         <typeAlias type="dto.Settlement" alias="settlement"/>
         <typeAlias type="dto.SubCategory" alias="subCategory"/>
         <typeAlias type="dto.Alarm" alias="alarm"/>
+        <typeAlias type="dto.DashboardProject" alias="dproject"/>
+        <typeAlias type="dto.ClientUserInfo" alias="adminclient"/>
         <typeAlias type="dto.Project" alias="project"/>
         <typeAlias type="dto.DashboardProject" alias="dashboardProject"/>
+        <typeAlias type="dto.Notice" alias="notice"/>
+        <typeAlias type="dto.News" alias="news"/>
     </typeAliases>
 
 
@@ -45,16 +54,18 @@
 <!--        <mapper resource="mapper/user.xml"/>-->
 <!--        <mapper resource="mapper/project.xml"/>-->
 <!--        <mapper resource="mapper/ammount.xml"/>-->
-<!--        <mapper resource="mapper/apply.xml"/>-->
+       <mapper resource="mapper/apply.xml"/>
 <!--        <mapper resource="mapper/category.xml"/>-->
-<!--        <mapper resource="mapper/client.xml"/>-->
+        <mapper resource="mapper/adminclient.xml"/>
+        <mapper resource="mapper/adminproject.xml"/>
 <!--        <mapper resource="mapper/contract.xml"/>-->
-<!--        <mapper resource="mapper/freelancer.xml"/>-->
+        <mapper resource="mapper/freelancer.xml"/>
         <mapper resource="mapper/jjimfree.xml"/>
 <!--        <mapper resource="mapper/jjimProj.xml"/>-->
 <!--        <mapper resource="mapper/lv.xml"/>-->
 <!--        <mapper resource="mapper/pay.xml"/>-->
         <mapper resource="mapper/portfolio.xml"/>
+        <mapper resource="mapper/dashboardproject.xml"/>
 <!--        <mapper resource="mapper/project.xml"/>-->
         <mapper resource="mapper/qna.xml"/>
 <!--        <mapper resource="mapper/RepresenPortfolio.xml"/>-->
@@ -63,5 +74,7 @@
 <!--        <mapper resource="mapper/settlement.xml"/>-->
 <!--        <mapper resource="mapper/subCategory.xml"/>-->
 <!--        <mapper resource="mapper/alarm.xml"/>-->
+        <mapper resource="mapper/notice.xml"/>
+        <mapper resource="mapper/news.xml"/>
     </mappers>
 </configuration>

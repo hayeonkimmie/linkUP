@@ -3,7 +3,7 @@ package service;
 import dao.admin.DashboardProjectDAO;
 import dao.admin.IDashboardProjectDAO;
 import dto.DashboardProject;
-import dto.Portfolio;
+import dto.Project;
 import util.PageInfo;
 
 import java.util.List;
@@ -18,12 +18,12 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public Integer selectProjectCnt(String user_id) {
+    public Integer selectProjectCnt(String userId) {
         return 0;
     }
 
     @Override
-    public List<Portfolio> selectPortfolioListByPage(PageInfo page_info, String user_id) throws Exception {
+    public List<Project> selectPortfolioListByPage(PageInfo pageInfo, String userId) throws Exception {
         return null;
     }
 }

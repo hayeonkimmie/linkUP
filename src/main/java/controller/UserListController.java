@@ -1,13 +1,20 @@
 package controller;
 
-import dto.Client;
+import dao.admin.ClientDAO;
+import dao.admin.FreelancerDAO;
+import dao.admin.IClientDAO;
+import dao.admin.IFreelancerDAO;
 import dto.Freelancer;
+import dto.ClientUserInfo;
+import service.admin.ClientService;
+import service.admin.FreelancerService;
+import service.admin.IClientService;
+import service.admin.IFreelancerService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,48 +28,20 @@ public class UserListController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        IClientDAO clientDAO = new ClientDAO();
+        IFreelancerDAO freelancerDAO = new FreelancerDAO();
+        IClientService clientService = new ClientService(clientDAO);
+        IFreelancerService freelancerService = new FreelancerService(freelancerDAO);
 
         List<Freelancer> freelancerList = new ArrayList<>();
-        List<Client> clientList = new ArrayList<>();
-//        clientList.add(new Client(
-//                1,
-//                "techcorp2",
-//                "info@techcorp.kr",
-//                "테크놀로지 주식회사",
-//                "010-1234-5678",
-//                "구인자",
-//                Date.valueOf("2010-01-01"),
-//                "김민수",
-//                "소프트웨어 개발",
-//                "서비스업",
-//                "서울시 강남구 역삼동",
-//                "123-45-67890",
-//                "02-1234-5679"
-//        ));
-//        clientList.add(new Client(
-//                2,
-//                 "sample23",
-//                "sample@sample.com",
-//                "글로벌 솔루션즈",
-//                "010-1234-5678",
-//                "구인자",
-//                 Date.valueOf("2010-01-01"),
-//                "홍길동",
-//                "소프트웨어 개발",
-//                "융합 소프트웨어",
-//                "서울시 강남구 역삼동",
-//                "123-45-67890",
-//                "02-1234-5679"
-//        ));
+        List<ClientUserInfo> clientList = new ArrayList<>();
 
-        freelancerList.add(new Freelancer(
-                "1",
-                "김철수",
-                "kim33@example.com",
-                Date.valueOf("2023-02-05"),
-                "010-1234-5678",
-                "구직자"
-        ));
+        try {
+            clientList = clientService.getAllClients();
+            freelancerList =  freelancerService.selectAllFreelancer();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         request.setCharacterEncoding("UTF-8");
         request.setAttribute("clientList", clientList);

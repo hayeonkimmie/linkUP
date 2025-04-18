@@ -3,54 +3,47 @@ package dto;
 import java.util.Date;
 
 public class Review {
-    int review_id;
-    int project_id;
-    String w_user_id;
-    String r_user_id;
+    int reviewId;
+    int projectId;
+    String wUserId;
+    String rUserId;
     int star;
     String comment;
     Date create_date;
 
-    public Review(int review_id, int project_id, String w_user_id, String r_user_id, int star, String comment, Date create_date) {
-        this.review_id = review_id;
-        this.project_id = project_id;
-        this.w_user_id = w_user_id;
-        this.r_user_id = r_user_id;
-        this.star = star;
-        this.comment = comment;
-        this.create_date = create_date;
+    public Review() {
     }
 
-    public int getReview_id() {
-        return review_id;
+    public int getReviewId() {
+        return reviewId;
     }
 
-    public void setReview_id(int review_id) {
-        this.review_id = review_id;
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
     }
 
-    public int getProject_id() {
-        return project_id;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
-    public String getW_user_id() {
-        return w_user_id;
+    public String getwUserId() {
+        return wUserId;
     }
 
-    public void setW_user_id(String w_user_id) {
-        this.w_user_id = w_user_id;
+    public void setwUserId(String wUserId) {
+        this.wUserId = wUserId;
     }
 
-    public String getR_user_id() {
-        return r_user_id;
+    public String getrUserId() {
+        return rUserId;
     }
 
-    public void setR_user_id(String r_user_id) {
-        this.r_user_id = r_user_id;
+    public void setrUserId(String rUserId) {
+        this.rUserId = rUserId;
     }
 
     public int getStar() {

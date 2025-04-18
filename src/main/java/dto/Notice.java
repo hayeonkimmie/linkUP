@@ -3,27 +3,27 @@ package dto;
 import java.sql.Date;
 
 public class Notice {
-    int notice_id;
-    String title;
-    String content;
-    Date created_at;
+    private int noticeId;
+    private String title;
+    private String content;
+    private Date createdAt;
 
     public Notice() {}
 
-    public Notice(int notice_id, String title, String content, Date created_at) {
-        this.notice_id = notice_id;
+    public Notice(int noticeId, String title, String content, Date createdAt) {
+        this.noticeId = noticeId;
         this.title = title;
         this.content = content;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
 
 
-    public int getNotice_id() {
-        return notice_id;
+    public int getNoticeId() {
+        return noticeId;
     }
 
-    public void setNotice_id(int notice_id) {
-        this.notice_id = notice_id;
+    public void setNoticeId(int noticeId) {
+        this.noticeId = noticeId;
     }
 
     public String getTitle() {
@@ -42,11 +42,11 @@ public class Notice {
         this.content = content;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

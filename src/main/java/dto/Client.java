@@ -1,78 +1,87 @@
 package dto;
 
 public class Client {
-    String client_id;
-    String company_reg_no;
-    String company_phone_number;
-    String company_address;
-    String company_website_url;
-    String company_description;
-    String company_fax_num;
+    private String clientId;
+    private String ceo;
+    private String companyRegNo;
+    private String companyPhoneNumber;
+    private String companyAddress;
+    private String companyWebsiteUrl;
+    private String companyDescription;
+    private String companyFaxNum;
 
-
-    public Client(String client_id, String company_reg_no, String company_phone_number, String company_address, String company_website_url, String company_description, String company_fax_num) {
-        this.client_id = client_id;
-        this.company_reg_no = company_reg_no;
-        this.company_phone_number = company_phone_number;
-        this.company_address = company_address;
-        this.company_website_url = company_website_url;
-        this.company_description = company_description;
-        this.company_fax_num = company_fax_num;
+    public Client(String clientId, String ceo, String companyRegNo, String companyPhoneNumber, String companyAddress, String companyWebsiteUrl, String companyDescription, String companyFaxNum) {
+        this.clientId = clientId;
+        this.ceo = ceo;
+        this.companyRegNo = companyRegNo;
+        this.companyPhoneNumber = companyPhoneNumber;
+        this.companyAddress = companyAddress;
+        this.companyWebsiteUrl = companyWebsiteUrl;
+        this.companyDescription = companyDescription;
+        this.companyFaxNum = companyFaxNum;
     }
 
-    public String getClient_id() {
-        return client_id;
+    public String getCeo() {
+        return ceo;
     }
 
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
+    public void setCeo(String ceo) {
+        this.ceo = ceo;
     }
 
-    public String getCompany_reg_no() {
-        return company_reg_no;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setCompany_reg_no(String company_reg_no) {
-        this.company_reg_no = company_reg_no;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getCompany_phone_number() {
-        return company_phone_number;
+    public String getCompanyRegNo() {
+        return companyRegNo;
     }
 
-    public void setCompany_phone_number(String company_phone_number) {
-        this.company_phone_number = company_phone_number;
+    public void setCompanyRegNo(String companyRegNo) {
+        this.companyRegNo = companyRegNo;
     }
 
-    public String getCompany_address() {
-        return company_address;
+    public String getCompanyPhoneNumber() {
+        return companyPhoneNumber;
     }
 
-    public void setCompany_address(String company_address) {
-        this.company_address = company_address;
+    public void setCompanyPhoneNumber(String companyPhoneNumber) {
+        this.companyPhoneNumber = companyPhoneNumber;
     }
 
-    public String getCompany_website_url() {
-        return company_website_url;
+    public String getCompanyAddress() {
+        return companyAddress;
     }
 
-    public void setCompany_website_url(String company_website_url) {
-        this.company_website_url = company_website_url;
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
     }
 
-    public String getCompany_description() {
-        return company_description;
+    public String getCompanyWebsiteUrl() {
+        return companyWebsiteUrl;
     }
 
-    public void setCompany_description(String company_description) {
-        this.company_description = company_description;
+    public void setCompanyWebsiteUrl(String companyWebsiteUrl) {
+        this.companyWebsiteUrl = companyWebsiteUrl;
     }
 
-    public String getCompany_fax_num() {
-        return company_fax_num;
+    public String getCompanyDescription() {
+        return companyDescription;
     }
 
-    public void setCompany_fax_num(String company_fax_num) {
-        this.company_fax_num = company_fax_num;
+    public void setCompanyDescription(String companyDescription) {
+        this.companyDescription = companyDescription;
+    }
+
+    public String getCompanyFaxNum() {
+        return companyFaxNum;
+    }
+
+    public void setCompanyFaxNum(String companyFaxNum) {
+        this.companyFaxNum = companyFaxNum;
     }
 }

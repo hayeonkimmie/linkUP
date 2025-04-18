@@ -6,5 +6,4 @@
     <insert id="insertAmount" parameterType="amount">
         insert amount (id,project_id,total,fee) values (#{id}, #{project_id},#{total},#{fee})
     </insert>
-
 </mapper>

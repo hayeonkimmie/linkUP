@@ -1,34 +1,34 @@
 package dto;
 
 public class Alarm {
-    private String alarm_id;
-    private String user_id;
+    private String alarmId;
+    private String userId;
     private String title;
     private String content;
     private boolean confirm;
 
-    public Alarm(String alarm_id, String user_id, String title, String content, boolean confirm) {
-        this.alarm_id = alarm_id;
-        this.user_id = user_id;
+    public Alarm(String alarmId, String userId, String title, String content, boolean confirm) {
+        this.alarmId = alarmId;
+        this.userId = userId;
         this.title = title;
         this.content = content;
         this.confirm = confirm;
     }
 
-    public String getAlarm_id() {
-        return alarm_id;
+    public String getAlarmId() {
+        return alarmId;
     }
 
-    public void setAlarm_id(String alarm_id) {
-        this.alarm_id = alarm_id;
+    public void setAlarmId(String alarmId) {
+        this.alarmId = alarmId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {

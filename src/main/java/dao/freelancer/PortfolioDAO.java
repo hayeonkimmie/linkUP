@@ -12,30 +12,33 @@ public class PortfolioDAO implements IPortfolioDAO {
     private SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
     @Override
-    public Integer selectPortfolioCnt(String user_id) {
-        System.out.println("user_id:"+user_id);
-        return sqlSession.selectOne("mapper.portfolio.selectPortfolioCnt", user_id);
+    public Integer selectPortfolioCnt(String userId) {
+        return sqlSession.selectOne("mapper.portfolio.selectPortfolioCnt", userId);
     }
 
     @Override
-    public List<Portfolio> selectPortfolioListByPage(Integer row, String user_id) throws Exception {
+    public List<Portfolio> selectPortfolioListByPage(Integer row, String userId) throws Exception {
         Map<String, Object> param = new HashMap<>();
-        param.put("user_id", user_id);
+        param.put("user_id", userId);
         param.put("row", row);
-        System.out.println(param);
+        System.out.println("PortfolioDAO.java 24"+ param);
         return sqlSession.selectList("mapper.portfolio.selectPortfolioListByPage",param);
     }
-/*
     @Override
-    public Portfolio select_portfolio(Integer portfolio_id) throws Exception {
-        return sqlSession.selectOne("mapper.portfolio.select_portfolio_by_Id", portfolio_id);
-    }*/
-
-/*    @Override
-    public void deletePortfolio(Integer num) throws Exception {
-        sqlSession.delete("mapper.portfolio.deleteArticle", num);
-        sqlSession.commit();
+    public Portfolio selectPortfolioListById(Integer portfoId) throws Exception {
+        return sqlSession.selectOne("mapper.portfolio.selectPortfolioById", portfoId);
     }
+
+    @Override
+    public void deletePortfolio(Integer num) throws Exception {
+        try {
+        sqlSession.delete("mapper.portfolio.deletePortfolioById", num);
+        sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /*
     @Override
     public Portfolio insertPortfolio(Portfolio Portfolio) throws Exception {
         try {

@@ -3,7 +3,22 @@ package dto;
 import java.sql.Date;
 
 public class Freelancer {
-    String freelancer_id;
+    String userId;
+    String name;
+    String nickname;
+    String email;
+    String password;
+    String phoneNum;
+    String profilImg;
+    boolean acceptNoti;
+    String token;
+    Date registrationDate;
+    Date withdrawalDate;
+    boolean acceptConsent;
+    boolean isNaver;
+    boolean isKakao;
+
+    String freelancerId;
     String category;
     String skill;
     String address;
@@ -11,43 +26,137 @@ public class Freelancer {
     String introduction;
     String license;
     String bank;
-    String account_num;
-    boolean is_negotiable;
-    boolean is_resident;
-    int desired_salary;
-    String desired_location;
-    String other_request;
+    String accountNum;
+    boolean isNegotiable;
+    boolean isResident;
+    int desiredSalary;
+    String desiredLocation;
+    String otherRequest;
     String attachment;
-    String external_url;
+    String externalUrl;
 
-    public Freelancer(String freelancer_id, String category, String skill, String address, String academic, String introduction, String license, String bank, String account_num, boolean is_negotiable, boolean is_resident, int desired_salary, String desired_location, String other_request, String attachment, String external_url) {
-        this.freelancer_id = freelancer_id;
-        this.category = category;
-        this.skill = skill;
-        this.address = address;
-        this.academic = academic;
-        this.introduction = introduction;
-        this.license = license;
-        this.bank = bank;
-        this.account_num = account_num;
-        this.is_negotiable = is_negotiable;
-        this.is_resident = is_resident;
-        this.desired_salary = desired_salary;
-        this.desired_location = desired_location;
-        this.other_request = other_request;
-        this.attachment = attachment;
-        this.external_url = external_url;
+    public Freelancer() {
+        super();
     }
 
-    public Freelancer(String freelancerid, String 홍길동, String 길동이, Date date, String 서울대학교_컴퓨터공학과, String bank) {
+    public String getUserId() {
+        return userId;
     }
 
-    public String getFreelancer_id() {
-        return freelancer_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setFreelancer_id(String freelancer_id) {
-        this.freelancer_id = freelancer_id;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getProfilImg() {
+        return profilImg;
+    }
+
+    public void setProfilImg(String profilImg) {
+        this.profilImg = profilImg;
+    }
+
+    public boolean isAcceptNoti() {
+        return acceptNoti;
+    }
+
+    public void setAcceptNoti(boolean acceptNoti) {
+        this.acceptNoti = acceptNoti;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Date getWithdrawalDate() {
+        return withdrawalDate;
+    }
+
+    public void setWithdrawalDate(Date withdrawalDate) {
+        this.withdrawalDate = withdrawalDate;
+    }
+
+    public boolean isAcceptConsent() {
+        return acceptConsent;
+    }
+
+    public void setAcceptConsent(boolean acceptConsent) {
+        this.acceptConsent = acceptConsent;
+    }
+
+    public boolean isNaver() {
+        return isNaver;
+    }
+
+    public void setNaver(boolean naver) {
+        isNaver = naver;
+    }
+
+    public boolean isKakao() {
+        return isKakao;
+    }
+
+    public void setKakao(boolean kakao) {
+        isKakao = kakao;
+    }
+
+    public String getFreelancerId() {
+        return freelancerId;
+    }
+
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
     public String getCategory() {
@@ -106,52 +215,52 @@ public class Freelancer {
         this.bank = bank;
     }
 
-    public String getAccount_num() {
-        return account_num;
+    public String getAccountNum() {
+        return accountNum;
     }
 
-    public void setAccount_num(String account_num) {
-        this.account_num = account_num;
+    public void setAccountNum(String accountNum) {
+        this.accountNum = accountNum;
     }
 
-    public boolean isIs_negotiable() {
-        return is_negotiable;
+    public boolean isNegotiable() {
+        return isNegotiable;
     }
 
-    public void setIs_negotiable(boolean is_negotiable) {
-        this.is_negotiable = is_negotiable;
+    public void setNegotiable(boolean negotiable) {
+        isNegotiable = negotiable;
     }
 
-    public boolean isIs_resident() {
-        return is_resident;
+    public boolean isResident() {
+        return isResident;
     }
 
-    public void setIs_resident(boolean is_resident) {
-        this.is_resident = is_resident;
+    public void setResident(boolean resident) {
+        isResident = resident;
     }
 
-    public int getDesired_salary() {
-        return desired_salary;
+    public int getDesiredSalary() {
+        return desiredSalary;
     }
 
-    public void setDesired_salary(int desired_salary) {
-        this.desired_salary = desired_salary;
+    public void setDesiredSalary(int desiredSalary) {
+        this.desiredSalary = desiredSalary;
     }
 
-    public String getDesired_location() {
-        return desired_location;
+    public String getDesiredLocation() {
+        return desiredLocation;
     }
 
-    public void setDesired_location(String desired_location) {
-        this.desired_location = desired_location;
+    public void setDesiredLocation(String desiredLocation) {
+        this.desiredLocation = desiredLocation;
     }
 
-    public String getOther_request() {
-        return other_request;
+    public String getOtherRequest() {
+        return otherRequest;
     }
 
-    public void setOther_request(String other_request) {
-        this.other_request = other_request;
+    public void setOtherRequest(String otherRequest) {
+        this.otherRequest = otherRequest;
     }
 
     public String getAttachment() {
@@ -162,11 +271,11 @@ public class Freelancer {
         this.attachment = attachment;
     }
 
-    public String getExternal_url() {
-        return external_url;
+    public String getExternalUrl() {
+        return externalUrl;
     }
 
-    public void setExternal_url(String external_url) {
-        this.external_url = external_url;
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
     }
 }

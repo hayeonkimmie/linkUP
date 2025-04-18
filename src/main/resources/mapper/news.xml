@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.news">
+    <insert id="insertNews" parameterType="news">
+        insert news (news_id,title,content,created_at)
+        values (#{news_id}, #{title},#{content},#{created_at})
+    </insert>
+
+    <select id="selectNewsList" parameterType="Integer" resultType="news">
+        select * from news order by created_at desc limit #{row},10
+    </select>
+
+    <select id="selectGogakCenterNewsList" parameterType="Integer" resultType="news">
+        select * from news order by created_at desc limit #{row},4
+    </select>
+
+</mapper>
