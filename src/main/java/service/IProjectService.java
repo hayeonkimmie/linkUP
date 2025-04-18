@@ -1,11 +1,11 @@
 package service;
-import dto.Portfolio;
+import dto.Project;
 import util.PageInfo;
 
 import java.util.List;
 
 public interface IProjectService {
-    Integer selectProjectCnt(String user_id);
-    List<Portfolio> selectPortfolioListByPage(PageInfo page_info, String user_id) throws Exception;
+    Integer selectProjectCnt(String userId);
+    List<Project> selectPortfolioListByPage(PageInfo pageInfo, String userId) throws Exception;
 
 }

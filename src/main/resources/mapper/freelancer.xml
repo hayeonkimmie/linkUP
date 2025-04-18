@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.project">
+<mapper namespace="mapper.freelancer">
     <insert id="insertFreelancer" parameterType="freelancer">
         insert freelancer (freelancer_id,category,skill,address,academic,introduction,license,bank,account_num,is_negotiable,is_resident,desired_salary,desired_location,other_requests,attachment,external_url)
         values (#{freelancer_id}, #{category},#{skill},#{address}, #{academic},#{introduction},#{license}, #{bank},#{account_num},#{is_negotiable}, #{is_resident},#{desired_salary},#{desired_location}, #{other_requests},#{attachment},#{external_url})

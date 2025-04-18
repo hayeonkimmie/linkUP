@@ -1,5 +1,7 @@
 package dto;
 import java.sql.Date;
+import java.util.Arrays;
+
 public class Portfolio {
     private Integer portfolioId;
     private String freelancerId;
@@ -12,11 +14,13 @@ public class Portfolio {
     private String[] skillList;
     private String introduce;
     private Integer projectId;
+    private String projectName;
     private String attachment;
+    private String[] attachmentList;
     private String externalUrl;
+    private String[] externalUrlList;
     private Date createdDate;
     private boolean isTempSaved;
-    private boolean isUserDeleted;
     private boolean isDeleted;
     private Integer priority;
 
@@ -35,6 +39,7 @@ public class Portfolio {
         this.introduce = introduce;
         this.createdDate = createdDate;
     }
+    //작성 및 수정
     public Portfolio(Integer portfolioId, String freelancerId, String title, String thumbnail, String skillDescription, boolean isTempSaved, String introduce, Date createdDate) {
         this.portfolioId = portfolioId;
         this.freelancerId = freelancerId;
@@ -45,8 +50,8 @@ public class Portfolio {
         this.introduce = introduce;
         this.createdDate = createdDate;
     }
-    //포폴 상세&작성, 수정
-    public Portfolio(Integer portfolioId, String freelancerId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String[] skillList, String introduce, Integer projectId, String attachment, String externalUrl, Date createdDate, boolean isTempSaved, boolean isUserDeleted, boolean isDeleted, Integer priority) {
+    //포폴 상세
+    public Portfolio(Integer portfolioId,String freelancerId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String[] skillList, String introduce, Integer projectId, String projectName, String[] attachmentList, String[] externalUrlList, Date createdDate, boolean isTempSaved) {
         this.portfolioId = portfolioId;
         this.freelancerId = freelancerId;
         this.title = title;
@@ -58,12 +63,29 @@ public class Portfolio {
         this.skillList = skillList;
         this.introduce = introduce;
         this.projectId = projectId;
+        this.projectName = projectName;
+        this.attachmentList = attachmentList;
+        this.externalUrlList = externalUrlList;
+        this.createdDate = createdDate;
+        this.isTempSaved = isTempSaved;
+    }
+
+    // 작성, 수정
+    public Portfolio(Integer portfolioId, String freelancerId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String introduce, Integer projectId, String attachment, String externalUrl, Date createdDate, boolean isTempSaved) {
+        this.portfolioId = portfolioId;
+        this.freelancerId = freelancerId;
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.portProjStart = portProjStart;
+        this.portProjEnd = portProjEnd;
+        this.teamRole = teamRole;
+        this.skillDescription = skillDescription;
+        this.introduce = introduce;
+        this.projectId = projectId;
         this.attachment = attachment;
         this.externalUrl = externalUrl;
         this.createdDate = createdDate;
         this.isTempSaved = isTempSaved;
-        this.isUserDeleted = isUserDeleted;
-        this.isDeleted = isDeleted;
     }
 
     //구직자 상세페이지용
@@ -79,6 +101,14 @@ public class Portfolio {
 
     public void setPortfolioId(Integer portfolioId) {
         this.portfolioId = portfolioId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getFreelancerId() {
@@ -177,28 +207,12 @@ public class Portfolio {
         this.createdDate = createdDate;
     }
 
-    public boolean isTempSaved() {
+    public boolean getIsTempSaved() {
         return isTempSaved;
     }
 
     public void setTempSaved(boolean tempSaved) {
         isTempSaved = tempSaved;
-    }
-
-    public boolean isUserDeleted() {
-        return isUserDeleted;
-    }
-
-    public void setUserDeleted(boolean userDeleted) {
-        isUserDeleted = userDeleted;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 
     public Integer getPriority() {
@@ -214,4 +228,55 @@ public class Portfolio {
     public void setSkillList(String[] skillList) {
         this.skillList = skillList;
     }
+
+    public String[] getAttachmentList() {
+        return attachmentList;
+    }
+
+    public void setAttachmentList(String[] attachmentList) {
+        this.attachmentList = attachmentList;
+    }
+
+    public String[] getExternalUrlList() {
+        return externalUrlList;
+    }
+
+    public void setExternalUrlList(String[] externalUrlList) {
+        this.externalUrlList = externalUrlList;
+    }
+
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return "Portfolio{" +
+                "portfolioId=" + portfolioId +
+                ", freelancerId='" + freelancerId + '\'' +
+                ", title='" + title + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", portProjStart=" + portProjStart +
+                ", portProjEnd=" + portProjEnd +
+                ", teamRole='" + teamRole + '\'' +
+                ", skillDescription='" + skillDescription + '\'' +
+                ", skillList=" + Arrays.toString(skillList) +
+                ", introduce='" + introduce + '\'' +
+                ", projectId=" + projectId +
+                ", projectName='" + projectName + '\'' +
+                ", attachment='" + attachment + '\'' +
+                ", attachmentList=" + Arrays.toString(attachmentList) +
+                ", externalUrl='" + externalUrl + '\'' +
+                ", externalUrlList=" + Arrays.toString(externalUrlList) +
+                ", createdDate=" + createdDate +
+                ", isTempSaved=" + isTempSaved +
+                ", isDeleted=" + isDeleted +
+                ", priority=" + priority +
+                '}';
+    }
+
 }

@@ -2,79 +2,97 @@ package dto;
 
 import java.util.Date;
 
-public class Qna {
-    int qna_id;
-    String user_id;
-    String question_title;
-    String question_content;
-    Date question_date;
-    String answer_content;
-    Date created_date;
+public class QnA {
+    int qnaId;
+    String userId;
+    String questionTitle;
+    String questionContent;
+    Date questionDate;
+    String answerContent;
+    Date answerDate;
 
-    public Qna(int qna_id, String user_id, String question_title, String question_content, Date question_date, String answer_content, Date created_date) {
-        this.qna_id = qna_id;
-        this.user_id = user_id;
-        this.question_title = question_title;
-        this.question_content = question_content;
-        this.question_date = question_date;
-        this.answer_content = answer_content;
-        this.created_date = created_date;
+    public QnA() {
+        super();
     }
 
-    public int getQna_id() {
-        return qna_id;
+    public QnA(int qnaId, String userId, String questionTitle, String questionContent, Date questionDate, String answerContent, Date answerDate) {
+        this.qnaId = qnaId;
+        this.userId = userId;
+        this.questionTitle = questionTitle;
+        this.questionContent = questionContent;
+        this.questionDate = questionDate;
+        this.answerContent = answerContent;
+        this.answerDate = answerDate;
     }
 
-    public void setQna_id(int qna_id) {
-        this.qna_id = qna_id;
+    public int getQnaId() {
+        return qnaId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public void setQnaId(int qnaId) {
+        this.qnaId = qnaId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public String getQuestion_title() {
-        return question_title;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setQuestion_title(String question_title) {
-        this.question_title = question_title;
+    public String getQuestionTitle() {
+        return questionTitle;
     }
 
-    public String getQuestion_content() {
-        return question_content;
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
     }
 
-    public void setQuestion_content(String question_content) {
-        this.question_content = question_content;
+    public String getQuestionContent() {
+        return questionContent;
     }
 
-    public Date getQuestion_date() {
-        return question_date;
+    public void setQuestionContent(String questionContent) {
+        this.questionContent = questionContent;
     }
 
-    public void setQuestion_date(Date question_date) {
-        this.question_date = question_date;
+    public Date getQuestionDate() {
+        return questionDate;
     }
 
-    public String getAnswer_content() {
-        return answer_content;
+    public void setQuestionDate(Date questionDate) {
+        this.questionDate = questionDate;
     }
 
-    public void setAnswer_content(String answer_content) {
-        this.answer_content = answer_content;
+    public String getAnswerContent() {
+        return answerContent;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public void setAnswerContent(String answerContent) {
+        this.answerContent = answerContent;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public Date getAnswerDate() {
+        return answerDate;
+    }
+
+    public void setAnswerDate(Date answerDate) {
+        this.answerDate = answerDate;
+    }
+
+
+    @Override
+    public String toString() {
+        return "QnA{" +
+                "qnaId=" + qnaId +
+                ", userId='" + userId + '\'' +
+                ", questionTitle='" + questionTitle + '\'' +
+                ", questionContent='" + questionContent + '\'' +
+                ", questionDate=" + questionDate +
+                ", answerContent='" + answerContent + '\'' +
+                ", answerDate=" + answerDate +
+                '}';
     }
 }
 

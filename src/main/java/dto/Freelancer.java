@@ -1,7 +1,9 @@
 package dto;
 
+import io.grpc.internal.JsonUtil;
+
 public class Freelancer {
-    String freelancer_id;
+    String freelancerId;
     String category;
     String skill;
     String address;
@@ -9,17 +11,27 @@ public class Freelancer {
     String introduction;
     String license;
     String bank;
-    String account_num;
-    boolean is_negotiable;
-    boolean is_resident;
-    int desired_salary;
-    String desired_location;
-    String other_request;
+    String accountNum;
+    boolean isNegotiable;
+    boolean isResident;
+    int desiredSalary;
+    String desiredLocation;
+    String otherRequest;
     String attachment;
-    String external_url;
+    String externalUrl;
 
-    public Freelancer(String freelancer_id, String category, String skill, String address, String academic, String introduction, String license, String bank, String account_num, boolean is_negotiable, boolean is_resident, int desired_salary, String desired_location, String other_request, String attachment, String external_url) {
-        this.freelancer_id = freelancer_id;
+    public Freelancer() {
+        super();
+    }
+
+    public Freelancer(String freelancerId, String bank, String accountNum) {
+        this.freelancerId = freelancerId;
+        this.bank = bank;
+        this.accountNum = accountNum;
+    }
+
+    public Freelancer(String freelancerId, String category, String skill, String address, String academic, String introduction, String license, String bank, String accountNum, boolean isNegotiable, boolean isResident, int desiredSalary, String desiredLocation, String otherRequest, String attachment, String externalUrl) {
+        this.freelancerId = freelancerId;
         this.category = category;
         this.skill = skill;
         this.address = address;
@@ -27,22 +39,22 @@ public class Freelancer {
         this.introduction = introduction;
         this.license = license;
         this.bank = bank;
-        this.account_num = account_num;
-        this.is_negotiable = is_negotiable;
-        this.is_resident = is_resident;
-        this.desired_salary = desired_salary;
-        this.desired_location = desired_location;
-        this.other_request = other_request;
+        this.accountNum = accountNum;
+        this.isNegotiable = isNegotiable;
+        this.isResident = isResident;
+        this.desiredSalary = desiredSalary;
+        this.desiredLocation = desiredLocation;
+        this.otherRequest = otherRequest;
         this.attachment = attachment;
-        this.external_url = external_url;
+        this.externalUrl = externalUrl;
     }
 
-    public String getFreelancer_id() {
-        return freelancer_id;
+    public String getFreelancerId() {
+        return freelancerId;
     }
 
-    public void setFreelancer_id(String freelancer_id) {
-        this.freelancer_id = freelancer_id;
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
     public String getCategory() {
@@ -101,52 +113,52 @@ public class Freelancer {
         this.bank = bank;
     }
 
-    public String getAccount_num() {
-        return account_num;
+    public String getAccountNum() {
+        return accountNum;
     }
 
-    public void setAccount_num(String account_num) {
-        this.account_num = account_num;
+    public void setAccountNum(String accountNum) {
+        this.accountNum = accountNum;
     }
 
-    public boolean isIs_negotiable() {
-        return is_negotiable;
+    public boolean isNegotiable() {
+        return isNegotiable;
     }
 
-    public void setIs_negotiable(boolean is_negotiable) {
-        this.is_negotiable = is_negotiable;
+    public void setNegotiable(boolean negotiable) {
+        isNegotiable = negotiable;
     }
 
-    public boolean isIs_resident() {
-        return is_resident;
+    public boolean isResident() {
+        return isResident;
     }
 
-    public void setIs_resident(boolean is_resident) {
-        this.is_resident = is_resident;
+    public void setResident(boolean resident) {
+        isResident = resident;
     }
 
-    public int getDesired_salary() {
-        return desired_salary;
+    public int getDesiredSalary() {
+        return desiredSalary;
     }
 
-    public void setDesired_salary(int desired_salary) {
-        this.desired_salary = desired_salary;
+    public void setDesiredSalary(int desiredSalary) {
+        this.desiredSalary = desiredSalary;
     }
 
-    public String getDesired_location() {
-        return desired_location;
+    public String getDesiredLocation() {
+        return desiredLocation;
     }
 
-    public void setDesired_location(String desired_location) {
-        this.desired_location = desired_location;
+    public void setDesiredLocation(String desiredLocation) {
+        this.desiredLocation = desiredLocation;
     }
 
-    public String getOther_request() {
-        return other_request;
+    public String getOtherRequest() {
+        return otherRequest;
     }
 
-    public void setOther_request(String other_request) {
-        this.other_request = other_request;
+    public void setOtherRequest(String otherRequest) {
+        this.otherRequest = otherRequest;
     }
 
     public String getAttachment() {
@@ -157,11 +169,11 @@ public class Freelancer {
         this.attachment = attachment;
     }
 
-    public String getExternal_url() {
-        return external_url;
+    public String getExternalUrl() {
+        return externalUrl;
     }
 
-    public void setExternal_url(String external_url) {
-        this.external_url = external_url;
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
     }
 }

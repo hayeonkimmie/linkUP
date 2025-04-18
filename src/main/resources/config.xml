@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org/DTO Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
     <typeAliases>
         <typeAlias type="dto.User" alias="user"/>
         <typeAlias type="dto.Project" alias="project"/>
@@ -17,7 +20,7 @@
         <typeAlias type="dto.Level" alias="lv"/>
         <typeAlias type="dto.Pay" alias="pay"/>
         <typeAlias type="dto.Portfolio" alias="portfolio"/>
-        <typeAlias type="dto.Qna" alias="qna"/>
+        <typeAlias type="dto.QnA" alias="qna"/>
         <typeAlias type="dto.RepresentPortfolio" alias="represenPortfolio"/>
         <typeAlias type="dto.Review" alias="riview"/>
         <typeAlias type="dto.Settlelist" alias="settlelist"/>
@@ -43,7 +46,7 @@
 <!--        <mapper resource="mapper/user.xml"/>-->
 <!--        <mapper resource="mapper/project.xml"/>-->
 <!--        <mapper resource="mapper/ammount.xml"/>-->
-<!--        <mapper resource="mapper/apply.xml"/>-->
+       <mapper resource="mapper/apply.xml"/>
 <!--        <mapper resource="mapper/category.xml"/>-->
 <!--        <mapper resource="mapper/client.xml"/>-->
 <!--        <mapper resource="mapper/contract.xml"/>-->
@@ -54,7 +57,7 @@
 <!--        <mapper resource="mapper/pay.xml"/>-->
         <mapper resource="mapper/portfolio.xml"/>
 <!--        <mapper resource="mapper/project.xml"/>-->
-<!--        <mapper resource="mapper/qna.xml"/>-->
+        <mapper resource="mapper/qna.xml"/>
 <!--        <mapper resource="mapper/RepresenPortfolio.xml"/>-->
 <!--        <mapper resource="mapper/riview.xml"/>-->
 <!--        <mapper resource="mapper/settlelist.xml"/>-->

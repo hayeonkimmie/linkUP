@@ -6,10 +6,10 @@ import util.PageInfo;
 import java.util.List;
 
 public interface IPortfolioService {
-    //Portfolio select_portfolio(Integer num) throws Exception;
-    Integer selectPortfolioCnt(String user_id);
+    Portfolio selectPortfolioListById(Integer num) throws Exception;
+    Integer selectPortfolioCnt(String userId) throws Exception;
     List<Portfolio> selectPortfolioListByPage(PageInfo page_info, String user_id) throws Exception;
-//    void modify_portfolio(Portfolio portfolio) throws Exception;
-//    void delete_portfolio(Integer num) throws Exception;
-//    Portfolio write_portfolio(Portfolio Portfolio) throws Exception;
+//    void modifyPortfolio(Portfolio portfolio) throws Exception;
+    void deletePortfolio(Integer num) throws Exception;
+//    Portfolio writePortfolio(Portfolio Portfolio) throws Exception;
 }
