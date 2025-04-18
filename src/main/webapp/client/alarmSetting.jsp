@@ -1,13 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>알림 설정</title>
-    <link rel="stylesheet" href="../css/headerSt.css" />
-    <link rel="stylesheet" href="../css/alarmSetting.css" />
+    <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
+    <link rel="stylesheet" href="${contextPath}/css/alarm_settings.css" />
 </head>
 <body>
 <div class="layout">

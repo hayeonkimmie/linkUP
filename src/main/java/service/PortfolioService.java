@@ -56,14 +56,14 @@ public class PortfolioService implements IPortfolioService{
         //portfolio_id, title, thumbnail, introduce, skill_description, created_date, is_temp_saved
         for (Portfolio p : portfolioList) {
             Portfolio portfolio = new Portfolio();
-            portfolio.setPortfolioId(p.getPortfolioId());
+            portfolio.setPortfolio_id(p.getPortfolioId());
             portfolio.setTitle(p.getTitle());
             portfolio.setThumbnail(p.getThumbnail());
             portfolio.setIntroduce(p.getIntroduce());
             String[] skills = p.getSkillDescription().split("\\^&\\^"); // 정규식 특수문자 escape 필요
             portfolio.setSkillList(skills);
-            portfolio.setCreatedDate(p.getCreatedDate());
-            portfolio.setTempSaved(p.isTempSaved());
+            portfolio.setCreated_date(p.getCreatedDate());
+            portfolio.setTeam_role(p.isTempSaved());
             portfolioList2.add(portfolio);
         }
 

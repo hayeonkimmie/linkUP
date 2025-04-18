@@ -3,178 +3,170 @@ package dto;
 import java.sql.Date;
 
 public class Freelancer {
-    private String clientId;
-    private String name;
-    private String nickname;
-    private String email;
-    private String password;
-    private String phoneNum;
-    private String profileImg;
-    private Boolean acceptNoti;
-    private String token;
-    private Date withdrawalDate;
-    private Date registrationDate;
-    private Boolean acceptConsent;
-    private Integer rolesId;
-    private String skill;
-    private String address;
-    private String academic;
-    private String introduction;
-    private String license;
-    private String desiredSalary;
-    private String bank;
-    private String accountNum;
-    private Boolean isResident;
-    private String desiredLocation;
-    private String otherRequests;
-    private String attachment;
-    private String externalUrl;
-    private String type;
+    String freelancer_id;
+    String category;
+    String skill;
+    String address;
+    String academic;
+    String introduction;
+    String license;
+    String bank;
+    String account_num;
+    boolean is_negotiable;
+    boolean is_resident;
+    int desired_salary;
+    String desired_location;
+    String other_request;
+    String attachment;
+    String external_url;
 
-    public Freelancer() {}
-
-    /**
-     * /admin/client_list.jsp 페이지에서 사용되는 생성자<br>
-     * @param clientId 사용자 ID
-     * @param name 이름
-     * @param email 이메일
-     * @param registrationDate 가입일
-     * @param phoneNum 연락처
-     * @param type 사용자 구분 (구인자/구직자)
-     */
-    public Freelancer(String clientId, String name, String email, Date registrationDate, String phoneNum, String type) {
-        this.clientId = clientId;
-        this.name = name;
-        this.email = email;
-        this.registrationDate = registrationDate;
-        this.phoneNum = phoneNum;
-        this.type = type;
-    }
-
-    public Freelancer(String clientId, String name, String nickname, String email, String phoneNum,
-                      Date registrationDate, String academic, String skill, String desiredSalary,
-                      String desiredLocation, Boolean isResident, String introduction, String license,
-                      String attachment, String externalUrl, String otherRequests, String type, String address) {
-        this.clientId = clientId;
-        this.name = name;
-        this.nickname = nickname;
-        this.email = email;
-        this.phoneNum = phoneNum;
-        this.registrationDate = registrationDate;
-        this.academic = academic;
+    public Freelancer(String freelancer_id, String category, String skill, String address, String academic, String introduction, String license, String bank, String account_num, boolean is_negotiable, boolean is_resident, int desired_salary, String desired_location, String other_request, String attachment, String external_url) {
+        this.freelancer_id = freelancer_id;
+        this.category = category;
         this.skill = skill;
-        this.desiredSalary = desiredSalary;
-        this.desiredLocation = desiredLocation;
-        this.isResident = isResident;
+        this.address = address;
+        this.academic = academic;
         this.introduction = introduction;
         this.license = license;
+        this.bank = bank;
+        this.account_num = account_num;
+        this.is_negotiable = is_negotiable;
+        this.is_resident = is_resident;
+        this.desired_salary = desired_salary;
+        this.desired_location = desired_location;
+        this.other_request = other_request;
         this.attachment = attachment;
-        this.externalUrl = externalUrl;
-        this.otherRequests = otherRequests;
-        this.type = type;
+        this.external_url = external_url;
+    }
+
+    public Freelancer(String freelancerid, String 홍길동, String 길동이, Date date, String 서울대학교_컴퓨터공학과, String bank) {
+    }
+
+    public String getFreelancer_id() {
+        return freelancer_id;
+    }
+
+    public void setFreelancer_id(String freelancer_id) {
+        this.freelancer_id = freelancer_id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
         this.address = address;
     }
 
-
-    public String getClientId() {
-        return clientId;
+    public String getAcademic() {
+        return academic;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setAcademic(String academic) {
+        this.academic = academic;
     }
 
-    public Boolean getResident() {
-        return isResident;
+    public String getIntroduction() {
+        return introduction;
     }
 
-    public void setResident(Boolean resident) {
-        isResident = resident;
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
-    public String getType() {
-        return type;
+    public String getLicense() {
+        return license;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setLicense(String license) {
+        this.license = license;
     }
 
-    public String getUserId() { return clientId; }
-    public void setUserId(String userId) { this.clientId = userId; }
+    public String getBank() {
+        return bank;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
 
-    public String getNickname() { return nickname; }
-    public void setNickname(String nickname) { this.nickname = nickname; }
+    public String getAccount_num() {
+        return account_num;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setAccount_num(String account_num) {
+        this.account_num = account_num;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public boolean isIs_negotiable() {
+        return is_negotiable;
+    }
 
-    public String getPhoneNum() { return phoneNum; }
-    public void setPhoneNum(String phoneNum) { this.phoneNum = phoneNum; }
+    public void setIs_negotiable(boolean is_negotiable) {
+        this.is_negotiable = is_negotiable;
+    }
 
-    public String getProfileImg() { return profileImg; }
-    public void setProfileImg(String profileImg) { this.profileImg = profileImg; }
+    public boolean isIs_resident() {
+        return is_resident;
+    }
 
-    public Boolean getAcceptNoti() { return acceptNoti; }
-    public void setAcceptNoti(Boolean acceptNoti) { this.acceptNoti = acceptNoti; }
+    public void setIs_resident(boolean is_resident) {
+        this.is_resident = is_resident;
+    }
 
-    public String getToken() { return token; }
-    public void setToken(String token) { this.token = token; }
+    public int getDesired_salary() {
+        return desired_salary;
+    }
 
-    public Date getWithdrawalDate() { return withdrawalDate; }
-    public void setWithdrawalDate(Date withdrawalDate) { this.withdrawalDate = withdrawalDate; }
+    public void setDesired_salary(int desired_salary) {
+        this.desired_salary = desired_salary;
+    }
 
-    public Date getRegistrationDate() { return registrationDate; }
-    public void setRegistrationDate(Date registrationDate) { this.registrationDate = registrationDate; }
+    public String getDesired_location() {
+        return desired_location;
+    }
 
-    public Boolean getAcceptConsent() { return acceptConsent; }
-    public void setAcceptConsent(Boolean acceptConsent) { this.acceptConsent = acceptConsent; }
+    public void setDesired_location(String desired_location) {
+        this.desired_location = desired_location;
+    }
 
-    public Integer getRolesId() { return rolesId; }
-    public void setRolesId(Integer rolesId) { this.rolesId = rolesId; }
+    public String getOther_request() {
+        return other_request;
+    }
 
-    public String getSkill() { return skill; }
-    public void setSkill(String skill) { this.skill = skill; }
+    public void setOther_request(String other_request) {
+        this.other_request = other_request;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public String getAttachment() {
+        return attachment;
+    }
 
-    public String getAcademic() { return academic; }
-    public void setAcademic(String academic) { this.academic = academic; }
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
 
-    public String getIntroduction() { return introduction; }
-    public void setIntroduction(String introduction) { this.introduction = introduction; }
+    public String getExternal_url() {
+        return external_url;
+    }
 
-    public String getLicense() { return license; }
-    public void setLicense(String license) { this.license = license; }
-
-    public String getDesiredSalary() { return desiredSalary; }
-    public void setDesiredSalary(String desiredSalary) { this.desiredSalary = desiredSalary; }
-
-    public String getBank() { return bank; }
-    public void setBank(String bank) { this.bank = bank; }
-
-    public String getAccountNum() { return accountNum; }
-    public void setAccountNum(String accountNum) { this.accountNum = accountNum; }
-
-    public Boolean getIsResident() { return isResident; }
-    public void setIsResident(Boolean isResident) { this.isResident = isResident; }
-
-    public String getDesiredLocation() { return desiredLocation; }
-    public void setDesiredLocation(String desiredLocation) { this.desiredLocation = desiredLocation; }
-
-    public String getOtherRequests() { return otherRequests; }
-    public void setOtherRequests(String otherRequests) { this.otherRequests = otherRequests; }
-
-    public String getAttachment() { return attachment; }
-    public void setAttachment(String attachment) { this.attachment = attachment; }
-
-    public String getExternalUrl() { return externalUrl; }
-    public void setExternalUrl(String externalUrl) { this.externalUrl = externalUrl; }
+    public void setExternal_url(String external_url) {
+        this.external_url = external_url;
+    }
 }

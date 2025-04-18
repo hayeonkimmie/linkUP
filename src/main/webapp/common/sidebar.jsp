@@ -1,6 +1,7 @@
 <!-- /views/includes/sidebar.jsp -->
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <aside class="sidebar">
   <div class="profile">
     <img src="https://via.placeholder.com/80" alt="프로필 이미지" />

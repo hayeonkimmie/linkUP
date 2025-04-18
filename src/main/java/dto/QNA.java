@@ -2,7 +2,7 @@ package dto;
 
 import java.util.Date;
 
-public class Qna {
+public class QnA {
     int qna_id;
     String user_id;
     String question_title;
@@ -11,7 +11,7 @@ public class Qna {
     String answer_content;
     Date created_date;
 
-    public Qna(int qna_id, String user_id, String question_title, String question_content, Date question_date, String answer_content, Date created_date) {
+    public QnA(int qna_id, String user_id, String question_title, String question_content, Date question_date, String answer_content, Date created_date) {
         this.qna_id = qna_id;
         this.user_id = user_id;
         this.question_title = question_title;
