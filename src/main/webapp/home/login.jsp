@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="container">
-  <a href="#" class="logo">
+  <a href="${contextPath}/home/main.jsp" class="logo">
     <img src="../img/링크업 로고.png" alt="Link up 로고">
   </a>
 
@@ -44,7 +44,7 @@
     <button class="google-btn">구글 계정으로 로그인하기</button>
   </div>
 
-  <a href="createAcc1.jsp" class="signup-link">회원가입 하러가기</a>
+  <a href="${contextPath}/home/createAcc.jsp" class="signup-link">회원가입 하러가기</a>
 </div>
 
 <!-- 비밀번호 찾기 팝업 -->

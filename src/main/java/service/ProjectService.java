@@ -1,5 +1,6 @@
 package service;
 
+import dto.DashboardProject;
 import dto.Portfolio;
 import util.PageInfo;
 
@@ -9,12 +10,7 @@ public class ProjectService implements IProjectService {
 
 
     @Override
-    public Integer selectProjectCnt(String user_id) {
-        return 0;
-    }
-
-    @Override
-    public List<Portfolio> selectPortfolioListByPage(PageInfo page_info, String user_id) throws Exception {
+    public List<DashboardProject> getDashboardProjectList() {
         return List.of();
     }
 
@@ -25,6 +21,6 @@ public class ProjectService implements IProjectService {
 
     @Override
     public List<Portfolio> selectPortfolioListByPage(PageInfo page_info, String user_id) throws Exception {
-        return null;
+        return List.of();
     }
 }

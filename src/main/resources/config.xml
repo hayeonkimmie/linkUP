@@ -24,8 +24,9 @@
         <typeAlias type="dto.Settlement" alias="settlement"/>
         <typeAlias type="dto.SubCategory" alias="subCategory"/>
         <typeAlias type="dto.Alarm" alias="alarm"/>
-        <typeAlias type="dto.LWYProject" alias="project"/>
         <typeAlias type="dto.DashboardProject" alias="dproject"/>
+        <typeAlias type="dto.Notice" alias="notice"/>
+        <typeAlias type="dto.News" alias="news"/>
     </typeAliases>
 
 
@@ -63,5 +64,7 @@
 <!--        <mapper resource="mapper/settlement.xml"/>-->
 <!--        <mapper resource="mapper/subCategory.xml"/>-->
 <!--        <mapper resource="mapper/alarm.xml"/>-->
+        <mapper resource="mapper/notice.xml"/>
+        <mapper resource="mapper/news.xml"/>
     </mappers>
 </configuration>

@@ -18,11 +18,11 @@
 </head>
 <body>
 <div class="container">
-  <a href="main.html" class="logo">
+  <a href="${contextPath}/home/main.jsp" class="logo">
     <img src="../img/링크업 로고.png" alt="Link up 로고">
   </a>
 
-  <p class="text1">간단한 정보로 가입 가능!</p>
+  <p class="text1">간단한 정보로<br>바로 가입 가능!</p>
   <label>이메일 <span class="required">*</span></label>
   <input type="text" id="email" placeholder="이메일을 입력해주세요" />
   <label>아이디 <span class="required">*</span></label>
