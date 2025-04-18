@@ -1,6 +1,4 @@
-package dto;
-
-import java.sql.Date;
+package dto.admin;
 
 /**
  * Project, Settlement 두 테이블의 조인 결과를 담는 DTO<br>
@@ -19,7 +17,7 @@ import java.sql.Date;
  *     Integer settleDate; // 정산일<br>
  *     String settleStatus; // 정산 상태<br>
  */
-public class PrepareSettlement {
+public class AdminProject {
     private Integer projectId;        // 프로젝트 ID
     private String clientId;        // 회사 ID
     private String clientName;       // 회사명
@@ -34,7 +32,7 @@ public class PrepareSettlement {
     private Integer settleDate;       // 정산일
     private String settleStatus;      // 정산 상태
 
-    public PrepareSettlement() {
+    public AdminProject() {
     }
 
     /**
@@ -51,7 +49,7 @@ public class PrepareSettlement {
      * @param settleDate 정산일
      * @param settleStatus 정산 상태
      */
-    public PrepareSettlement(String projectName, String clientId, String projectDuration, String projectManager, String managerPhone, Integer totalAmount, Integer totalFee, Integer totalSettlement, Integer participant, Integer settleDate, String settleStatus) {
+    public AdminProject(String projectName, String clientId, String projectDuration, String projectManager, String managerPhone, Integer totalAmount, Integer totalFee, Integer totalSettlement, Integer participant, Integer settleDate, String settleStatus) {
         this.projectName = projectName;
         this.clientId = clientId;
         this.projectDuration = projectDuration;
@@ -82,10 +80,10 @@ public class PrepareSettlement {
      * @param settleDate 정산일
      * @param settleStatus 정산 상태
      */
-    public PrepareSettlement(String clientId, String clientName, Integer projectId, String projectName, String projectDuration,
-                             String projectManager, String managerPhone,
-                             Integer totalAmount, Integer totalFee, Integer totalSettlement,
-                             Integer participant, Integer settleDate, String settleStatus) {
+    public AdminProject(String clientId, String clientName, Integer projectId, String projectName, String projectDuration,
+                        String projectManager, String managerPhone,
+                        Integer totalAmount, Integer totalFee, Integer totalSettlement,
+                        Integer participant, Integer settleDate, String settleStatus) {
         this.clientId = clientId;
         this.clientName = clientName;
         this.projectId = projectId;

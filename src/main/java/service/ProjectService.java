@@ -23,4 +23,14 @@ public class ProjectService implements IProjectService {
     public List<Portfolio> selectPortfolioListByPage(PageInfo page_info, String user_id) throws Exception {
         return List.of();
     }
+
+    @Override
+    public Integer selectProjectCnt(String user_id) {
+        return 0;
+    }
+
+    @Override
+    public List<Portfolio> selectPortfolioListByPage(PageInfo page_info, String user_id) throws Exception {
+        return null;
+    }
 }

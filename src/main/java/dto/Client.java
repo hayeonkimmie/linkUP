@@ -2,6 +2,7 @@ package dto;
 
 public class Client {
     String client_id;
+    String ceo;
     String company_reg_no;
     String company_phone_number;
     String company_address;
@@ -10,14 +11,23 @@ public class Client {
     String company_fax_num;
 
 
-    public Client(String client_id, String company_reg_no, String company_phone_number, String company_address, String company_website_url, String company_description, String company_fax_num) {
+    public Client(String client_id, String ceo, String company_reg_no, String company_phone_number, String company_address, String company_website_url, String company_description, String company_fax_num) {
         this.client_id = client_id;
+        this.ceo = ceo;
         this.company_reg_no = company_reg_no;
         this.company_phone_number = company_phone_number;
         this.company_address = company_address;
         this.company_website_url = company_website_url;
         this.company_description = company_description;
         this.company_fax_num = company_fax_num;
+    }
+
+    public String getCeo() {
+        return ceo;
+    }
+
+    public void setCeo(String ceo) {
+        this.ceo = ceo;
     }
 
     public String getClient_id() {

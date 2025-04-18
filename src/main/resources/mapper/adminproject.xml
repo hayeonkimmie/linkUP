@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.aproject">
+
+    <select id="selectAllOngoingProject" resultType="dto.admin.AdminProject">
+        SELECT
+            p.project_id AS projectId,
+            p.client_id AS clientId,
+            c.company_name AS clientName,
+            p.project_name AS projectName,
+            CONCAT(DATE_FORMAT(p.created_date, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(p.settle_day, '%Y-%m-%d')) AS projectDuration,
+            p.manager AS projectManager,
+            p.mphone AS managerPhone,
+            COUNT(DISTINCT a.freelancer_id) AS participant,
+            SUM(ct.fee) AS totalAmount,
+            SUM(ct.total_pay - ct.fee) AS totalFee,
+            SUM(ct.total_pay) AS totalSettlement,
+            DATE_FORMAT(p.settle_day, '%Y%m%d') AS settleDate,
+            MAX(ct.status) AS settleStatus
+        FROM project p
+                 LEFT JOIN client c ON p.client_id = c.client_id
+                 LEFT JOIN apply a ON a.project_id = p.project_id AND a.is_approved = TRUE
+                 LEFT JOIN contract ct ON ct.project_id = p.project_id
+        GROUP BY p.project_id
+    </select>
+
+    <!-- 프로젝트 상세 정보 및 참여자 포함 조회 -->
+    <select id="selectProjectDetail" parameterType="int" resultMap="ProjectDetailMap">
+        SELECT
+            -- 기본 정보
+            p.project_id,
+            p.project_name,
+            p.project_description,
+            p.created_date,
+            p.deadline_date,
+
+            -- 관리자 정보
+            p.manager,
+            p.mphone,
+            c.company_name AS client_name,
+            u.email AS memail,
+
+            -- 참여자 정보
+            u.name AS participant_name,
+            a.category AS participant_role,
+            u.email AS participant_email,
+            u.phone_num AS participant_phone
+
+        FROM project p
+                 JOIN client c ON p.client_id = c.client_id
+                 JOIN apply a ON p.project_id = a.project_id AND a.is_approved = TRUE
+                 JOIN freelancer f ON a.freelancer_id = f.freelancer_id
+                 JOIN user u ON f.freelancer_id = u.user_id
+        WHERE p.project_id = #{projectId}
+    </select>
+
+    <!-- 복합 결과 매핑 -->
+    <resultMap id="ProjectDetailMap" type="dto.admin.AdminProjectDetail" >
+        <id property="projectId" column="project_id"/>
+        <result property="projectName" column="project_name"/>
+        <result property="projectDescription" column="project_description"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="deadlineDate" column="deadline_date"/>
+        <result property="manager" column="manager"/>
+        <result property="mphone" column="mphone"/>
+        <result property="clientName" column="client_name"/>
+        <result property="memail" column="memail"/>
+
+
+        <!-- 참여자 리스트 매핑 -->
+        <collection property="participants" ofType="dto.admin.ProjectParticipant">
+            <result property="participantName" column="participant_name"/>
+            <result property="participantRole" column="participant_role"/>
+            <result property="participantEmail" column="participant_email"/>
+            <result property="participantPhone" column="participant_phone"/>
+        </collection>
+    </resultMap>
+
+</mapper>

@@ -7,6 +7,7 @@ public class Contract {
     int apply_id;
     int project_fee_id;
     int project_id;
+    String freelancer_id;
     String client_id;
     Date settle_day;
     Date start_date;
@@ -19,11 +20,12 @@ public class Contract {
     String fphone;
     String account;
 
-    public Contract(String id, int apply_id, int project_fee_id, int project_id, String client_id, Date settle_day, Date start_date, Date end_date, String pname, int fee, String pmanager, int total_pay, String status, String fphone, String account) {
+    public Contract(String id, int apply_id, int project_fee_id, int project_id, String freelancer_id, String client_id, Date settle_day, Date start_date, Date end_date, String pname, int fee, String pmanager, int total_pay, String status, String fphone, String account) {
         this.id = id;
         this.apply_id = apply_id;
         this.project_fee_id = project_fee_id;
         this.project_id = project_id;
+        this.freelancer_id = freelancer_id;
         this.client_id = client_id;
         this.settle_day = settle_day;
         this.start_date = start_date;
@@ -43,6 +45,14 @@ public class Contract {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFreelancer_id() {
+        return freelancer_id;
+    }
+
+    public void setFreelancer_id(String freelancer_id) {
+        this.freelancer_id = freelancer_id;
     }
 
     public int getApply_id() {

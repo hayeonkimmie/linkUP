@@ -3,6 +3,65 @@ package dto;
 import io.grpc.internal.JsonUtil;
 
 public class Freelancer {
+    private String freelancerId;
+    private String name;
+    private String nickname;
+    private String email;
+    private String password;
+    private String phoneNum;
+    private String profileImg;
+    private Boolean acceptNoti;
+    private String token;
+    private Date withdrawalDate;
+    private Date registrationDate;
+    private Boolean acceptConsent;
+    private Integer rolesId;
+    private String skill;
+    private String address;
+    private String academic;
+    private String introduction;
+    private String license;
+    private String desiredSalary;
+    private String bank;
+    private String accountNum;
+    private Boolean isResident;
+    private String desiredLocation;
+    private String otherRequests;
+    private String attachment;
+    private String externalUrl;
+    private String type;
+
+    public Freelancer() {}
+
+    /**
+     * /admin/client_list.jsp 페이지에서 사용되는 생성자<br>
+     * @param freelancerId 사용자 ID
+     * @param name 이름
+     * @param email 이메일
+     * @param registrationDate 가입일
+     * @param phoneNum 연락처
+     * @param type 사용자 구분 (구인자/구직자)
+     */
+    public Freelancer(String freelancerId, String name, String email, Date registrationDate, String phoneNum, String type) {
+        this.freelancerId = freelancerId;
+        this.name = name;
+        this.email = email;
+        this.registrationDate = registrationDate;
+        this.phoneNum = phoneNum;
+        this.type = type;
+    }
+
+    public Freelancer(String freelancerId, String name, String nickname, String email, String phoneNum,
+                      Date registrationDate, String academic, String skill, String desiredSalary,
+                      String desiredLocation, Boolean isResident, String introduction, String license,
+                      String attachment, String externalUrl, String otherRequests, String type, String address) {
+        this.freelancerId = freelancerId;
+        this.name = name;
+        this.nickname = nickname;
+        this.email = email;
+        this.phoneNum = phoneNum;
+        this.registrationDate = registrationDate;
+        this.academic = academic;
     String freelancerId;
     String category;
     String skill;
@@ -81,12 +140,13 @@ public class Freelancer {
         this.address = address;
     }
 
-    public String getAcademic() {
-        return academic;
+
+    public String getFreelancerId() {
+        return freelancerId;
     }
 
-    public void setAcademic(String academic) {
-        this.academic = academic;
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
     public String getIntroduction() {
@@ -145,9 +205,8 @@ public class Freelancer {
         this.desiredSalary = desiredSalary;
     }
 
-    public String getDesiredLocation() {
-        return desiredLocation;
-    }
+    public String getUserId() { return freelancerId; }
+    public void setUserId(String userId) { this.freelancerId = userId; }
 
     public void setDesiredLocation(String desiredLocation) {
         this.desiredLocation = desiredLocation;

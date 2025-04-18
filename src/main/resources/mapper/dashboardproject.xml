@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
 <mapper namespace="mapper.dproject">
     <select id="selectAllOngoingProjects" resultType="dto.DashboardProject">
         SELECT
-            p.project_id,
-            p.project_name,
-            p.created_date,
-            p.status AS project_status,
-            p.manager,
-            a.apply_date,
-            a.is_approved
+            p.project_id AS projectId,
+            p.project_name AS projectName,
+            SUM(c.total_pay) AS totalPay,
+            p.created_date AS createdDate,
+            p.manager AS manager,
+            c.status AS projectStatus,
+            MIN(a.apply_date) AS applyDate,
+            MAX(a.is_approved) AS isApproved
         FROM
-            apply a
-                INNER JOIN
-            project p ON a.project_id = p.project_id
+            contract c
+                JOIN
+            project p ON c.project_id = p.project_id
+                JOIN
+            apply a ON c.apply_id = a.apply_id
+        GROUP BY
+            p.project_id, p.project_name, p.created_date, p.manager, c.status
+        ORDER BY p.project_id DESC
     </select>
+
 
 </mapper>
