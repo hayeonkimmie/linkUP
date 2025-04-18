@@ -80,7 +80,7 @@ public class Freelancer {
     String attachment;
     String externalUrl;
 
-    public Freelancer() {
+     public Freelancer() {
         super();
     }
 

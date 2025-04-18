@@ -39,8 +39,7 @@ public class ClientQnAController extends HttpServlet {
             request.setAttribute("qnaList", qnaList);
             System.out.println(qnaList);
             System.out.println(pageInfo);
-            request.getRequestDispa
-        cher("./client/clientQnA.jsp").forward(request,response);
+            request.getRequestDispatcher("./client/clientQnA.jsp").forward(request,response);
         } catch(Exception e) {
             e.printStackTrace();
         }
