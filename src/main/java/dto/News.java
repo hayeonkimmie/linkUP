@@ -3,25 +3,25 @@ package dto;
 import java.sql.Date;
 
 public class News {
-    int news_id;
-    String title;
-    String content;
-    Date created_at;
+    private int newsId;
+    private String title;
+    private String content;
+    private Date createdAt;
 
     public News(){}
-    public News(int news_id, String title, String content, Date created_at) {
-        this.news_id = news_id;
+    public News(int newsId, String title, String content, Date createdAt) {
+        this.newsId = newsId;
         this.title = title;
         this.content = content;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
 
-    public int getNews_id() {
-        return news_id;
+    public int getNewsId() {
+        return newsId;
     }
 
-    public void setNews_id(int news_id) {
-        this.news_id = news_id;
+    public void setNewsId(int newsId) {
+        this.newsId = newsId;
     }
 
     public String getTitle() {
@@ -40,17 +40,11 @@ public class News {
         this.content = content;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
-
-
-
-
-
-

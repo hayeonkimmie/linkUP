@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("/news")
+@WebServlet("/home/news")
 public class HomeNewsController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

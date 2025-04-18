@@ -1,24 +1,24 @@
 package dto;
 
 public class Level {
-    int level_id;
-    String level;
-    int start_month;
-    int end_month;
+    private int levelId;
+    private String level;
+    private int startMonth;
+    private int endMonth;
 
-    public Level(int level_id, String level, int start_month, int end_month) {
-        this.level_id = level_id;
+    public Level(int levelId, String level, int startMonth, int endMonth) {
+        this.levelId = levelId;
         this.level = level;
-        this.start_month = start_month;
-        this.end_month = end_month;
+        this.startMonth = startMonth;
+        this.endMonth = endMonth;
     }
 
-    public int getLevel_id() {
-        return level_id;
+    public int getLevelId() {
+        return levelId;
     }
 
-    public void setLevel_id(int level_id) {
-        this.level_id = level_id;
+    public void setLevelId(int levelId) {
+        this.levelId = levelId;
     }
 
     public String getLevel() {
@@ -29,19 +29,19 @@ public class Level {
         this.level = level;
     }
 
-    public int getStart_month() {
-        return start_month;
+    public int getStartMonth() {
+        return startMonth;
     }
 
-    public void setStart_month(int start_month) {
-        this.start_month = start_month;
+    public void setStartMonth(int startMonth) {
+        this.startMonth = startMonth;
     }
 
-    public int getEnd_month() {
-        return end_month;
+    public int getEndMonth() {
+        return endMonth;
     }
 
-    public void setEnd_month(int end_month) {
-        this.end_month = end_month;
+    public void setEndMonth(int endMonth) {
+        this.endMonth = endMonth;
     }
 }

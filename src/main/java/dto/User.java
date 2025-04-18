@@ -1,35 +1,8 @@
 package dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class User {
-        String user_id;
-        String name;
-        String nickname;
-        String email;
-        String password;
-        String phone_num;
-        String profile_img;
-        boolean accept_noti;
-        String token;
-        Date registration_date;
-        Date withdrawal_date;
-        boolean accept_consent;
-
-        public User(String user_id, String name, String nickname, String email, String password, String phone_num, String profile_img, boolean accept_noti, String token, Date registration_date, Date withdrawal_date, boolean accept_consent) {
-            this.user_id = user_id;
-            this.name = name;
-            this.nickname = nickname;
-            this.email = email;
-            this.password = password;
-            this.phone_num = phone_num;
-            this.profile_img = profile_img;
-            this.accept_noti = accept_noti;
-            this.token = token;
-            this.registration_date = registration_date;
-            this.withdrawal_date = withdrawal_date;
-            this.accept_consent = accept_consent;
-        }
     String userId;
     String name;
     String nickname;
@@ -44,6 +17,8 @@ public class User {
     boolean acceptConsent;
     boolean isNaver;
     boolean isKakao;
+
+
 
     public User() {
         super();
@@ -113,13 +88,6 @@ public class User {
         this.password = password;
     }
 
-        public String getProfile_img() {
-            return profile_img;
-        }
-
-        public void setProfile_img(String profile_img) {
-            this.profile_img = profile_img;
-        }
 
     public String getProfilImg() {
         return profilImg;

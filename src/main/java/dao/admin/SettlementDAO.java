@@ -1,6 +1,6 @@
 package dao.admin;
 
-import dto.admin.AdminProject;
+import dto.AdminProject;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
 

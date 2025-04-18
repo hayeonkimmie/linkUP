@@ -32,7 +32,7 @@
     </a>
     <ul class="list">
       <c:forEach var="notice" items="${noticeList}">
-        <li><a href="?noticeId=${notice.notice_id}">${notice.title}</a> ${notice.created_at}</li>
+        <li><a href="?noticeId=${notice.noticeId}">${notice.title}</a> ${notice.createdAt}</li>
       </c:forEach>
 
 <%--      <li><span>4월 고객센터 운영시간 안내</span><span>2025.04.01</span></li>--%>
@@ -61,7 +61,7 @@
       </a>
       <ul class="list">
         <c:forEach var="news" items="${newsList}">
-          <li><a href="?newsId=${news.news_id}">${news.title}</a> ${news.created_at}</li>
+          <li><a href="?newsId=${news.newsId}">${news.title}</a> ${news.createdAt}</li>
         </c:forEach>
       </ul>
 <%--        <table border="0">--%>

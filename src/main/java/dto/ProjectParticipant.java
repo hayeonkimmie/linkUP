@@ -1,4 +1,4 @@
-package dto.admin;
+package dto;
 
 public class ProjectParticipant {
     private String participantName;

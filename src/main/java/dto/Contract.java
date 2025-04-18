@@ -3,37 +3,37 @@ package dto;
 import java.util.Date;
 
 public class Contract {
-    String id;
-    int apply_id;
-    int project_fee_id;
-    int project_id;
-    String freelancer_id;
-    String client_id;
-    Date settle_day;
-    Date start_date;
-    Date end_date;
-    String pname;
-    int fee;
-    String pmanager;
-    int total_pay;
-    String status;
-    String fphone;
-    String account;
+    private String id;
+    private int applyId;
+    private int projectFeeId;
+    private int projectId;
+    private String freelancerId;
+    private String clientId;
+    private Date settleDay;
+    private Date startDate;
+    private Date endDate;
+    private String pname;
+    private int fee;
+    private String pmanager;
+    private int totalPay;
+    private String status;
+    private String fphone;
+    private String account;
 
-    public Contract(String id, int apply_id, int project_fee_id, int project_id, String freelancer_id, String client_id, Date settle_day, Date start_date, Date end_date, String pname, int fee, String pmanager, int total_pay, String status, String fphone, String account) {
+    public Contract(String id, int applyId, int projectFeeId, int projectId, String freelancerId, String clientId, Date settleDay, Date startDate, Date endDate, String pname, int fee, String pmanager, int totalPay, String status, String fphone, String account) {
         this.id = id;
-        this.apply_id = apply_id;
-        this.project_fee_id = project_fee_id;
-        this.project_id = project_id;
-        this.freelancer_id = freelancer_id;
-        this.client_id = client_id;
-        this.settle_day = settle_day;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.applyId = applyId;
+        this.projectFeeId = projectFeeId;
+        this.projectId = projectId;
+        this.freelancerId = freelancerId;
+        this.clientId = clientId;
+        this.settleDay = settleDay;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.pname = pname;
         this.fee = fee;
         this.pmanager = pmanager;
-        this.total_pay = total_pay;
+        this.totalPay = totalPay;
         this.status = status;
         this.fphone = fphone;
         this.account = account;
@@ -47,68 +47,68 @@ public class Contract {
         this.id = id;
     }
 
-    public String getFreelancer_id() {
-        return freelancer_id;
+    public String getFreelancerId() {
+        return freelancerId;
     }
 
-    public void setFreelancer_id(String freelancer_id) {
-        this.freelancer_id = freelancer_id;
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
-    public int getApply_id() {
-        return apply_id;
+    public int getApplyId() {
+        return applyId;
     }
 
-    public void setApply_id(int apply_id) {
-        this.apply_id = apply_id;
+    public void setApplyId(int applyId) {
+        this.applyId = applyId;
     }
 
-    public int getProject_fee_id() {
-        return project_fee_id;
+    public int getProjectFeeId() {
+        return projectFeeId;
     }
 
-    public void setProject_fee_id(int project_fee_id) {
-        this.project_fee_id = project_fee_id;
+    public void setProjectFeeId(int projectFeeId) {
+        this.projectFeeId = projectFeeId;
     }
 
-    public int getProject_id() {
-        return project_id;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
-    public String getClient_id() {
-        return client_id;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public Date getSettle_day() {
-        return settle_day;
+    public Date getSettleDay() {
+        return settleDay;
     }
 
-    public void setSettle_day(Date settle_day) {
-        this.settle_day = settle_day;
+    public void setSettleDay(Date settleDay) {
+        this.settleDay = settleDay;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getPname() {
@@ -135,12 +135,12 @@ public class Contract {
         this.pmanager = pmanager;
     }
 
-    public int getTotal_pay() {
-        return total_pay;
+    public int getTotalPay() {
+        return totalPay;
     }
 
-    public void setTotal_pay(int total_pay) {
-        this.total_pay = total_pay;
+    public void setTotalPay(int totalPay) {
+        this.totalPay = totalPay;
     }
 
     public String getStatus() {

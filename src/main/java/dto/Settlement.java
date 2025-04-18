@@ -3,58 +3,49 @@ package dto;
 import java.util.Date;
 
 public class Settlement {
-    int slist_id;
-    String contract_id;
-    int category_id;
-    String client_id;
+    int slistId;
+    String contractId;
+    int categoryId;
+    String clientId;
     String pname;
     int pay;
-    Date start_date;
-    Date end_date;
+    Date startDate;
+    Date endDate;
     int cnt;
 
-    public Settlement(int slist_id, String contract_id, int category_id, String client_id, String pname, int pay, Date start_date, Date end_date, int cnt) {
-        this.slist_id = slist_id;
-        this.contract_id = contract_id;
-        this.category_id = category_id;
-        this.client_id = client_id;
-        this.pname = pname;
-        this.pay = pay;
-        this.start_date = start_date;
-        this.end_date = end_date;
-        this.cnt = cnt;
+    public Settlement() {
     }
 
-    public int getSlist_id() {
-        return slist_id;
+    public int getSlistId() {
+        return slistId;
     }
 
-    public void setSlist_id(int slist_id) {
-        this.slist_id = slist_id;
+    public void setSlistId(int slistId) {
+        this.slistId = slistId;
     }
 
-    public String getContract_id() {
-        return contract_id;
+    public String getContractId() {
+        return contractId;
     }
 
-    public void setContract_id(String contract_id) {
-        this.contract_id = contract_id;
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getClient_id() {
-        return client_id;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public String getPname() {
@@ -73,20 +64,20 @@ public class Settlement {
         this.pay = pay;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public int getCnt() {
