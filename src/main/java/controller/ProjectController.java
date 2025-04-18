@@ -1,14 +1,13 @@
 package controller;
 
 import dao.admin.ProjectDAO;
-import dto.admin.AdminProject;
-import dto.admin.AdminProjectDetail;
+import dto.AdminProject;
+import dto.AdminProjectDetail;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/admin/project")

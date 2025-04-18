@@ -1,7 +1,7 @@
 package dao.admin;
 
-import dto.admin.ClientUserDetail;
-import dto.admin.ClientUserInfo;
+import dto.ClientUserDetail;
+import dto.ClientUserInfo;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
 

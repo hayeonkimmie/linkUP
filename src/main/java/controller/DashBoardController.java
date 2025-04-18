@@ -1,7 +1,6 @@
 package controller;
 
 import dto.DashboardProject;
-import dto.Freelancer;
 import service.ProjectService;
 
 import javax.servlet.*;

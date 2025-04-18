@@ -1,39 +1,37 @@
 package dto;
 
 public class JjimFree {
-    int jjim_id;
-    String client_id;
-    String freelancer_id;
+    private int jjimId;
+    private String clientId;
+    private String freelancerId;
 
-    public int getJjim_id() {
-        return jjim_id;
+    public int getJjimId() {
+        return jjimId;
     }
 
-    public void setJjim_id(int jjim_id) {
-        this.jjim_id = jjim_id;
+    public void setJjimId(int jjimId) {
+        this.jjimId = jjimId;
     }
 
-    public String getClient_id() {
-        return client_id;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getFreelancer_id() {
-        return freelancer_id;
+    public String getFreelancerId() {
+        return freelancerId;
     }
 
-    public void setFreelancer_id(String freelancer_id) {
-        this.freelancer_id = freelancer_id;
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
-    public JjimFree(int jjim_id, String client_id, String freelancer_id) {
-        this.jjim_id = jjim_id;
-        this.client_id = client_id;
-        this.freelancer_id = freelancer_id;
-
-
+    public JjimFree(int jjimId, String clientId, String freelancerId) {
+        this.jjimId = jjimId;
+        this.clientId = clientId;
+        this.freelancerId = freelancerId;
     }
 }

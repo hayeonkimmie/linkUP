@@ -1,7 +1,7 @@
 package dao.admin;
 
-import dto.admin.AdminProject;
-import dto.admin.AdminProjectDetail;
+import dto.AdminProject;
+import dto.AdminProjectDetail;
 
 import java.util.List;
 

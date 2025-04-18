@@ -1,8 +1,8 @@
 package dto;
 
 public class Ammount {
-    private Integer ammount_id;
-    private Integer project_id;
+    private Integer ammountId;
+    private Integer projectId;
     private Integer total;
     private Integer fee;
 
@@ -10,9 +10,9 @@ public class Ammount {
         super();
     }
 
-    public Ammount(Integer ammount_id, Integer project_id, Integer total, Integer fee) {
-        this.ammount_id = ammount_id;
-        this.project_id = project_id;
+    public Ammount(Integer ammountId, Integer projectId, Integer total, Integer fee) {
+        this.ammountId = ammountId;
+        this.projectId = projectId;
         this.total = total;
         this.fee = fee;
     }
@@ -33,19 +33,19 @@ public class Ammount {
         this.total = total;
     }
 
-    public Integer getProject_id() {
-        return project_id;
+    public Integer getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(Integer project_id) {
-        this.project_id = project_id;
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 
-    public Integer getAmmount_id() {
-        return ammount_id;
+    public Integer getAmmountId() {
+        return ammountId;
     }
 
-    public void setAmmount_id(Integer ammount_id) {
-        this.ammount_id = ammount_id;
+    public void setAmmountId(Integer ammountId) {
+        this.ammountId = ammountId;
     }
 }

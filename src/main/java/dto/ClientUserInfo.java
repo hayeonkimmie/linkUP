@@ -1,4 +1,4 @@
-package dto.admin;
+package dto;
 
 import java.sql.Date;
 

@@ -4,9 +4,8 @@ import dao.admin.ClientDAO;
 import dao.admin.FreelancerDAO;
 import dao.admin.IClientDAO;
 import dao.admin.IFreelancerDAO;
-import dto.Client;
 import dto.Freelancer;
-import dto.admin.ClientUserInfo;
+import dto.ClientUserInfo;
 import service.admin.ClientService;
 import service.admin.FreelancerService;
 import service.admin.IClientService;
@@ -16,7 +15,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 

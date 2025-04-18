@@ -27,7 +27,7 @@
 <%--    <li><a href="news-detail.html">2월 우리는 오늘도 프로젝트</a><span>2025.02.26</span></li>--%>
 <%--    <li><a href="news-detail.html">2월 링크업이 아메리카노 쏜다!</a><span>2025.04.01</span></li>--%>
     <c:forEach var="news" items="${newsList}">
-      <li><a href="?newsId=${news.news_id}"> &nbsp;&nbsp; ${news.title}</a> ${news.created_at}</li>
+      <li><a href="?newsId=${news.newsId}"> &nbsp;&nbsp; ${news.title}</a> ${news.createdAt}</li>
     </c:forEach>
   </ul>
 </div>

@@ -1,6 +1,6 @@
 package dao.admin;
 
-import dto.admin.AdminProject;
+import dto.AdminProject;
 import java.sql.SQLException;
 import java.util.List;
 

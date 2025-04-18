@@ -1,8 +1,8 @@
 package service.admin;
 
 import dao.admin.IClientDAO;
-import dto.admin.ClientUserDetail;
-import dto.admin.ClientUserInfo;
+import dto.ClientUserDetail;
+import dto.ClientUserInfo;
 
 import java.util.List;
 
