@@ -9,7 +9,7 @@ public class User {
     String email;
     String password;
     String phoneNum;
-    String profilImg;
+    String profileImg; // 이 부분 오타
     boolean acceptNoti;
     String token;
     Date registrationDate;
@@ -24,21 +24,21 @@ public class User {
         super();
     }
 
-    public User(String userId, String nickname, String profilImg, String password) {
+    public User(String userId, String nickname, String profileImg, String password) {
         this.userId = userId;
         this.nickname = nickname;
-        this.profilImg = profilImg;
+        this.profileImg = profileImg;
         this.password = password;
     }
 
-    public User(String userId, String name, String nickname, String email, String password, String phoneNum, String profilImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, boolean isNaver, boolean isKakao) {
+    public User(String userId, String name, String nickname, String email, String password, String phoneNum, String profileImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, boolean isNaver, boolean isKakao) {
         this.userId = userId;
         this.name = name;
         this.nickname = nickname;
         this.email = email;
         this.password = password;
         this.phoneNum = phoneNum;
-        this.profilImg = profilImg;
+        this.profileImg = profileImg;
         this.acceptNoti = acceptNoti;
         this.token = token;
         this.registrationDate = registrationDate;
@@ -89,12 +89,12 @@ public class User {
     }
 
 
-    public String getProfilImg() {
-        return profilImg;
+    public String getProfileImg() {
+        return profileImg;
     }
 
-    public void setProfilImg(String profilImg) {
-        this.profilImg = profilImg;
+    public void setProfilImg(String profileImg) {
+        this.profileImg = profileImg;
     }
 
     public boolean isAcceptNoti() {
@@ -160,7 +160,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", password='" + password + '\'' +
-                ", profilImg='" + profilImg + '\'' +
+                ", profilImg='" + profileImg + '\'' +
                 '}';
     }
 }

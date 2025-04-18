@@ -8,6 +8,7 @@
         values (#{freelancer_id}, #{category},#{skill},#{address}, #{academic},#{introduction},#{license}, #{bank},#{account_num},#{is_negotiable}, #{is_resident},#{desired_salary},#{desired_location}, #{other_requests},#{attachment},#{external_url})
     </insert>
 
+
     <select id="selectAllFreelancer" resultType="freelancer">
         SELECT
             u.user_id,

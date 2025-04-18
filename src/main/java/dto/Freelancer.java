@@ -18,6 +18,9 @@ public class Freelancer {
     boolean isNaver;
     boolean isKakao;
 
+    // User Type 04.18 15:02 추가
+    String type;
+
     String freelancerId;
     String category;
     String skill;
@@ -37,6 +40,14 @@ public class Freelancer {
 
     public Freelancer() {
         super();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getUserId() {

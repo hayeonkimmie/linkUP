@@ -1,29 +1,22 @@
-package controller;
-
-import dto.Freelancer;
+package controller.admin;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.sql.Date;
 
-@WebServlet("/admin/freelancer")
-public class FreeLancerController extends HttpServlet {
+@WebServlet("/admin/qna")
+public class QnaController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public FreeLancerController() {
+    public QnaController() {
         super();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String freelancerid = request.getParameter("freelancerid");
-
-
-//        request.setAttribute("freelancer", freelancer);
-        request.getRequestDispatcher("/admin/freelancer_detail.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/qna_manage.jsp").forward(request, response);
     }
 
     @Override

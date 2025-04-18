@@ -9,25 +9,10 @@ public class Client {
     private String companyWebsiteUrl;
     private String companyDescription;
     private String companyFaxNum;
+    private String type;
 
-    public Client(String clientId, String ceo, String companyRegNo, String companyPhoneNumber, String companyAddress, String companyWebsiteUrl, String companyDescription, String companyFaxNum) {
-        this.clientId = clientId;
-        this.ceo = ceo;
-        this.companyRegNo = companyRegNo;
-        this.companyPhoneNumber = companyPhoneNumber;
-        this.companyAddress = companyAddress;
-        this.companyWebsiteUrl = companyWebsiteUrl;
-        this.companyDescription = companyDescription;
-        this.companyFaxNum = companyFaxNum;
-    }
 
-    public String getCeo() {
-        return ceo;
-    }
-
-    public void setCeo(String ceo) {
-        this.ceo = ceo;
-    }
+    public Client() {}
 
     public String getClientId() {
         return clientId;
@@ -35,6 +20,16 @@ public class Client {
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
+    }
+
+
+
+    public String getCeo() {
+        return ceo;
+    }
+
+    public void setCeo(String ceo) {
+        this.ceo = ceo;
     }
 
     public String getCompanyRegNo() {
@@ -83,5 +78,28 @@ public class Client {
 
     public void setCompanyFaxNum(String companyFaxNum) {
         this.companyFaxNum = companyFaxNum;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "clientId='" + clientId + '\'' +
+                ", ceo='" + ceo + '\'' +
+                ", companyRegNo='" + companyRegNo + '\'' +
+                ", companyPhoneNumber='" + companyPhoneNumber + '\'' +
+                ", companyAddress='" + companyAddress + '\'' +
+                ", companyWebsiteUrl='" + companyWebsiteUrl + '\'' +
+                ", companyDescription='" + companyDescription + '\'' +
+                ", companyFaxNum='" + companyFaxNum + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

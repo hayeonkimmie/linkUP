@@ -13,7 +13,8 @@ public class Contract {
     private Date startDate;
     private Date endDate;
     private String pname;
-    private int fee;
+    private Integer pay; // 금액 4/18 14:44 추가
+    private int fee; // 수수료 금액의 0.3% 14:44 추가
     private String pmanager;
     private int totalPay;
     private String status;

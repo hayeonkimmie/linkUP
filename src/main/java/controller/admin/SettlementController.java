@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import dao.admin.ISettlementDAO;
 import dao.admin.SettlementDAO;

@@ -32,7 +32,7 @@
             -- 기본 정보
             p.project_id,
             p.project_name,
-            p.project_description,
+            p.project_descirption,
             p.created_date,
             p.deadline_date,
 
@@ -44,7 +44,7 @@
 
             -- 참여자 정보
             u.name AS participant_name,
-            a.category AS participant_role,
+            a.sub_category_name AS participant_role,
             u.email AS participant_email,
             u.phone_num AS participant_phone
 
@@ -64,8 +64,8 @@
             c.company_name,
             p.project_name,
             CONCAT(DATE_FORMAT(p.created_date, '%y.%m.%d'), ' ~ ', DATE_FORMAT(p.settle_day, '%y.%m.%d')) AS project_duration,
-            p.manager,
-            p.mphone,
+            p.manager as project_manager,
+            p.mphone as manager_phone,
             IFNULL(SUM(ct.total_pay - ct.fee), 0) AS total_amount,
             IFNULL(SUM(ct.fee), 0) AS total_fee,
             IFNULL(SUM(ct.total_pay), 0) AS total_settlement,
