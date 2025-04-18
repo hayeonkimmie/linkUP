@@ -3,7 +3,7 @@ import java.sql.Date;
 import java.util.Arrays;
 
 public class Portfolio {
-    int portfolioId;
+    Integer portfolioId;
     String freelancerId;
     String title;
     String thumbnail;
@@ -12,14 +12,14 @@ public class Portfolio {
     String teamRole;
     String skillDescription;
     String introduce;
-    int projectId;
+    Integer projectId;
     String attachment;
     String externalUrl;
-    Date created_date;
+
     boolean isTempSaved;
     boolean isUserDeleted;
     boolean isDeleted;
-    int priority;
+    Integer priority;
     private String[] skillList;
     private String projectName;
     private String[] attachmentList;
@@ -85,12 +85,11 @@ public class Portfolio {
         this.priority = priority;
     }
 
-
     public int getPortfolioId() {
         return portfolioId;
     }
 
-    public void setPortfolioId(int portfolioId) {
+    public void setPortfolioId(Integer portfolioId) {
         this.portfolioId = portfolioId;
     }
 
@@ -182,12 +181,12 @@ public class Portfolio {
         this.externalUrl = externalUrl;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void getsetCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void getsetCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public boolean getIsTempSaved() {
@@ -214,7 +213,7 @@ public class Portfolio {
         isDeleted = deleted;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
@@ -254,10 +253,6 @@ public class Portfolio {
         this.externalUrlList = externalUrlList;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
@@ -277,7 +272,7 @@ public class Portfolio {
                 ", projectId=" + projectId +
                 ", attachment='" + attachment + '\'' +
                 ", externalUrl='" + externalUrl + '\'' +
-                ", created_date=" + created_date +
+                ", created_date=" + createdDate +
                 ", isTempSaved=" + isTempSaved +
                 ", isUserDeleted=" + isUserDeleted +
                 ", isDeleted=" + isDeleted +

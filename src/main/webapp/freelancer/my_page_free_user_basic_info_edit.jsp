@@ -45,22 +45,20 @@
                     <h3>기본 정보 설정</h3>
                 </div>
             </div>
-            <form>
+            <form action="my-page/edit-info?type=basic" method="post">
                 <div class="form-row profile-upload">
                     <label for="profile_img" class="upload-placeholder"><!--프로필 이미지 변경--></label>
                     <div class="profile-box">
-                        <img src="./../img/basic_profile_img.png" alt="profile" id="preview" width="150px"
-                             onclick="document.getElementById('profile_img').click();"/>
+                        <img src="../img/basic_profile_img.png" alt="profile" id="preview" width="150px" onclick="document.getElementById('profile_img').click();"/>
                         <!--<img src="${contextPath}/img/plus.png" alt="profile" id="preview" width="100px" />-->
-                        <input type="file" name="profile_img" id="profile_img" accept="image/*" onchange="readURL(this);"
+                        <input type="file" name="profile_img" id="profile_img" accept="image/*"
                                style="display:none">
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <input type="text" placeholder="이름" value="" class="required"/>
+                    <input type="text" placeholder="이름" value="" class="required" required/>
                     <input type="date" id="birthDisplay" readonly placeholder="생년월일" required/>
-                    <input type="date" id="birth" style="display: none;"/>
                 </div>
 
                 <div class="form-row">
@@ -100,7 +98,7 @@
                     </select>
                     <input type="text" placeholder="현재 계좌번호" class="required"/>
                 </div>
-                <div class="toggle-row">
+                <%--<div class="toggle-row">
                     <label for="projectUpdate">프로젝트 지원 결과 알림</label>
                     <label class="switch">
                         <input type="checkbox" id="" checked>
@@ -120,7 +118,7 @@
                         <input type="checkbox" id="" checked>
                         <span class="slider round"></span>
                     </label>
-                </div>
+                </div>--%>
                 <div class="form-row center">
                     <button type="submit" class="submit-btn">저장</button>
                 </div>

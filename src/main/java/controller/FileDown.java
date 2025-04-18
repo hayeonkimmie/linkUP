@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class FileDown
- */
 @WebServlet("/fileDown")
 public class FileDown extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,10 +43,7 @@ public class FileDown extends HttpServlet {
 		} catch (Exception e) {
             e.printStackTrace();
 			response.getWriter().write("파일 다운로드 실패");
-        }finally {
-
         }
-//		FileInputStream input = new FileInputStream(path+"\\"+filename);
 	}
 
 }

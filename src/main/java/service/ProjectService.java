@@ -23,7 +23,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public List<Project> selectPortfolioListByPage(PageInfo pageInfo, String userId) throws Exception {
+    public List<Project> selectProjectListByPage(PageInfo pageInfo, String userId) throws Exception {
         return null;
     }
 }

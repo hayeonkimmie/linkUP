@@ -14,16 +14,11 @@ public class Apply {
     private Integer subCategoryId; // 서브 카테고리 ID
     private String subCategoryName; // 서브 카테고리 이름
 
-    public Apply(int applyId, String freelancerId, int projectId, Date applyDate, Date cancelDate, boolean isApproved) {
-        this.applyId = applyId;
-        this.freelancerId = freelancerId;
-        this.projectId = projectId;
-        this.applyDate = applyDate;
-        this.cancelDate = cancelDate;
-        this.isApproved = isApproved;
+    public Apply() {
+        super();
     }
 
-    public Apply(int applyId, String freelancerId, int projectId, Date applyDate, Date cancelDate, boolean isApproved, Date approvalChangeDate) {
+    public Apply(int applyId, String freelancerId, int projectId, Date applyDate, Date cancelDate, boolean isApproved, Date approvalChangeDate, Integer subCategoryId, String subCategoryName) {
         this.applyId = applyId;
         this.freelancerId = freelancerId;
         this.projectId = projectId;
@@ -31,6 +26,8 @@ public class Apply {
         this.cancelDate = cancelDate;
         this.isApproved = isApproved;
         this.approvalChangeDate = approvalChangeDate;
+        this.subCategoryId = subCategoryId;
+        this.subCategoryName = subCategoryName;
     }
 
     public int getApplyId() {
@@ -87,5 +84,21 @@ public class Apply {
 
     public void setApprovalChangeDate(Date approvalChangeDate) {
         this.approvalChangeDate = approvalChangeDate;
+    }
+
+    public Integer getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
     }
 }

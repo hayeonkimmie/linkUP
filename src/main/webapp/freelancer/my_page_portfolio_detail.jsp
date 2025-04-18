@@ -18,7 +18,6 @@
 <%--   <link rel="stylesheet" href="${contextPath}/css/headerSt.css"/>--%>
 <%--   <link rel="stylesheet" href="${contextPath}/css/freelancer_my_page.css'/>">--%>
 <%--    <link rel="stylesheet" href="${contextPath}/css/freelancer_main_portfolio_detail.css'/>"/>--%>
-
    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio_detail.css'/>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +36,7 @@
             <h2>${portfolio.title}</h2>
             <div class="portfolio-info">
                 <div class="portfolio-thumbnail">
-                    <img src="${portfolio.thumbnail}" alt='포트폴리오 썸네일 이미지'
+                    <img src="image?filename=${portfolio.thumbnail}" alt='포트폴리오 썸네일 이미지'
                          style="width: 100%; height: 100%; border-radius: 8px;"/>
                 </div>
                 <div class="portfolio-meta">

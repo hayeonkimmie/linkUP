@@ -43,7 +43,9 @@
 
 .team-role input,
 .skills-section select,
-.portfolio-description textarea {
+.portfolio-description textarea,
+#skills
+{
     width: 100%;
     padding: 10px 14px;
     font-size: 14px;
@@ -161,7 +163,11 @@ table td:nth-child(2){
 
 #submit-btn,
 #temp-submit-btn,
-#delete-btn {
+#delete-btn,
+#add-project-log,
+#add-attachment-file,
+#add-outer-url,
+#list-btn{
     padding: 10px 20px;
     border-radius: 6px;
     border: none;
@@ -170,9 +176,13 @@ table td:nth-child(2){
     cursor: pointer;
 }
 
-#submit-btn { background-color: #91009e; }
-#temp-submit-btn { background-color: #777; }
-#delete-btn { background-color: #d9534f; }
+#submit-btn,#add-project-log { background-color: #91009e; }
+#temp-submit-btn,#add-attachment-file { background-color: #777; }
+#delete-btn, #add-outer-url { background-color: #d9534f; }
+#list-btn{
+    background-color: #5bc0de;
+    color: white;
+}
 /*.spare-tr{
     display: none;
 }*/

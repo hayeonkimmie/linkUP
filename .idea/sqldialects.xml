@@ -17,7 +17,6 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/pay.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/portfolio.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/qna.xml" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/riview.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/settlelist.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/settlement.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/subCategory.xml" dialect="MySQL" />

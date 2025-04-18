@@ -2,6 +2,8 @@ package dto;
 
 import java.sql.Date;
 
+import java.sql.Date;
+
 public class Freelancer {
     String userId;
     String name;

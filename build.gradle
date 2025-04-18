@@ -23,7 +23,7 @@ repositories {
 
 
 dependencies {
-    implementation files('libs/cos.jar') // MultipartRequest
+    implementation files('lib/cos.jar') // MultipartRequest
     implementation 'org.mybatis:mybatis:3.4.0' // mybatis
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1' // servlet
     implementation 'mysql:mysql-connector-java:8.0.11' // mysql
