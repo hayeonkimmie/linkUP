@@ -31,22 +31,10 @@
       <h3>공지사항</h3>
     </a>
     <ul class="list">
-      <table border="1">
-        <tr>
-          <th>공지번호</th>
-          <th>제목</th>
-          <th>내용</th>
-          <th>날짜</th>
-        </tr>
-        <c:forEach var="notice" items="${noticeList}">
-          <tr>
-            <td>${notice.notice_id}</td>
-            <td>${notice.title}</td>
-            <td>${notice.content}</td>
-            <td>${notice.created_at}</td>
-          </tr>
-        </c:forEach>
-      </table>
+      <c:forEach var="notice" items="${noticeList}">
+        <li><a href="?noticeId=${notice.notice_id}">${notice.title}</a> ${notice.created_at}</li>
+      </c:forEach>
+
 <%--      <li><span>4월 고객센터 운영시간 안내</span><span>2025.04.01</span></li>--%>
 <%--      <li><span>3월 27일(목) 링크업 서버 점검 안내 및 공지</span><span>2025.03.26</span></li>--%>
 <%--      <li><span>[필독] 창업사업화 지원사업 모집 기간, 불법 컨설팅에 주의해 주세요!</span><span>2025.03.04</span></li>--%>
@@ -73,9 +61,9 @@
       </a>
       <ul class="list">
         <c:forEach var="news" items="${newsList}">
-          <li><a href="?newsId=${news.news_id}">${news.title}</a></li>
+          <li><a href="?newsId=${news.news_id}">${news.title}</a> ${news.created_at}</li>
         </c:forEach>
-
+      </ul>
 <%--        <table border="0">--%>
 <%--          <tr>--%>
 <%--            <th>새소식번호</th>--%>
@@ -92,7 +80,7 @@
 <%--            </tr>--%>
 <%--          </c:forEach>--%>
 
-        </table>
+<%--        </table>--%>
 <%--        <li>--%>
 <%--          <span><a href="newsPage.jsp">링크업에서 주최하는 취업박람회 소개</a></span><span>2025.04.01</span>--%>
 <%--        </li>--%>
@@ -100,10 +88,10 @@
 <%--        <li><span>창업을 위한 링크업 이벤트 (3/2~)</span><span>2025.03.04</span></li>--%>
 <%--        <li><span>2월 우리는 오늘도 프로젝트</span><span>2025.02.26</span></li>--%>
 
-      </ul>
+
     </div>
   </div>
 </div>
-<script src="../js/header.js"></script>
+<script src="../home/header.jsp"></script>
 </body>
 </html>

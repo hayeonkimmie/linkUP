@@ -17,6 +17,6 @@ public class NoticeService implements INoticeService {
 
     @Override
     public List<Notice> getGogakCenterNoticesList(Integer row) throws Exception {
-        return noticeDAO.selectNoticeList(row -1);
+        return noticeDAO.selectGogakCenterNoticesList(row -1);
     }
 }

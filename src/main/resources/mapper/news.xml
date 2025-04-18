@@ -13,7 +13,7 @@
     </select>
 
     <select id="selectGogakCenterNewsList" parameterType="Integer" resultType="news">
-        select * from news order by created_at desc limit #{row},3
+        select * from news order by created_at desc limit #{row},4
     </select>
 
 </mapper>
