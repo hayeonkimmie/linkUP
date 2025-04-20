@@ -41,16 +41,6 @@ public class Client {
         this.clientId = clientId;
     }
 
-
-
-    public String getCeo() {
-        return ceo;
-    }
-
-    public void setCeo(String ceo) {
-        this.ceo = ceo;
-    }
-
     public String getCompanyRegNo() {
         return companyRegNo;
     }
@@ -126,7 +116,6 @@ public class Client {
     public String getCeo() {
         return ceo;
     }
-
     public void setCeo(String ceo) {
         this.ceo = ceo;
     }

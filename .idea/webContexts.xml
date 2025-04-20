@@ -3,11 +3,13 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/freelancer/my_page_my_jjim_project.jsp" value="file://$PROJECT_DIR$/src/main/webapp/freelancer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/freelancer/my_page_my_project_status.jsp" value="file://$PROJECT_DIR$/src/main/webapp/freelancer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/freelancer/my_page_portfolio_detail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/freelancer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/freelancer/my_page_portfolio_list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/freelancer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/freelancer/my_page_portfolio_modify.jsp" value="file://$PROJECT_DIR$/src/main/webapp/freelancer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/freelancer/my_page_portfolio_write.jsp" value="file://$PROJECT_DIR$/src/main/webapp/freelancer" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/freelancer/my_page_my_jjim_project.jsp" value="file://$PROJECT_DIR$/src/main/webapp/freelancer" />
       </map>
     </option>
   </component>

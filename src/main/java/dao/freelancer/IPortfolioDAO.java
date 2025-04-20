@@ -9,7 +9,8 @@ public interface IPortfolioDAO {
     public List<Portfolio> selectPortfolioListByPage(Integer row, String userId) throws Exception;
     public Portfolio selectPortfolioListById(Integer portfoId) throws Exception;
     public void deletePortfolio(Integer num) throws Exception;
-    public Map<Integer, String> projectInfoForProtfolio(String userId) throws Exception;
-    Integer writePortfolio(Portfolio portfolio) throws Exception;
+    public Map<Integer, String> projectInfoForPortfolio(String userId) throws Exception;
+    public Integer writePortfolio(Portfolio portfolio) throws Exception;
     public void modifyPortfolio(Portfolio portfolio) throws Exception;
+
 }

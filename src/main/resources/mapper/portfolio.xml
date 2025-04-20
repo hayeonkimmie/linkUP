@@ -13,6 +13,20 @@
         where freelancer_id = #{user_id}
           and is_deleted is false order by portfolio_id desc limit #{row}, 10
     </select>
+
+    <select id="projectInfoForPortfolio" resultType="Map" parameterType="String">
+        SELECT c.project_id, p.project_name
+        FROM contract c
+                 JOIN project p ON c.project_id = p.project_id
+        WHERE c.freelancer_id = #{freelancerId}
+        ORDER BY c.id DESC
+    </select>
+    <select id="portfolioInfoForProfile" resultType="Map" parameterType="String">
+        SELECT portfolio_id, title
+        FROM portfolio
+        WHERE freelancer_id = #{freelancerId} and is_deleted = false and is_temp_saved = false
+        ORDER BY portfolio_id DESC
+    </select>
     <!--포츠폴리오 상세 조회-->
     <select id="selectPortfolioById" parameterType="Integer" resultType="portfolio">
         SELECT
@@ -33,19 +47,20 @@
             skill_description = #{skillDescription},
             attachment = #{attachment},
             external_url = #{externalUrl},
+            project_id = #{projectId},
             is_temp_saved = #{isTempSaved}
-        WHERE portfolio_id = #{portfolio_id}
+        WHERE portfolio_id = #{portfolioId}
     </update>
     <insert id="insertPortfolioComplete" parameterType="portfolio">
-        INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, is_temp_saved)
-        VALUES (#{user_id}, #{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{project_id}, #{attachment}, #{external_url}, false);
+        INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, port_proj_start, port_proj_end, team_role, skill_description, project_id, attachment, external_url, is_temp_saved)
+        VALUES (#{freelancerId}, #{title}, #{thumbnail}, #{introduce}, #{portProjStart}, #{portProjEnd}, #{teamRole}, #{skillDescription}, #{projectId}, #{attachment}, #{externalUrl}, false);
     </insert>
     <insert id="insertPortfolioIncomplete" parameterType="portfolio"> /*미완인 포폴*/
     INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, is_temp_saved)
-    VALUES (#{user_id}, #{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{project_id}, #{attachment}, #{external_url}, true)
+    VALUES (#{freelancerId}, #{title}, #{thumbnail}, #{introduce}, #{skillDescription}, #{projectId}, #{attachment}, #{externalUrl}, true)
     </insert>
     <update id="deletePortfolioById" parameterType="Integer">
         update portfolio set is_deleted=true
-        WHERE portfolio_id = #{portfolio_id}
+        WHERE portfolio_id = #{portfolioId}
     </update>
 </mapper>
