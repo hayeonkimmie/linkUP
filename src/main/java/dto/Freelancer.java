@@ -2,6 +2,8 @@ package dto;
 
 import java.sql.Date;
 
+import java.sql.Date;
+
 public class Freelancer {
     String userId;
     String name;
@@ -37,6 +39,9 @@ public class Freelancer {
     String otherRequest;
     String attachment;
     String externalUrl;
+
+    double averageScore; //평점
+    int projectCount; //프로젝트 수
 
     public Freelancer() {
         super();
@@ -288,5 +293,61 @@ public class Freelancer {
 
     public void setExternalUrl(String externalUrl) {
         this.externalUrl = externalUrl;
+    }
+
+    public double getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(double averageScore) {
+        this.averageScore = averageScore;
+    }
+
+    public int getProjectCount() {
+        return projectCount;
+    }
+
+    public void setProjectCount(int projectCount) {
+        this.projectCount = projectCount;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Freelancer{" +
+                "userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", profilImg='" + profilImg + '\'' +
+                ", acceptNoti=" + acceptNoti +
+                ", token='" + token + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", withdrawalDate=" + withdrawalDate +
+                ", acceptConsent=" + acceptConsent +
+                ", isNaver=" + isNaver +
+                ", isKakao=" + isKakao +
+                ", type='" + type + '\'' +
+                ", freelancerId='" + freelancerId + '\'' +
+                ", category='" + category + '\'' +
+                ", skill='" + skill + '\'' +
+                ", address='" + address + '\'' +
+                ", academic='" + academic + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", license='" + license + '\'' +
+                ", bank='" + bank + '\'' +
+                ", accountNum='" + accountNum + '\'' +
+                ", isNegotiable=" + isNegotiable +
+                ", isResident=" + isResident +
+                ", desiredSalary=" + desiredSalary +
+                ", desiredLocation='" + desiredLocation + '\'' +
+                ", otherRequest='" + otherRequest + '\'' +
+                ", attachment='" + attachment + '\'' +
+                ", externalUrl='" + externalUrl + '\'' +
+                ", averageScore=" + averageScore +
+                ", projectCount=" + projectCount +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package controller;
 import dto.ClientFavorites;
+import dto.Freelancer;
 import service.client.ClientFavoritesServiceImpl;
 import service.client.IClientFavoritesService;
 import util.PageInfo;
@@ -10,16 +11,15 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/favorites")
+@WebServlet("/clientFavorites")
 public class ClientFavoritesController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    public ClientFavoritesController() {
-        super();
-    }
+    public ClientFavoritesController() {super();}
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
         request.setCharacterEncoding("UTF-8");
         String pageStr = request.getParameter("page");
         Integer page = null;
@@ -43,9 +43,7 @@ public class ClientFavoritesController extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
+
 }
 
 

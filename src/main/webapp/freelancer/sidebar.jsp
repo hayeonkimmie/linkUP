@@ -11,7 +11,8 @@
     <div class="profile">
         <%--            <img src="<c:url value='/img/${user.profile_img}' />" alt="${user.nickname }님의 프로필 이미지" />
                     <p>${user.nickname }</p>--%>
-        <img src="<c:url value='/img/basic_profile_img.png' />" alt="프로필 이미지"/>
+        <%--<img src="image?filename=${user.profileImg}" alt="프로필 이미지"/>--%>
+            <img src="<c:url value='/img/basic_profile_img.png' />" alt="프로필 이미지"/>
         <%--<img src="${pageContext.request.contextPath}/img/basic_profile_img.png" alt="프로필 이미지" />--%>
         <p>닉네임</p>
         <p>마이페이지</p>

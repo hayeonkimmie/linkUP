@@ -9,29 +9,20 @@ public class User {
     String email;
     String password;
     String phoneNum;
-    String profileImg; // 이 부분 오타
     boolean acceptNoti;
     String token;
     Date registrationDate;
     Date withdrawalDate;
     boolean acceptConsent;
-    boolean isNaver;
-    boolean isKakao;
-
+    String snsType;
+    String profileImg;
 
 
     public User() {
         super();
     }
 
-    public User(String userId, String nickname, String profileImg, String password) {
-        this.userId = userId;
-        this.nickname = nickname;
-        this.profileImg = profileImg;
-        this.password = password;
-    }
-
-    public User(String userId, String name, String nickname, String email, String password, String phoneNum, String profileImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, boolean isNaver, boolean isKakao) {
+    public User(String userId, String name, String nickname, String email, String password, String phoneNum, String profileImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String snsType) {
         this.userId = userId;
         this.name = name;
         this.nickname = nickname;
@@ -44,8 +35,15 @@ public class User {
         this.registrationDate = registrationDate;
         this.withdrawalDate = withdrawalDate;
         this.acceptConsent = acceptConsent;
-        this.isNaver = isNaver;
-        this.isKakao = isKakao;
+        this.snsType = snsType;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String getUserId() {
@@ -93,7 +91,7 @@ public class User {
         return profileImg;
     }
 
-    public void setProfilImg(String profileImg) {
+    public void setProfileImg(String profileImg) {
         this.profileImg = profileImg;
     }
 
@@ -137,21 +135,7 @@ public class User {
         this.acceptConsent = acceptConsent;
     }
 
-    public boolean isNaver() {
-        return isNaver;
-    }
 
-    public void setNaver(boolean naver) {
-        isNaver = naver;
-    }
-
-    public boolean isKakao() {
-        return isKakao;
-    }
-
-    public void setKakao(boolean kakao) {
-        isKakao = kakao;
-    }
 
     @Override
     public String toString() {

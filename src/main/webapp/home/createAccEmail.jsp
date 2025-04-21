@@ -24,14 +24,14 @@
   <div class="subtitle">원하는 회원가입 유형을 선택하세요.</div>
 
   <div class="section-title">의뢰를 맡기고 싶다면?</div>
-  <a href="${contextPath}/home/createAccRecruiter.jsp">
+  <a href="${contextPath}/createAccRecruiter">
     <button class="button">
       <span class="checkmark">✔</span> 사업자로 가입하기
     </button>
   </a>
 
   <div class="section-title">내 능력을 펼치고 싶다면?</div>
-  <a href="${contextPath}/home/createAccJobseeker.jsp">
+  <a href="${contextPath}/createAccJobseeker">
     <button class="button">
       <span class="checkmark">✔</span> 일반으로 가입하기
     </button>

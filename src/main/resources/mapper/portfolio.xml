@@ -30,17 +30,19 @@
         SET title = #{title},
             thumbnail = #{thumbnail},
             introduce = #{introduce},
-            skill_description = #{skill_description}
-            
+            skill_description = #{skillDescription},
+            attachment = #{attachment},
+            external_url = #{externalUrl},
+            is_temp_saved = #{isTempSaved}
         WHERE portfolio_id = #{portfolio_id}
     </update>
     <insert id="insertPortfolioComplete" parameterType="portfolio">
-        INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, created_date, is_temp_saved)
-        VALUES (#{user_id}, #{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{project_id}, #{attachment}, #{external_url}, #{created_date}, 0)
+        INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, is_temp_saved)
+        VALUES (#{user_id}, #{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{project_id}, #{attachment}, #{external_url}, false);
     </insert>
-    <insert id="insertPortfolio " parameterType="portfolio"> /*미완인 포폴*/
-    INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, created_date, is_temp_saved)
-    VALUES (#{user_id}, #{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{project_id}, #{attachment}, #{external_url}, #{created_date},true)
+    <insert id="insertPortfolioIncomplete" parameterType="portfolio"> /*미완인 포폴*/
+    INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, is_temp_saved)
+    VALUES (#{user_id}, #{title}, #{thumbnail}, #{introduce}, #{skill_description}, #{project_id}, #{attachment}, #{external_url}, true)
     </insert>
     <update id="deletePortfolioById" parameterType="Integer">
         update portfolio set is_deleted=true

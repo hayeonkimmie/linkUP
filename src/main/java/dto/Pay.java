@@ -8,17 +8,21 @@ public class Pay {
     private Integer subCategoryId; // 서브 카테고리 ID 4/18 14:55 추가
     private String categoryName; // 서브 카테고리 이름 4/18 14:55 추가
     private int projectFee;
+    private Integer pay; // 금액 4/18 추가
+    private int fee; // 수수료 금액의 0.3% 추가
 
     public Pay() {
     }
 
-    public Pay(int projectFeeId, int projectId, int lvId, Integer subCategoryId, String categoryName, int projectFee) {
+    public Pay(int projectFeeId, int projectId, int lvId, Integer subCategoryId, String categoryName, int projectFee, Integer pay, int fee) {
         this.projectFeeId = projectFeeId;
         this.projectId = projectId;
         this.lvId = lvId;
         this.subCategoryId = subCategoryId;
         this.categoryName = categoryName;
         this.projectFee = projectFee;
+        this.pay = pay;
+        this.fee = fee;
     }
 
     public int getProjectFeeId() {
@@ -67,5 +71,21 @@ public class Pay {
 
     public void setProjectFee(int projectFee) {
         this.projectFee = projectFee;
+    }
+
+    public Integer getPay() {
+        return pay;
+    }
+
+    public void setPay(Integer pay) {
+        this.pay = pay;
+    }
+
+    public int getFee() {
+        return fee;
+    }
+
+    public void setFee(int fee) {
+        this.fee = fee;
     }
 }

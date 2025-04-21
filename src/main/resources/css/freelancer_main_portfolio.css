@@ -1,0 +1,287 @@
+.content-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.content-header-text{
+  width: inherit;
+}
+.content-header-text > span{
+  float: left;
+}
+.content-header-text h3 {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+}
+
+.content-header-text p {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #888;
+}
+
+.add-portfolio {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  background-color: #91009e;
+  color: white;
+  border: none;
+  cursor: pointer;
+  float: right;
+}
+
+.add-portfolio:hover {
+  background-color: #75017d;
+}
+
+/* 포트폴리오 카드 전체 목록 */
+.portfolio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  <!--추후 결정 -->
+}
+
+/* 카드 하나 */
+.portfolio-card {
+/*추후 결정
+  width: calc(50% - 12px);*/
+  width: 100%;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px 28px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* 콘텐츠 레이아웃 */
+.portfolio-content {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+/* 상태 뱃지 */
+.status {
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.status.writing {
+  background-color: #f3e49c;
+  color: #6e5600;
+}
+.status.completed {
+  background-color: #d7f4df;
+  color: #1c7e50;
+}
+
+/* 포트폴리오 내부 콘텐츠 */
+.portfolio-body {
+  display: flex;
+  gap: 16px;
+}
+
+.thumbnail {
+  width: 120px;
+  height: 90px;
+  background-color: #ddd;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.portfolio-info {
+  flex-grow: 1;
+}
+.portfolio-info a{
+    text-decoration: none;
+    color: #333;
+}
+.portfolio-info h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: #333;
+}
+
+.portfolio-info .description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tags span {
+  font-size: 13px;
+  background-color: #efefef;
+  padding: 6px 12px;
+  border-radius: 16px;
+  color: #444;
+}
+
+/* 등록일 */
+.reg-date {
+  font-size: 13px;
+  color: #999;
+}
+
+/* 수정/삭제 버튼 */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.actions button {
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #91009e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.actions button .edit-btn{
+
+}
+.actions button .delete-btn{
+
+}
+.actions button:hover {
+  background-color: #75017d;
+}
+
+/* 변경 후*/
+/* 카드 */
+.portfolio-card {
+  width: 100%;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px 28px;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+}
+
+/* 콘텐츠 전체 묶음 */
+.portfolio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 상태 뱃지 */
+.status {
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 0;
+}
+.status.writing {
+  background-color: #f3e49c;
+  color: #6e5600;
+}
+.status.completed {
+  background-color: #d7f4df;
+  color: #1c7e50;
+}
+
+/* 썸네일 + 텍스트 영역 */
+.portfolio-body {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* 썸네일 */
+.thumbnail {
+  width: 25%;
+  height: 90px;
+  background-color: #dcdcdc;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* 텍스트 정보 */
+.portfolio-info {
+  flex-grow: 1;
+}
+
+.portfolio-info h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #333;
+}
+
+.portfolio-info .description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tags span {
+  font-size: 13px;
+  background-color: #efefef;
+  padding: 6px 12px;
+  border-radius: 16px;
+  color: #444;
+}
+
+.reg-date {
+  font-size: 13px;
+  color: #999;
+}
+
+/* 버튼 */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.actions button {
+  padding: 8px 18px;
+  width: 100px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #91009e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.actions button:hover {
+  background-color: #75017d;
+}

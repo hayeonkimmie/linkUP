@@ -1,0 +1,190 @@
+/* company_settlement.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f6fa;
+}
+
+.layout-wrapper {
+  
+  display: flex;
+  height: 100vh;
+}
+/* f5f6fa */
+.content {
+  background-color: f5f6fa;
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+/* 카드 박스 */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 32px;
+}
+
+/* 필터 행 */
+.filter-box .filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.filter-box .filter-item {
+  flex: 1;
+  min-width: 180px;
+}
+
+.filter-box label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.filter-box input,
+.filter-box select {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.filter-action {
+  align-self: flex-end;
+}
+
+.filter-action button {
+  padding: 9px 18px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
+.filter-action button:hover {
+  background-color: #555;
+}
+
+/* 테이블 */
+.settlement-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.settlement-table th,
+.settlement-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.settlement-table thead {
+  background-color: #f7f8fa;
+}
+
+.settlement-col {
+  min-width: 160px;
+  text-align: center;
+}
+
+.settlement-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  background-color: #5b4fc5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.settlement-btn:hover {
+  background-color: #473daa;
+}
+
+.settlement-link {
+  margin-left: 12px;
+  font-size: 16px;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  background-color: #e3f0ff;
+  color: #2468d2;
+}
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 32px 0 12px;
+}
+
+.settlement-table .settlement-col {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.settlement-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #1a3cff;
+  color: white;
+  text-decoration: none;
+  margin-right: 6px;
+}
+.settlement-btn:hover {
+  background-color: #473daa;
+}
+
+
+.settlement-btn.light {
+  background-color: #f3f3f3;
+  color: #333;
+}
+.settlement-btn.light:hover {
+  background-color: #ddd;
+}
+.settlement-status-select {
+  padding: 6px 8px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.settlement-save-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.settlement-save-btn:hover {
+  background-color: #111;
+}

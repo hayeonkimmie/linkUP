@@ -1,6 +1,8 @@
 package dao.common;
 
-public interface IProjectDAO {
+import java.util.List;
+import java.util.Map;
 
+public interface IProjectDAO {
 
 }

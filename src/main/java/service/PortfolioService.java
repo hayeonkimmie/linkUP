@@ -86,8 +86,29 @@ public class PortfolioService implements IPortfolioService{
         }
         return portfolio;
     }
+
+    @Override
+    public Map<Integer, String> projectInfoForProtfolio(String userId) {
+        try {
+            return iportfolioDAO.projectInfoForProtfolio(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public void deletePortfolio(Integer num) throws Exception {
         iportfolioDAO.deletePortfolio(num);
+    }
+
+    @Override
+    public Integer writePortfolio(Portfolio portfolio) throws Exception {
+        return iportfolioDAO.writePortfolio(portfolio);
+    }
+
+    @Override
+    public void modifyPortfolio(Portfolio portfolio) throws Exception {
+        iportfolioDAO.modifyPortfolio(portfolio);
     }
 }

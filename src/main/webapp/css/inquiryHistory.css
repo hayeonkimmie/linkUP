@@ -183,10 +183,28 @@ main.main {
 .btn-cancel {
     background: #eee;
 }
-.btn-submit {
-    background: #007bff;
+/* 기존 버튼 클래스에 a 태그도 포함하도록 확장 */
+/* 기존 버튼 클래스에 a 태그도 포함하도록 확장 */
+.btn-submit,
+a.btn-submit {
+    background-color: #007bff;
     color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;   /* 링크 밑줄 제거 */
+    display: inline-block;   /* padding 적용되게 */
 }
+
+
+.btn-submit:hover,
+a.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+
 .modal-close {
     position: absolute;
     right: 12px;

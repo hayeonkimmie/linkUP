@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.ammount">
-    <insert id="insertAmmount" parameterType="ammount">
-        insert ammount (id,project_id,total,fee) values (#{id}, #{project_id},#{total},#{fee})
+<mapper namespace="mapper.project">
+    <insert id="insertAmount" parameterType="amount">
+        insert amount (id,project_id,total,fee) values (#{id}, #{project_id},#{total},#{fee})
     </insert>
 </mapper>

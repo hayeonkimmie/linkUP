@@ -1,0 +1,25 @@
+package controller;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import java.io.IOException;
+
+@WebServlet("/createAccJobseeker")
+public class CreateAccJobseekerController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    public CreateAccJobseekerController() {
+        super();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.getRequestDispatcher("./home/createAccJobseeker.jsp").forward(request,response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+}

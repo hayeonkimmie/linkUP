@@ -1,33 +1,90 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.qna">
 
+    <!-- 사용자별 QnA 개수 -->
     <select id="selectQnACntByUserId" parameterType="String" resultType="Integer">
-        SELECT count(*) FROM qna where user_id = #{userId};
+        SELECT COUNT(*) FROM qna WHERE user_id = #{userId}
     </select>
 
+    <!-- 사용자별 QnA 목록 (페이지 처리 포함) -->
     <select id="selectQnAListByPage" parameterType="Map" resultType="qna">
-        select *
-        from qna
-        where user_id = #{userId}
-        order by qna_id desc
-        limit #{row}, 10
+        SELECT * FROM qna
+        WHERE user_id = #{userId}
+        ORDER BY qna_id DESC
+        LIMIT #{row}, 3
     </select>
 
-    <!--         <mapper resource="mapper/client.xml"/> -->
+    <!-- 전체 QnA 목록 (페이지 처리 포함) -->
     <select id="selectQnAList" parameterType="Integer" resultType="qna">
-        select * from qna order by answer_date desc limit #{row}, 10
+        SELECT * FROM qna
+        ORDER BY answer_date DESC
+        LIMIT #{row}, 3
     </select>
 
+    <!-- 전체 QnA 개수 -->
     <select id="selectQnACount" resultType="Integer">
-        select count(*) from qna
-
+        SELECT COUNT(*) FROM qna
     </select>
 
+    <!--  필터를 적용한 QnA 개수 -->
+    <select id="selectQnACountWithFilter" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM qna
+        <where>
+            <if test="status != null and status != ''">
+                <choose>
+                    <when test="status == 'waiting'">
+                        AND answer_content IS NULL
+                    </when>
+                    <when test="status == 'complete'">
+                        AND answer_content IS NOT NULL
+                    </when>
+                </choose>
+            </if>
+
+            <if test="keyword != null and keyword != ''">
+                AND question_title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 🔥 필터 + 정렬 + 페이징된 QnA 목록 -->
+    <select id="selectQnAListWithFilter" parameterType="map" resultType="qna">
+        SELECT * FROM qna
+        <where>
+            <if test="status != null and status != ''">
+                <choose>
+                    <when test="status == 'waiting'">
+                        AND answer_content IS NULL
+                    </when>
+                    <when test="status == 'complete'">
+                        AND answer_content IS NOT NULL
+                    </when>
+                </choose>
+            </if>
+
+            <if test="keyword != null and keyword != ''">
+                AND question_title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
+        ORDER BY question_date
+        <choose>
+            <when test="sort != null and sort == 'asc'">ASC</when>
+            <otherwise>DESC</otherwise>
+        </choose>
+        LIMIT #{row}, 3
+    </select>
+
+    <!-- QnA 등록 -->
     <insert id="insertQna" parameterType="qna">
-        insert qna (qna_id,user_id,question_title,question_content,question_date,answer_content,answer_date)
-        values (#{qna_id}, #{user_id}, #{question_title},#{question_content},#{question_date},#{answer_content},#{answer_date})
+        INSERT INTO qna (
+            qna_id, user_id, question_title, question_content, question_date, answer_content, answer_date
+        )
+        VALUES (
+                   #{qna_id}, #{user_id}, #{question_title}, #{question_content}, #{question_date}, #{answer_content}, #{answer_date}
+               )
     </insert>
+
 </mapper>

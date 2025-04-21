@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.jjimfree">
+
     <insert id="insertJjimFree" parameterType="jjimFree">
-        insert jjimFree (jjim_id,client_id,freelancer_id)
-        values (#{jjim_id},#{client_id},#{freelancer_id})
+        insert jjimFree (jjim_id, client_id, freelancer_id)
+        values (#{jjim_id}, #{client_id}, #{freelancer_id})
     </insert>
 
-    <select id ="selectJjimFree" parameterType="Integer" resultType="jjimFree">
+    <select id="selectJjimFree" parameterType="Integer" resultType="jjimFree">
         select * from jjimFree order by jjim_id desc limit #{row}, 9
     </select>
 
     <select id="selectJjimCount" resultType="Integer">
         select count(*) from jjimFree
     </select>
+
+    <select id="selectFavoritesByClientId" parameterType="String" resultType="map">
+        SELECT
+            f.freelancer_id,
+            u.profile_img,
+            u.name,
+            f.category,
+            f.desired_location,
+            f.skill,
+            -- 평균 평점
+            (SELECT ROUND(AVG(r.star), 1) FROM review r WHERE r.r_user_id = f.freelancer_id) AS average_score,
+            -- 계약된 프로젝트 수
+            (SELECT COUNT(*) FROM contract c WHERE c.freelancer_id = jf.freelancer_id) AS project_count
+        FROM jjimFree jf
+                 JOIN freelancer f ON jf.freelancer_id = f.freelancer_id
+                 JOIN user u ON f.freelancer_id = u.user_id
+        WHERE jf.client_id = #{clientId}
+    </select>
+
+
+
+
+
+
+    <insert id="insertFavorite" parameterType="map">
+        INSERT INTO client_favorites (client_id, freelancer_id)
+        VALUES (#{clientId}, #{freelancerId})
+    </insert>
+
+    <delete id="deleteFavorite" parameterType="map">
+        DELETE FROM client_favorites
+        WHERE client_id = #{clientId}
+          AND freelancer_id = #{freelancerId}
+    </delete>
 
 </mapper>

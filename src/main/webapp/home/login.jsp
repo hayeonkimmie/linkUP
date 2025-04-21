@@ -44,7 +44,7 @@
     <button class="google-btn">구글 계정으로 로그인하기</button>
   </div>
 
-  <a href="${contextPath}/home/createAcc.jsp" class="signup-link">회원가입 하러가기</a>
+  <a href="${contextPath}/createAcc" class="signup-link">회원가입 하러가기</a>
 </div>
 
 <!-- 비밀번호 찾기 팝업 -->

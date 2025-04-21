@@ -1,0 +1,91 @@
+.content{
+    padding-right: 40px;
+}
+.portfolio-info {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.portfolio-thumbnail {
+    width: 220px;
+    height: 160px;
+    background-color: #e5e5e5;
+    border-radius: 8px;
+}
+
+.portfolio-meta {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.portfolio-meta p {
+    font-size: 14px;
+    color: #444;
+}
+.portfolio-meta strong {
+    margin-right: 8px;
+}
+
+.section textarea {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
+}
+.description-text {
+    background-color: #f9f9f9;
+    padding: 15px;
+    line-height: 1.7;
+    border-radius: 6px;
+    font-size: 15.5px;
+    color: #333;
+    height: 200px;
+    overflow-y: auto;
+    white-space: pre-line;
+}
+.skills span {
+    display: inline-block;
+    background-color: #f1f1f1;
+    color: #444;
+    font-size: 13px;
+    padding: 6px 10px;
+    margin: 5px 6px 0 0;
+    border-radius: 12px;
+}
+table th:first-child,
+table td:first-child {
+    width: 160px;
+    white-space: nowrap;
+    border-right: 1px solid #e0e0e0;
+}
+td a{
+    color: #1a3cff;
+    text-decoration: none;
+}
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    margin-top: 30px;
+}
+
+.action-buttons .edit-btn,
+.action-buttons .delete-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: #91009e;
+    color: white;
+    cursor: pointer;
+}
+
+.action-buttons .delete-btn {
+    background-color: #d9534f;
+}
