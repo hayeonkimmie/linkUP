@@ -25,17 +25,9 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public void addClient(ClientUserInfo clientUserInfo) throws Exception {
-
+    public List<ClientUserInfo> selectClientsByKeyword(String keyword) throws Exception {
+        return clientDAO.selectClientsByKeyword(keyword);
     }
 
-    @Override
-    public void updateClient(ClientUserInfo clientUserInfo) throws Exception {
 
-    }
-
-    @Override
-    public void deleteClient(int clientId) throws Exception {
-
-    }
 }

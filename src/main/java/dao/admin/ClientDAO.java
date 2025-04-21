@@ -21,4 +21,9 @@ public class ClientDAO implements IClientDAO {
     public ClientUserDetail selectClientById(String userId) throws Exception {
         return sqlSession.selectOne("mapper.aclient.selectClientById", userId);
     }
+
+    @Override
+    public List<ClientUserInfo> selectClientsByKeyword(String keyword) throws Exception {
+        return sqlSession.selectList("mapper.aclient.selectClientsByKeyword", "%"+keyword+"%");
+    }
 }

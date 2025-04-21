@@ -11,4 +11,5 @@ public interface IFreelancerService {
      */
     public List<Freelancer> selectAllFreelancer() throws Exception;
 
+    List<Freelancer> searchFreelancersByKeyword(String keyword) throws Exception;
 }

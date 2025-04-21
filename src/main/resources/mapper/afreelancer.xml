@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mapper.afreelancer">
+    <select id="selectAllFreelancer" resultType="freelancer">
+        SELECT f.freelancer_id,
+               u.name,
+               u.email,
+               u.registration_date,
+               u.phone_num,
+               '구직자' AS type
+        FROM freelancer f
+                 INNER JOIN user u ON f.freelancer_id = u.user_id
+    </select>
+    
+    <select id="searchFreelancersByKeyword" resultType="freelancer" parameterType="String">
+        SELECT *  FROM freelancer f
+        JOIN user u ON f.freelancer_id = u.user_id
+        WHERE u.name LIKE #{keyword} OR freelancer_id LIKE #{keyword} OR email LIKE #{keyword}
+    </select>
+    
+</mapper>

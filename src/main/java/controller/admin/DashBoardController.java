@@ -38,7 +38,7 @@ public class DashBoardController extends HttpServlet {
 
         Integer totalPayment = 0;
         Integer totalProjectCount = 0;
-        Integer completedProjectCount = 0;
+        Integer totalPaymentFee = 0;
         List<AdminProject> ongoingProjects = new ArrayList<>();
         ISettlementDAO settlementDAO = new SettlementDAO();
         IDashboardService dashboardService = new DashboardService(settlementDAO);
@@ -48,16 +48,14 @@ public class DashBoardController extends HttpServlet {
             for(AdminProject project : ongoingProjects){
                 totalPayment += project.getTotalAmount();
                 totalProjectCount++;
-                if(project.getSettleStatus().equals("완료됨")){
-                    completedProjectCount++;
-                }
+                totalPaymentFee += project.getTotalFee();
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             request.setAttribute("totalPayment", totalPayment);
             request.setAttribute("totalProjectCount", totalProjectCount);
-            request.setAttribute("completedProjectCount", completedProjectCount);
+            request.setAttribute("totalPaymentFee", totalPaymentFee);
             request.setAttribute("ongoingProjects", ongoingProjects);
             request.getRequestDispatcher("/admin/admin_dashboard.jsp").forward(request, response);
         }

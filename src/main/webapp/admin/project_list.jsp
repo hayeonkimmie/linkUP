@@ -73,10 +73,33 @@
 
       <!-- 페이지네이션 -->
       <div class="pagination">
-        <button disabled>이전</button>
-        <button class="curpage">1</button>
-        <button>다음</button>
+        <!-- 이전 버튼 -->
+        <button
+                <c:if test="${pageInfo.curPage == 1}">disabled</c:if>
+                onclick="location.href='?page=${pageInfo.curPage - 1}'">
+          이전
+        </button>
+
+        <!-- 페이지 번호 버튼들 -->
+        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+          <c:choose>
+            <c:when test="${i == pageInfo.curPage}">
+              <button class="page-button selected" disabled>${i}</button>
+            </c:when>
+            <c:otherwise>
+              <button class="page-button" onclick="location.href='?page=${i}'">${i}</button>
+            </c:otherwise>
+          </c:choose>
+        </c:forEach>
+
+        <!-- 다음 버튼 -->
+        <button
+                <c:if test="${pageInfo.curPage == pageInfo.allPage}">disabled</c:if>
+                onclick="location.href='?page=${pageInfo.curPage + 1}'">
+          다음
+        </button>
       </div>
+
     </div>
   </div>
 </div>

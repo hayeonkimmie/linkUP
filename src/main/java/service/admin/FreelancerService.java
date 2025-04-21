@@ -19,4 +19,11 @@ public class FreelancerService implements IFreelancerService {
     public List<Freelancer> selectAllFreelancer() throws Exception {
         return freelancerDAO.selectAllFreelancer();
     }
+
+    @Override
+    public List<Freelancer> searchFreelancersByKeyword(String keyword) throws Exception {
+        return freelancerDAO.searchFreelancersByKeyword(keyword);
+    }
+
+
 }

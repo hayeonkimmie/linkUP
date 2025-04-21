@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IFreelancerDAO {
     List<Freelancer> selectAllFreelancer() throws Exception;
+    List<Freelancer> searchFreelancersByKeyword(String keyword) throws Exception;
 }

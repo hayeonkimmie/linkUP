@@ -38,4 +38,18 @@
     </select>
 
 
+    <select id="selectClientsByKeyword" resultType="adminclient" parameterType="String">
+        SELECT
+            c.company_name AS name,
+            u.user_id,
+            u.email,
+            u.registration_date,
+            c.company_phone_number AS phone_number,
+            '구인자' AS type
+        FROM client c
+                 JOIN user u ON c.client_id = u.user_id
+        WHERE (c.company_name LIKE #{keyword} OR u.user_id LIKE #{keyword} OR u.email LIKE #{keyword} )
+    </select>
+
+
 </mapper>

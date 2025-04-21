@@ -1,4 +1,4 @@
-/* user_info.css */
+/* 공통 설정 */
 * {
   box-sizing: border-box;
 }
@@ -14,30 +14,11 @@ body {
   flex: 1;
   padding: 32px;
 }
-.search-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-.search-bar input[type="text"] {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-}
-.search-bar button {
-  padding: 8px 12px;
-  border: 1px solid #888;
-  border-radius: 6px;
+
+/* 공통 박스 스타일 */
+.card, .filter-container {
   background-color: white;
-  font-size: 14px;
-  cursor: pointer;
-}
-.card {
-  background-color: white;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 24px;
   margin-bottom: 32px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -47,6 +28,37 @@ body {
   font-weight: bold;
   margin-bottom: 16px;
 }
+
+/* 검색바 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.search-bar input[type="text"] {
+  flex-grow: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+.search-bar button {
+  padding: 10px 16px;
+  background-color: #888;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.search-bar button:hover {
+  background-color: #555;
+}
+
+/* 테이블 */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -60,6 +72,10 @@ th, td {
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+th {
+  color: #888;
+  font-weight: normal;
+}
 th.col-no, td.col-no { width: 5%; }
 th.col-name, td.col-name { width: 20%; }
 th.col-id, td.col-id { width: 15%; }
@@ -67,10 +83,8 @@ th.col-email, td.col-email { width: 20%; }
 th.col-date, td.col-date { width: 15%; }
 th.col-phone, td.col-phone { width: 15%; }
 th.col-type, td.col-type { width: 10%; }
-th {
-  color: #888;
-  font-weight: normal;
-}
+
+/* 뱃지 */
 .badge {
   padding: 4px 10px;
   border-radius: 20px;
@@ -85,4 +99,35 @@ th {
 .구인자 {
   background-color: #fff3d2;
   color: #f59e0b;
+}
+
+/* 세그먼트 탭 */
+.segment-tabs {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin-top: 30px;
+  margin-bottom: 16px;
+}
+.segment-tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  background-color: #ddd;
+  margin-right: 8px;
+  color: #000;
+  transition: all 0.2s ease-in-out;
+}
+.segment-tab.active {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #000 !important;
+  border-bottom: none !important;
+}
+
+/* 숨김 처리 */
+.hidden-row {
+  display: none;
 }

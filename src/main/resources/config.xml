@@ -76,5 +76,6 @@
 <!--        <mapper resource="mapper/alarm.xml"/>-->
         <mapper resource="mapper/notice.xml"/>
         <mapper resource="mapper/news.xml"/>
+        <mapper resource="mapper/afreelancer.xml"/>
     </mappers>
 </configuration>

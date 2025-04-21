@@ -100,3 +100,39 @@ body {
   .project-link:hover {
     text-decoration: underline;
   }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 40px;
+}
+
+.pagination button {
+  padding: 8px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination button:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination button[disabled] {
+  color: #999;
+  border-color: #eee;
+  cursor: not-allowed;
+  background-color: #f9f9f9;
+}
+
+.page-button.selected {
+  background-color: #1a3cff;
+  color: white;
+  border: 1px solid #1a3cff;
+}
+

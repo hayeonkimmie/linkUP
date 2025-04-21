@@ -11,6 +11,11 @@ public class FreelancerDAO implements IFreelancerDAO{
 
     @Override
     public List<Freelancer> selectAllFreelancer() throws Exception {
-        return sqlSession.selectList("mapper.freelancer.selectAllFreelancer");
+        return sqlSession.selectList("mapper.afreelancer.selectAllFreelancer");
+    }
+
+    @Override
+    public List<Freelancer> searchFreelancersByKeyword(String keyword) throws Exception {
+        return sqlSession.selectList("mapper.afreelancer.searchFreelancersByKeyword", "%"+keyword+"%");
     }
 }

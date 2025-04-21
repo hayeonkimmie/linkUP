@@ -137,7 +137,7 @@
         limit #{row}, 10
     </select>
     <!-- 마감된 찜 프로젝트 페이징 조회 -->
-    <select id="selectClosedJjimProjectListPaging" resultType="dto.jjimProj" parameterType="map">
+    <select id="selectClosedJjimProjectListPaging" resultType="dto.JjimProj" parameterType="map">
         SELECT
             p.project_id,
             p.category,

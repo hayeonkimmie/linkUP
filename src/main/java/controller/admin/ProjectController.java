@@ -3,6 +3,7 @@ package controller.admin;
 import dao.admin.ProjectDAO;
 import dto.AdminProject;
 import dto.AdminProjectDetail;
+import util.PageInfo;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -25,6 +26,11 @@ public class ProjectController extends HttpServlet {
 
         ProjectDAO projectDAO = new ProjectDAO();
         String idParam = request.getParameter("id");
+        String pageParam = request.getParameter("page");
+        int curPage = (pageParam == null || pageParam.isEmpty()) ? 1 : Integer.parseInt(pageParam);
+        int perPage = 8;
+        int offset = (curPage - 1) * perPage;
+
 
         try {
             // 상세 페이지 : /admin/project_list.jsp
@@ -38,9 +44,18 @@ public class ProjectController extends HttpServlet {
             // 프로젝트 전체 목록 페이지 : /admin/project_list.jsp
             // url: http://localhost:8085/linkup/admin/project
             } else {
-                // ✅ 전체 프로젝트 목록 페이지 처리
-                List<AdminProject> projectList = projectDAO.selectAllOngoingProject();
+                List<AdminProject> projectList = projectDAO.selectPagedProjects(offset, perPage);
+                int totalCount = projectDAO.countAllProjects();
+                PageInfo pageInfo = new PageInfo(curPage);
+                int allPage = (int) Math.ceil((double) totalCount / perPage);
+                pageInfo.setAllPage(allPage);
+
+                int startPage = Math.max(1, curPage - 2);
+                int endPage = Math.min(allPage, startPage + 4);
+                pageInfo.setStartPage(startPage);
+                pageInfo.setEndPage(endPage);
                 request.setAttribute("projectList", projectList);
+                request.setAttribute("pageInfo", pageInfo);
                 request.getRequestDispatcher("/admin/project_list.jsp").forward(request, response);
             }
         } catch (Exception e) {
@@ -49,7 +64,6 @@ public class ProjectController extends HttpServlet {
         }
 
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

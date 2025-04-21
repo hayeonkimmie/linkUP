@@ -21,20 +21,22 @@
         <div class="card-title">이번달 총 거래액</div>
         <%
           Integer totalPayment = (Integer) request.getAttribute("totalPayment");
+          Integer totalPaymentFee = (Integer) request.getAttribute("totalPaymentFee");
           String formattedPayment = String.format("%,d", totalPayment);
+          String formattedPaymentFee = String.format("%,d", totalPaymentFee);
         %>
         <div class="card-value">₩ <%= formattedPayment %></div>
-        <div class="card-sub">전월 대비 12% 증가</div>
+<%--        <div class="card-sub">전월 대비 12% 증가</div>--%>
       </div>
       <div class="card">
         <div class="card-title">진행중인 프로젝트</div>
         <div class="card-value"><%= request.getAttribute("totalProjectCount") %></div>
-        <div class="card-sub">전월 대비 8건 증가</div>
+<%--        <div class="card-sub">전월 대비 8건 증가</div>--%>
       </div>
       <div class="card">
-        <div class="card-title">완료된 프로젝트</div>
-        <div class="card-value"><%= request.getAttribute("completedProjectCount") %></div>
-        <div class="card-sub">전월 대비 15건 증가</div>
+        <div class="card-title">정산된 수수료</div>
+        <div class="card-value">₩ <%= formattedPaymentFee %></div>
+<%--        <div class="card-sub">전월 대비 15건 증가</div>--%>
       </div>
     </div>
 

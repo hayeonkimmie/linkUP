@@ -94,6 +94,33 @@
         ]]>
     </select>
 
+    <select id="selectPagedProjects" parameterType="Map" resultType="dto.AdminProject">
+        SELECT
+            p.project_id AS projectId,
+            p.client_id AS clientId,
+            c.company_name AS clientName,
+            p.project_name AS projectName,
+            CONCAT(DATE_FORMAT(p.created_date, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(p.settle_day, '%Y-%m-%d')) AS projectDuration,
+            p.manager AS projectManager,
+            p.mphone AS managerPhone,
+            COUNT(DISTINCT a.freelancer_id) AS participant,
+            SUM(ct.fee) AS totalAmount,
+            SUM(ct.total_pay - ct.fee) AS totalFee,
+            SUM(ct.total_pay) AS totalSettlement,
+            DATE_FORMAT(p.settle_day, '%Y%m%d') AS settleDate,
+            MAX(ct.status) AS settleStatus
+        FROM project p
+                 LEFT JOIN client c ON p.client_id = c.client_id
+                 LEFT JOIN apply a ON a.project_id = p.project_id AND a.is_approved = TRUE
+                 LEFT JOIN contract ct ON ct.project_id = p.project_id
+        GROUP BY p.project_id
+        ORDER BY p.project_id DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countAllProjects" resultType="int">
+        SELECT COUNT(*) FROM project
+    </select>
 
 
     <!-- 복합 결과 매핑 -->
@@ -107,8 +134,6 @@
         <result property="mphone" column="mphone"/>
         <result property="clientName" column="client_name"/>
         <result property="memail" column="memail"/>
-
-
         <!-- 참여자 리스트 매핑 -->
         <collection property="participants" ofType="dto.ProjectParticipant">
             <result property="participantName" column="participant_name"/>
