@@ -28,12 +28,6 @@ public class FreelancerService implements IFreelancerService{
     @Override
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception {
         Freelancer freelancer = ifreelancerDAO.selectExpertFreelancerById(freelancerId);
-        freelancer.setSkillList(freelancer.getSkill().split("\\^"));
-        freelancer.setPortfolioInfoMap(ifreelancerDAO.selectAllportfolioInfoMap(freelancerId));
-        List<Academic> academicList = infoSerializer.deserializeAcademicList(freelancer.getAcademic());
-        freelancer.setAcademicList(academicList);
-        List<License> licenseList = infoSerializer.deserializeLicenseList(freelancer.getLicense());
-        freelancer.setLicenseList(licenseList);
         return freelancer;
     }
 
@@ -43,8 +37,8 @@ public class FreelancerService implements IFreelancerService{
     }
 
     @Override
-    public Career insertCareer(Career career) throws Exception {
-        return ifreelancerDAO.insertCareer(career);
+    public void insertCareer(Career career) throws Exception {
+        ifreelancerDAO.insertCareer(career);
     }
     public List<Career> selectCareerListById(String freelancerId) throws Exception {
         return ifreelancerDAO.selectCareerById(freelancerId);
@@ -52,7 +46,8 @@ public class FreelancerService implements IFreelancerService{
 
     @Override
     public void updateFreelancer(Freelancer freelancer) throws Exception {
-        ifreelancerDAO.modifyFreelancer(freelancer);
+        System.out.println("FreelancerService.java 56 updateFreelancer "+freelancer);
+        ifreelancerDAO.updateUserProfile(freelancer);
         System.out.println("FreelancerService.java 56 + updateFreelancer");
     }
 

@@ -20,6 +20,19 @@ public class UserDAO implements IUserDAO {
         }
         return result;
     }
-
+    @Override
+    public User selectUserById(String id) {
+        SqlSession sqlSession = null;
+        User user = null;
+        try {
+            sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+            user = sqlSession.selectOne("mapper.user.selectUserById", id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) sqlSession.close();
+        }
+        return user;
+    }
 
 }

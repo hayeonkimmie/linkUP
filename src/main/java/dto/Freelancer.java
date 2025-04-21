@@ -23,9 +23,8 @@ public class Freelancer {
     // User Type 04.18 15:02 추가
     String type;
     String category;
-    String[] categoryList;
+    List<String> categoryList;
     String skill;
-    String[] skillList;
     String address;
     List<Academic> academicList;
     String academic;
@@ -54,7 +53,7 @@ public class Freelancer {
         return type;
     }
 
-    public Freelancer(String freelancerId, String name, String nickname, String email, String password, String phoneNum, String profileImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String type, String category, String[] categoryList, String skill, String[] skillList, String address, List<Academic> academicList, String academic, String introduction, List<License> licenseList, String license, String bank, String accountNum, boolean isNegotiable, boolean isResident, int desiredSalary, String desiredLocation, String otherRequest, String attachment, String externalUrl, Map<Integer, String> portfolioInfoMap, double averageScore, int projectCount) {
+    public Freelancer(String freelancerId, String name, String nickname, String email, String password, String phoneNum, String profileImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String type, String category, List<String> categoryList, String skill, String address, List<Academic> academicList, String academic, String introduction, List<License> licenseList, String license, String bank, String accountNum, boolean isNegotiable, boolean isResident, int desiredSalary, String desiredLocation, String otherRequest, String attachment, String externalUrl, Map<Integer, String> portfolioInfoMap, double averageScore, int projectCount) {
         this.freelancerId = freelancerId;
         this.name = name;
         this.nickname = nickname;
@@ -71,7 +70,6 @@ public class Freelancer {
         this.category = category;
         this.categoryList = categoryList;
         this.skill = skill;
-        this.skillList = skillList;
         this.address = address;
         this.academicList = academicList;
         this.academic = academic;
@@ -208,14 +206,6 @@ public class Freelancer {
         this.skill = skill;
     }
 
-    public String[] getSkillList() {
-        return skillList;
-    }
-
-    public void setSkillList(String[] skillList) {
-        skillList = skillList;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -342,11 +332,11 @@ public class Freelancer {
         this.portfolioInfoMap = portfolioInfoMap;
     }
 
-    public String[] getCategoryList() {
+    public List<String> getCategoryList() {
         return categoryList;
     }
 
-    public void setCategoryList(String[] categoryList) {
+    public void setCategoryList(List<String> categoryList) {
         this.categoryList = categoryList;
     }
 
@@ -383,9 +373,8 @@ public class Freelancer {
                 ", acceptConsent=" + acceptConsent +
                 ", type='" + type + '\'' +
                 ", category='" + category + '\'' +
-                ", categoryList=" + Arrays.toString(categoryList) +
+                ", categoryList=" + categoryList +
                 ", skill='" + skill + '\'' +
-                ", skillList=" + Arrays.toString(skillList) +
                 ", address='" + address + '\'' +
                 ", academicList=" + academicList +
                 ", academic='" + academic + '\'' +

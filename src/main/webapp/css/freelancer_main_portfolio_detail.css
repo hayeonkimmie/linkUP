@@ -76,6 +76,15 @@ td a{
     margin-top: 30px;
 }
 
+#list-btn{
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    background-color: #5bc0de;
+}
 .action-buttons .edit-btn,
 .action-buttons .delete-btn {
     padding: 8px 18px;

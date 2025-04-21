@@ -21,11 +21,23 @@
         WHERE c.freelancer_id = #{freelancerId}
         ORDER BY c.id DESC
     </select>
-    <select id="portfolioInfoForProfile" resultType="Map" parameterType="String">
+    <select id="selectAllPortfolioInfoForProfile" resultType="Map" parameterType="String">
         SELECT portfolio_id, title
         FROM portfolio
         WHERE freelancer_id = #{freelancerId} and is_deleted = false and is_temp_saved = false
         ORDER BY portfolio_id DESC
+    </select>
+    <select id="selectPortfolioInfoMapForProfile" resultType="Map" parameterType="String">
+        SELECT portfolio_id, title
+        FROM portfolio
+        WHERE freelancer_id = #{freelancerId} and is_deleted = false and is_temp_saved = false and priority is not null
+        ORDER BY priority asc
+    </select>
+    <select id="selectPortfolioListByPage" parameterType="String" resultType="Map">
+        SELECT portfolio_id, title
+        FROM portfolio
+        where freelancer_id = #{user_id}
+          and is_deleted AND is_temp_saved is false order by priority asc
     </select>
     <!--포츠폴리오 상세 조회-->
     <select id="selectPortfolioById" parameterType="Integer" resultType="portfolio">

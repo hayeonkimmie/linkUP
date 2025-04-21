@@ -2,7 +2,9 @@ package controller.freelancer;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import dao.freelancer.FreelancerDAO;
 import dto.Career;
+import dto.Category;
 import dto.Freelancer;
 import service.freelancer.FreelancerService;
 import service.freelancer.IFreelancerService;
@@ -32,22 +34,30 @@ public class FreeMyPageEditInfo extends HttpServlet {
             };*/
             freelancerId = "free002";
             IFreelancerService service = new FreelancerService();
-            Freelancer freelancer = service.selectBasicFreelancerById(freelancerId);
             /*if(freelancer == null) {
                 response.sendRedirect("/join");
             }*/
             String type = request.getParameter("type");
+            Freelancer freelancer = new Freelancer();
             if(type == null || type.equals("basic")) {
                 // 기본 정보 수정
+                freelancer = service.selectBasicFreelancerById(freelancerId);
                 request.setAttribute("freelancer", freelancer);
                 request.getRequestDispatcher("/freelancer/my_page_free_user_basic_info_edit.jsp").forward(request, response);
             } else if(type.equals("expert")) {
                 // 전문가 정보 수정
+                FreelancerDAO freelancerDAO = new FreelancerDAO();
                 freelancer = service.selectExpertFreelancerById(freelancerId);
-                Map<Integer, String> portfolioInfoMap = service.selectAllportfolioInfoMap(freelancerId);
+                Map<Integer, String> allPortfolioInfoMap = service.selectAllportfolioInfoMap(freelancerId);
+                Map<Integer, Category> categoriesMap = freelancerDAO.selectCategoriesAsMap();
                 List<Career> careerList = service.selectCareerListById(freelancerId);
-                request.setAttribute("portfolioInfoMap", portfolioInfoMap);
+                request.setAttribute("freelancer", freelancer);
+                request.setAttribute("allPortfolioInfoMap", allPortfolioInfoMap);
+                request.setAttribute("categoriesMap", categoriesMap);
                 request.setAttribute("careerList", careerList);
+                System.out.println("FreeMyPageEditInfo 서블릿 59 : " + careerList);
+                System.out.println("FreeMyPageEditInfo 서블릿 60 : " + allPortfolioInfoMap);
+                System.out.println("FreeMyPageEditInfo 서블릿 61 : " + freelancer);
                 request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit.jsp").forward(request, response);
             } else{
                 // 잘못된 요청 처리
@@ -65,8 +75,8 @@ public class FreeMyPageEditInfo extends HttpServlet {
         String path = request.getServletContext().getRealPath("upload"); // 업로드 폴더의 물리적 경로 가져오기
         int size = 10*1024*1024;//10mb
 
+        IFreelancerService service = new FreelancerService();
         MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy());
-
         try {
             String type = multi.getParameter("type");
         System.out.println(type + "일단 여기까지 오기는 옴");
@@ -85,10 +95,12 @@ public class FreeMyPageEditInfo extends HttpServlet {
                 freelancer.setPassword("pass456");
                 freelancer.setBank(multi.getParameter("bank"));
                 freelancer.setAccountNum(multi.getParameter("accountNum"));
-                IFreelancerService service = new FreelancerService();
                 freelancer.setFreelancerId(freelancerId);
-                System.out.println(freelancer);
+                System.out.println("FreeMyPageEditInfo 서블릿 90 : " + freelancer);
                 service.updateFreelancer(freelancer);
+                // 수정 결과 확인
+                freelancer = service.selectBasicFreelancerById(freelancerId);
+                System.out.println("FreeMyPageEditInfo 서블릿 93 : " + freelancer);
                 request.setAttribute("freelancer", freelancer);
             // 기본 정보 수정
                 request.getRequestDispatcher("/freelancer/my_page_free_user_basic_info_edit.jsp").forward(request, response);
