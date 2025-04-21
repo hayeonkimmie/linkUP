@@ -86,7 +86,7 @@
   color: #1c7e50;
 }
 
-/* 포트폴리오 내부 콘텐츠 */
+/* 포트폴리오 상세페이지 내부 콘텐츠 */
 .portfolio-body {
   display: flex;
   gap: 16px;
@@ -96,6 +96,7 @@
   width: 120px;
   height: 90px;
   background-color: #ddd;
+  border-color: #ddd;
   border-radius: 6px;
   flex-shrink: 0;
 }

@@ -2,33 +2,35 @@ package dto;
 
 import java.sql.Date;
 
-import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class Freelancer {
-    String userId;
+    String freelancerId;
     String name;
     String nickname;
     String email;
     String password;
     String phoneNum;
-    String profilImg;
+    String profileImg;
     boolean acceptNoti;
     String token;
     Date registrationDate;
     Date withdrawalDate;
     boolean acceptConsent;
-    boolean isNaver;
-    boolean isKakao;
 
     // User Type 04.18 15:02 추가
     String type;
-
-    String freelancerId;
     String category;
+    String[] categoryList;
     String skill;
+    String[] skillList;
     String address;
+    List<Academic> academicList;
     String academic;
     String introduction;
+    List<License> licenseList;
     String license;
     String bank;
     String accountNum;
@@ -40,6 +42,7 @@ public class Freelancer {
     String attachment;
     String externalUrl;
 
+    Map<Integer, String> portfolioInfoMap;
     double averageScore; //평점
     int projectCount; //프로젝트 수
 
@@ -51,16 +54,46 @@ public class Freelancer {
         return type;
     }
 
+    public Freelancer(String freelancerId, String name, String nickname, String email, String password, String phoneNum, String profileImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String type, String category, String[] categoryList, String skill, String[] skillList, String address, List<Academic> academicList, String academic, String introduction, List<License> licenseList, String license, String bank, String accountNum, boolean isNegotiable, boolean isResident, int desiredSalary, String desiredLocation, String otherRequest, String attachment, String externalUrl, Map<Integer, String> portfolioInfoMap, double averageScore, int projectCount) {
+        this.freelancerId = freelancerId;
+        this.name = name;
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+        this.phoneNum = phoneNum;
+        this.profileImg = profileImg;
+        this.acceptNoti = acceptNoti;
+        this.token = token;
+        this.registrationDate = registrationDate;
+        this.withdrawalDate = withdrawalDate;
+        this.acceptConsent = acceptConsent;
+        this.type = type;
+        this.category = category;
+        this.categoryList = categoryList;
+        this.skill = skill;
+        this.skillList = skillList;
+        this.address = address;
+        this.academicList = academicList;
+        this.academic = academic;
+        this.introduction = introduction;
+        this.licenseList = licenseList;
+        this.license = license;
+        this.bank = bank;
+        this.accountNum = accountNum;
+        this.isNegotiable = isNegotiable;
+        this.isResident = isResident;
+        this.desiredSalary = desiredSalary;
+        this.desiredLocation = desiredLocation;
+        this.otherRequest = otherRequest;
+        this.attachment = attachment;
+        this.externalUrl = externalUrl;
+        this.portfolioInfoMap = portfolioInfoMap;
+        this.averageScore = averageScore;
+        this.projectCount = projectCount;
+    }
+
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getName() {
@@ -103,12 +136,12 @@ public class Freelancer {
         this.phoneNum = phoneNum;
     }
 
-    public String getProfilImg() {
-        return profilImg;
+    public String getProfileImg() {
+        return profileImg;
     }
 
-    public void setProfilImg(String profilImg) {
-        this.profilImg = profilImg;
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
     }
 
     public boolean isAcceptNoti() {
@@ -151,22 +184,6 @@ public class Freelancer {
         this.acceptConsent = acceptConsent;
     }
 
-    public boolean isNaver() {
-        return isNaver;
-    }
-
-    public void setNaver(boolean naver) {
-        isNaver = naver;
-    }
-
-    public boolean isKakao() {
-        return isKakao;
-    }
-
-    public void setKakao(boolean kakao) {
-        isKakao = kakao;
-    }
-
     public String getFreelancerId() {
         return freelancerId;
     }
@@ -189,6 +206,14 @@ public class Freelancer {
 
     public void setSkill(String skill) {
         this.skill = skill;
+    }
+
+    public String[] getSkillList() {
+        return skillList;
+    }
+
+    public void setSkillList(String[] skillList) {
+        skillList = skillList;
     }
 
     public String getAddress() {
@@ -309,5 +334,76 @@ public class Freelancer {
 
     public void setProjectCount(int projectCount) {
         this.projectCount = projectCount;
+    }
+    public Map<Integer, String> getPortfolioInfoMap() {
+        return portfolioInfoMap;
+    }
+    public void setPortfolioInfoMap(Map<Integer, String> portfolioInfoMap) {
+        this.portfolioInfoMap = portfolioInfoMap;
+    }
+
+    public String[] getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(String[] categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public List<Academic> getAcademicList() {
+        return academicList;
+    }
+
+    public void setAcademicList(List<Academic> academicList) {
+        this.academicList = academicList;
+    }
+
+    public List<License> getLicenseList() {
+        return licenseList;
+    }
+
+    public void setLicenseList(List<License> licenseList) {
+        this.licenseList = licenseList;
+    }
+
+    @Override
+    public String toString() {
+        return "Freelancer{" +
+                "freelancerId='" + freelancerId + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", profilImg='" + profileImg + '\'' +
+                ", acceptNoti=" + acceptNoti +
+                ", token='" + token + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", withdrawalDate=" + withdrawalDate +
+                ", acceptConsent=" + acceptConsent +
+                ", type='" + type + '\'' +
+                ", category='" + category + '\'' +
+                ", categoryList=" + Arrays.toString(categoryList) +
+                ", skill='" + skill + '\'' +
+                ", skillList=" + Arrays.toString(skillList) +
+                ", address='" + address + '\'' +
+                ", academicList=" + academicList +
+                ", academic='" + academic + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", licenseList=" + licenseList +
+                ", license='" + license + '\'' +
+                ", bank='" + bank + '\'' +
+                ", accountNum='" + accountNum + '\'' +
+                ", isNegotiable=" + isNegotiable +
+                ", isResident=" + isResident +
+                ", desiredSalary=" + desiredSalary +
+                ", desiredLocation='" + desiredLocation + '\'' +
+                ", otherRequest='" + otherRequest + '\'' +
+                ", attachment='" + attachment + '\'' +
+                ", externalUrl='" + externalUrl + '\'' +
+                ", portfolioInfoMap=" + portfolioInfoMap +
+                ", averageScore=" + averageScore +
+                ", projectCount=" + projectCount +
+                '}';
     }
 }

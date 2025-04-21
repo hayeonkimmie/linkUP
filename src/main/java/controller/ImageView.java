@@ -3,11 +3,8 @@ package controller;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.URLEncoder;
 
 @WebServlet("/image")
 public class ImageView extends HttpServlet {
@@ -16,11 +13,13 @@ public class ImageView extends HttpServlet {
     public ImageView() {
         super();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String filename = request.getParameter("filename");
         String path = request.getServletContext().getRealPath("upload");
+        System.out.println(path);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
         try (

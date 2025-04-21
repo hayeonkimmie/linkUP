@@ -18,10 +18,24 @@
     border: 1px solid #ccc;
     border-radius: 8px;
 }
+.thumbnail-project-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 20px;
+    align-items: flex-start;
+}
 
+.thumbnail-upload-section {
+    flex: 1;
+    min-width: 280px;
+}
+
+.thumbnail-upload-section{
+    width: 50%;
+}
 .thumbnail-upload-box {
-    width: 320px;
-    height: 160px;
+    min-height: 200px;
     background-color: #f5f5f5;
     border: 2px dashed #aaa;
     border-radius: 8px;
@@ -33,20 +47,28 @@
     text-align: center;
     cursor: pointer;
 }
-
+.upload-placeholder > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
 .project-period input[type="month"] {
     margin: 0 8px;
     padding: 6px 12px;
     border-radius: 6px;
     border: 1px solid #ccc;
 }
-
+#skills{
+    width: 900px;
+    margin: 1px;
+}
 .team-role input,
 .skills-section select,
 .portfolio-description textarea,
 #skills
 {
-    width: 100%;
+    width: 480px;
     padding: 10px 14px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -81,7 +103,6 @@
 }
 
 #clear-skills {
-    position: absolute;
     top: 0;
     right: 0;
     background-color: #ccc;
@@ -120,12 +141,23 @@
 #introduction{
     overflow-y: auto;
     resize: none;
-    width: 100%;
+    width: 900px;
     height: 100px;
 }
-#add-attachment > button{
-    float: right;
-    margin: 0 10px 10px;
+
+/* 첨부파일 버튼 정렬 */
+.project-info-right {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 130px;
+}
+
+.file-upload-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 table th:first-child,
 table td:first-child {
@@ -175,7 +207,13 @@ table td:nth-child(2){
     color: white;
     cursor: pointer;
 }
-
+.file-upload-section button {
+    padding: 8px 12px;
+    font-size: 13px;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
 #submit-btn,#add-project-log { background-color: #91009e; }
 #temp-submit-btn,#add-attachment-file { background-color: #777; }
 #delete-btn, #add-outer-url { background-color: #d9534f; }

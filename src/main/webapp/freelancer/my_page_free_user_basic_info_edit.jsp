@@ -12,32 +12,18 @@
     <script src="../js/freelancer_my_page_info_edit.js"></script>
 <%--    <link rel="stylesheet" href="../css/alarm_settings.css">
     <script src="../js/alarm_settings.js"></script>--%>
+
 </head>
+
 <body>
-<div class="header" style="height: 100px;">
+<div class="header">
     <!-- 헤더 인클루드 영역 -->
+    <jsp:include page="/common/header.jsp"/>
 </div>
 <div class="container">
-    <aside class="sidebar">
-        <div class="profile">
-            <img src="./../img/basic_profile_img.png" alt="profile"/>
-            <p>닉네임</p>
-            <p>마이페이지</p>
-        </div>
-        <ul>
-            <li class="profile-settings">
-                <h3 class="active">프로필 설정</h3>
-                <a class="active" href="#">기본 정보 설정</a>
-                <a href="#">전문가 정보 설정</a>
-            </li>
-            <li><h3><a href="#">포트폴리오</a></h3></li>
-            <li><h3><a href="#">찜한 프로젝트</a></h3></li>
-            <li><h3><a href="#">지원한 프로젝트 내역</a></h3></li>
-            <li><h3><a href="#">진행중인 / 완료된 프로젝트</a></h3></li>
-            <li><h3><a href="#">프로젝트 후기</a></h3></li>
-            <li><h3><a href="#">문의내역</a></h3></li>
-        </ul>
-    </aside>
+    <!-- 사이드바 -->
+    <jsp:include page="/freelancer/sidebar.jsp"/>
+    <!-- 메인 콘텐츠 -->
     <main class="content">
         <section class="section">
             <div class="content-header">
@@ -45,80 +31,56 @@
                     <h3>기본 정보 설정</h3>
                 </div>
             </div>
-            <form action="my-page/edit-info?type=basic" method="post">
+            <form action="${contextPath}/edit-info" method="post" enctype="multipart/form-data">
                 <div class="form-row profile-upload">
-                    <label for="profile_img" class="upload-placeholder"><!--프로필 이미지 변경--></label>
                     <div class="profile-box">
-                        <img src="../img/basic_profile_img.png" alt="profile" id="preview" width="150px" onclick="document.getElementById('profile_img').click();"/>
-                        <!--<img src="${contextPath}/img/plus.png" alt="profile" id="preview" width="100px" />-->
-                        <input type="file" name="profile_img" id="profile_img" accept="image/*"
-                               style="display:none">
+                        <label for="profileImg" class="upload-placeholder">
+                            <img id="preview" class="preview-img" width="150px"
+                                 src="/image?filename=${freelancer.profileImg}" />
+                        </label>
+                        <input type="file" name="profileImg" id="profileImg" accept="image/*"
+                               style="display:none" value="${freelancer.profileImg}" onchange="readURL(this)">
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <input type="text" placeholder="이름" value="" class="required" required/>
-                    <input type="date" id="birthDisplay" readonly placeholder="생년월일" required/>
+                    <input type="text" placeholder="이름" value="${freelancer.name}" name="name" class="required" required/>
+                    <input type="text" placeholder="닉네임" value="${freelancer.nickname}" name="nickname" class="required" required/>
                 </div>
 
                 <div class="form-row">
-                    <input type="text" value="아이디" readonly/>
+                    <input type="text" value="${freelancer.freelancerId}" readonly/>
                 </div>
 
                 <div class="form-row">
-                    <input type="email" placeholder="이메일" value="" class="required"/>
+                    <input type="email" name="email" placeholder="이메일" value="${freelancer.email}" required class="required"/>
                 </div>
 
                 <div class="form-row">
-                    <input type="text" placeholder="휴대폰 번호" value="" class="required"/>
+                    <input type="text" name="phoneNum" placeholder="휴대폰 번호" value="${freelancer.phoneNum}" required class="required"/>
                 </div>
 
                 <div class="form-row">
-                    <input type="text" placeholder="주소" value="" class="required"/>
-                    <button type="button" class="search-btn">🔍</button>
+                    <input type="text" name="address" placeholder="주소" value="${freelancer.address}" required class="required"/>
                 </div>
 
                 <h3>비밀번호</h3>
                 <div class="form-row">
-                    <input type="password" placeholder="현재 비밀번호" value="" disabled/>
+                    <input type="password" placeholder="현재 비밀번호" id="currId" value="${freelancer.password}" disabled/>
                 </div>
                 <div class="form-row">
-                    <input type="password" placeholder="새 비밀번호" value=""/>
-                    <input type="password" placeholder="새 비밀번호 확인" value=""/>
+                    <input type="password" name="newPassword" placeholder="새 비밀번호" value="" name="newPassword" id="newPassword" oninput="checkPasswordMatch()"/>
+                    <input type="password" placeholder="새 비밀번호 확인" value="" id="newPasswordCheck" oninput="checkPasswordMatch()"/>
                     <br/>
-                    <div class="worning" style="display: none; font-size:small; font-weight: bolder; color:red;">비밀번호가 일치하지 않습니다.</div>
+                    <div id="worning" style="display: none; font-size:small; font-weight: bolder; color:red;">비밀번호가 일치하지 않습니다.</div>
                 </div>
 
                 <h3>계좌번호</h3>
-                <div class="form-row">
+                <div class="form-row" id="CheckBank">
                     <label for="bank">은행</label>
-                    <select name="bank_type" id="bank" class="required">
-                        <option value="">은행을 선택해 주세요</option>
-                        <option value="javascript">카카오</option>
-                    </select>
-                    <input type="text" placeholder="현재 계좌번호" class="required"/>
+                    <input type="text" name="bank" id="bank" value="${freelancer.bank}" required/>
+                    <input type="text" placeholder="현재 계좌번호" name="accountNum" id="accountNum" value="${freelancer.accountNum}"  required/>
                 </div>
-                <%--<div class="toggle-row">
-                    <label for="projectUpdate">프로젝트 지원 결과 알림</label>
-                    <label class="switch">
-                        <input type="checkbox" id="" checked>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="toggle-row">
-                    <label for="projectUpdate">진행중인 프로젝트 마감일 알림</label>
-                    <label class="switch">
-                        <input type="checkbox" id="" checked>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="toggle-row">
-                    <label for="projectUpdate">찜한 프로젝트 모집 마감일 알림</label>
-                    <label class="switch">
-                        <input type="checkbox" id="" checked>
-                        <span class="slider round"></span>
-                    </label>
-                </div>--%>
                 <div class="form-row center">
                     <button type="submit" class="submit-btn">저장</button>
                 </div>
@@ -126,5 +88,57 @@
         </section>
     </main>
 </div>
+<div id="pwCheckContainer" style="display: none; margin-top: 10px;">
+    <input type="password" id="pwInput" placeholder="비밀번호 입력">
+    <button onclick="verifyPassword()">확인</button>
+    <span id="pwError" style="color: red; display: none;">비밀번호가 일치하지 않습니다.</span>
+</div>
+<script>
+
+    function readURL(input) {
+        if(input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<%--<script>
+    function checkPasswordMatch() {
+        const pw = document.querySelector("#newPassword").value;
+        const pwCheck = document.querySelector("#newPasswordCheck").value;
+        const warning = document.querySelector("#worning");
+
+        if (pw !== pwCheck) {
+            warning.removeAttribute("style"); // display: none; 제거
+        } else {
+            warning.setAttribute("style", "display: none;"); // display: none; 추가
+        }
+    }
+    document.querySelectorAll("#bank, #accountNum").forEach(el => {
+        el.addEventListener("click", () => {
+            document.querySelector("#pwCheckContainer").style.display = "block";
+            document.querySelector("#pwError").style.display = "none";
+            document.querySelector("#pwInput").value = "";
+            document.querySelector("#pwInput").focus();
+        });
+    });
+
+    // 비밀번호 확인 함수
+    function verifyPassword() {
+        const inputPw = document.querySelector("#pwInput").value;
+        const correctPw =document.querySelector("#currId").value;
+
+        if (inputPw === correctPw) {
+            document.querySelector("#pwCheckContainer").style.display = "none";
+            // 인증 성공 후 원하는 기능 실행
+            console.log("비밀번호 인증 성공");
+        } else {
+            document.querySelector("#pwError").style.display = "inline";
+        }
+    }
+</script>--%>
 </body>
 </html>

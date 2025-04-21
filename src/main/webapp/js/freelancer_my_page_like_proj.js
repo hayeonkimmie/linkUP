@@ -1,46 +1,24 @@
-function deleteSelectedRows() {
-    const table = document.getElementById("projectTable").getElementsByTagName("tbody")[0];
-    const rows = table.getElementsByTagName("tr");
-    for (let i = rows.length - 1; i >= 0; i--) {
-      const checkbox = rows[i].getElementsByTagName("input")[0];
-      if (checkbox && checkbox.checked) {
-        table.deleteRow(i);
-      }
-    }
-  }
+document.addEventListener("DOMContentLoaded", function () {
+    const selectAll = document.getElementById("select_all");
+    const checkboxes = document.querySelectorAll(".row-check");
 
-function deleteAllRows() {
-    const table = document.getElementById("projectTable").getElementsByTagName("tbody")[0];
-    table.innerHTML = "";
-}
+    // [1] 전체 선택/해제
+    selectAll.addEventListener("change", function () {
+        checkboxes.forEach(cb => {
+            cb.checked = selectAll.checked;
+        });
+    });
 
-  function updateEmptyMessageVisibility() {
-    const tableBody = document.getElementById("projectTable").getElementsByTagName("tbody")[0];
-    const emptyMessage = document.getElementById("emptyMessage");
-    if (tableBody.rows.length === 0) {
-      emptyMessage.style.display = "block";
-    } else {
-      emptyMessage.style.display = "none";
-    }
-  }
-
-  function deleteSelectedRows() {
-    const table = document.getElementById("projectTable").getElementsByTagName("tbody")[0];
-    const rows = table.getElementsByTagName("tr");
-    for (let i = rows.length - 1; i >= 0; i--) {
-      const checkbox = rows[i].getElementsByTagName("input")[0];
-      if (checkbox && checkbox.checked) {
-        table.deleteRow(i);
-      }
-    }
-    updateEmptyMessageVisibility();
-  }
-
-  function deleteAllRows() {
-    const table = document.getElementById("projectTable").getElementsByTagName("tbody")[0];
-    table.innerHTML = "";
-    updateEmptyMessageVisibility();
-  }
-
-  // 페이지 로딩 시 초기 상태 확인
-  window.onload = updateEmptyMessageVisibility;
+    // [2] 개별 체크 해제 시 전체 체크박스 해제
+    checkboxes.forEach(cb => {
+        cb.addEventListener("change", function () {
+            if (!this.checked) {
+                selectAll.checked = false;
+            } else {
+                // 모두 체크된 경우만 전체선택 체크박스도 체크
+                const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                selectAll.checked = allChecked;
+            }
+        });
+    });
+});

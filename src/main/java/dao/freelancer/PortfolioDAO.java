@@ -33,26 +33,27 @@ public class PortfolioDAO implements IPortfolioDAO {
     @Override
     public void deletePortfolio(Integer num) throws Exception {
         try {
-            sqlSession.delete("mapper.portfolio.deletePortfolioById", num);
+            sqlSession.update("mapper.portfolio.deletePortfolioById", num);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public Map<Integer, String> projectInfoForProtfolio(String userId) {
-        return sqlSession.selectOne("mapper.project.projectInfoForProtfolio", userId);
+    public Map<Integer, String> projectInfoForPortfolio(String userId) {
+        System.out.println( sqlSession.selectMap("mapper.portfolio.projectInfoForPortfolio", userId, "project_id"));
+
+        return sqlSession.selectMap("mapper.portfolio.projectInfoForPortfolio", userId, "project_id");
     }
 
     @Override
     public Integer writePortfolio(Portfolio portfolio) throws Exception {
         try {
-            if(portfolio.getIsTempSaved() == true) {
-                sqlSession.insert("mapper.portfolio.insertPortfolioIncomplete", portfolio);
-            } else {
+            if(portfolio.getIsTempSaved() == false) {
                 sqlSession.insert("mapper.portfolio.insertPortfolioComplete", portfolio);
+            } else {
+                sqlSession.insert("mapper.portfolio.insertPortfolioIncomplete", portfolio);
             }
-//			sqlSession.select("");
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

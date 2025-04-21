@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.Date;
 import dto.QnA;
-import service.QnAService;
+import service.freelancer.QnAService;
 
 @WebServlet("/QnA")
 public class insertQnAController extends HttpServlet {

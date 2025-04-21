@@ -9,6 +9,7 @@ public class User {
     String email;
     String password;
     String phoneNum;
+    String profileImg;
     boolean acceptNoti;
     String profileImg;
     String token;
@@ -21,7 +22,7 @@ public class User {
         super();
     }
 
-    public User(String userId, String name, String nickname, String email, String password, String phoneNum, boolean acceptNoti, String profileImg, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String snsType) {
+    public User(String userId, String name, String nickname, String email, String password, String phoneNum, String profileImg, String profilImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String snsType) {
         this.userId = userId;
         this.name = name;
         this.nickname = nickname;
@@ -105,11 +106,11 @@ public class User {
     }
 
 
-    public String getProfilImg() {
+    public String getProfileImg() {
         return profileImg;
     }
 
-    public void setProfilImg(String profileImg) {
+    public void setProfileImg(String profileImg) {
         this.profileImg = profileImg;
     }
 

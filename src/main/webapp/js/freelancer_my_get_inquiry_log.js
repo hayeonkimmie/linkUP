@@ -34,21 +34,30 @@ document.querySelectorAll('.accordion-toggle').forEach((toggleRow) => {
 });
 */window.onload = function () {
     const toggleRows = document.querySelectorAll('.accordion-toggle');
+    const toggles = document.querySelectorAll(".accordion-toggle");
 
-    toggleRows.forEach((row) => {
-        row.addEventListener('click', function () {
-            const contentRow = this.nextElementSibling;
-            const isOpen = contentRow.style.display === 'table-row';
-
-            // 모든 아코디언 내용 닫기
-            document.querySelectorAll('.accordion-content').forEach((r) => {
-                r.style.display = 'none';
-            });
-
-            // 현재 클릭한 항목만 토글
-            if (!isOpen) {
-                contentRow.style.display = 'table-row';
-            }
+    toggles.forEach(toggle => {
+        toggle.addEventListener("click", () => {
+            const content = toggle.nextElementSibling;
+            content.classList.toggle("active");
         });
     });
+
+    /*
+        toggleRows.forEach((row) => {
+            row.addEventListener('click', function () {
+                const contentRow = this.nextElementSibling;
+                const isOpen = contentRow.style.display === 'table-row';
+
+                // 모든 아코디언 내용 닫기
+                document.querySelectorAll('.accordion-content').forEach((r) => {
+                    r.style.display = 'none';
+                });
+
+                // 현재 클릭한 항목만 토글
+                if (!isOpen) {
+                    contentRow.style.display = 'table-row';
+                }
+            });
+        });*/
 };
