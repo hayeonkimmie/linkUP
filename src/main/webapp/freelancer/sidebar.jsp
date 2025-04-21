@@ -17,17 +17,52 @@
         <p>닉네임</p>
         <p>마이페이지</p>
     </div>
-    <ul>
+    <ul id="side-menu">
         <li class="profile-settings">
             <h3>프로필 설정</h3>
-            <a href="my-page/edit-info?type=basic">기본 정보 설정</a>
-            <a href="my-page/edit-info?type=expert">전문가 정보 설정</a>
+            <a href="edit-info?type=basic">기본 정보 설정</a>
+            <a href="edit-info?type=expert">전문가 정보 설정</a>
         </li>
-        <li><a href="my-page/portfolio-list"><h3>포트폴리오</h3></a></li>
-        <li><h3><a href="my-page/jjim-projs-list">찜한 프로젝트</a></h3></li>
-        <li><h3><a href="my-page/apply-proj-list">지원한 프로젝트 내역</a></h3></li>
-        <li><h3><a href="my-page/project-status/">진행중인 / 완료된 프로젝트</a></h3></li>
-        <li><h3><a href="my-page/project-review-list">프로젝트 후기</a></h3></li>
-        <li><h3><a href="my-page/qna-list">문의내역</a></h3></li>
+        <li><a href="portfolio-list"><h3>포트폴리오</h3></a></li>
+        <li><h3><a href="jjim-projs-list">찜한 프로젝트</a></h3></li>
+        <li><h3><a href="apply-proj-list">지원한 프로젝트 내역</a></h3></li>
+        <li><h3><a href="project-status/">진행중인 / 완료된 프로젝트</a></h3></li>
+
+        <li class="profile-settings">
+            <h3>프로젝트 후기</h3>
+            <a href="project-review">리뷰 조회 및 수정</a>
+            <a href="project-review-write">리뷰 작성</a>
+        </li>
+        <li><h3><a href="qna-list">문의내역</a></h3></li>
     </ul>
 </aside>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const currentPath = window.location.pathname;
+        const pathList = [
+            '/home',
+            '/about',
+            '/services',
+            '/portfolio',
+            '/contact',
+            '/faq',
+            '/login',
+            '/register',
+            '/mypage'
+        ];
+
+        const menuItems = document.querySelectorAll('#side-menu li');
+
+        menuItems.forEach((li) => {
+            const anchor = li.querySelector('a');
+            const href = anchor.getAttribute('href');
+
+            // 경로 목록 중, 현재 주소가 해당 href로 시작하면 active 적용
+            if (currentPath.startsWith(href) && pathList.includes(href)) {
+                li.classList.add('active');
+            } else {
+                li.classList.remove('active');
+            }
+        });
+    });
+</script>

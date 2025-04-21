@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.Date;
 import dto.QnA;
-import service.QnAService;
+import service.freelancer.QnAService;
 
 @WebServlet("/QnA")
 public class insertQnAController extends HttpServlet {
@@ -40,7 +40,7 @@ public class insertQnAController extends HttpServlet {
 
 
         QnA qna = new QnA();
-        qna.setQnaId(18); // 만약 DB가 Auto Increment면 무시하거나 null로 두세요
+        qna.setQnaId(19); // 만약 DB가 Auto Increment면 무시하거나 null로 두세요
         qna.setUserId(userId);
         qna.setQuestionTitle(title);
         qna.setQuestionContent(content);

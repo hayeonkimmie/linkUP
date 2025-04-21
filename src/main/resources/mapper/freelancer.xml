@@ -4,22 +4,93 @@
 
 <mapper namespace="mapper.freelancer">
     <insert id="insertFreelancer" parameterType="freelancer">
-        insert freelancer (freelancer_id,category,skill,address,academic,introduction,license,bank,account_num,is_negotiable,is_resident,desired_salary,desired_location,other_requests,attachment,external_url)
-        values (#{freelancerId}, #{category},#{skill},#{address}, #{academic},#{introduction},#{license}, #{bank},#{account_num},#{is_negotiable}, #{is_resident},#{desired_salary},#{desired_location}, #{other_requests},#{attachment},#{external_url})
+        insert freelancer (freelancer_id, category, skill, address, academic, introduction, license,
+                           is_negotiable, is_resident, desired_salary, desired_location, other_requests, attachment,
+                           external_url)
+        values (#{freelancerId}, #{category}, #{skill}, #{address}, #{academic}, #{introduction}, #{license},
+                #{isNegotiable}, #{isResident}, #{desiredSalary}, #{desiredLocation},
+                #{otherRequest}, #{attachment}, #{externalUrl})
     </insert>
 
-
     <select id="selectAllFreelancer" resultType="freelancer">
-        SELECT
-            f.freelancer_id,
-            u.name,
-            u.email,
-            u.registration_date,
-            u.phone_num,
-            '구직자' AS type
-        FROM
-            freelancer f
-                INNER JOIN user u ON f.freelancer_id = u.user_id
+        SELECT u.user_id,
+               u.name,
+               u.email,
+               u.registration_date,
+               u.phone_num,
+               '구직자' AS type
+        FROM freelancer f
+                 INNER JOIN user u ON f.freelancer_id = u.user_id
+    </select>
+    <select id="selectBasicFreelancerById" parameterType="String" resultType="freelancer">
+        SELECT u.user_id as freelancer_id,
+               u.name,
+               u.nickname,
+               u.password,
+               u.email,
+               u.phone_num,
+               u.profile_img,
+               f.address,
+               f.bank,
+               f.account_num
+        FROM user u
+                 INNER JOIN freelancer f ON f.freelancer_id = u.user_id
+        where u.user_id = #{freelancerId}
+    </select>
+    <update id="updateFreelancer" parameterType="freelancer">
+        UPDATE freelancer
+            SET category = #{category},
+            skill = #{skill},
+            address = #{address},
+            academic = #{academic},
+            introduction = #{introduction},
+            license = #{license},
+            is_negotiable = #{isNegotiable},
+            is_resident = #{isResident},
+            desired_salary = #{desiredSalary},
+            desired_location = #{desiredLocation},
+            other_requests = #{otherRequest},
+            attachment = #{attachment}
+        WHERE freelancer_id = #{freelancerId}
+    </update>
+    <update id="updateUserProfile" parameterType="freelancer">
+        UPDATE user
+            SET name = #{name},
+            nickname = #{nickname},
+            password = #{password},
+            email = #{email},
+            phone_num = #{phoneNum},
+            profile_img = #{profileImg}
+        WHERE user_id = #{freelancerId}
+    </update>
+    <update id="updateFreelancerProfile" parameterType="freelancer">
+        UPDATE freelancer
+        SET address = #{address},
+            bank = #{bank},
+            account_num = #{accountNum}
+        WHERE freelancer_id = #{freelancerId}
+    </update>
+    <update id="updateFreelancerBankInfo" parameterType="freelancer">
+        UPDATE freelancer
+        SET bank = #{bank}, account_num = #{accountNum}
+        WHERE freelancer_id = #{freelancerId}
+    </update>
+
+    <select id="selectExpertFreelancerById" parameterType="String" resultType="freelancer">
+        SELECT category,
+               skill,
+               academic,
+               introduction,
+               license,
+               is_resident,
+               desired_salary,
+               desired_location,
+               other_requests,
+               is_negotiable,
+               attachment,
+               is_resident
+        FROM freelancer
+        where freelancer_id = #{freelancerId}
     </select>
 
 </mapper>

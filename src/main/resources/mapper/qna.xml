@@ -83,7 +83,7 @@
             qna_id, user_id, question_title, question_content, question_date, answer_content, answer_date
         )
         VALUES (
-                   #{qna_id}, #{user_id}, #{question_title}, #{question_content}, #{question_date}, #{answer_content}, #{answer_date}
+                   #{qnaId}, #{userId}, #{questionTitle}, #{questionContent}, #{questionDate}, #{answerContent}, #{answerDate}
                )
     </insert>
 

@@ -1,6 +1,7 @@
 package service;
 
 import dao.client.ClientDAOImpl;
+import dao.client.IClientQnADAOImpl;
 import dao.common.IUserDAO;
 import dao.common.UserDAO;
 import dto.Client;
@@ -9,7 +10,7 @@ import dto.User;
 public class CreateAccRecruiter implements ICreateAccRecruiter {
 
     private IUserDAO userDAO = new UserDAO();
-    private ClientDAOImpl clientDAO = new ClientDAOImpl();
+    private IClientQnADAOImpl clientDAO = new ClientDAOImpl();
 
     @Override
     public boolean registerRecruiter(User user, Client client) {

@@ -1,6 +1,7 @@
 package dto;
 import java.sql.Date;
 import java.util.Arrays;
+import java.util.Map;
 
 public class Portfolio {
     Integer portfolioId;
@@ -24,46 +25,16 @@ public class Portfolio {
     private String projectName;
     private String[] attachmentList;
     private String[] externalUrlList;
+    Map<Integer, String> projectInfoMap;
     private Date createdDate;
 
     public Portfolio() {
         super();
     }
-//    //작성 및 수정
-    public Portfolio(Integer portfolioId, String freelancerId, String title, String thumbnail, String skillDescription, boolean isTempSaved, String introduce, Date createdDate) {
+
+    public Portfolio(Integer portfolioId, String userId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String introduce, Integer projectId, String attachment, String externalUrl, boolean isTempSaved, boolean isUserDeleted, boolean isDeleted, Integer priority, String[] skillList, String projectName, String[] attachmentList, String[] externalUrlList, Map<Integer, String> projectInfoMap, Date createdDate) {
         this.portfolioId = portfolioId;
-        this.freelancerId = freelancerId;
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.skillDescription = skillDescription;
-        this.isTempSaved = isTempSaved;
-        this.introduce = introduce;
-        this.createdDate = createdDate;
-    }
-//    //포폴 상세
-    public Portfolio(Integer portfolioId,String freelancerId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String[] skillList, String introduce, Integer projectId, String projectName, String[] attachmentList, String[] externalUrlList, Date createdDate, boolean isTempSaved) {
-        this.portfolioId = portfolioId;
-        this.freelancerId = freelancerId;
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.portProjStart = portProjStart;
-        this.portProjEnd = portProjEnd;
-        this.teamRole = teamRole;
-        this.skillDescription = skillDescription;
-        this.skillList = skillList;
-        this.introduce = introduce;
-        this.projectId = projectId;
-        this.projectName = projectName;
-        this.attachmentList = attachmentList;
-        this.externalUrlList = externalUrlList;
-        this.createdDate = createdDate;
-        this.isTempSaved = isTempSaved;
-    }
-//
-//    // 작성, 수정
-    public Portfolio(Integer portfolioId, String freelancerId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String introduce, Integer projectId, String attachment, String externalUrl, Date createdDate, boolean isTempSaved) {
-        this.portfolioId = portfolioId;
-        this.freelancerId = freelancerId;
+        this.freelancerId = userId;
         this.title = title;
         this.thumbnail = thumbnail;
         this.portProjStart = portProjStart;
@@ -74,18 +45,19 @@ public class Portfolio {
         this.projectId = projectId;
         this.attachment = attachment;
         this.externalUrl = externalUrl;
-        this.createdDate = createdDate;
         this.isTempSaved = isTempSaved;
-    }
-//
-//    //구직자 상세페이지용
-    public Portfolio(String title, Integer portfolioId, Integer priority) {
-        this.title = title;
-        this.portfolioId = portfolioId;
+        this.isUserDeleted = isUserDeleted;
+        this.isDeleted = isDeleted;
         this.priority = priority;
+        this.skillList = skillList;
+        this.projectName = projectName;
+        this.attachmentList = attachmentList;
+        this.externalUrlList = externalUrlList;
+        this.projectInfoMap = projectInfoMap;
+        this.createdDate = createdDate;
     }
 
-    public int getPortfolioId() {
+    public Integer getPortfolioId() {
         return portfolioId;
     }
 
@@ -157,11 +129,11 @@ public class Portfolio {
         this.introduce = introduce;
     }
 
-    public int getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(int projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
@@ -211,14 +183,6 @@ public class Portfolio {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 
     public String[] getSkillList() {

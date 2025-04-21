@@ -7,7 +7,7 @@ import util.MybatisSqlSessionFactory;
 
 import java.util.List;
 
-public class ClientDAOImpl {
+public class ClientDAOImpl implements IClientQnADAOImpl {
     private SqlSession sqlSession= MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
     public List<QnA> selectQnAList(Integer row) throws Exception {

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.project">
-    <insert id="" parameterType="">
+<!--    <insert id="" parameterType="">
         insert ammount ()
         values (#{}, #{},#{},#{})
     </insert>
@@ -12,12 +12,5 @@
         SELECT *
         FROM project
         WHERE status = '진행중'
-    </select>
-
-    <select id="projectInfoForProtfolio" resultType="Map" parameterType="String">
-        SELECT c.project_id, p.project_name
-        FROM contract c join project p
-                             on c.project_id = p.project_id
-        WHERE c.freelancer_id = '${freelancerId}'
-    </select>
+    </select>-->
 </mapper>

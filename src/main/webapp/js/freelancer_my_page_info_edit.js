@@ -1,15 +1,4 @@
 window.onload = function () {
-    //썸네일 프리뷰
-    function readURL(input) {
-        if(input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('preview').src = e.target.result;
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    
     // 폼 유효성 검사를 통해 저장 버튼 상태 변경
     const submitBtn = document.querySelector(".submit-btn");
     function validateForm() {

@@ -21,7 +21,7 @@
   <div class="header-header-container">
     <div class="header-logo-search">
       <a href="${contextPath}/home/main.jsp" class="header-logo">
-        <img src="../img/링크업 로고.png" alt="Link up 로고">
+        <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
       </a>
       <input type="text" class="header-search-bar" placeholder="어떤 전문가를 찾고 계신가요" />
     </div>
