@@ -1,5 +1,6 @@
 package dao.admin;
 
+import dto.AdminFreelancer;
 import dto.Freelancer;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
@@ -12,6 +13,11 @@ public class FreelancerDAO implements IFreelancerDAO{
     @Override
     public List<Freelancer> selectAllFreelancer() throws Exception {
         return sqlSession.selectList("mapper.afreelancer.selectAllFreelancer");
+    }
+
+    @Override
+    public AdminFreelancer selectFreelancerById(String freelancerId) throws Exception {
+        return sqlSession.selectOne("mapper.afreelancer.selectFreelancerById", freelancerId);
     }
 
     @Override

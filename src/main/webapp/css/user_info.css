@@ -1,26 +1,44 @@
 /* 공통 설정 */
+.layout {
+  display: flex;
+  min-width: 1200px; /* 📌 최소 폭 지정 */
+}
+
 * {
   box-sizing: border-box;
 }
 body {
+  min-width: 1200px;
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f5f6fa;
 }
+#menu-include {
+  width: 260px;
+  min-width: 260px;
+  flex-shrink: 0;
+}
 .layout {
   display: flex;
+  min-width: 1200px;
 }
 .content {
   flex: 1;
   padding: 32px;
 }
-
-/* 공통 박스 스타일 */
-.card, .filter-container {
+.filter-container{
   background-color: white;
   border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 32px;
+  padding-right: 24px;
+}
+/* 공통 박스 스타일 */
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 .card h2 {
@@ -130,4 +148,59 @@ th.col-type, td.col-type { width: 10%; }
 /* 숨김 처리 */
 .hidden-row {
   display: none;
+}
+
+.table-section{
+  padding: 10px;
+}
+
+.page-description {
+  padding: 16px 0 8px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 0;
+}
+
+.search-select {
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 1250px;
+  max-width: 100%; /* 부모 안에서만 확장 */
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+
+.search-btn {
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #333;
 }

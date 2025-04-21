@@ -24,13 +24,23 @@ public class ProjectController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         request.setAttribute("now", new java.util.Date());
 
+        String keyword = request.getParameter("keyword");
+        String settleStatus = request.getParameter("settleStatus");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+
+        System.out.println("keyword: " + keyword);
+        System.out.println("settleStatus: " + settleStatus);
+        System.out.println("startDate: " + startDate);
+        System.out.println("endDate: " + endDate);
+
+
         ProjectDAO projectDAO = new ProjectDAO();
         String idParam = request.getParameter("id");
         String pageParam = request.getParameter("page");
         int curPage = (pageParam == null || pageParam.isEmpty()) ? 1 : Integer.parseInt(pageParam);
         int perPage = 8;
         int offset = (curPage - 1) * perPage;
-
 
         try {
             // 상세 페이지 : /admin/project_list.jsp
@@ -44,16 +54,16 @@ public class ProjectController extends HttpServlet {
             // 프로젝트 전체 목록 페이지 : /admin/project_list.jsp
             // url: http://localhost:8085/linkup/admin/project
             } else {
-                List<AdminProject> projectList = projectDAO.selectPagedProjects(offset, perPage);
+                List<AdminProject> projectList = projectDAO.selectPagedProjects(offset, perPage, keyword, settleStatus, startDate, endDate);
                 int totalCount = projectDAO.countAllProjects();
                 PageInfo pageInfo = new PageInfo(curPage);
                 int allPage = (int) Math.ceil((double) totalCount / perPage);
                 pageInfo.setAllPage(allPage);
-
                 int startPage = Math.max(1, curPage - 2);
                 int endPage = Math.min(allPage, startPage + 4);
                 pageInfo.setStartPage(startPage);
                 pageInfo.setEndPage(endPage);
+                request.setAttribute("totalCount", totalCount);
                 request.setAttribute("projectList", projectList);
                 request.setAttribute("pageInfo", pageInfo);
                 request.getRequestDispatcher("/admin/project_list.jsp").forward(request, response);

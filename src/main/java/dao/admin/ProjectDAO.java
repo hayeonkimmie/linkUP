@@ -23,10 +23,14 @@ public class ProjectDAO implements IProjectDAO {
     }
 
     @Override
-    public List<AdminProject> selectPagedProjects(int offset, int limit) throws Exception {
+    public List<AdminProject> selectPagedProjects(int offset, int limit, String keyword, String settleStatus, String startDate, String endDate) throws Exception{
         Map<String, Object> param = new HashMap<>();
         param.put("offset", offset);
         param.put("limit", limit);
+        param.put("keyword", keyword);
+        param.put("settleStatus", settleStatus);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
         return sqlSession.selectList("mapper.aproject.selectPagedProjects", param);
     }
 

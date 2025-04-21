@@ -7,85 +7,82 @@
   <title>사용자 정보 관리</title>
   <link rel="stylesheet" href="../css/admin_header.css">
   <link rel="stylesheet" href="../css/user_info.css">
-  <style>
-
-  </style>
-
-
 </head>
 <body>
 
-<jsp:include page="/admin/admin_header.jsp" />
+<!-- ✅ header, menu include를 위한 div -->
+<div id="header-include"></div>
 <div class="layout">
-  <jsp:include page="/admin/menutap.jsp" />
+  <div id="menu-include"></div>
   <div class="content">
-    <!-- ✅ 검색 바 (form 추가) -->
-    <!-- ✅ 검색 바 (form 추가) -->
-    <div class="filter-container">
-      <form class="search-bar" method="get" action="<c:url value='/admin/users'/>">
-        <select name="usertype">
-          <option value="all" ${param.usertype == 'all' ? 'selected' : ''}>전체</option>
-          <option value="freelancer" ${param.usertype == 'freelancer' ? 'selected' : ''}>구직자</option>
-          <option value="client" ${param.usertype == 'client' ? 'selected' : ''}>구인자</option>
-        </select>
-        <input type="text" name="keyword" placeholder="회원명, 아이디 또는 이메일로 검색" value="${param.keyword}" />
-        <button type="submit">검색</button>
-      </form>
-    </div>
 
-
-
-    <!-- ✅ 사용자 목록 테이블 -->
     <div class="card">
-      <h2>사용자 목록</h2>
-
+      <h1>사용자 목록</h1>
+      <h2>모든 유저를 조회하고 검색하는 페이지입니다.</h2>
+      <div class="filter-container">
+        <form class="search-bar" method="get" action="<c:url value='/admin/users'/>">
+          <label>
+            <select name="usertype" class="search-select">
+              <option value="all" ${param.usertype == 'all' ? 'selected' : ''}>전체</option>
+              <option value="freelancer" ${param.usertype == 'freelancer' ? 'selected' : ''}>구직자</option>
+              <option value="client" ${param.usertype == 'client' ? 'selected' : ''}>구인자</option>
+            </select>
+          </label>
+          <label>
+            <input type="text" name="keyword" placeholder="회원명, 아이디 또는 이메일로 검색" value="${param.keyword}" class="search-input" />
+          </label>
+          <button type="submit" class="search-btn">검색</button>
+        </form>
+      </div>
       <div class="segment-tabs">
         <div id="구직자Tab" class="segment-tab" data-type="구직자">구직자</div>
         <div id="구인자Tab" class="segment-tab" data-type="구인자">구인자</div>
       </div>
 
-
-      <table>
-        <thead>
-        <tr>
-          <th class="col-id">아이디</th>
-          <th class="col-name">회원명</th>
-          <th class="col-email">이메일</th>
-          <th class="col-date">가입일</th>
-          <th class="col-phone">연락처</th>
-          <th class="col-type">구분</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- 구직자 출력 -->
-        <c:forEach var="f" items="${freelancerList}">
-          <tr data-type="구직자">
-            <td>${f.freelancerId}</td>
-            <td>
-              <a href="<c:url value='/admin/freelancer'/>?freelancerid=${f.freelancerId}" class="project-link">${f.name}</a>
-            </td>
-            <td>${f.email}</td>
-            <td>${f.registrationDate}</td>
-            <td>${f.phoneNum}</td>
-            <td><span class="badge 구직자">${f.type}</span></td>
+      <div class="table-section">
+        <table>
+          <thead>
+          <tr>
+            <th class="col-id">아이디</th>
+            <th class="col-name">회원명</th>
+            <th class="col-email">이메일</th>
+            <th class="col-date">가입일</th>
+            <th class="col-phone">연락처</th>
+            <th class="col-type">구분</th>
           </tr>
-        </c:forEach>
+          </thead>
+          <tbody>
+          <!-- 구직자 출력 -->
+          <c:forEach var="f" items="${freelancerList}">
+            <tr data-type="구직자">
+              <td>${f.freelancerId}</td>
+              <td>
+                <a href="<c:url value='/admin/freelancer'/>?freelancerid=${f.freelancerId}" class="project-link">${f.name}</a>
+              </td>
+              <td>${f.email}</td>
+              <td>${f.registrationDate}</td>
+              <td>${f.phoneNum}</td>
+              <td><span class="badge 구직자">${f.type}</span></td>
+            </tr>
+          </c:forEach>
 
-        <!-- 구인자 출력 -->
-        <c:forEach var="c" items="${clientList}">
-          <tr data-type="구인자">
-            <td>${c.userId}</td>
-            <td>
-              <a href="<c:url value='/admin/client'/>?clientid=${c.userId}" class="project-link">${c.name}</a>
-            </td>
-            <td>${c.email}</td>
-            <td>${c.registrationDate}</td>
-            <td>${c.phoneNumber}</td>
-            <td><span class="badge 구인자">${c.type}</span></td>
-          </tr>
-        </c:forEach>
-        </tbody>
-      </table>
+          <!-- 구인자 출력 -->
+          <c:forEach var="c" items="${clientList}">
+            <tr data-type="구인자">
+              <td>${c.userId}</td>
+              <td>
+                <a href="<c:url value='/admin/client'/>?clientid=${c.userId}" class="project-link">${c.name}</a>
+              </td>
+              <td>${c.email}</td>
+              <td>${c.registrationDate}</td>
+              <td>${c.phoneNumber}</td>
+              <td><span class="badge 구인자">${c.type}</span></td>
+            </tr>
+          </c:forEach>
+          </tbody>
+        </table>
+      </div>
+
     </div>
 
 
@@ -126,9 +123,6 @@
     }
   });
 </script>
-
-
-
-
+<script src="../js/include_common.js"></script>
 </body>
 </html>
