@@ -1,7 +1,13 @@
 package controller.admin;
 
+import dao.admin.ISettlementDAO;
+import dao.admin.SettlementDAO;
+import dto.Admin;
+import dto.AdminProject;
 import dto.DashboardProject;
 import service.ProjectService;
+import service.admin.DashboardService;
+import service.admin.IDashboardService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -33,15 +39,16 @@ public class DashBoardController extends HttpServlet {
         Integer totalPayment = 0;
         Integer totalProjectCount = 0;
         Integer completedProjectCount = 0;
-        List<DashboardProject> ongoingProjects = new ArrayList<>();
-        ProjectService projectService = new ProjectService();
+        List<AdminProject> ongoingProjects = new ArrayList<>();
+        ISettlementDAO settlementDAO = new SettlementDAO();
+        IDashboardService dashboardService = new DashboardService(settlementDAO);
 
         try{
-            ongoingProjects = (projectService.getDashboardProjectList());
-            for(DashboardProject dproject : ongoingProjects){
-                totalPayment += dproject.getTotalPay();
+            ongoingProjects = (dashboardService.getDashboardProjectList());
+            for(AdminProject project : ongoingProjects){
+                totalPayment += project.getTotalAmount();
                 totalProjectCount++;
-                if(dproject.getProjectStatus().equals("완료됨")){
+                if(project.getSettleStatus().equals("완료됨")){
                     completedProjectCount++;
                 }
             }

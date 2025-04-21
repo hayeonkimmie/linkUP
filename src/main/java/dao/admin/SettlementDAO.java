@@ -9,6 +9,8 @@ import java.util.List;
 
 public class SettlementDAO implements ISettlementDAO {
 
+    ISettlementDAO settlementDAO;
+
     SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
     @Override
