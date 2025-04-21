@@ -31,8 +31,8 @@
       <table>
         <thead>
         <tr>
-          <th class="col-name">회원명</th>
           <th class="col-id">아이디</th>
+          <th class="col-name">회원명</th>
           <th class="col-email">이메일</th>
           <th class="col-date">가입일</th>
           <th class="col-phone">연락처</th>
@@ -43,12 +43,12 @@
         <c:forEach var="f" items="${freelancerList}">
           <c:if test="${f.type eq '구직자'}">
             <tr>
+              <td>${f.freelancerId}</td>
               <td>
                 <a href="<c:url value='/admin/freelancer'/>?freelancerid=${f.freelancerId}" class="project-link">
                     ${f.name}
                 </a>
               </td>
-              <td>${f.freelancerId}</td>
               <td>${f.email}</td>
               <td>${f.registrationDate}</td>
               <td>${f.phoneNum}</td>
@@ -79,10 +79,10 @@
         <c:forEach var="c" items="${clientList}">
           <c:if test="${c.type eq '구인자'}">
             <tr>
+              <td>${c.userId}</td>
               <td>
-                <a href="<c:url value='/admin/client'/>?clientid=${c.userId}" class="project-link">${c.userId}</a>
+                <a href="<c:url value='/admin/client'/>?clientid=${c.userId}" class="project-link">${c.name}</a>
               </td>
-              <td>${c.name}</td>
               <td>${c.email}</td>
               <td>${c.registrationDate}</td>
               <td>${c.phoneNumber}</td>

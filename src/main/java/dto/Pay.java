@@ -11,7 +11,6 @@ public class Pay {
 
 
     public Pay() {
-        super();
     }
 
     public Pay(int projectFeeId, int projectId, int lvId, Integer subCategoryId, String categoryName, int projectFee, Integer pay, int fee) {
