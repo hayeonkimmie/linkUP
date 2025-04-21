@@ -4,6 +4,10 @@ body {
     padding: 0;
     background-color: #f9f9fb;
   }
+.content{
+  min-width: 1200px;
+}
+
   .container {
     max-width: 800px;
     margin: 3rem auto;

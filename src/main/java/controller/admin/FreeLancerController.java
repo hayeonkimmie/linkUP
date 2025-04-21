@@ -1,5 +1,12 @@
 package controller.admin;
 
+import dao.admin.FreelancerDAO;
+import dao.admin.IFreelancerDAO;
+import dto.AdminFreelancer;
+import dto.Freelancer;
+import service.admin.FreelancerService;
+import service.admin.IFreelancerService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +25,18 @@ public class FreeLancerController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String freelancerid = request.getParameter("freelancerid");
 
+        IFreelancerDAO freelancerDAO = new FreelancerDAO();
+        IFreelancerService freelancerService = new FreelancerService(freelancerDAO);
 
-//        request.setAttribute("freelancer", freelancer);
+        AdminFreelancer freelancer = null;
+        try {
+            freelancer = freelancerService.selectFreelancerById(freelancerid);
+            System.out.println(freelancer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        request.setAttribute("freelancer", freelancer);
         request.getRequestDispatcher("/admin/freelancer_detail.jsp").forward(request, response);
     }
 

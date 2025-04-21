@@ -12,7 +12,8 @@ body {
 }
 /* f5f6fa */
 .content {
-  background-color: f5f6fa;
+  min-width: 1200px;
+  background-color: #f5f6fa;
   flex: 1;
   padding: 32px;
   overflow-y: auto;

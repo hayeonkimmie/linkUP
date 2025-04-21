@@ -38,8 +38,6 @@ public class SettlementController extends HttpServlet {
             } else if (slistIdParam != null) {
                 // 👉 정산하기 페이지 (settlement_detail.jsp)
                 int projectId = Integer.parseInt(slistIdParam);
-
-//                request.setAttribute("contractList", contractList);
                 request.getRequestDispatcher("/admin/settlement_detail.jsp").forward(request, response);
             } else {
                 // 👉 기본 목록 페이지 (settlement.jsp)

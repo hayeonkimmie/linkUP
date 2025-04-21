@@ -97,14 +97,6 @@ public class User {
     }
 
 
-    public String getProfileImg() {
-        return profileImg;
-    }
-
-    public void setProfileImg(String profileImg) {
-        this.profileImg = profileImg;
-    }
-
     public boolean isAcceptNoti() {
         return acceptNoti;
     }

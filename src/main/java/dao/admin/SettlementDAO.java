@@ -9,15 +9,13 @@ import java.util.List;
 
 public class SettlementDAO implements ISettlementDAO {
 
+    ISettlementDAO settlementDAO;
+
     SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
     @Override
     public List<AdminProject> selectProjectsForSettlement() throws SQLException {
 
-        List<AdminProject> adminProjectList = sqlSession.selectList("mapper.aproject.selectProjectsForSettlement");
-        for (AdminProject adminProject : adminProjectList) {
-            System.out.println(adminProject);
-        }
-        return adminProjectList;
+        return sqlSession.selectList("mapper.aproject.selectProjectsForSettlement");
     }
 }
