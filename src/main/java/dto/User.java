@@ -11,7 +11,6 @@ public class User {
     String phoneNum;
     String profileImg;
     boolean acceptNoti;
-    String profileImg;
     String token;
     Date registrationDate;
     Date withdrawalDate;
@@ -38,13 +37,6 @@ public class User {
         this.snsType = snsType;
     }
 
-    public String getProfileImg() {
-        return profileImg;
-    }
-
-    public void setProfileImg(String profileImg) {
-        this.profileImg = profileImg;
-    }
 
     public String getSnsType() {
         return snsType;

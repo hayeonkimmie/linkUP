@@ -9,6 +9,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @WebServlet("/createAccRecruiter")
 public class CreateAccRecruiterController extends HttpServlet {
@@ -23,7 +25,7 @@ public class CreateAccRecruiterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 회원가입 화면으로 이동
-        request.getRequestDispatcher("/home/createAccRecruiter.jsp").forward(request, response);
+        request.getRequestDispatcher("./home/createAccRecruiter.jsp").forward(request, response);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class CreateAccRecruiterController extends HttpServlet {
         user.setToken(null);
         user.setAcceptNoti(true);
         user.setAcceptConsent(true);
-        user.setRegistrationDate(null);
+        user.setRegistrationDate(Date.valueOf(LocalDate.now()));
         user.setWithdrawalDate(null);
 
         // Client 객체 생성

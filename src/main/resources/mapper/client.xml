@@ -5,7 +5,27 @@
 <mapper namespace="mapper.client">
     <insert id="insertClient" parameterType="client">
         insert client (client_id,company_reg_no,company_name,company_phone_number,company_address,company_website_url,company_description,company_fax_num)
-               values (#{client_id}, #{company_reg_no},#{company_name},#{company_phone_number},#{company_address},#{company_website_url},#{company_description},#{company_fax_num})
+               values (#{clientId}, #{companyRegNo},#{companyName},#{companyPhoneNumber},#{companyAddress},#{companyWebsiteUrl},#{companyDescription},#{companyFaxNum})
     </insert>
+    <select id="existsClientById" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM client WHERE client_id = #{id}
+    </select>
+
+    <select id="searchCompanyByName" parameterType="String" resultType="dto.Client">
+        SELECT
+            client_id,
+            company_reg_no,
+            company_name,
+            company_phone_number,
+            company_address,
+            company_website_url,
+            company_description,
+            business_type,
+            founded_date,
+            company_fax_num,
+            ceo
+        FROM client
+        WHERE company_name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
 
 </mapper>

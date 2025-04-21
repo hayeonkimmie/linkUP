@@ -10,7 +10,7 @@ import dto.User;
 public class CreateAccRecruiter implements ICreateAccRecruiter {
 
     private IUserDAO userDAO = new UserDAO();
-    private IClientQnADAOImpl clientDAO = new ClientDAOImpl();
+    private ClientDAOImpl clientDAO = new ClientDAOImpl();
 
     @Override
     public boolean registerRecruiter(User user, Client client) {

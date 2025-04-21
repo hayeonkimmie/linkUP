@@ -8,5 +8,5 @@ import java.util.List;
 public interface IClientQnADAOImpl {
     List<QnA> selectQnAList(Integer row) throws Exception;
     Integer selectQnACount() throws Exception;
-    int insertClient(Client client);
+
 }

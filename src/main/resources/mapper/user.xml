@@ -5,12 +5,12 @@
 <mapper namespace="mapper.user">
     <insert id="insertUser" parameterType="user">
         insert user (user_id,name,nickname,email,password,phone_num,profile_img,token,accept_noti,registration_date,withdrawal_date,accept_consent)
-        values (#{user_id}, #{name},#{nickname},#{email}, #{password},#{phone_num},#{profile_img}, #{token},#{accept_noti},#{registration_date}, #{withdrawal_date},#{accept_consent})
+        values (#{userId}, #{name},#{nickname},#{email}, #{password},#{phoneNum},#{profileImg}, #{token},#{acceptNoti},#{registrationDate}, #{withdrawalDate},#{acceptConsent})
     </insert>
     <select id="selectUserById" parameterType="String" resultType="user">
-        select * from user where user_id = #{user_id}
+        select * from user where user_id = #{userId}
     </select>
     <select id="minSelectUserById" parameterType="String" resultType="user">
-        select nickname, profile_img from user where user_id = #{user_id}
+        select nickname, profile_img from user where user_id = #{userId}
     </select>
 </mapper>
