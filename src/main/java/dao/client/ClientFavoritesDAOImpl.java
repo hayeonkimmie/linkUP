@@ -49,6 +49,6 @@ public class ClientFavoritesDAOImpl implements IClientFavoritesDAO {
 
     @Override
     public void toggleFavorite(Map<String, String> param) throws Exception {
-        return "";
+//        return "";
     }
 }

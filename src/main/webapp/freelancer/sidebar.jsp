@@ -21,20 +21,20 @@
     <ul id="side-menu">
         <li class="profile-settings">
             <h3>프로필 설정</h3>
-            <a href="/edit-info?type=basic">기본 정보 설정</a>
-            <a href="/edit-info?type=expert">전문가 정보 설정</a>
+            <a href="${contextPath}/edit-info?type=basic">기본 정보 설정</a>
+            <a href="${contextPath}/edit-info?type=expert">전문가 정보 설정</a>
         </li>
-        <li><a href="/portfolio-list"><h3>포트폴리오</h3></a></li>
-        <li><h3><a href="/jjim-projs-list">찜한 프로젝트</a></h3></li>
-        <li><h3><a href="/apply-proj-list">지원한 프로젝트 내역</a></h3></li>
-        <li><h3><a href="/project-status/">진행중인 / 완료된 프로젝트</a></h3></li>
+        <li><a href="${contextPath}/portfolio-list"><h3>포트폴리오</h3></a></li>
+        <li><h3><a href="${contextPath}/jjim-projs-list">찜한 프로젝트</a></h3></li>
+        <li><h3><a href="${contextPath}/apply-proj-list">지원한 프로젝트 내역</a></h3></li>
+        <li><h3><a href="${contextPath}/project-status/">진행중인 / 완료된 프로젝트</a></h3></li>
 
         <li class="profile-settings">
             <h3>프로젝트 후기</h3>
-            <a href="/project-review">리뷰 조회 및 수정</a>
-            <a href="/project-review-write">리뷰 작성</a>
+            <a href="${contextPath}/project-review">리뷰 조회 및 수정</a>
+            <a href="${contextPath}/project-review-write">리뷰 작성</a>
         </li>
-        <li><h3><a href="/qna-list">문의내역</a></h3></li>
+        <li><h3><a href="${contextPath}/qna-list">문의내역</a></h3></li>
     </ul>
 </aside>
 <script>

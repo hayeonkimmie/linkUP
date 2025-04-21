@@ -37,23 +37,23 @@ public class User {
         this.snsType = snsType;
     }
 
-    public String getSnsType() {
-        return snsType;
-    }
-
-    public void setSnsType(String snsType) {
-        this.snsType = snsType;
-    }
-
-
-
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", profileImg='" + profileImg + '\'' +
+                ", acceptNoti=" + acceptNoti +
+                ", token='" + token + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", withdrawalDate=" + withdrawalDate +
+                ", acceptConsent=" + acceptConsent +
+                ", snsType='" + snsType + '\'' +
+                '}';
     }
 
     public String getUserId() {
@@ -96,6 +96,21 @@ public class User {
         this.password = password;
     }
 
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getProfileImg() {
+        return profileImg;
+    }
+
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
 
     public boolean isAcceptNoti() {
         return acceptNoti;
@@ -137,15 +152,11 @@ public class User {
         this.acceptConsent = acceptConsent;
     }
 
+    public String getSnsType() {
+        return snsType;
+    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", name='" + name + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
-                ", profilImg='" + profileImg + '\'' +
-                '}';
+    public void setSnsType(String snsType) {
+        this.snsType = snsType;
     }
 }

@@ -125,7 +125,7 @@
         }
 
         if (searchType === "company") {
-            window.location.href = `${contextPath}/home/companySearch.jsp?keyword=${encodeURIComponent(keyword)}`;
+            window.location.href = `${contextPath}/home/companySearch.jsp?keyword=${keyword}`;
         } else {
             alert("구현되지 않은 검색 타입입니다!");
         }

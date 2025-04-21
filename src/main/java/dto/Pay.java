@@ -9,8 +9,6 @@ public class Pay {
     private int projectFee;
     private Integer pay; // 금액 4/18 추가
     private int fee; // 수수료 금액의 0.3% 추가
-    private Integer subCategoryId;
-    private String categoryName;
 
     public Pay() {
     }

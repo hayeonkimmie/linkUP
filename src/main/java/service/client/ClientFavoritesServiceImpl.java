@@ -91,15 +91,16 @@ public class ClientFavoritesServiceImpl implements IClientFavoritesService {
         param.put("clientId", clientId);
         param.put("freelancerId", freelancerId);
 
-        List<ClientFavorites> list = clientFavoritesDAO.selectJjimFree(clientId);
-        boolean already = list.stream().anyMatch(j -> j.getFreelancerId().equals(freelancerId));
+//        List<ClientFavorites> list = clientFavoritesDAO.selectJjimFree(clientId);
+//        boolean already = list.stream().anyMatch(j -> j.getFreelancerId().equals(freelancerId));
 
-        if(already) {
-            clientFavoritesDAO.deleteFavorite(param);
-            return "removed";
-        } else{
-            clientFavoritesDAO.insertFavorite(param);
-            return "added";
-        }
+//        if(already) {
+//            clientFavoritesDAO.deleteFavorite(param);
+//            return "removed";
+//        } else{
+//            clientFavoritesDAO.insertFavorite(param);
+//            return "added";
+//        }
+        return "";
     }
 }
