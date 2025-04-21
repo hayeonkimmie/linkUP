@@ -19,7 +19,6 @@ public class Pay {
         this.projectFeeId = projectFeeId;
         this.projectId = projectId;
         this.lvId = lvId;
-        this.subCategoryId = subCategoryId;
         this.categoryName = categoryName;
         this.projectFee = projectFee;
         this.pay = pay;

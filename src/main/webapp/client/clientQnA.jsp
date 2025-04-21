@@ -40,7 +40,7 @@
   <main class="main">
     <div class="top-bar">
       <h2>문의 내역</h2>
-      <a href="${contextPath}/home/Q&A.jsp" class="btn-submit">+ 문의하기</a>
+      <a href="${contextPath}/home/QnA.jsp" class="btn-submit">+ 문의하기</a>
     </div>
 
     <!-- 검색 & 필터 바 -->

@@ -1,4 +1,4 @@
-package controller;
+package controller.client;
 
 import dto.QnA;
 import service.client.IQnAService;
@@ -21,8 +21,10 @@ public class ClientQnAController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
+
+        // 로그인한 사용자 아이디 가져오기
+
 
         // 검색 바 키워드 검색
         String keyword = request.getParameter("keyword");

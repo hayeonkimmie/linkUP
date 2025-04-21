@@ -3,7 +3,6 @@ package dto;
 import java.sql.Date;
 
 public class JjimProj {
-
     private Integer jjimId;                     // 찜 ID
     private Integer projectId;                  // 프로젝트 ID
     private String category;                    // 카테고리

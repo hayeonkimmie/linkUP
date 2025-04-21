@@ -50,7 +50,7 @@
         </where>
     </select>
 
-    <!-- 🔥 필터 + 정렬 + 페이징된 QnA 목록 -->
+    <!-- 필터 + 정렬 + 페이징된 QnA 목록 -->
     <select id="selectQnAListWithFilter" parameterType="map" resultType="qna">
         SELECT * FROM qna
         <where>
