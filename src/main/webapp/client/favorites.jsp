@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="${contextPath}/css/client_favorites.css" />
 </head>
 <body>
-<%-- 공통 헤더 (선택) --%>
+
 <jsp:include page="../home/header.jsp" />
 
 <div class="layout">
@@ -40,15 +40,26 @@
     <main class="main">
         <h2 class="section-title">찜한 프리랜서</h2>
 
+        <!-- 🔽 정렬 드롭다운 -->
+        <form method="get" action="${contextPath}/clientFavorites" style="margin-bottom: 20px;">
+            <select name="sort" onchange="this.form.submit()">
+                <option value="recent" ${param.sort == 'recent' ? 'selected' : ''}>최신순</option>
+                <option value="score" ${param.sort == 'score' ? 'selected' : ''}>평점순</option>
+                <option value="project" ${param.sort == 'project' ? 'selected' : ''}>프로젝트 개수 순</option>
+            </select>
+        </form>
+
+        <!-- 🧑‍💻 찜한 프리랜서 카드 (이미지 없음 버전) -->
         <div class="container">
-            <!-- 반복 출력 카드 영역 (예시 1~4개) -->
             <c:forEach var="freelancer" items="${clientFavoritesList}">
                 <div class="card">
-                    <span class="heart">❤️</span>
+                    <span class="heart" data-freelancer-id="${freelancer.freelancerId}" onclick="toggleFavorite(this)">❤️</span>
+
                     <div class="info">
-                        <img src="${freelancer.profileImage}" alt="${freelancer.name}">
-                        <div class="info-text">
-                            <div class="name">${freelancer.name}</div>
+                        <!-- 이미지 추가해야 함 / webapp 에 프로필 사진 넣기 -->
+                        <!-- 텍스트 프로필 -->
+                        <div class="info-text no-image">
+                            <div class="name">👤 ${freelancer.name}</div>
                             <div class="job">${freelancer.job}</div>
                             <div class="location">📍 ${freelancer.location}</div>
                         </div>
@@ -62,32 +73,16 @@
                             <span class="tag">${tag}</span>
                         </c:forEach>
                     </div>
-                    <a href="${contextPath}/freelancer/profile?id=${freelancer.id}" class="profile-button">프로필 보기</a>
+                    <a href="${contextPath}/freelancer/profile?id=${freelancer.freelancerId}" class="profile-button">프로필 보기</a>
                 </div>
             </c:forEach>
         </div>
 
-        <!-- 문의 내역 테이블 -->
-        <table border="1">
-            <tr>
-                <th>찜아이디</th>
-                <th>고객아이디</th>
-                <th>프리랜서아이디</th>
-            </tr>
-            <c:forEach var="jjimlist" items="${jjimList}">
-                <tr>
-                    <td>${jjimlist.jjimId}</td>
-                    <td>${jjimlist.clientId}</td>
-                    <td>${jjimlist.freelancerId}</td>
-                </tr>
-            </c:forEach>
-        </table>
-
-        <!-- 페이징 영역 -->
+        <!-- 🔢 페이징 -->
         <div class="pagination">
             <c:choose>
                 <c:when test="${pageInfo.curPage > 1}">
-                    <a href="inquiry?page=${pageInfo.curPage-1}">&lt;</a>
+                    <a href="${contextPath}/clientFavorites?page=${pageInfo.curPage - 1}&sort=${param.sort}">&lt;</a>
                 </c:when>
                 <c:otherwise><a>&lt;</a></c:otherwise>
             </c:choose>
@@ -95,23 +90,52 @@
             <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
                 <c:choose>
                     <c:when test="${page eq pageInfo.curPage}">
-                        <a href="inquiry?page=${page}" class="select">${page}</a>
+                        <a href="${contextPath}/clientFavorites?page=${page}&sort=${param.sort}" class="select">${page}</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="inquiry?page=${page}" class="btn">${page}</a>
+                        <a href="${contextPath}/clientFavorites?page=${page}&sort=${param.sort}" class="btn">${page}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
 
             <c:choose>
                 <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-                    <a href="inquiry?page=${pageInfo.curPage+1}">&gt;</a>
+                    <a href="${contextPath}/clientFavorites?page=${pageInfo.curPage + 1}&sort=${param.sort}">&gt;</a>
                 </c:when>
                 <c:otherwise><a>&gt;</a></c:otherwise>
             </c:choose>
         </div>
     </main>
 </div>
+<script>
+    function toggleFavorite(element) {
+        const freelancerId = element.dataset.freelancerId;
+
+        fetch('${contextPath}/toggleFavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `freelancerId=${freelancerId}`
+        })
+            .then(response => response.text())
+            .then(result => {
+                if (result === 'added') {
+                    alert("찜 등록 완료!");
+                    element.innerText = '❤️';
+                } else if (result === 'removed') {
+                    alert("찜 해제 완료!");
+                    element.innerText = '🤍';
+                } else {
+                    alert("처리 실패! 로그인 여부 또는 서버 에러를 확인하세요.");
+                }
+            })
+            .catch(err => {
+                console.error("에러 발생:", err);
+                alert("요청 중 오류 발생!");
+            });
+    }
+</script>
 
 </body>
 </html>

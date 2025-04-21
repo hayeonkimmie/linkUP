@@ -18,8 +18,7 @@
         <typeAlias type="dto.Contract" alias="contract"/>
         <typeAlias type="dto.Freelancer" alias="freelancer"/>
         <typeAlias type="dto.ClientFavorites" alias="jjimfree"/>
-        <typeAlias type="dto.JjimProj" alias="JjimProj"/>
-        <typeAlias type="dto.Level" alias="lv"/>
+<!--        <typeAlias type="dto.JjimProj" alias="=jjimProj"/>-->
         <typeAlias type="dto.Pay" alias="pay"/>
         <typeAlias type="dto.Portfolio" alias="portfolio"/>
         <typeAlias type="dto.QnA" alias="qna"/>
@@ -61,7 +60,7 @@
 <!--        <mapper resource="mapper/contract.xml"/>-->
         <mapper resource="mapper/freelancer.xml"/>
         <mapper resource="mapper/jjimfree.xml"/>
-        <mapper resource="mapper/jjimProj.xml"/>
+<!--        <mapper resource="mapper/jjimProj.xml"/>-->
 <!--        <mapper resource="mapper/lv.xml"/>-->
 <!--        <mapper resource="mapper/pay.xml"/>-->
         <mapper resource="mapper/portfolio.xml"/>

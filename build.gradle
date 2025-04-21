@@ -42,6 +42,14 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+tasks.register('copyUploads', Copy) {
+    from 'src/main/webapp/upload'
+    into "$buildDir/resources/main/upload"
+}
+
+processResources.dependsOn 'copyUploads'
+
+
 test {
     useJUnitPlatform()
 }
