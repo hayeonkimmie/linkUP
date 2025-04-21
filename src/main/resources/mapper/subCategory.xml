@@ -2,10 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="mapper.project">
-    <insert id="insertSubCategory" parameterType="subCategory">
-        insert subCategory (sub_category_id,category_id,sub_category_name)
-        values (#{sub_category_id}, #{category_id},#{sub_category_name})
-    </insert>
-
+<mapper namespace="mapper.subCategory">
+    <select id="selectSubCategoriesByCategoryId" resultType="subCategory" parameterType="Integer">
+    SELECT
+        s.sub_category_id,
+        c.category_id,
+        c.category_name,
+        s.sub_category_name
+    FROM
+    subCategory s join category c on s.category_id = c.category_id
+    WHERE s.category_id = #{categoryId}
+    order by c.category_id asc, s.sub_category_id asc
+    </select>
+    <select id="selectCategoriesAsMap" resultType="category">
+        SELECT
+            category_id AS categoryId,
+            category_name AS categoryName
+        FROM
+            category
+        order by category_id asc
+    </select>
+    <select id="selectCategoryNamesBySubIds" resultType="String">
+        SELECT CONCAT(c.category_name, ' > ', s.sub_category_name)
+        FROM subCategory s
+        JOIN category c ON s.category_id = c.category_id
+        WHERE s.sub_category_id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

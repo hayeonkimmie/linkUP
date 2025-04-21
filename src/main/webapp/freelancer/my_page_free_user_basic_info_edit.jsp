@@ -9,9 +9,7 @@
     <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page_info_edit.css'/>">
-    <script src="../js/freelancer_my_page_info_edit.js"></script>
-<%--    <link rel="stylesheet" href="../css/alarm_settings.css">
-    <script src="../js/alarm_settings.js"></script>--%>
+    <script src="${contextPath}/js/freelancer_my_page_info_edit.js"></script>
 
 </head>
 
@@ -31,25 +29,32 @@
                     <h3>기본 정보 설정</h3>
                 </div>
             </div>
-            <form action="${contextPath}/edit-info" method="post" enctype="multipart/form-data">
-                <div class="form-row profile-upload">
-                    <div class="profile-box">
-                        <label for="profileImg" class="upload-placeholder">
-                            <img id="preview" class="preview-img" width="150px"
-                                 src="/image?filename=${freelancer.profileImg}" />
-                        </label>
-                        <input type="file" name="profileImg" id="profileImg" accept="image/*"
-                               style="display:none" value="${freelancer.profileImg}" onchange="readURL(this)">
+            <form action="${contextPath}/edit-info?type=basic" method="post" enctype="multipart/form-data">
+                <div class="img names">
+                    <div class="form-row profile-upload">
+                        <div class="profile-box">
+                            <label for="profileImg" class="upload-placeholder">
+                                <img id="preview" class="preview-img"
+                                     src="/image?filename=${freelancer.profileImg}" />
+                            </label>
+                            <input type="file" name="profileImg" id="profileImg" accept="image/*"
+                                   style="display:none" value="${freelancer.profileImg}" onchange="readURL(this)">
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-row">
-                    <input type="text" placeholder="이름" value="${freelancer.name}" name="name" class="required" required/>
-                    <input type="text" placeholder="닉네임" value="${freelancer.nickname}" name="nickname" class="required" required/>
-                </div>
-
-                <div class="form-row">
-                    <input type="text" value="${freelancer.freelancerId}" readonly/>
+                    <div class="form-row profile-info">
+                        <div>
+                            <span>이름</span>
+                            <input type="text" placeholder="이름" value="${freelancer.name}" name="name" class="required" required/>
+                        </div>
+                        <div>
+                            <span>닉네임</span>
+                            <input type="text" placeholder="닉네임" value="${freelancer.nickname}" name="nickname" class="required" required/>
+                        </div>
+                        <div>
+                            <span>아이디</span>
+                            <input type="text" value="${freelancer.freelancerId}" readonly/>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-row">
@@ -57,7 +62,7 @@
                 </div>
 
                 <div class="form-row">
-                    <input type="text" name="phoneNum" placeholder="휴대폰 번호" value="${freelancer.phoneNum}" required class="required"/>
+                    <input type="text" name="phoneNum" id="phone" placeholder="휴대폰 번호" value="${freelancer.phoneNum}" required class="required" maxlength="13"/>
                 </div>
 
                 <div class="form-row">

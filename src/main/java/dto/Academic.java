@@ -1,28 +1,24 @@
 package dto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Academic {
     private String academicType;
-    private boolean quit;
     private String academicName;
     private String academicMajor;
     private String entranceDate;
     private String graduateDate;
+    private String graduateStatus;
 
     public Academic() {
         super();
     }
 
-    public Academic(String academicType, boolean quit, String academicName, String academicMajor, String entranceDate, String graduateDate) {
+    public Academic(String academicType, String academicName, String academicMajor, String entranceDate, String graduateDate, String graduateStatus) {
         this.academicType = academicType;
-        this.quit = quit;
         this.academicName = academicName;
         this.academicMajor = academicMajor;
         this.entranceDate = entranceDate;
         this.graduateDate = graduateDate;
+        this.graduateStatus = graduateStatus;
     }
 
     public String getAcademicType() {
@@ -31,14 +27,6 @@ public class Academic {
 
     public void setAcademicType(String academicType) {
         this.academicType = academicType;
-    }
-
-    public boolean isQuit() {
-        return quit;
-    }
-
-    public void setQuit(boolean quit) {
-        this.quit = quit;
     }
 
     public String getAcademicName() {
@@ -71,5 +59,13 @@ public class Academic {
 
     public void setGraduateDate(String graduateDate) {
         this.graduateDate = graduateDate;
+    }
+
+    public String getGraduateStatus() {
+        return graduateStatus;
+    }
+
+    public void setGraduateStatus(String graduatStatus) {
+        this.graduateStatus = graduatStatus;
     }
 }

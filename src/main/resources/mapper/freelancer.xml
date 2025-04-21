@@ -92,5 +92,28 @@
         FROM freelancer
         where freelancer_id = #{freelancerId}
     </select>
-
+    <insert id="insertCareer" parameterType="freelancer">
+        insert career (freelancer_id, company_name, department_name, position, job_title, job_description, salary,
+                           join_date, resign_date)
+        values (#{freelancerId}, #{companyName}, #{departmentName}, #{position}, #{jobTitle}, #{jobDescription}, #{salary},
+                #{joinDate}, #{resignDate})
+    </insert>
+    <select id="selectCareerListByFreelancerId" parameterType="String" resultType="dto.Career">
+        SELECT
+            freelancer_id,
+            company_name,
+            department_name,
+            position,
+            job_title,
+            salary,
+            job_description,
+            join_date,
+            resign_date
+        FROM
+            career
+        WHERE
+            freelancer_id = #{freelancerId}
+        ORDER BY
+            join_date DESC
+    </select>
 </mapper>

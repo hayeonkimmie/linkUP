@@ -37,7 +37,6 @@ public class User {
         this.snsType = snsType;
     }
 
-
     public String getSnsType() {
         return snsType;
     }

@@ -7,48 +7,48 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
 <aside class="sidebar">
     <div class="profile">
+        <%--<img src="image?filename=${user.profileImg}" alt="프로필 이미지"/>--%>
+           <%-- <img src="<c:url value='/img/basic_profile_img.png' />" alt="프로필 이미지"/>--%>
         <%--            <img src="<c:url value='/img/${user.profile_img}' />" alt="${user.nickname }님의 프로필 이미지" />
                     <p>${user.nickname }</p>--%>
-        <%--<img src="image?filename=${user.profileImg}" alt="프로필 이미지"/>--%>
-            <img src="<c:url value='/img/basic_profile_img.png' />" alt="프로필 이미지"/>
-        <%--<img src="${pageContext.request.contextPath}/img/basic_profile_img.png" alt="프로필 이미지" />--%>
+        <img src="${contextPath}/img/basic_profile_img.png" alt="프로필 이미지" />
         <p>닉네임</p>
         <p>마이페이지</p>
     </div>
     <ul id="side-menu">
         <li class="profile-settings">
             <h3>프로필 설정</h3>
-            <a href="edit-info?type=basic">기본 정보 설정</a>
-            <a href="edit-info?type=expert">전문가 정보 설정</a>
+            <a href="/edit-info?type=basic">기본 정보 설정</a>
+            <a href="/edit-info?type=expert">전문가 정보 설정</a>
         </li>
-        <li><a href="portfolio-list"><h3>포트폴리오</h3></a></li>
-        <li><h3><a href="jjim-projs-list">찜한 프로젝트</a></h3></li>
-        <li><h3><a href="apply-proj-list">지원한 프로젝트 내역</a></h3></li>
-        <li><h3><a href="project-status/">진행중인 / 완료된 프로젝트</a></h3></li>
+        <li><a href="/portfolio-list"><h3>포트폴리오</h3></a></li>
+        <li><h3><a href="/jjim-projs-list">찜한 프로젝트</a></h3></li>
+        <li><h3><a href="/apply-proj-list">지원한 프로젝트 내역</a></h3></li>
+        <li><h3><a href="/project-status/">진행중인 / 완료된 프로젝트</a></h3></li>
 
         <li class="profile-settings">
             <h3>프로젝트 후기</h3>
-            <a href="project-review">리뷰 조회 및 수정</a>
-            <a href="project-review-write">리뷰 작성</a>
+            <a href="/project-review">리뷰 조회 및 수정</a>
+            <a href="/project-review-write">리뷰 작성</a>
         </li>
-        <li><h3><a href="qna-list">문의내역</a></h3></li>
+        <li><h3><a href="/qna-list">문의내역</a></h3></li>
     </ul>
 </aside>
 <script>
     window.addEventListener('DOMContentLoaded', function () {
         const currentPath = window.location.pathname;
         const pathList = [
-            '/home',
-            '/about',
-            '/services',
-            '/portfolio',
-            '/contact',
-            '/faq',
-            '/login',
-            '/register',
-            '/mypage'
+            '/edit-info?type=basic',
+            '/edit-info?type=expert',
+            '/portfolio-list',
+            '/apply-proj-list',
+            '/project-status',
+            '/project-review',
+            '/project-review-write',
+            '/qna-list'
         ];
 
         const menuItems = document.querySelectorAll('#side-menu li');

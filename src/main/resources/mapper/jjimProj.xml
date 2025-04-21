@@ -12,7 +12,7 @@
         from jjimProj
         where freelancer_id = #{freelancerId}
     </select>
-    <select id="selectJjimProjlistForMyPageMain" parameterType="String" resultType="dto.JjimProj">
+    <select id="selectJjimProjlistForMyPageMain" parameterType="String" resultType="jjimProj">
         SELECT
             jp.jjim_id,
             p.project_id,                                -- 프로젝트 ID
@@ -53,7 +53,7 @@
         where freelancer_id = #{freelancerId}
         and project_id = #{projectId}
     </select>
-    <select id="selectJjimProjectListByUserId" parameterType="map" resultType="dto.JjimProj">
+    <select id="selectJjimProjectListByUserId" parameterType="map" resultType="jjimProj">
         SELECT
             jp.jjim_id,
             p.project_id,                                -- 프로젝트 ID
@@ -103,7 +103,7 @@
             #{id}
         </foreach>
     </delete>    <!-- 마감되지 않은 찜 프로젝트 페이징 조회 -->
-    <select id="selectOpenjimProjectListByUserId" resultType="dto.JjimProj" parameterType="map">
+    <select id="selectOpenjimProjectListByUserId" resultType="jjimProj" parameterType="map">
         SELECT
             jp.jjim_id,
             p.project_id,
@@ -137,7 +137,7 @@
         limit #{row}, 10
     </select>
     <!-- 마감된 찜 프로젝트 페이징 조회 -->
-    <select id="selectClosedJjimProjectListPaging" resultType="dto.jjimProj" parameterType="map">
+    <select id="selectClosedJjimProjectListPaging" resultType="jjimProj" parameterType="map">
         SELECT
             p.project_id,
             p.category,

@@ -72,16 +72,54 @@ input {
     border-radius: 4px;
     flex: 1;
 }
-
+.names{
+    display : inline-flex;
+    flex-direction : row;
+    width: 100%;
+}
+.profile-upload{
+    width: 50%;
+    justify-content: center;
+    align-content: center;
+}
 .profile-box {
     margin: 1px;
     padding: 1px;
-    width: 150px;
-    height: 150px;
+    width: fit-content;
+    min-width: 150px;
+    min-height: 150px;
     border: 2px dashed #aaa;
     display: inline-block;
 }
-
+.profile-info{
+    width: 50%;
+    flex-direction: column;
+    margin-right: 15px;
+}
+.profile-info{
+    width: 50%;
+    flex-direction: column;
+    margin-right: 15px;
+}
+.profile-info > div > span{
+    flex-direction: row;
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 25%;
+}
+.profile-info > div{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+.profile-info > div> input{
+    width: 75%;
+}
+.preview-img {
+    width : 200px;
+    object-fit: cover;
+}
 .search-btn {
     padding: 0.7rem 1rem;
     background: #eee;

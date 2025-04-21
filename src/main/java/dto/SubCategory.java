@@ -1,25 +1,27 @@
 package dto;
 
 public class SubCategory {
-    int sub_categoryId;
+    int subCategoryId;
     int categoryId;
+    String categoryName;
     String subCategoryName;
 
     public SubCategory() {
         super();
     }
-    public SubCategory(int sub_categoryId, int categoryId, String subCategoryName) {
-        this.sub_categoryId = sub_categoryId;
+    public SubCategory( int categoryId, int subCategoryId, String categoryName, String subCategoryName) {
+        this.subCategoryId = subCategoryId;
+        this.categoryName = categoryName;
         this.categoryId = categoryId;
         this.subCategoryName = subCategoryName;
     }
 
-    public int getSub_categoryId() {
-        return sub_categoryId;
+    public int getSubCategoryId() {
+        return subCategoryId;
     }
 
-    public void setSub_categoryId(int sub_categoryId) {
-        this.sub_categoryId = sub_categoryId;
+    public void setSubCategoryId(int subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
     public int getCategoryId() {
@@ -36,5 +38,13 @@ public class SubCategory {
 
     public void setSubCategoryName(String subCategoryName) {
         this.subCategoryName = subCategoryName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

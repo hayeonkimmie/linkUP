@@ -6,17 +6,19 @@ import java.util.stream.Collectors;
 
 public class License {
     private String licenseName;
-    private String licenseDate;
     private String licenseAgency;
+    private String licenseDate;
+    private String licenseGrade;
 
     public License() {
         super();
     }
 
-    public License(String licenseName, String licenseDate, String licenseAgency) {
+    public License(String licenseName, String licenseAgency, String licenseDate, String licenseGrade) {
         super();
         this.licenseName = licenseName;
         this.licenseDate = licenseDate;
+        this.licenseGrade = licenseGrade;
         this.licenseAgency = licenseAgency;
     }
 
@@ -44,4 +46,11 @@ public class License {
         this.licenseAgency = licenseAgency;
     }
 
+    public String getLicenseGrade() {
+        return licenseGrade;
+    }
+
+    public void setLicenseGrade(String licenseGrade) {
+        this.licenseGrade = licenseGrade;
+    }
 }

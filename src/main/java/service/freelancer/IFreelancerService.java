@@ -9,7 +9,7 @@ import java.util.Map;
 public interface IFreelancerService {
     Freelancer selectBasicFreelancerById(String freelancerId) throws Exception;
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception;
-    Career insertCareer(Career career) throws Exception;
+    void insertCareer(Career career) throws Exception;
     void updateFreelancer(Freelancer freelancer) throws Exception;
     void updateCareer(Career career) throws Exception;
     void deleteCareer(String freelancerId) throws Exception;

@@ -11,8 +11,8 @@ public interface IFreelancerDAO {
     public Map<Integer, String> selectAllportfolioInfoMap(String freelancerId) throws Exception;
     public List<Career> selectCareerById(String freelancerId) throws Exception;
     public void insertFreelancer(Freelancer freelancer) throws Exception;
-    public Career insertCareer(Career career) throws Exception;
-    public void modifyFreelancer(Freelancer freelancer) throws Exception;
-    public void modifyCareer(Career career) throws Exception;
+    public void insertCareer(Career career) throws Exception;
+    public void updateCareer(Career career) throws Exception;
     public void deleteCareer(String freelancerId) throws Exception;
+    public void updateUserProfile(Freelancer freelancer) throws Exception;
 }

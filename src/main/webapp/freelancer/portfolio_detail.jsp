@@ -112,7 +112,7 @@
             <button class="edit-btn" onclick="location.href='${contextPath}/portfolio-modify?id=${portfolio.portfolioId }'">
                 포트폴리오 수정
             </button>
-            <button class="list-btn" onclick="location.href='${contextPath}/portfolio-list'">목록</button>
+            <button id="list-btn" type="button" class="list-btn" onclick="location.href='${contextPath}/portfolio-list'">목록</button>
             <button class="delete-btn" onclick="location.href='${contextPath}/portfolio-delete?id=${portfolio.portfolioId }'">
                 포트폴리오 삭제
             </button>
