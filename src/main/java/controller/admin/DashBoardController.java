@@ -1,11 +1,12 @@
+/**
+ * @file : DashBoardController.java
+ * GET : 관리자 대시보드 페이지로 이동
+ */
 package controller.admin;
 
 import dao.admin.ISettlementDAO;
 import dao.admin.SettlementDAO;
-import dto.Admin;
 import dto.AdminProject;
-import dto.DashboardProject;
-import service.ProjectService;
 import service.admin.DashboardService;
 import service.admin.IDashboardService;
 

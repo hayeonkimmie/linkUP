@@ -7,9 +7,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>참여자 정산 내역</title>
-    <link rel="stylesheet" href="../css/settlement_info_freelancer.css" />
-    <link rel="stylesheet" href="../css/admin_header.css">
-    <link rel="stylesheet" href="../css/settlement_detail.css">
+    <link rel="stylesheet" href="../css/admin/settlement_info_freelancer.css" />
+    <link rel="stylesheet" href="../css/admin/admin_header.css">
+    <link rel="stylesheet" href="../css/admin/settlement_detail.css">
     <script src="../js/include_common.js"></script>
 </head>
 

@@ -1,3 +1,8 @@
+/**
+ * AdminWelcome.java
+ * http://localhost:8080/linkup/admin 들어오면 관리자 페이지로 연결
+ */
+
 package controller.admin;
 
 import javax.servlet.*;

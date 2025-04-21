@@ -1,3 +1,14 @@
+<%--
+  Author: 이원영
+  Date: 25. 4. 14.
+  Time: 오후 2:10
+  Description: 관리자 대시보드 페이지
+  Read Data :
+  *  이번달 총 거래액 : Integer / totalPayment
+  *  이번달 계약이 성사 된 프로젝트의 수 : Integer / totalProjectCount
+  *  이번달에 정산된 총 수수료 : Integer / totalPaymentFee
+  *  이번달 진행중인 프로젝트의 정보 : List(AdminProject) / ongoingProjects
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
 <%@ page import="dto.DashboardProject" %>
@@ -8,8 +19,8 @@
 <head>
   <meta charset="UTF-8">
   <title>관리자 대시보드</title>
-  <link rel="stylesheet" href="../css/admin_header.css">
-  <link rel="stylesheet" href="../css/admin_dashboard.css">
+  <link rel="stylesheet" href="../css/admin/admin_header.css">
+  <link rel="stylesheet" href="../css/admin/admin_dashboard.css">
 </head>
 <body>
 <jsp:include page="/admin/admin_header.jsp" />

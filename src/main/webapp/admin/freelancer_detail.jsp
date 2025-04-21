@@ -1,9 +1,10 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: mac
-  Date: 25. 4. 15.
-  Time: 오후 3:04
-  To change this template use File | Settings | File Templates.
+  Author: 이원영
+  Date: 25. 4. 14.
+  Time: 오후 2:10
+  Description: 프리랜서(개인, 구직자)의 상세 페이지
+  Read Data :
+    - AdminFreelancer freelancer (프리랜서 정보)
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,8 +13,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>구직자 상세 정보</title>
-  <link rel="stylesheet" href="../css/admin_header.css" />
-  <link rel="stylesheet" href="../css/company_detail.css" />
+  <link rel="stylesheet" href="../css/admin/admin_header.css" />
+  <link rel="stylesheet" href="../css/admin/company_detail.css" />
   <script>
     const defaultOpenMenuId = "userMenu";
   </script>

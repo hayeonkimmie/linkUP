@@ -5,8 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <title>문의 상세 내역</title>
-  <link rel="stylesheet" href="../css/admin_header.css">
-  <link rel="stylesheet" href="../css/qna_detail.css">
+  <link rel="stylesheet" href="../css/admin/admin_header.css">
+  <link rel="stylesheet" href="../css/admin/qna_detail.css">
   <script>
     const defaultOpenMenuId = "qaMenu";
   </script>

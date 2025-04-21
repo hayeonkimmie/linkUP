@@ -1,3 +1,13 @@
+/**
+ * UserListController.java
+ * LinkUP 사용자들의 목록 조회를 담당하는 서블릿
+ * GET :
+ *      1-1. keyword Parameter를 통해 검색인지 아닌지 구분
+ *      1-2. usertype Parameter를 통해 사용자 유형을 구분
+ *      2-1. usertype이 null 또는 비어있으면 전체 조회
+ *      2-2. usertype이 freelancer이면 프리랜서 목록 조회
+ *      2-3. usertype이 client이면 클라이언트 목록 조회
+ */
 package controller.admin;
 
 import dao.admin.ClientDAO;
@@ -53,13 +63,11 @@ public class UserListController extends HttpServlet {
                         : clientService.getAllClients();
 
             } else if ("freelancer".equals(userType)) {
-                // ✅ 구직자만 조회
                 freelancerList = hasKeyword
                         ? freelancerService.searchFreelancersByKeyword(keyword)
                         : freelancerService.selectAllFreelancer();
 
             } else if ("client".equals(userType)) {
-                // ✅ 구인자만 조회
                 clientList = hasKeyword
                         ? clientService.selectClientsByKeyword(keyword)
                         : clientService.getAllClients();
@@ -68,8 +76,6 @@ public class UserListController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         request.setAttribute("freelancerList", freelancerList);
         request.setAttribute("clientList", clientList);
         request.setAttribute("paramKeyword", keyword);

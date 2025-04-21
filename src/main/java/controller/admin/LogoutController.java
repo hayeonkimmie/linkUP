@@ -1,3 +1,7 @@
+/**
+ * LogoutController.java
+ * GET : 로그아웃 후 Session을 무효화하고 로그인 페이지로 이동
+ */
 package controller.admin;
 
 import javax.servlet.*;

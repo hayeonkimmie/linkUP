@@ -1,3 +1,7 @@
+/**
+ * QnaController.java
+ * GET : QnA 목록 조회 및 상세 조회
+ */
 package controller.admin;
 
 import javax.servlet.*;
