@@ -1,13 +1,3 @@
-// user_info.js
-function includeHTML(id, file, callback) {
-  fetch(file)
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById(id).innerHTML = data;
-      if (typeof callback === "function") callback();
-    })
-    .catch(err => console.error(`Error loading ${file}:`, err));
-}
 
 includeHTML("header-include", "admin_header.jsp");
 includeHTML("menu-include", "menutap.jsp", () => {

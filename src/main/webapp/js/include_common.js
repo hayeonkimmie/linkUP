@@ -10,63 +10,79 @@ function includeHTML(id, file, callback) {
       });
 }
 
-// 경로에 따라 localStorage에 사이드바 정보 저장
 function setSidebarByPath(pathname) {
   if (pathname.includes("/admin/users")) {
     localStorage.setItem("sidebarTitle", "사용자 관리");
-    localStorage.setItem("sidebarIcon", "👤");
+    localStorage.setItem("sidebarIcon", "👥");
   } else if (pathname.includes("/admin/project")) {
     localStorage.setItem("sidebarTitle", "프로젝트 관리");
-    localStorage.setItem("sidebarIcon", "📁");
+    localStorage.setItem("sidebarIcon", "🛠️");
   } else if (pathname.includes("/admin/settlement")) {
     localStorage.setItem("sidebarTitle", "정산 관리");
     localStorage.setItem("sidebarIcon", "💰");
   } else if (pathname.includes("/admin/qna")) {
     localStorage.setItem("sidebarTitle", "Q&A 관리");
     localStorage.setItem("sidebarIcon", "❓");
+  } else if (
+      pathname === "/admin" ||
+      pathname === "/admin/" ||
+      pathname.includes("/admin/dashboard")
+  ) {
+    localStorage.setItem("sidebarTitle", "대시보드");
+    localStorage.setItem("sidebarIcon", "📊");
   }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   const pathname = window.location.pathname;
+  const search = window.location.search;
 
-  // 1️⃣ 경로에 따라 localStorage 저장 (단 한 번)
+  // 최초 경로 기반 sidebar 텍스트 설정
   setSidebarByPath(pathname);
 
-  // 2️⃣ include로 헤더/메뉴 로드
   includeHTML("header-include", "admin_header.jsp");
   includeHTML("menu-include", "menutap.jsp", () => {
-    // ⏱ 3️⃣ 약간의 지연 후 localStorage 적용
-    setTimeout(() => {
-      const sidebarTitleText = document.getElementById("sidebarTitleText");
-      const sidebarIcon = document.getElementById("sidebarIcon");
+    const sidebarTitleText = document.getElementById("sidebarTitleText");
+    const sidebarIcon = document.getElementById("sidebarIcon");
 
-      const savedTitle = localStorage.getItem("sidebarTitle");
-      const savedIcon = localStorage.getItem("sidebarIcon");
+    const savedTitle = localStorage.getItem("sidebarTitle");
+    const savedIcon = localStorage.getItem("sidebarIcon");
 
-      if (sidebarTitleText && savedTitle) sidebarTitleText.textContent = savedTitle;
-      if (sidebarIcon && savedIcon) sidebarIcon.textContent = savedIcon;
-    }, 50); // ← 요게 핵심입니다. 50~100ms면 충분합니다.
+    if (sidebarTitleText && sidebarIcon && savedTitle && savedIcon) {
+      sidebarTitleText.textContent = savedTitle;
+      sidebarIcon.textContent = savedIcon;
+    }
 
-    // 4️⃣ 열려 있던 메뉴 복구
     const openMenus = JSON.parse(localStorage.getItem("openMenus") || "[]");
     openMenus.forEach(id => {
       const submenu = document.getElementById(id);
       if (submenu) submenu.style.display = "flex";
     });
 
-    // 5️⃣ 현재 링크에 active 클래스 부여
-    const currentPage = pathname.split("/").pop();
+    // ✅ 모든 a 태그 중 현재 경로와 정확히 일치하는 것만 active
     const links = document.querySelectorAll(".submenu a");
+    const fullURL = pathname + search;
 
     links.forEach(link => {
       const href = link.getAttribute("href");
-      if (href && href.endsWith(currentPage)) {
+      if (href && (href === fullURL || location.href.includes(href))) {
+        links.forEach(l => l.classList.remove("active")); // 중복 방지
         link.classList.add("active");
-
-        const submenu = link.closest(".submenu");
-        if (submenu) submenu.style.display = "flex";
       }
+
+      // 🔄 href 이동 전 sidebarTitle 설정하고 직접 이동 (버튼처럼)
+      link.addEventListener("click", function (e) {
+        const title = this.textContent.trim();
+        const icon = this.textContent.trim().includes("정산") ? "💰"
+            : this.textContent.trim().includes("Q&A") ? "❓"
+                : this.textContent.trim().includes("사용자") ? "👥"
+                    : this.textContent.trim().includes("프로젝트") ? "🛠️"
+                        : "📊";
+
+        e.preventDefault();  // 기본 이동 막고
+        localStorage.setItem("sidebarTitle", title);
+        localStorage.setItem("sidebarIcon", icon);
+        window.location.href = this.href;
+      });
     });
   });
 });
