@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,10 +11,12 @@
   <title>프로젝트 정산하기</title>
   <link rel="stylesheet" href="../css/admin/admin_header.css">
   <link rel="stylesheet" href="../css/admin/settlement_detail.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="../js/include_common.js"></script>
+  <script src="../js/settlement_modal.js"></script>
   <script>
     const defaultOpenMenuId = "projectMenu";
   </script>
-  <script src="../js/include_common.js"></script>
 </head>
 <body>
 <div id="header-include"></div>
@@ -49,11 +52,18 @@
           <tr>
             <td class="name">${t.freelancerName}</td>
             <td class="category">${t.categoryName}</td>
-            <td><fmt:formatDate value="${t.startDate}" pattern="yyyy.MM.dd" /> ~ <fmt:formatDate value="${t.endDate}" pattern="yyyy.MM.dd" /></td>
+            <td>
+              <fmt:formatDate value="${t.startDate}" pattern="yyyy.MM.dd"/> ~
+              <fmt:formatDate value="${t.endDate}" pattern="yyyy.MM.dd"/>
+            </td>
             <td>${t.fphone}</td>
             <td>${t.account}</td>
-            <td class="amount" data-amount="${t.totalPay}"><fmt:formatNumber value="${t.totalPay}" type="number" pattern="#,##0원" /></td>
-            <td><input type="checkbox" name="contractIds" value="${t.id}" onchange="updateSelected(this)"></td>
+            <td class="amount" data-id="${t.id}" data-name="${t.freelancerName}"
+                data-amount="${t.totalPay}" data-start="${t.startDate}" data-end="${t.endDate}"
+                data-category="${t.categoryName}">
+              <fmt:formatNumber value="${t.totalPay}" type="number" pattern="#,##0원"/>
+            </td>
+            <td><input type="checkbox" class="settle-checkbox" value="${t.id}"></td>
           </tr>
         </c:forEach>
         </tbody>
@@ -72,7 +82,7 @@
   <div id="settlementModal" class="modal-overlay" style="display:none;">
     <div class="modal">
       <h2>정산을 진행하시겠습니까?</h2>
-      <p>아래 <strong id="freelancerCount">0</strong>명의 선택된 프리랜서에게 정산을 진행합니다.</p>
+      <p>선택된 <strong id="freelancerCount">0</strong>명의 프리랜서에게 정산을 진행합니다.</p>
       <div class="modal-table-wrapper">
         <table class="modal-table">
           <thead>
@@ -81,9 +91,11 @@
           <tbody id="modalFreelancerBody"></tbody>
         </table>
       </div>
-      <form id="settlementForm" method="post" action="/admin/settlement">
+      <form id="settlementForm" method="post" action="<c:url value='/admin/settlement' />">
         <input type="hidden" name="projectId" value="${project.projectId}" />
-        <div id="hiddenContractInputs"></div>
+        <input type="hidden" name="projectName" value="${project.projectName}" />
+        <input type="hidden" name="settleDate" value="${project.settleDate}" />
+        <input type="hidden" id="jsonData" name="jsonData" />
         <div class="modal-buttons">
           <button type="submit" class="btn confirm">정산하기</button>
           <button type="button" class="btn cancel" onclick="closeModal()">닫기</button>
@@ -92,88 +104,5 @@
     </div>
   </div>
 </div>
-
-<script>
-  const selectedMap = new Map();
-
-  function updateSelected(checkbox) {
-    const row = checkbox.closest("tr");
-    const id = checkbox.value;
-    const name = row.querySelector(".name").innerText.trim();
-    const category = row.querySelector(".category").innerText.trim();
-    const amount = row.querySelector(".amount").dataset.amount;
-
-    if (checkbox.checked) {
-      selectedMap.set(id, { name, category, amount });
-    } else {
-      selectedMap.delete(id);
-    }
-
-    updateTotalAmount();
-
-    const modal = document.getElementById("settlementModal");
-    if (modal.style.display === "flex") {
-      updateModalContent();
-    }
-  }
-
-  function updateTotalAmount() {
-    let totalAmount = 0;
-    selectedMap.forEach((info) => {
-      totalAmount += parseInt(info.amount);
-    });
-
-    const totalText = document.querySelector(".total-text");
-    const selectedCount = selectedMap.size;
-    totalText.innerHTML = `총합 <strong>\${formatNumberWithCommas(totalAmount)}원</strong> (선택된 \${selectedCount}명)`;
-  }
-
-  function formatNumberWithCommas(num) {
-    if (isNaN(num)) return "0";
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
-  function updateModalContent() {
-    const tbody = document.getElementById("modalFreelancerBody");
-    const inputs = document.getElementById("hiddenContractInputs");
-    const count = document.getElementById("freelancerCount");
-    const settlementRows = document.querySelectorAll("#settlementTable tbody tr");
-
-    tbody.innerHTML = "";
-    inputs.innerHTML = "";
-
-    const checkedCount = selectedMap.size;
-    count.textContent = checkedCount;
-
-    selectedMap.forEach((info, id) => {
-      inputs.insertAdjacentHTML("beforeend", `<input type="hidden" name="contractIds" value="\${id}" />`);
-    });
-
-    settlementRows.forEach((row) => {
-      const checkbox = row.querySelector('input[type="checkbox"]');
-      if (checkbox && checkbox.checked) {
-        const name = row.querySelector(".name")?.innerText.trim() || "N/A";
-        const category = row.querySelector(".category")?.innerText.trim() || "N/A";
-        const amount = row.querySelector(".amount")?.dataset.amount || "0";
-        const amountFormatted = formatNumberWithCommas(parseInt(amount)) + "원";
-
-        const newRow = document.createElement("tr");
-        newRow.innerHTML = `<td>\${name}</td><td>\${category}</td><td>\${amountFormatted}</td>`;
-        tbody.appendChild(newRow);
-      }
-    });
-  }
-
-  function openSettlementModal() {
-    updateModalContent();
-    document.getElementById("settlementModal").style.display = "flex";
-  }
-
-  function closeModal() {
-    document.getElementById("settlementModal").style.display = "none";
-  }
-
-  updateTotalAmount();
-</script>
 </body>
 </html>

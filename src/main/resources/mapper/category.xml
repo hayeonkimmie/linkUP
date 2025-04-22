@@ -7,4 +7,8 @@
         insert category (category_id,category_name) values (#{category_id}, #{category_name})
     </insert>
 
+    <select id="selectCatroryIdByName" parameterType="String" resultType="int">
+        SELECT category_id FROM subCategory WHERE sub_category_name = #{name}
+    </select>
+
 </mapper>

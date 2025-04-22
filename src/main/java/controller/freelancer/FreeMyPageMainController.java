@@ -29,19 +29,19 @@ public class FreeMyPageMainController extends HttpServlet {
         session.setAttribute("id", id);
         IJjimProjService service = new JjimProjService();
         List<JjimProj> jjimProjList;
-        try{
-            Integer jjimProjCnt = service.selectJjimProjCnt(freelancerId);
-            if (jjimProjCnt > 0) {
-                jjimProjList = service.selectJjimProjListByPage(freelancerId);
-                System.out.println("JJimProjList 서블릿 47 JJimProjList = " + jjimProjList);
-                request.setAttribute("jjimProjList", jjimProjList);
-            } else if (jjimProjCnt == 0){
-                request.setAttribute("jjimProjList", null);
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-            request.setAttribute("err", "찜한 프로젝트 조회에 실패했습니다.");
-        }
+//        try{
+//            Integer jjimProjCnt = service.selectJjimProjCnt(freelancerId);
+//            if (jjimProjCnt > 0) {
+//                jjimProjList = service.selectJjimProjListByPage(freelancerId);
+//                System.out.println("JJimProjList 서블릿 47 JJimProjList = " + jjimProjList);
+//                request.setAttribute("jjimProjList", jjimProjList);
+//            } else if (jjimProjCnt == 0){
+//                request.setAttribute("jjimProjList", null);
+//            }
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//            request.setAttribute("err", "찜한 프로젝트 조회에 실패했습니다.");
+//        }
         request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
     }
 

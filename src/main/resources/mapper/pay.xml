@@ -4,8 +4,14 @@
 
 <mapper namespace="mapper.pay">
     <insert id="insertPay" parameterType="pay">
-        insert pay (project_fee_id,project_id,lv_id,project_fee)
+        insert pay (project_pay_id,project_id,lv_id,project_fee)
         values (#{project_fee_id}, #{project_id},#{lv_id},#{project_fee})
     </insert>
+
+    <select id="selectPayById" parameterType="int" resultType="dto.Pay">
+        select *
+        from pay
+        where project_pay_id = #{projectPayId}
+    </select>
 
 </mapper>

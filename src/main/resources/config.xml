@@ -20,7 +20,7 @@
         <typeAlias type="dto.ClientFavorites" alias="jjimfree"/>
         <typeAlias type="dto.JjimProj" alias="jjimProj"/>
         <typeAlias type="dto.Level" alias="lv"/>
-<!--        <typeAlias type="dto.Pay" alias="pay"/>-->
+        <typeAlias type="dto.Pay" alias="pay"/>
         <typeAlias type="dto.Portfolio" alias="portfolio"/>
         <typeAlias type="dto.QnA" alias="qna"/>
         <typeAlias type="dto.RepresentPortfolio" alias="represenPortfolio"/>
@@ -56,15 +56,15 @@
 <!--        <mapper resource="mapper/project.xml"/>-->
 <!--        <mapper resource="mapper/ammount.xml"/>-->
        <mapper resource="mapper/apply.xml"/>
-<!--        <mapper resource="mapper/category.xml"/>-->
+        <mapper resource="mapper/category.xml"/>
         <mapper resource="mapper/adminclient.xml"/>
         <mapper resource="mapper/adminproject.xml"/>
-<!--        <mapper resource="mapper/contract.xml"/>-->
+        <mapper resource="mapper/contract.xml"/>
         <mapper resource="mapper/freelancer.xml"/>
         <mapper resource="mapper/jjimfree.xml"/>
         <mapper resource="mapper/jjimProj.xml"/>
 <!--        <mapper resource="mapper/lv.xml"/>-->
-<!--        <mapper resource="mapper/pay.xml"/>-->
+        <mapper resource="mapper/pay.xml"/>
         <mapper resource="mapper/portfolio.xml"/>
         <mapper resource="mapper/dashboardproject.xml"/>
 <!--        <mapper resource="mapper/project.xml"/>-->

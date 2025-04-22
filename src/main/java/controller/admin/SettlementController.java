@@ -1,13 +1,22 @@
+/**
+ * SettlementController.java
+ * settlement.jsp, settlement_detail.jsp, settlement_info.jsp
+ * GET : 파라미터에 따라 정산 대상 프로젝트 목록, 정산 내역, 정산하기 페이지를 라우팅
+ * POST : 정산하기 페이지에서 받은 폼 데이터를 기반으로 정산 내역을 테이블에 저장 및 정산 내역으로 리다이렉트
+ */
 package controller.admin;
 
-import dao.admin.ISettlementDAO;
-import dao.admin.SettlementDAO;
+import com.google.gson.Gson;
+import dao.IPayDAO;
+import dao.PayDAO;
+import dao.admin.*;
 import dto.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +47,6 @@ public class SettlementController extends HttpServlet {
             } else if (slistIdParam != null) {
                 // 👉 정산하기 페이지 (settlement_detail.jsp)
                 int projectId = Integer.parseInt(slistIdParam);
-                System.out.println("projectId : " + projectId);
                 int cnt = 1;
                 int totalAmount = 0;
                 List<AdminSettleTarget> targetList = settlementDAO.selectFreelancersForSettlement(projectId, cnt);
@@ -54,7 +62,6 @@ public class SettlementController extends HttpServlet {
                 request.setAttribute("totalAmount", totalAmount);
                 request.setAttribute("targetList", targetList);
                 request.setAttribute("project", selected);
-                System.out.println("selected Project : \n"+selected);
                 request.getRequestDispatcher("/admin/settlement_detail.jsp").forward(request, response);
             } else {
                 // 👉 기본 목록 페이지 (settlement.jsp)
@@ -71,6 +78,39 @@ public class SettlementController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        IContractDAO contractDAO = new ContractDAO();
+        IProjectDAO projectDAO = new ProjectDAO();
+        ISettlementDAO settlementDAO = new SettlementDAO();
 
+        Integer projectId = Integer.valueOf(request.getParameter("projectId"));
+        String jsonData = request.getParameter("jsonData");
+
+        Gson gson = new Gson();
+        try {
+            PrepareSettleJson[] item = gson.fromJson(jsonData, PrepareSettleJson[].class);
+            PrepareSettleJson psJson = (PrepareSettleJson) item[0];
+            AdminPrepareSettle prepareSettle = contractDAO.selectInfoForSettleById(item[0].getId());
+            AdminProjectDetail project = projectDAO.selectProjectDetail(projectId);
+            // 정산 회차 만들기
+            int maxCnt = settlementDAO.getMaxCntByContractId(psJson.getId()); // e.g. MyBatis 매퍼 호출
+            int newCnt = maxCnt + 1;
+
+            Settlelist settlelist = new Settlelist(
+                    psJson.getId(), // contractId
+                    Integer.parseInt(prepareSettle.getPosition()),
+                    prepareSettle.getClientId(),
+                    project.getProjectName(),
+                    item[0].getAmount(),
+                    Date.valueOf(item[0].getStart()),
+                    Date.valueOf(item[0].getEnd()),
+                    newCnt
+            );
+            settlementDAO.createSettlelist(settlelist);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("/admin/project");
     }
 }

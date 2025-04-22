@@ -15,7 +15,9 @@ public interface ISettlementDAO {
 
     List<AdminSettleTarget> selectFreelancersForSettlement(Integer projectId, Integer cnt) throws SQLException;
 
-    void insertSettlelist(Settlelist settlelist) throws SQLException;
+    void createSettlelist(Settlelist settlelist) throws SQLException;
 
     void insertSettlement(Settlement settlement) throws SQLException;
+
+    Integer getMaxCntByContractId(String id) throws SQLException;
 }

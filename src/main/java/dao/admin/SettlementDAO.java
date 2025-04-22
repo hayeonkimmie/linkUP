@@ -49,7 +49,7 @@ public class SettlementDAO implements ISettlementDAO {
 
     // 정산 테이블에 해당 회차 데이터 Insert(Insert into settleList)
     @Override
-    public void insertSettlelist(Settlelist settlelist) throws SQLException {
+    public void createSettlelist(Settlelist settlelist) throws SQLException {
         sqlSession.insert("mapper.settlelist.insertSettlelist", settlelist);
         sqlSession.commit();
     }
@@ -57,5 +57,10 @@ public class SettlementDAO implements ISettlementDAO {
     @Override
     public void insertSettlement(Settlement settlement) throws SQLException {
         sqlSession.insert("mapper.settlement.insertSettlement", settlement);
+    }
+
+    @Override
+    public Integer getMaxCntByContractId(String id) throws SQLException {
+        return sqlSession.selectOne("mapper.settlelist.getMaxCntByContractId", id);
     }
 }

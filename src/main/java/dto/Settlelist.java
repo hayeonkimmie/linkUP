@@ -5,16 +5,27 @@ import java.util.Date;
 public class Settlelist {
     int slistId;
     String contractId;
-    int categoryId;
+    int projectPayId;
     String clientId;
     String pname;
-    int pay;
+    int ammount;
     Date startDate;
     Date endDate;
     int cnt;
 
     public Settlelist() {
         super();
+    }
+
+    public Settlelist(String contractId, int projectPayId, String clientId, String pname, int ammount, Date startDate, Date endDate, int cnt) {
+        this.contractId = contractId;
+        this.projectPayId = projectPayId;
+        this.clientId = clientId;
+        this.pname = pname;
+        this.ammount = ammount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.cnt = cnt;
     }
 
     public int getSlistId() {
@@ -33,12 +44,12 @@ public class Settlelist {
         this.contractId = contractId;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getProjectPayId() {
+        return projectPayId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setProjectPayId(int projectPayId) {
+        this.projectPayId = projectPayId;
     }
 
     public String getClientId() {
@@ -57,12 +68,12 @@ public class Settlelist {
         this.pname = pname;
     }
 
-    public int getPay() {
-        return pay;
+    public int getAmmount() {
+        return ammount;
     }
 
-    public void setPay(int pay) {
-        this.pay = pay;
+    public void setAmmount(int ammount) {
+        this.ammount = ammount;
     }
 
     public Date getStartDate() {

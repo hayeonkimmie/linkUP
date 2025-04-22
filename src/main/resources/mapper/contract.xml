@@ -4,8 +4,20 @@
 
 <mapper namespace="mapper.contract">
     <insert id="insertContract" parameterType="contract">
-        insert contract (id,apply_id,project_fee_id,project_id,client_id,settle_day,start_date,end_date,projectid,pname,fee,pmanager,total_pay,status,fphone,account)
-               values (#{id}, #{apply_id},#{project_fee_id},#{project_id},#{client_id},#{settle_day},#{start_date},#{end_date},#{projectid},#{pname},#{fee},#{pmanager},#{total_pay},#{status},#{fphone},#{account})
+        insert contract (id, apply_id, project_pay_id,project_id,client_id,settle_day,start_date,end_date,pname,fee,pmanager,total_pay,status,fphone,account)
+               values (#{id}, #{apply_id},#{project_pay_id},#{project_id},#{client_id},#{settle_day},#{start_date},#{end_date},#{pname},#{fee},#{pmanager},#{total_pay},#{status},#{fphone},#{account})
     </insert>
+
+    <select id="selectInfoForSettleById" parameterType="string" resultType="dto.AdminPrepareSettle">
+        SELECT
+            c.id,
+            c.client_id,
+            c.project_pay_id as position,
+            u.name
+        FROM contract c
+                 JOIN freelancer f ON c.freelancer_id = f.freelancer_id
+                    JOIN user u ON f.freelancer_id = u.user_id
+        WHERE c.id = #{id}
+    </select>
 
 </mapper>
