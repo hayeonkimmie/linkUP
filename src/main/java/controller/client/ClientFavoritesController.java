@@ -22,6 +22,7 @@ public class ClientFavoritesController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession();
@@ -34,6 +35,20 @@ public class ClientFavoritesController extends HttpServlet {
         String freelancerId = request.getParameter("freelancerId");
 
         IClientFavoritesService service = new ClientFavoritesServiceImpl();
+        // 출력테스트
+        System.out.println("⭐ freelancerId = " + freelancerId);
+        System.out.println("⭐ clientId = " + clientId);
+
+
+        // 찜하기 토글 기능
+        try {
+            String result = service.toggleFavorite(clientId, freelancerId);
+            response.getWriter().write(result); // "added", "removed" 또는 "error"
+        } catch (Exception e){
+            e.printStackTrace();
+        response.getWriter().write("error");
+
+        }
     }
 
 

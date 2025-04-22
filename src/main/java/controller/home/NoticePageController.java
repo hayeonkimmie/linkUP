@@ -1,4 +1,4 @@
-package controller;
+package controller.home;
 
 import dto.Notice;
 import service.home.NoticeService;

@@ -12,14 +12,19 @@
         from jjimProj
         where freelancer_id = #{freelancerId}
     </select>
-    <select id="selectJjimProjlistForMyPageMain" parameterType="String" resultType="jjimProj">
+    <select id="selectJjimProjlistForMain" parameterType="String" resultType="jjimProj">
+        <![CDATA[
         SELECT
             jp.jjim_id,
             p.project_id,                                -- 프로젝트 ID
             p.category,                                  -- 카테고리
             p.advertisement_title,                       -- 공고 제목
             p.project_name,                              -- 프로젝트명
-            p.duration,                                  -- 기간
+            CASE
+            WHEN duration < 12 THEN CONCAT(duration, '개월')
+            WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
+            ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
+            END AS duration,                                  -- 기간
             p.deadline_date,                             -- 마감일
             p.qualification,                             -- 자격 요건
             p.working_method,                            -- 근무 방식
@@ -46,6 +51,7 @@
                 END ASC,                                     -- 임박 마감 우선
             jp.jjim_id DESC                              -- 최신 찜 우선
         limit 5
+        ]]>
     </select>
     <select id="selectJjimProjList" parameterType="Map" resultType="Integer">
         select count(*)
@@ -53,14 +59,19 @@
         where freelancer_id = #{freelancerId}
         and project_id = #{projectId}
     </select>
-    <select id="selectJjimProjectListByUserId" parameterType="map" resultType="jjimProj">
+    <select id="selectJjimProjectList" parameterType="map" resultType="jjimProj">
+        <![CDATA[
         SELECT
             jp.jjim_id,
             p.project_id,                                -- 프로젝트 ID
             p.category,                                  -- 카테고리
             p.advertisement_title,                       -- 공고 제목
             p.project_name,                              -- 프로젝트명
-            p.duration,                                  -- 기간
+            CASE
+                WHEN duration < 12 THEN CONCAT(duration, '개월')
+                WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
+                ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
+                END AS duration,                                  -- 기간
             p.deadline_date,                             -- 마감일
             c.company_name,                              -- 회사명
             p.qualification,                             -- 자격 요건
@@ -71,13 +82,10 @@
             p.working_environment,                       -- 근무 환경
             p.working_hours,                             -- 근무 시간,
             CASE
-                WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN
-                    CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
-                WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN
-                    'D-Day'
-                ELSE
-                    '마감'
-                END AS d_day                                 -- D-Day 표시
+                WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
+                WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
+                ELSE '마감'
+                END AS d_day-- D-Day 표시
         FROM project p
                  JOIN client c ON p.client_id = c.client_id
                  JOIN jjimProj jp ON p.project_id = jp.project_id
@@ -86,9 +94,10 @@
             CASE
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) >= 0 THEN DATEDIFF(p.deadline_date, CURDATE())
                 ELSE 99999
-                END ASC,                                     -- 임박 마감 우선
-            jp.jjim_id DESC                              -- 최신 찜 우선
-        limit #{row}, 10
+                END ASC, -- 임박 마감 우선
+            jp.jjim_id DESC -- 최신 찜 우선
+        LIMIT #{row}, 10
+        ]]>
     </select>
 
     <delete id="deleteJjimProj" parameterType="Integer">
@@ -103,14 +112,57 @@
             #{id}
         </foreach>
     </delete>    <!-- 마감되지 않은 찜 프로젝트 페이징 조회 -->
-    <select id="selectOpenjimProjectListByUserId" resultType="jjimProj" parameterType="map">
+    <select id="selectOpenjimProjectList" resultType="jjimProj" parameterType="map">
+        <![CDATA[
         SELECT
             jp.jjim_id,
             p.project_id,
             p.category,
             p.advertisement_title,
             p.project_name,
-            p.duration,
+        CASE
+            WHEN duration < 12 THEN CONCAT(duration, '개월')
+            WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
+            ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
+            END AS duration,                                  -- 기간
+            p.deadline_date,
+            c.company_name,
+            p.qualification,
+            p.working_method,
+            p.preferential_conditions,
+            p.project_description,
+            p.job_details,
+            p.working_environment,
+            p.working_hours,
+        CASE
+            WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN
+                CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
+            WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN
+                'D-Day'
+            END AS d_day
+        FROM project p
+                 JOIN client c ON p.client_id = c.client_id
+                 JOIN jjimProj jp ON p.project_id = jp.project_id
+        WHERE jp.freelancer_id = #{freelancerId}
+          AND DATEDIFF(p.deadline_date, CURDATE()) >= 0   -- 마감되지 않은 것만
+        ORDER BY
+            DATEDIFF(p.deadline_date, CURDATE()) ASC,     -- 임박한 순서
+            jp.jjim_id DESC
+        limit #{row}, 10
+        ]]>
+    </select>
+    <!-- 마감된 찜 프로젝트 페이징 조회 -->
+    <select id="selectClosedJjimProjectList" resultType="jjimProj" parameterType="map">
+        <![CDATA[
+        SELECT
+            p.project_id,
+            p.category,
+            p.advertisement_title,
+            p.project_name,
+        CASE
+            WHEN duration < 12 THEN CONCAT(duration, '개월')
+            WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
+            END AS duration,                                  -- 기간
             p.deadline_date,
             c.company_name,
             p.qualification,
@@ -125,43 +177,15 @@
                     CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN
                     'D-Day'
-                END AS d_day
+                END AS d_day                    -- 마감된 프로젝트는 고정 텍스트
         FROM project p
                  JOIN client c ON p.client_id = c.client_id
                  JOIN jjimProj jp ON p.project_id = jp.project_id
-        WHERE jp.freelancer_id = #{freelancerId}
-          AND DATEDIFF(p.deadline_date, CURDATE()) >= 0   -- 마감되지 않은 것만
-        ORDER BY
-            DATEDIFF(p.deadline_date, CURDATE()) ASC,     -- 임박한 순서
-            jp.jjim_id DESC
-        limit #{row}, 10
-    </select>
-    <!-- 마감된 찜 프로젝트 페이징 조회 -->
-    <select id="selectClosedJjimProjectListPaging" resultType="jjimProj" parameterType="map">
-        SELECT
-            p.project_id,
-            p.category,
-            p.advertisement_title,
-            p.project_name,
-            p.duration,
-            p.deadline_date,
-            c.company_name,
-            p.qualification,
-            p.working_method,
-            p.preferential_conditions,
-            p.project_description,
-            p.job_details,
-            p.working_environment,
-            p.working_hours,
-            '마감' AS d_day                               -- 마감된 프로젝트는 고정 텍스트
-        FROM project p
-                 JOIN client c ON p.client_id = c.client_id
-                 JOIN jjimProj jp ON p.project_id = jp.project_id
-        WHERE <![CDATA[
-    DATEDIFF(p.deadline_date, CURDATE()) < 0
-          ]]> and jp.freelancer_id = #{freelancerId}
+        WHERE  DATEDIFF(p.deadline_date, CURDATE()) < 0
+          and jp.freelancer_id = #{freelancerId}
         -- 마감된 것만
         ORDER BY jp.jjim_id DESC
         limit #{row}, 10                  -- 페이징 처리
+        ]]>
     </select>
 </mapper>

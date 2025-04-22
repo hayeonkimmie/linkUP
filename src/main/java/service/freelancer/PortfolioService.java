@@ -79,9 +79,15 @@ public class PortfolioService implements IPortfolioService{
             System.out.println("PortfolioService.java 83 포트폴리오가 없습니다.");
             return null;
         } else {
-            portfolio.setSkillList(portfolio.getSkillDescription().split("\\^"));
-            portfolio.setAttachmentList(portfolio.getAttachment().split("\\^"));
-            portfolio.setExternalUrlList(portfolio.getExternalUrl().split("\\^"));
+            if(portfolio.getSkillDescription() != null && portfolio.getSkillDescription().contains("^")) {
+                portfolio.setSkillList(portfolio.getSkillDescription().split("\\^"));
+            }
+            if(portfolio.getAttachment() != null && portfolio.getAttachment().contains("^")) {
+                portfolio.setAttachmentList(portfolio.getAttachment().split("\\^"));
+            }
+            if(portfolio.getExternalUrl() != null && portfolio.getExternalUrl().contains("^")) {
+                portfolio.setExternalUrlList(portfolio.getExternalUrl().split("\\^"));
+            }
             System.out.println(portfolio.toString());
         }
         return portfolio;
@@ -110,13 +116,28 @@ public class PortfolioService implements IPortfolioService{
     @Override
     public void modifyPortfolio(Portfolio portfolio) throws Exception {
         Portfolio p = selectPortfolioById(portfolio.getPortfolioId());
-        if(portfolio.getAttachment() == null || portfolio.getAttachment().equals(p.getAttachment())) {
+        if(portfolio.getAttachment()!= null && !portfolio.getAttachment().equals(p.getAttachment())) {
             portfolio.setAttachment(p.getAttachment());
         }
-        if(portfolio.getExternalUrlList() == null || portfolio.getExternalUrlList().equals(p.getExternalUrl())) {
-            portfolio.setExternalUrl(p.getExternalUrl());
+        if(portfolio.getSkillDescription()!= null && !portfolio.getSkillDescription().equals(p.getSkillDescription())) {
+            portfolio.setSkillDescription(p.getSkillDescription());
+        } else if(portfolio.getSkillDescription() == null) {
+            portfolio.setSkillDescription(null);
+        } else {
+            portfolio.setSkillDescription(p.getSkillDescription());
         }
-        if(portfolio.getProjectId() == null || portfolio.getProjectId().equals(p.getProjectId())) {
+        if(portfolio.getThumbnail()!= null && !portfolio.getThumbnail().equals(p.getThumbnail())) {
+            portfolio.setThumbnail(p.getThumbnail());
+        } else if(portfolio.getThumbnail() == null) {
+            portfolio.setThumbnail(null);
+        } else {
+            portfolio.setThumbnail(p.getThumbnail());
+        }
+        if(portfolio.getProjectId() != null && !portfolio.getProjectId().equals(p.getProjectId())) {
+            portfolio.setProjectId(p.getProjectId());
+        } else if(portfolio.getProjectId() == null) {
+            portfolio.setProjectId(null);
+        } else {
             portfolio.setProjectId(p.getProjectId());
         }
         iportfolioDAO.modifyPortfolio(portfolio);

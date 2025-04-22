@@ -61,6 +61,15 @@ header .logo {
   background-color: #fff;
   border-top: 1px solid #ddd;
 }
+.accordion-content {
+  display: none;
+}
+
+.accordion-content.active,
+.accordion-content.qna-detail.active {
+  display: table-row;
+}
+
 .accordion-content-inner > p, .accordion-content-inner> h4{
   text-align: left;
   font-size: medium;

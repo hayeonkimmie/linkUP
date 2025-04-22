@@ -42,7 +42,7 @@
                 </c:when>
                 <c:otherwise>
                     <div class="project-table">
-                        <form action="${contextPath}/project-jjim-list" method="post">
+                        <form action="${contextPath}/my-page/project-jjim-list" method="post">
                             <div class="delete-button-wrapper">
                                 <button class="delete-button" type="submit">삭제</button>
                             </div>

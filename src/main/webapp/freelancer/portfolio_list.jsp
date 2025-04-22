@@ -46,7 +46,7 @@
                         <%--<p>${nickname}님의 최고의 프로젝트를 선보이세요.</p>--%>
                         <p>닉네임님의 최고의 프로젝트를 선보이세요.</p>
                     </span>
-                    <button class="add-portfolio" onclick="location.href='${contextPath}/portfolio-write'">+ 포트폴리오 등록</button>
+                    <button class="add-portfolio" onclick="location.href='${contextPath}/my-page/portfolio-write'">+ 포트폴리오 등록</button>
                 </div>
             </div>
         </section>
@@ -58,8 +58,7 @@
                     <div class="portfolio-empty">
                         <p>등록된 포트폴리오가 없습니다.</p>
                         <p>포트폴리오를 등록해보세요.</p>
-                        <button class="add-portfolio" onclick="location.href='my-page/portfolio-write'">+ 포트폴리오 등록
-                        </button>
+                        <button class="add-portfolio" onclick="location.href='${contextPath}/my-page/portfolio-write'">+ 포트폴리오 등록</button>
                     </div>
                 </c:when>
 
@@ -80,19 +79,21 @@
                                         <img src="image?filename=${portfolio.thumbnail}" alt='프로필 이미지'/></div>
                                     <div class="portfolio-info">
                                         <h3>
-                                            <a href="${contextPath}/portfolio-detail?id=${portfolio.portfolioId}">${portfolio.title }</a>
+                                            <a href="${contextPath}/my-page/portfolio-detail?id=${portfolio.portfolioId}">${portfolio.title }</a>
                                         </h3>
                                         <p class="description">${portfolio.introduce }</p>
                                         <div class="tags">
                                             <c:forEach var="skill" items="${portfolio.skillList }">
-                                                <span>${skill}</span>
+                                                <c:if test="${not empty skill }">
+                                                    <span class="tag">${skill }</span>
+                                                </c:if>
                                             </c:forEach>
                                         </div>
                                         <div class="reg-date">등록일 | ${portfolio.createdDate}</div>
                                     </div>
                                     <div class="actions">
-                                        <button class="edit-btn" onclick="location.href='${contextPath}/portfolio-modify?id=${portfolio.portfolioId }'">수정</button>
-                                        <button class="delete-btn" onclick="location.href='${contextPath}/portfolio-delete?id=${portfolio.portfolioId }'">삭제</button>
+                                        <button class="edit-btn" onclick="location.href='${contextPath}/my-page/portfolio-modify?id=${portfolio.portfolioId }'">수정</button>
+                                        <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId }'">삭제</button>
                                     </div>
                                 </div>
                             </div>

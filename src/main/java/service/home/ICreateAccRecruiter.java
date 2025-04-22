@@ -1,4 +1,4 @@
-package service;
+package service.home;
 
 import dto.Client;
 import dto.User;
