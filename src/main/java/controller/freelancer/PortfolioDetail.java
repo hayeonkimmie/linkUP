@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/portfolio-detail")
+@WebServlet("/my-page/portfolio-detail")
 public class PortfolioDetail extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public PortfolioDetail() {

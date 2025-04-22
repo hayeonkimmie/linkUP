@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/edit-info")
+@WebServlet("/my-page/edit-info")
 public class FreeMyPageEditInfo extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

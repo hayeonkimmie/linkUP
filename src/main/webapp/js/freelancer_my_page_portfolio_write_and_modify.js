@@ -193,15 +193,6 @@ function initThumbnailUpload() {
         });
     }
 }
-function moveToList (){
-    const listBtn = document.getElementById('list-btn');
-    // 목록: 확인창 후 이동
-    listBtn.addEventListener('click', () => {
-        if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
-            location.href = `${contextPath}/my-page/portfolio-list`;
-        }
-    });
-}
 function readURL(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();

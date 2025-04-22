@@ -1,9 +1,14 @@
 package controller.freelancer;
 
+import dto.JjimProj;
+import service.freelancer.IJjimProjService;
+import service.freelancer.JjimProjService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/my-page")
 public class FreeMyPageMainController extends HttpServlet {
@@ -22,7 +27,21 @@ public class FreeMyPageMainController extends HttpServlet {
         String id = request.getParameter("id");
         String password = request.getParameter("password");
         session.setAttribute("id", id);
-
+        IJjimProjService service = new JjimProjService();
+        List<JjimProj> jjimProjList;
+        try{
+            Integer jjimProjCnt = service.selectJjimProjCnt(freelancerId);
+            if (jjimProjCnt > 0) {
+                jjimProjList = service.selectJjimProjListByPage(freelancerId);
+                System.out.println("JJimProjList 서블릿 47 JJimProjList = " + jjimProjList);
+                request.setAttribute("jjimProjList", jjimProjList);
+            } else if (jjimProjCnt == 0){
+                request.setAttribute("jjimProjList", null);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+            request.setAttribute("err", "찜한 프로젝트 조회에 실패했습니다.");
+        }
         request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
     }
 

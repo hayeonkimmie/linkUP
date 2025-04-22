@@ -62,7 +62,7 @@
 <!--        <mapper resource="mapper/contract.xml"/>-->
         <mapper resource="mapper/freelancer.xml"/>
         <mapper resource="mapper/jjimfree.xml"/>
-<!--        <mapper resource="mapper/jjimProj.xml"/>-->
+        <mapper resource="mapper/jjimProj.xml"/>
 <!--        <mapper resource="mapper/lv.xml"/>-->
 <!--        <mapper resource="mapper/pay.xml"/>-->
         <mapper resource="mapper/portfolio.xml"/>

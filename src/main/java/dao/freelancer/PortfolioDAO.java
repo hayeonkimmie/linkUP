@@ -64,7 +64,7 @@ public class PortfolioDAO implements IPortfolioDAO {
     @Override
     public void modifyPortfolio(Portfolio portfolio) throws Exception {
         try {
-            sqlSession.update("mapper.article.updatePortfolio", portfolio);
+            sqlSession.update("mapper.portfolio.updatePortfolio", portfolio);
             sqlSession.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

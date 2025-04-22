@@ -1,10 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link up Profile Write</title>
+    <title>Link up 포트폴리오 수정</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
     <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
@@ -29,7 +30,7 @@
             <h3>포트폴리오 수정</h3>
         </section>
 
-        <form id="portfolioForm" method="post" action="portfolio-modify" enctype="multipart/form-data">
+        <form id="portfolioForm" method="post" action="${contextPath}/my-page/portfolio-modify?id=${portfolio.portfolioId}" enctype="multipart/form-data">
             <div class="portfolio-register-container">
                 <!-- 포트폴리오 제목 -->
                 <div class="portfolio-title-section">
@@ -48,17 +49,21 @@
                     </div>
                 </div>
                 <!-- 프로젝트 기간 -->
+                    <c:set var="startMonth" value="" />
+                    <c:if test="${portfolio.portProjStart ne null}">
+                        <fmt:formatDate value="${portfolio.portProjStart}" pattern="yyyy-MM" var="startMonth" />
+                    </c:if>
+
+                    <c:set var="endMonth" value="" />
+                    <c:if test="${portfolio.portProjEnd ne null}">
+                        <fmt:formatDate value="${portfolio.portProjEnd}" pattern="yyyy-MM" var="endMonth" />
+                    </c:if>
+
                     <div class="project-period">
                         <span>프로젝트 기간</span> <br/>
-                        <input id="portProjStart" name="portProjStart" type="month" required value="
-                            <c:if test="${not empty portfolio.portProjStart}">
-                                <fmt:formatDate value="${portfolio.portProjStart}" pattern="yyyy-MM"/>
-                            </c:if>"/>
+                        <input id="portProjStart" name="portProjStart" type="month" required value="${startMonth}" />
                         ~
-                        <input id="portProjEnd"  name="portProjEnd" type="month" value="
-                        <c:if test="${not empty portfolio.portProjEnd}">
-                            <fmt:formatDate value="${portfolio.portProjEnd}" pattern="yyyy-MM"/>
-                        </c:if>"/>
+                        <input id="portProjEnd" name="portProjEnd" type="month" value="${endMonth}" />
                     </div>
                 </div>
                 <!-- 팀 구성 및 역할 -->
@@ -115,7 +120,7 @@
                                     <tr>
                                         <td><label>외부 링크</label></td>
                                         <td>
-                                            <a href="${externalUrl }">${externalUrl }</a>
+                                            <a href="${externalUrl}">${externalUrl}</a>
                                             <button type="button" class="delete-tr">X</button>
                                         </td>
                                     </tr>
@@ -137,14 +142,14 @@
 
                 <!-- 버튼 그룹 -->
                 <div class="button-group">
-                    <button id="submit-btn" type="submit">포트폴리오 등록</button>
+                    <button id="submit-btn" type="submit">포트폴리오 수정</button>
                     <!-- 목록 이동 -->
                     <button id="list-btn" type="button">목록</button>
                     <button id="temp-submit-btn" type="button">포트폴리오 임시저장</button>
                     <button id="delete-btn">포트폴리오 삭제</button>
                 </div>
                 <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required style="display:none"/>
-                <input type="hidden" name="skillDescription" id="skillDescriptionHidden" value="" />
+                <input type="hidden" name="skillDescription" id="skillDescriptionHidden" value="${portfolio.skillDescription}" />
                 <div class="portfolioIdList" id="portfolioIdList" style="display:none; ">
                     <c:if test="${projectInfoMap ne null}">
                         <option value="">참여했던 프로젝트 명을 선택해주세요.</option>
@@ -162,6 +167,24 @@
     </main>
 </div>
 <script>
+    function moveToList (){
+        const listBtn = document.getElementById('list-btn');
+        // 목록: 확인창 후 이동
+        listBtn.addEventListener('click', () => {
+            if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
+                location.href = `${contextPath}/my-page/portfolio-list`;
+            }
+        });
+    }
+    function deletePortfolio (){
+        const listBtn = document.getElementById('delete-btn');
+        // 목록: 확인창 후 이동
+        listBtn.addEventListener('click', () => {
+            if (confirm('해당 포트폴리오를 삭제하시겠습니까?')) {
+                location.href = `${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}&is_delete=true`;
+            }
+        });
+    }
 </script>
 </body>
 </html>

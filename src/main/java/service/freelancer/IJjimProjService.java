@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IJjimProjService {
     List<JjimProj> selectJjimProjListByPage(PageInfo pageInfo, String userId) throws Exception;
+    List<JjimProj> selectJjimProjListForMain(String freelancerId) throws Exception;
     Integer selectJjimProjCnt(String userId) throws Exception;
     /*void insertJjimProj(JjimProj jjimProj) throws Exception;*/
     void deleteJjimProjById(Integer jjimId) throws Exception;

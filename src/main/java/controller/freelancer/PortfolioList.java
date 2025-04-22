@@ -12,7 +12,7 @@ import service.freelancer.PortfolioService;
 import util.PageInfo;
 
 
-@WebServlet("/portfolio-list")
+@WebServlet("/my-page/portfolio-list")
 public class PortfolioList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

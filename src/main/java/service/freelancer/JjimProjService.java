@@ -59,4 +59,10 @@ public class JjimProjService implements IJjimProjService{
     public void insertJjimProj(JjimProj jjimProj) throws Exception {
 
     }*/
+
+
+    @Override
+    public List<JjimProj> selectJjimProjListForMain(String freelancerId) throws Exception {
+        return iJjimProjDAO.selectJjimProjListforMain(freelancerId);
+    }
 }
