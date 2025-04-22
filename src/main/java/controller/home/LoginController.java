@@ -1,4 +1,4 @@
-package controller;
+package controller.home;
 
 import dao.client.ClientDAOImpl;
 import dao.common.UserDAO;

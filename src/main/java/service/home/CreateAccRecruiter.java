@@ -1,4 +1,4 @@
-package service;
+package service.home;
 
 import dao.client.ClientDAOImpl;
 import dao.client.IClientDAO;

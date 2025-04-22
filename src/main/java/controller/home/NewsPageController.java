@@ -1,9 +1,7 @@
-package controller;
+package controller.home;
 
 import dto.News;
-import dto.Notice;
 import service.home.NewsService;
-import service.home.NoticeService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

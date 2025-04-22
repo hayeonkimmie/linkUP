@@ -1,4 +1,4 @@
-package controller;
+package controller.home;
 
 import dao.common.IUserDAO;
 import dao.common.UserDAO;
