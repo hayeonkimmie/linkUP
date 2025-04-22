@@ -31,6 +31,10 @@
       <div class="summary-item"><span class="label">프로젝트 기간</span><span class="value">${project.projectDuration}</span></div>
       <div class="summary-item"><span class="label">총 참여 인원</span><span class="value">${fn:length(targetList)}명</span></div>
       <div class="summary-item"><span class="label">프로젝트 정산일</span><span class="value">${project.settleDate}일</span></div>
+      <div class="summary-item" id="settleDateWrapper" data-settle-date="${project.settleDate}">
+        <span class="label">프로젝트 정산일</span><span class="value">${project.settleDate}일</span>
+      </div>
+
     </div>
 
     <h3 class="section-title">정산 인원 & 금액</h3>
@@ -58,7 +62,7 @@
             </td>
             <td>${t.fphone}</td>
             <td>${t.account}</td>
-            <td class="amount" data-id="${t.id}" data-name="${t.freelancerName}"
+            <td class="amount" data-id="${t.id}" data-fid="${t.freelancerId}"  data-name="${t.freelancerName}"
                 data-amount="${t.totalPay}" data-start="${t.startDate}" data-end="${t.endDate}"
                 data-category="${t.categoryName}">
               <fmt:formatNumber value="${t.totalPay}" type="number" pattern="#,##0원"/>
@@ -80,6 +84,8 @@
   </div>
 
   <div id="settlementModal" class="modal-overlay" style="display:none;">
+
+
     <div class="modal">
       <h2>정산을 진행하시겠습니까?</h2>
       <p>선택된 <strong id="freelancerCount">0</strong>명의 프리랜서에게 정산을 진행합니다.</p>

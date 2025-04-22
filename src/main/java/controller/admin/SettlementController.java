@@ -7,8 +7,6 @@
 package controller.admin;
 
 import com.google.gson.Gson;
-import dao.IPayDAO;
-import dao.PayDAO;
 import dao.admin.*;
 import dto.*;
 
@@ -96,16 +94,40 @@ public class SettlementController extends HttpServlet {
             int maxCnt = settlementDAO.getMaxCntByContractId(psJson.getId()); // e.g. MyBatis 매퍼 호출
             int newCnt = maxCnt + 1;
 
+            System.out.println(psJson);
+
             Settlelist settlelist = new Settlelist(
                     psJson.getId(), // contractId
                     Integer.parseInt(prepareSettle.getPosition()),
                     prepareSettle.getClientId(),
                     project.getProjectName(),
                     item[0].getAmount(),
-                    Date.valueOf(item[0].getStart()),
-                    Date.valueOf(item[0].getEnd()),
+                    Date.valueOf(item[0].getSettleDate()),
                     newCnt
             );
+
+            for (PrepareSettleJson p : item) {
+                AdminPrepareSettle aprepareSettle = contractDAO.selectInfoForSettleById(p.getId());
+
+//                Settlement settlement = new Settlement(
+//                        settlelist.getSlistId(), // 정산 회차 ID (방금 insert된 값)
+//                        Integer.parseInt(aprepareSettle.getPosition()), // categoryId or projectPayId
+//                        aprepareSettle.getClientId(),
+//                        project.getProjectName(),
+//                        p.getAmount(),
+//                        Date.valueOf(p.getStart()),
+//                        Date.valueOf(p.getEnd()),
+//                        Integer.parseInt(request.getParameter("settleDate")), // 전달된 정산일
+//                        aprepareSettle.getPosition(), // 직급명 or 포지션명
+//                        aprepareSettle.getName(), // 이름
+//                        "미지급", // 초기 상태
+//                        ""
+////                        aprepareSettle.getAccount() // 계좌번호 (account 필드가 있다면)
+//                );
+
+//                settlementDAO.insertSettlement(settlement);
+            }
+
             settlementDAO.createSettlelist(settlelist);
         } catch (Exception e) {
             e.printStackTrace();

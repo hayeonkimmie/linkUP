@@ -9,22 +9,20 @@ public class Settlelist {
     String clientId;
     String pname;
     int ammount;
-    Date startDate;
-    Date endDate;
+    Date settleDate;
     int cnt;
 
     public Settlelist() {
         super();
     }
 
-    public Settlelist(String contractId, int projectPayId, String clientId, String pname, int ammount, Date startDate, Date endDate, int cnt) {
+    public Settlelist(String contractId, int projectPayId, String clientId, String pname, int ammount, Date settleDate, int cnt) {
         this.contractId = contractId;
         this.projectPayId = projectPayId;
         this.clientId = clientId;
         this.pname = pname;
         this.ammount = ammount;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.settleDate = settleDate;
         this.cnt = cnt;
     }
 
@@ -76,20 +74,12 @@ public class Settlelist {
         this.ammount = ammount;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getSettleDate() {
+        return settleDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setSettleDate(Date settleDate) {
+        this.settleDate = settleDate;
     }
 
     public int getCnt() {

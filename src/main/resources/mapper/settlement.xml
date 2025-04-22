@@ -4,10 +4,36 @@
 
 <mapper namespace="mapper.settlement">
     <!-- 4. 정산 내역 테이블 등록 -->
-    <insert id="insertSettlement" parameterType="settlement">
-        INSERT INTO settlement (slist_id, category_id, client_id, pname, pay, start_date, end_date, settleday, position, name, status, account)
-        VALUES (#{slistId}, #{categoryId}, #{clientId}, #{pname}, #{pay}, #{startDate}, #{endDate}, #{settleday}, #{position}, #{name}, #{status}, #{account})
+    <insert id="insertSettlement" parameterType="dto.Settlement">
+        INSERT INTO settlement (
+            slist_id,
+            category_id,
+            client_id,
+            pname,
+            ammount,
+            start_date,
+            end_date,
+            settleday,
+            position,
+            name,
+            status,
+            account
+        ) VALUES (
+                     #{slistId},
+                     #{categoryId},
+                     #{clientId},
+                     #{pname},
+                     #{ammount},
+                     #{startDate},
+                     #{endDate},
+                     #{settleday},
+                     #{position},
+                     #{name},
+                     #{status},
+                     #{account}
+                 )
     </insert>
+
 
 
 </mapper>

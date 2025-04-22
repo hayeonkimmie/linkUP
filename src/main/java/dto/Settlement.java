@@ -3,17 +3,44 @@ package dto;
 import java.util.Date;
 
 public class Settlement {
-    int slistId;
-    String contractId;
-    int categoryId;
-    String clientId;
-    String pname;
-    int pay;
-    Date startDate;
-    Date endDate;
-    int cnt;
+    private int settlementId;
+    private int slistId;
+    private int categoryId;
+    private String clientId;
+    private String pname;
+    private int ammount;
+    private Date startDate;
+    private Date endDate;
+    private int settleday;
+    private String position;
+    private String name;
+    private String status;
+    private String account;
 
     public Settlement() {
+    }
+
+    public Settlement( int slistId, int categoryId, String clientId, String pname, int ammount, Date startDate, Date endDate, int settleday, String position, String name, String status, String account) {
+        this.slistId = slistId;
+        this.categoryId = categoryId;
+        this.clientId = clientId;
+        this.pname = pname;
+        this.ammount = ammount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.settleday = settleday;
+        this.position = position;
+        this.name = name;
+        this.status = status;
+        this.account = account;
+    }
+
+    public int getSettlementId() {
+        return settlementId;
+    }
+
+    public void setSettlementId(int settlementId) {
+        this.settlementId = settlementId;
     }
 
     public int getSlistId() {
@@ -22,14 +49,6 @@ public class Settlement {
 
     public void setSlistId(int slistId) {
         this.slistId = slistId;
-    }
-
-    public String getContractId() {
-        return contractId;
-    }
-
-    public void setContractId(String contractId) {
-        this.contractId = contractId;
     }
 
     public int getCategoryId() {
@@ -56,12 +75,12 @@ public class Settlement {
         this.pname = pname;
     }
 
-    public int getPay() {
-        return pay;
+    public int getAmmount() {
+        return ammount;
     }
 
-    public void setPay(int pay) {
-        this.pay = pay;
+    public void setAmmount(int ammount) {
+        this.ammount = ammount;
     }
 
     public Date getStartDate() {
@@ -80,11 +99,43 @@ public class Settlement {
         this.endDate = endDate;
     }
 
-    public int getCnt() {
-        return cnt;
+    public int getSettleday() {
+        return settleday;
     }
 
-    public void setCnt(int cnt) {
-        this.cnt = cnt;
+    public void setSettleday(int settleday) {
+        this.settleday = settleday;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 }

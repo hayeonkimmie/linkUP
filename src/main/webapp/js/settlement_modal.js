@@ -2,18 +2,23 @@ function openSettlementModal() {
   const checked = document.querySelectorAll(".settle-checkbox:checked");
   const tbody = document.getElementById("modalFreelancerBody");
   const jsonList = [];
+
+  // ✅ 정산일 가져오기
+  const settleDate = document.querySelector("#settleDateWrapper").dataset.settleDate;
+
   tbody.innerHTML = "";
   checked.forEach(cb => {
     const row = cb.closest("tr");
     const amountEl = row.querySelector(".amount");
     const data = {
       id: amountEl.dataset.id,
+      fid: amountEl.dataset.fid, // freelancer_id
       name: amountEl.dataset.name,
       category: amountEl.dataset.category,
       amount: amountEl.dataset.amount,
-      start: amountEl.dataset.start,
-      end: amountEl.dataset.end
+      settleDate: settleDate
     };
+
     jsonList.push(data);
     const rowHTML =
       "<tr>" +

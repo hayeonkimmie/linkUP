@@ -5,19 +5,27 @@ public class PrepareSettleJson {
     private String name;
     private String category;
     private int amount;
-    private String start;
-    private String end;
+    private String settleDate;
+    private String fid; // freelancer_id
+
 
     public PrepareSettleJson() {
     }
 
-    public PrepareSettleJson(String id, String name, String category, int amount, String start, String end) {
+    public PrepareSettleJson(String id, String name, String category, int amount, String settleDate, String fid) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.amount = amount;
-        this.start = start;
-        this.end = end;
+        this.settleDate = settleDate;
+        this.fid = fid;
+    }
+
+    public String getFid() {
+        return fid;
+    }
+    public void setFid(String fid) {
+        this.fid = fid;
     }
 
     public String getId() {
@@ -52,19 +60,23 @@ public class PrepareSettleJson {
         this.amount = amount;
     }
 
-    public String getStart() {
-        return start;
+    public String getSettleDate() {
+        return settleDate;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setSettleDate(String settleDate) {
+        this.settleDate = settleDate;
     }
 
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
+    @Override
+    public String toString() {
+        return "PrepareSettleJson{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", amount=" + amount +
+                ", settleDate='" + settleDate + '\'' +
+                ", fid='" + fid + '\'' +
+                '}';
     }
 }
