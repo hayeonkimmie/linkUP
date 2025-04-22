@@ -1,3 +1,9 @@
+/**
+ * LoginController.java
+ * GET : /admin/login admin/login.jsp 렌더링
+ * POST : /admin/login 로그인 처리 -- 추후 로그인 처리 로직 추가 --
+ */
+
 package controller.admin;
 
 import javax.servlet.*;

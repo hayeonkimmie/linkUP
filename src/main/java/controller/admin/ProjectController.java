@@ -1,3 +1,10 @@
+/**
+ * ProjectController.java
+ * GET : 프로젝트 목록 조회 및 상세 조회
+ * 1-1. Keyword Parameter를 통해 검색인지 아닌지 구분 있으면 검색 null이면 전체
+ * 1-2. idParam Parameter를 통해 상세 조회인지 아닌지 구분 있으면 상세 null이면 전체
+ * 2.
+ */
 package controller.admin;
 
 import dao.admin.ProjectDAO;
@@ -28,12 +35,6 @@ public class ProjectController extends HttpServlet {
         String settleStatus = request.getParameter("settleStatus");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-
-        System.out.println("keyword: " + keyword);
-        System.out.println("settleStatus: " + settleStatus);
-        System.out.println("startDate: " + startDate);
-        System.out.println("endDate: " + endDate);
-
 
         ProjectDAO projectDAO = new ProjectDAO();
         String idParam = request.getParameter("id");

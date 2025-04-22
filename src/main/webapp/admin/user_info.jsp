@@ -5,8 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <title>사용자 정보 관리</title>
-  <link rel="stylesheet" href="../css/admin_header.css">
-  <link rel="stylesheet" href="../css/user_info.css">
+  <link rel="stylesheet" href="../css/admin/admin_header.css">
+  <link rel="stylesheet" href="../css/admin/user_info.css">
 </head>
 <body>
 

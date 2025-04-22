@@ -5,8 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <title>문의사항 관리</title>
-  <link rel="stylesheet" href="../css/admin_header.css" />
-  <link rel="stylesheet" href="../css/qna_manage.css" />
+  <link rel="stylesheet" href="../css/admin/admin_header.css" />
+  <link rel="stylesheet" href="../css/admin/qna_manage.css" />
   <script>
     const defaultOpenMenuId = "qaMenu";
   </script>

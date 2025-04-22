@@ -1,3 +1,11 @@
+<%--
+  Author: 이원영
+  Date: 25. 4. 14.
+  Time: 오후 2:10
+  Description: 업체(회사, client, 구인자)의 상세 페이지
+  Read Data :
+    - client (업체 정보)
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -5,8 +13,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>회사 상세 정보</title>
-  <link rel="stylesheet" href="../css/admin_header.css" />
-  <link rel="stylesheet" href="../css/company_detail.css" />
+  <link rel="stylesheet" href="../css/admin/admin_header.css" />
+  <link rel="stylesheet" href="../css/admin/company_detail.css" />
   <script>
     const defaultOpenMenuId = "projectMenu";
   </script>

@@ -1,3 +1,9 @@
+<%--
+  Author: 이원영
+  Date: 25. 4. 14.
+  Time: 오후 2:10
+  Description: 로그인 이후 보이는 사이드 메뉴
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 

@@ -1,3 +1,11 @@
+<%--
+  Author: 이원영
+  Date: 25. 4. 14.
+  Time: 오후 2:10
+  Description: Project_list.jsp에서 넘어간 프로젝트의 상세 정보
+  Read Data :
+    - Mybatis ResultMap -> AdminProjectDetail + AdminProjectDetailParticipant
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,8 +15,8 @@
 <head>
     <meta charset="UTF-8">
     <title>프로젝트 상세 정보</title>
-    <link rel="stylesheet" href="../css/admin_header.css">
-    <link rel="stylesheet" href="../css/project_detail.css">
+    <link rel="stylesheet" href="../css/admin/admin_header.css">
+    <link rel="stylesheet" href="../css/admin/project_detail.css">
     <script>
         const defaultOpenMenuId = "projectMenu";
     </script>

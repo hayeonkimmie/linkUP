@@ -1,3 +1,7 @@
+/**
+ * FreeLancerController.java
+ * GET : 프로젝트나 정산등을 통해 프리랜서의 상세 정보를 렌더링
+ */
 package controller.admin;
 
 import dao.admin.FreelancerDAO;
@@ -31,7 +35,6 @@ public class FreeLancerController extends HttpServlet {
         AdminFreelancer freelancer = null;
         try {
             freelancer = freelancerService.selectFreelancerById(freelancerid);
-            System.out.println(freelancer);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -5,8 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <title>프로젝트 정산하기</title>
-  <link rel="stylesheet" href="../css/admin_header.css">
-  <link rel="stylesheet" href="../css/settlement_detail.css">
+  <link rel="stylesheet" href="../css/admin/admin_header.css">
+  <link rel="stylesheet" href="../css/admin/settlement_detail.css">
   
   <script>
     const defaultOpenMenuId = "projectMenu";

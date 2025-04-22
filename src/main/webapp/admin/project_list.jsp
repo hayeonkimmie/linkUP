@@ -1,3 +1,11 @@
+<%--
+  Author: 이원영
+  Date: 25. 4. 14.
+  Time: 오후 2:10
+  Description: LinkUp에서 진행된 모든 프로젝트 목록 조회
+  Read Data : List<AdminProject> projectList // 프로젝트 데이터
+              Integer totalCount // 프로젝트 총 갯수
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -8,8 +16,8 @@
 <head>
   <meta charset="UTF-8">
   <title>프로젝트 조회</title>
-  <link rel="stylesheet" href="../css/admin_header.css">
-  <link rel="stylesheet" href="../css/admin_project_list.css">
+  <link rel="stylesheet" href="../css/admin/admin_header.css">
+  <link rel="stylesheet" href="../css/admin/admin_project_list.css">
   <link rel="stylesheet" href="../css/table_common.css">
   <script> const defaultOpenMenuId = "projectMenu"; </script>
 </head>

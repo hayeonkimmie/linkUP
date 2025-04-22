@@ -1,3 +1,13 @@
+<%--
+  Author: 이원영
+  Date: 25. 4. 14.
+  Time: 오후 2:10
+  Description: 특정한 Client, 업체가 LinkUp에서 진행중이거나 완료된 프로젝트 목록 조회
+  Read Data :
+  * List<AdminProject> ongoingProjectList
+  사용 서블릿 :
+  ClientListController.java // admin/client-list
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -5,9 +15,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>업체 프로젝트 목록</title>
-  <link rel="stylesheet" href="../css/admin_header.css" />
+  <link rel="stylesheet" href="../css/admin/admin_header.css" />
   <link rel="stylesheet" href="../css/table_common.css" />
-  <link rel="stylesheet" href="../css/company_project_list.css" />
+  <link rel="stylesheet" href="../css/admin/company_project_list.css" />
   <script>
     const defaultOpenMenuId = "projectMenu";
   </script>
@@ -47,19 +57,20 @@
             </tr>
           </thead>
           <tbody>
-          <c:forEach var="s" items="${settlements}">
+          <c:forEach var="p" items="${ongoingProjectList}">
             <tr>
-              <td>${s.projectName}</td>
-              <td>${s.projectManager}</td>
-              <td>${s.projectDuration}</td>
-              <td><span class="status-badge">${s.settleStatus}</span></td>
-              <td>${s.participant}명</td>
+              <td>${p.projectName}</td>
+              <td>${p.projectManager}</td>
+              <td>${p.projectDuration}</td>
+              <td><span class="status-badge">${p.settleStatus}</span></td>
+              <td>${p.participant}명</td>
             </tr>
           </c:forEach>
           </tbody>
         </table>
       </div>
 
+        <!-- 페이지네이션 -->
       <div class="pagination">
         <button disabled>이전</button>
         <button class="curpage">1</button>

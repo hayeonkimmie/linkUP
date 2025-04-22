@@ -1,3 +1,8 @@
+/**
+ * ClientListController.java
+ * GET : 업체(구인자)가 진행한 프로젝트 목록을 렌더링
+ * POST : //
+ */
 package controller.admin;
 
 import dto.AdminProject;
@@ -21,9 +26,9 @@ public class ClientListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String comapnyid = request.getParameter("companyid");
-        List<AdminProject> settlements = new ArrayList<>();
+        List<AdminProject> ongoingProjectList = new ArrayList<>();
 
-        request.setAttribute("settlements", settlements);
+        request.setAttribute("ongoingProjectList", ongoingProjectList);
         request.getRequestDispatcher("/admin/client_project_list.jsp").forward(request, response);
 
     }

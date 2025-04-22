@@ -1,3 +1,8 @@
+/**
+ * ClientController.java
+ * GET : 업체(구인자)의 상세 정보를 렌더링
+ * POST : //
+ */
 package controller.admin;
 
 import dao.admin.ClientDAO;
