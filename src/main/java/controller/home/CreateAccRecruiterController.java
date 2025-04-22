@@ -1,9 +1,9 @@
-package controller;
+package controller.home;
 
 import dto.Client;
 import dto.User;
-import service.CreateAccRecruiter;
-import service.ICreateAccRecruiter;
+import service.home.CreateAccRecruiter;
+import service.home.ICreateAccRecruiter;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

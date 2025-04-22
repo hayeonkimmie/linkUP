@@ -148,6 +148,27 @@
 </br>
 </br>
 </br>
+<script>
+    const contextPath = "${contextPath}";
+
+    function handleSearch() {
+        const searchType = document.getElementById('search-type').value;
+        const keyword = document.getElementById('search-keyword').value.trim();
+
+        if (!keyword) {
+            alert("검색어를 입력하세요!");
+            return;
+        }
+
+        if (searchType === "company") {
+            // 회사명 검색 → 컨트롤러로 GET 요청
+            location.href = `${contextPath}/SearchCompany?keyword=${keyword}`;
+        } else {
+            alert("해당 검색 유형은 아직 준비 중입니다!");
+        }
+    }
+</script>
+
 </body>
 
 </html>

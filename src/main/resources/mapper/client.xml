@@ -26,6 +26,7 @@
             ceo
         FROM client
         WHERE company_name LIKE CONCAT('%', #{keyword}, '%')
+
     </select>
 
 </mapper>
