@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
     <link rel="stylesheet" href="${contextPath}/css/client_favorites.css" />
 </head>
-<body>
+<%--// JS에서 해당 값을 읽어와서 AJAX 경로로 사용 가능 --%>
+<body data-context-path="${contextPath}">
 
 <jsp:include page="../home/header.jsp" />
 
@@ -40,7 +41,7 @@
     <main class="main">
         <h2 class="section-title">찜한 프리랜서</h2>
 
-        <!-- 🔽 정렬 드롭다운 -->
+        <!--  정렬 드롭다운 -->
         <form method="get" action="${contextPath}/clientFavorites" style="margin-bottom: 20px;">
             <select name="sort" onchange="this.form.submit()">
                 <option value="recent" ${param.sort == 'recent' ? 'selected' : ''}>최신순</option>
@@ -49,7 +50,7 @@
             </select>
         </form>
 
-        <!-- 🧑‍💻 찜한 프리랜서 카드 (이미지 없음 버전) -->
+        <!-- ‍ 찜한 프리랜서 카드 (이미지 없음 버전) -->
         <div class="container">
             <c:forEach var="freelancer" items="${clientFavoritesList}">
                 <div class="card">
@@ -78,7 +79,7 @@
             </c:forEach>
         </div>
 
-        <!-- 🔢 페이징 -->
+        <!-- 페이징 -->
         <div class="pagination">
             <c:choose>
                 <c:when test="${pageInfo.curPage > 1}">
@@ -107,35 +108,9 @@
         </div>
     </main>
 </div>
-<script>
-    function toggleFavorite(element) {
-        const freelancerId = element.dataset.freelancerId;
 
-        fetch('${contextPath}/toggleFavorite', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `freelancerId=${freelancerId}`
-        })
-            .then(response => response.text())
-            .then(result => {
-                if (result === 'added') {
-                    alert("찜 등록 완료!");
-                    element.innerText = '❤️';
-                } else if (result === 'removed') {
-                    alert("찜 해제 완료!");
-                    element.innerText = '🤍';
-                } else {
-                    alert("처리 실패! 로그인 여부 또는 서버 에러를 확인하세요.");
-                }
-            })
-            .catch(err => {
-                console.error("에러 발생:", err);
-                alert("요청 중 오류 발생!");
-            });
-    }
-</script>
 
+<!-- 외부 JS 파일 불러오기 -->
+<script src="${contextPath}/js/toggleFavorite.js"></script>
 </body>
 </html>

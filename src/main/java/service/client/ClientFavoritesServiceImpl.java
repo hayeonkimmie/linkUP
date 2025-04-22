@@ -14,6 +14,7 @@ public class ClientFavoritesServiceImpl implements IClientFavoritesService {
         this.clientFavoritesDAO = new ClientFavoritesDAOImpl();
     }
 
+    //페이징 처리
     @Override
     public List<ClientFavorites> getClientFavorites(PageInfo pageInfo) throws Exception {
         int allCount = clientFavoritesDAO.selectClientFavoritesCount();
@@ -29,9 +30,9 @@ public class ClientFavoritesServiceImpl implements IClientFavoritesService {
         return clientFavoritesDAO.selectJjimFree(row);
     }
 
+    //정렬 필터 + 페이징 처리
     @Override
     public List<ClientFavorites> getClientFavoritesWithFilter(PageInfo pageInfo, String clientId, String sort, String keyword) throws Exception {
-
         final int pageSize = 9;
         int curPage = Math.max(1, pageInfo.getCurPage());
         int offset = (curPage - 1) * pageSize;
@@ -56,51 +57,70 @@ public class ClientFavoritesServiceImpl implements IClientFavoritesService {
         List<ClientFavorites> result = new ArrayList<>();
 
         for (Map<String, Object> map : rawList) {
-            System.out.println(" \uD83D\uDD25 raw map: " + map); // 테스트 코드
             ClientFavorites view = new ClientFavorites();
             view.setFreelancerId((String) map.get("freelancer_id"));
             view.setProfileImage((String) map.get("profile_img"));
             view.setName((String) map.get("name"));
             view.setLocation((String) map.get("desired_location"));
+
             Object star = map.get("rating");
             view.setRating(star != null ? ((Number) star).doubleValue() : 0.0);
 
             Object countObj = map.get("project_count");
             view.setProjectCount(countObj != null ? ((Number) countObj).intValue() : 0);
 
-
             String skill = (String) map.get("skill");
             if (skill != null && !skill.trim().isEmpty()) {
                 view.setTags(Arrays.asList(skill.split(",")));
-                view.setJob(skill.split(",")[0]); // 수정필요할 듯 (skill다 표시해야함)
+                view.setJob(skill.split(",")[0]);
             } else {
                 view.setTags(new ArrayList<>());
                 view.setJob("정보 없음");
             }
+
             result.add(view);
         }
 
         return result;
     }
 
+    // 모든 목록 조회
+    @Override
+    public List<ClientFavorites> selectAllFavoritesByClientId(String clientId) throws Exception {
+        return clientFavoritesDAO.selectAllFavoritesByClientId(clientId);
+    }
 
-
+    // 찜하기 기능
     @Override
     public String toggleFavorite(String clientId, String freelancerId) throws Exception {
         Map<String, String> param = new HashMap<>();
         param.put("clientId", clientId);
         param.put("freelancerId", freelancerId);
 
-//        List<ClientFavorites> list = clientFavoritesDAO.selectJjimFree(clientId);
-//        boolean already = list.stream().anyMatch(j -> j.getFreelancerId().equals(freelancerId));
+        List<ClientFavorites> list = clientFavoritesDAO.selectAllFavoritesByClientId(clientId);
+        boolean already = list.stream().anyMatch(j -> j.getFreelancerId().equals(freelancerId));
 
-//        if(already) {
-//            clientFavoritesDAO.deleteFavorite(param);
-//            return "removed";
-//        } else{
-//            clientFavoritesDAO.insertFavorite(param);
-//            return "added";
-//        }
-        return "";
+        if (already) {
+            clientFavoritesDAO.deleteFavorite(param);
+            return "removed";
+        } else {
+            clientFavoritesDAO.insertFavorite(param);
+            return "added";
+        }
+    }
+
+    @Override
+    public String removeFavoriteOnly(String clientId, String freelancerId) throws Exception {
+        boolean exists = clientFavoritesDAO.isFavoriteExists(clientId, freelancerId);
+
+        if(exists){
+            Map<String ,String> param = new HashMap<>();
+            param.put("clientId", clientId);
+            param.put("freelancerId", freelancerId);
+            clientFavoritesDAO.deleteFavorite(param);
+            return "removed";
+        } else {
+            return "not_found";
+        }
     }
 }

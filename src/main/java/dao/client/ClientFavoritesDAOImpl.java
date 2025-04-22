@@ -42,13 +42,29 @@ public class ClientFavoritesDAOImpl implements IClientFavoritesDAO {
 
     // 찜 해제
     @Override
+    // DB에서 지우는거라 반환값 X
     public void deleteFavorite(Map<String, String> param) {
         sqlSession.delete("mapper.jjimfree.deleteFavorite", param);
         sqlSession.commit();
     }
 
+    // 찜 등록 여부 확인
+
     @Override
-    public void toggleFavorite(Map<String, String> param) throws Exception {
-//        return "";
+    public boolean isFavoriteExists(String clientId, String freelancerId) throws Exception {
+        Map<String, String> param = new HashMap<>();
+        param.put("clientId", clientId);
+        param.put("freelancerId", freelancerId);
+        Integer count = sqlSession.selectOne("mapper.jjimfree.existsFavorite", param);
+        return count != null && count > 0;
+    }
+
+
+
+    @Override
+    public List<ClientFavorites> selectAllFavoritesByClientId(String clientId) throws Exception {
+        // 찜 여부 확인을 위해 데이터 자체 받아오기
+        return sqlSession.selectList("mapper.jjimfree.selectAllFavoritesByClientId", clientId);
     }
 }
+

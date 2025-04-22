@@ -15,11 +15,17 @@
 
     </select>
 
+    <!-- 페이징 처리 없이 ALL Select (토글 기능) -->
+    <select id="selectAllFavoritesByClientId" parameterType="String" resultType="dto.ClientFavorites">
+        SELECT * FROM jjimFree WHERE client_id = #{clientId} order by jjim_id;
+    </select>
+
+
     <select id="selectJjimCount" resultType="Integer">
         select count(*) from jjimFree
     </select>
 
-<!--    찜 목록-->
+<!--    찜 목록 상세 글-->
     <select id="selectFavoritesByClient" parameterType="map" resultType="map">
         SELECT
         f.freelancer_id AS freelancer_id,
@@ -62,4 +68,11 @@
         WHERE client_id = #{clientId}
           AND freelancer_id = #{freelancerId}
     </delete>
+
+    <!-- 찜 여부 확인 (찜 해제 필요한지 확인 여부-->
+    <select id="existsFavorite" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM jjimFree
+        WHERE client_id = #{clientId}
+        AND freelancer_id = #{freelancerId}
+    </select>
 </mapper>
