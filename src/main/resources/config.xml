@@ -71,8 +71,8 @@
         <mapper resource="mapper/qna.xml"/>
 <!--        <mapper resource="mapper/RepresenPortfolio.xml"/>-->
 <!--        <mapper resource="mapper/riview.xml"/>-->
-<!--        <mapper resource="mapper/settlelist.xml"/>-->
-<!--        <mapper resource="mapper/settlement.xml"/>-->
+        <mapper resource="mapper/settlelist.xml"/>
+        <mapper resource="mapper/settlement.xml"/>
         <mapper resource="mapper/subCategory.xml"/>
 <!--        <mapper resource="mapper/alarm.xml"/>-->
         <mapper resource="mapper/notice.xml"/>

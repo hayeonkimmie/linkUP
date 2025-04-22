@@ -71,7 +71,7 @@
             IFNULL(SUM(ct.fee), 0) AS total_fee,
             IFNULL(SUM(ct.total_pay), 0) AS total_settlement,
             COUNT(DISTINCT a.freelancer_id) AS participant,
-            DATEDIFF(p.settle_day, NOW()) AS settle_date,
+            DAY(p.settle_day) AS settle_date,
             ct.client_status AS client_status,
             MAX(ct.status) AS settle_status
 

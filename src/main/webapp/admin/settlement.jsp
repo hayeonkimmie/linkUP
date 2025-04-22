@@ -79,7 +79,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="p" items="${projectList}">
+                    <c:forEach var="entry" items="${projectList}">
+                        <c:set var="p" value="${entry.value}" />
                         <tr>
                             <td>${p.projectName}</td>
                             <td>${p.projectDuration}</td>
@@ -101,21 +102,21 @@
                                 <c:choose>
                                     <c:when test="${p.settleStatus eq '진행중' || p.settleStatus eq '정산완료'}">
                                         <a href="<c:url value='/admin/settlement'>
-                                        <c:param name='slistid' value='${p.projectId}'/>
-                                        </c:url>" class="settlement-btn">정산하기</a>
+                        <c:param name='slistid' value='${p.projectId}'/>
+                    </c:url>" class="settlement-btn">정산하기</a>
                                         <a href="<c:url value='/admin/settlement'>
-                                        <c:param name='contractid' value='${p.projectId}'/>
-                                    </c:url>" class="settlement-btn light">정산내역</a>
+                        <c:param name='contractid' value='${p.projectId}'/>
+                    </c:url>" class="settlement-btn light">정산내역</a>
                                     </c:when>
                                     <c:otherwise>
                                         <div style="height: 38px;"></div>
                                     </c:otherwise>
                                 </c:choose>
-
                             </td>
                         </tr>
                     </c:forEach>
                     </tbody>
+
                 </table>
                 <div style="text-align: right; margin-top: 16px;">
                     <button class="settlement-save-btn">결산 상태 저장</button>

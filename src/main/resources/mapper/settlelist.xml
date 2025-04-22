@@ -3,9 +3,50 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.settlelist">
+    <!-- 1. 정산 회차 구하기 (현재 프로젝트에 대해 등록된 최대 회차) -->
+    <select id="selectNextSettlementCount" resultType="int">
+        SELECT COALESCE(MAX(cnt), 0) + 1
+        FROM settlelist
+        WHERE settlelist.slist_id IN (
+            SELECT id FROM contract WHERE project_id = #{projectId}
+        )
+    </select>
+
+
+    <!-- 2. 회차별 정산 대상 유저 목록 조회 (이미 정산된 경우 제외) -->
+    <select id="selectFreelancersForSettlement" parameterType="Map" resultType="dto.AdminSettleTarget">
+        SELECT
+            c.id,
+            c.freelancer_id,
+            u.name AS freelancer_name,              -- 참여자명
+            p.category_name,              -- 구분 (계약 타이틀 대신 카테고리명)
+            c.start_date,
+            c.end_date,
+            c.fphone,
+            c.account,
+            c.total_pay,
+            DAY(c.settle_day) AS settle_day
+        FROM contract c
+                 JOIN freelancer f ON c.freelancer_id = f.freelancer_id
+                 JOIN user u ON f.freelancer_id = u.user_id
+                 JOIN pay p ON c.project_fee_id = p.project_fee_id
+        WHERE c.project_id = #{projectId}
+          AND NOT EXISTS (
+            SELECT 1
+            FROM settlement s
+                     JOIN settlelist sl ON s.slist_id = sl.slist_id
+            WHERE sl.contract_id = c.id
+              AND sl.cnt = #{cnt}
+        )
+    </select>
+
+
+    <!-- 3. 정산 테이블(정산 리스트) 등록 -->
     <insert id="insertSettlelist" parameterType="settlelist">
-        insert settlelist (slist_id,contract_id,category_id,client_id,pname,pay,start_date,end_date,cnt)
-        values (#{slist_id}, #{contract_id},#{category_id},#{client_id}, #{pname},#{pay},#{start_date},#{end_date},#{cnt})
+        INSERT INTO settlelist (slist_id, contract_id, category_id, client_id, pname, pay, start_date, end_date, cnt)
+        VALUES (#{slistId}, #{contractId}, #{categoryId}, #{clientId}, #{pname}, #{pay}, #{startDate}, #{endDate}, #{cnt})
     </insert>
+
+
 
 </mapper>
