@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/project-jjim-list")
+@WebServlet("/my-page/project-jjim-list")
 public class JJimProjList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -36,14 +36,14 @@ public class JJimProjList extends HttpServlet {
         } else {
             page = Integer.parseInt(pageStr);
         }
-        System.out.println("page = " + pageStr);
+        System.out.println("39 page = " + page);
         PageInfo pageInfo = new PageInfo(page);
         IJjimProjService service = new JjimProjService();
         List<JjimProj> jjimProjList;
         try{
             Integer jjimProjCnt = service.selectJjimProjCnt(freelancerId);
             if (jjimProjCnt > 0) {
-                jjimProjList = service.selectJjimProjListByPage(pageInfo, freelancerId);
+                jjimProjList = service.selectJjimProjListForMain(freelancerId);
                 System.out.println("JJimProjList 서블릿 47 JJimProjList = " + jjimProjList);
                 request.setAttribute("pageInfo", pageInfo);
                 request.setAttribute("jjimProjList", jjimProjList);
@@ -67,6 +67,7 @@ public class JJimProjList extends HttpServlet {
             return;
         } else if(selectedValues.length == 1) {
             Integer selectedJjimId = Integer.parseInt(selectedValues[0]);
+            System.out.println("JJimProjList 서블릿 70 selectedJjimId = " + selectedJjimId);
             try {
                 service.deleteJjimProjById(selectedJjimId);
             } catch (Exception e) {
@@ -79,6 +80,7 @@ public class JJimProjList extends HttpServlet {
                 for (String v : selectedValues) {
                     try {
                         selectedJjimIdList.add(Integer.parseInt(v));
+                        System.out.println("JJimProjList 서블릿 70 selectedJjimIdList = " + selectedJjimIdList);
                     } catch (NumberFormatException e) {
                         // 숫자가 아닌 값이 들어온 경우 예외 처리
                         System.err.println("숫자 변환 실패: " + v);

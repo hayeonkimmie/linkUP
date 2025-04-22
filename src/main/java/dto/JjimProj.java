@@ -9,6 +9,7 @@ public class JjimProj {
     private String advertisementTitle;          // 공고 제목
     private String projectName;                 // 프로젝트명
     private String duration;                    // 기간
+    private String pay;                //
     private Date deadlineDate;                  // 마감일
     private String companyName;                 // 회사명
     private String qualification;               // 자격 요건
@@ -74,6 +75,14 @@ public class JjimProj {
 
     public Date getDeadlineDate() {
         return deadlineDate;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
     }
 
     public void setDeadlineDate(Date deadlineDate) {

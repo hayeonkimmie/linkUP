@@ -17,12 +17,14 @@ public class JjimProjDAO implements IJjimProjDAO {
         param.put("freelancerId", freelancerId);
         System.out.println("JjimProjDAO.java 16" + param);
         sqlSession.insert("mapper.jjimProj.insertJjimProj",param);
+        sqlSession.commit();
     }
 
     @Override
     public void deleteJjimProjById(Integer jjimId) throws Exception {
         try {
-            sqlSession.delete("mapper.jjimProj.insertJjimProj",jjimId);
+            sqlSession.delete("mapper.jjimProj.deleteJjimProj",jjimId);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,6 +34,7 @@ public class JjimProjDAO implements IJjimProjDAO {
     public void deleteJjimProjList(List<Integer> jjimIdList) throws Exception {
         try {
             sqlSession.delete("mapper.jjimProj.deleteJjimProjects",jjimIdList);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,11 +46,14 @@ public class JjimProjDAO implements IJjimProjDAO {
         param.put("row", row);
         param.put("freelancerId", freelancerId);
         System.out.println("JjimProjDAO.java 47" + param);
-        return sqlSession.selectList("mapper.jjimProj.selectJjimProjectListByUserId",param);
+        return sqlSession.selectList("mapper.jjimProj.selectJjimProjectList",param);
     }
 
     @Override
     public Integer selectJjimProjCnt(String freelancerId) throws Exception {
         return sqlSession.selectOne("mapper.jjimProj.selectCntJjimProj",freelancerId);
+    }
+    public List<JjimProj> selectJjimProjListforMain(String freelancerId) throws Exception {
+        return sqlSession.selectList("mapper.jjimProj.selectJjimProjlistForMain",freelancerId);
     }
 }

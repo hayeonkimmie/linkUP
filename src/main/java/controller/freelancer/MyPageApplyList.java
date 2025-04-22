@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("/apply-proj-list")
+@WebServlet("/my-page/apply-proj-list")
 public class MyPageApplyList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

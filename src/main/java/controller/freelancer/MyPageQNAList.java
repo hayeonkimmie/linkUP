@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/qna-list")
+@WebServlet("/my-page/qna-list")
 public class MyPageQNAList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

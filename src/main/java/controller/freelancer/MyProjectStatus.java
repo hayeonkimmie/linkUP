@@ -5,18 +5,24 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("/my-page/project-review-list")
-public class MyPageReview extends HttpServlet {
+@WebServlet("/my-page/project-status")
+public class MyProjectStatus extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public MyPageReview() {
+    public MyProjectStatus() {
         super();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String status = request.getParameter("status");
+        if(status == null || status.isEmpty() || status.equals("curr")) {
 
-        request.getRequestDispatcher("/freelancer/review_list_update.jsp").forward(request, response);
+        } else {
+
+        }
+
+        request.getRequestDispatcher("/freelancer/my_project_status.jsp").forward(request, response);
     }
 
     @Override
