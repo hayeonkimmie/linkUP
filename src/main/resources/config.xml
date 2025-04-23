@@ -11,7 +11,6 @@
         <typeAlias type="dto.ClientUserDetail" alias="adminuserdetail"/>
         <typeAlias type="dto.User" alias="user"/>
         <typeAlias type="dto.Project" alias="project"/>
-        <typeAlias type="dto.Amount" alias="ammount"/>
         <typeAlias type="dto.Apply" alias="apply"/>
         <typeAlias type="dto.Category" alias="category"/>
         <typeAlias type="dto.Career" alias="career"/>
@@ -57,15 +56,12 @@
         <mapper resource="mapper/project.xml"/>
 <!--        <mapper resource="mapper/ammount.xml"/>-->
        <mapper resource="mapper/apply.xml"/>
-<!--        <mapper resource="mapper/category.xml"/>-->
         <mapper resource="mapper/adminclient.xml"/>
         <mapper resource="mapper/adminproject.xml"/>
-<!--        <mapper resource="mapper/contract.xml"/>-->
         <mapper resource="mapper/freelancer.xml"/>
         <mapper resource="mapper/jjimfree.xml"/>
         <mapper resource="mapper/jjimProj.xml"/>
 <!--        <mapper resource="mapper/lv.xml"/>-->
-<!--        <mapper resource="mapper/pay.xml"/>-->
         <mapper resource="mapper/portfolio.xml"/>
         <mapper resource="mapper/dashboardproject.xml"/>
         <mapper resource="mapper/qna.xml"/>

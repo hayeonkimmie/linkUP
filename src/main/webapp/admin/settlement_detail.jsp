@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,11 +11,12 @@
   <title>프로젝트 정산하기</title>
   <link rel="stylesheet" href="../css/admin/admin_header.css">
   <link rel="stylesheet" href="../css/admin/settlement_detail.css">
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="../js/include_common.js"></script>
+  <script src="../js/settlement_modal.js"></script>
   <script>
     const defaultOpenMenuId = "projectMenu";
   </script>
-  <script src="../js/include_common.js"></script>
 </head>
 <body>
 <div id="header-include"></div>
@@ -21,31 +26,20 @@
     <h2 class="page-title">프로젝트 정산하기</h2>
 
     <div class="summary-box">
-      <div class="summary-item">
-        <span class="label">프로젝트명</span>
-        <span class="value">블록체인 플랫폼 개발</span>
+      <div class="summary-item"><span class="label">프로젝트명</span><span class="value">${project.projectName}</span></div>
+      <div class="summary-item"><span class="label">이번달 정산 금액</span><span class="value"><fmt:formatNumber value="${totalAmount}" type="number" pattern="#,##0원" /></span></div>
+      <div class="summary-item"><span class="label">프로젝트 기간</span><span class="value">${project.projectDuration}</span></div>
+      <div class="summary-item"><span class="label">총 참여 인원</span><span class="value">${fn:length(targetList)}명</span></div>
+      <div class="summary-item"><span class="label">프로젝트 정산일</span><span class="value">${project.settleDate}일</span></div>
+      <div class="summary-item" id="settleDateWrapper" data-settle-date="${project.settleDate}">
+        <span class="label">프로젝트 정산일</span><span class="value">${project.settleDate}일</span>
       </div>
-      <div class="summary-item">
-        <span class="label">이번달 정산 금액</span>
-        <span class="value">30,000,000원</span>
-      </div>
-      <div class="summary-item">
-        <span class="label">프로젝트 기간</span>
-        <span class="value">2024.04.01 ~ 2024.06.30</span>
-      </div>
-      <div class="summary-item">
-        <span class="label">총 참여 인원</span>
-        <span class="value">5명</span>
-      </div>
-      <div class="summary-item">
-        <span class="label">프로젝트 정산일</span>
-        <span class="value">매월 14일</span>
-      </div>
+
     </div>
 
     <h3 class="section-title">정산 인원 & 금액</h3>
     <div class="table-wrapper">
-      <table>
+      <table id="settlementTable">
         <thead>
         <tr>
           <th>참여자명</th>
@@ -58,63 +52,62 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>김철수</td>
-          <td>고급 개발자</td>
-          <td>3개월</td>
-          <td>010-1234-5678</td>
-          <td>국민은행 123456-78-901234</td>
-          <td>12,000,000원</td>
-          <td><input type="checkbox" checked></td>
-        </tr>
-        <tr>
-          <td>이영희</td>
-          <td>중급 개발자</td>
-          <td>3개월</td>
-          <td>010-2345-6789</td>
-          <td>신한은행 234567-89-012345</td>
-          <td>7,200,000원</td>
-          <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-          <td>박지민</td>
-          <td>중급 디자이너</td>
-          <td>3개월</td>
-          <td>010-3456-7890</td>
-          <td>하나은행 345678-90-123456</td>
-          <td>3,600,000원</td>
-          <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-          <td>박지민</td>
-          <td>고급 디자이너</td>
-          <td>3개월</td>
-          <td>010-4567-8901</td>
-          <td>우리은행 456789-01-234567</td>
-          <td>3,600,000원</td>
-          <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-          <td>서바둑</td>
-          <td>초급 개발자</td>
-          <td>2개월</td>
-          <td>010-5678-9012</td>
-          <td>카카오뱅크 567890-12-345678</td>
-          <td>3,600,000원</td>
-          <td><input type="checkbox"></td>
-        </tr>
+        <c:forEach var="t" items="${targetList}">
+          <tr>
+            <td class="name">${t.freelancerName}</td>
+            <td class="category">${t.categoryName}</td>
+            <td>
+              <fmt:formatDate value="${t.startDate}" pattern="yyyy.MM.dd"/> ~
+              <fmt:formatDate value="${t.endDate}" pattern="yyyy.MM.dd"/>
+            </td>
+            <td>${t.fphone}</td>
+            <td>${t.account}</td>
+            <td class="amount" data-id="${t.id}" data-fid="${t.freelancerId}"  data-name="${t.freelancerName}"
+                data-amount="${t.totalPay}" data-start="${t.startDate}" data-end="${t.endDate}"
+                data-category="${t.categoryName}">
+              <fmt:formatNumber value="${t.totalPay}" type="number" pattern="#,##0원"/>
+            </td>
+            <td><input type="checkbox" class="settle-checkbox" value="${t.id}"></td>
+          </tr>
+        </c:forEach>
         </tbody>
       </table>
     </div>
 
     <div class="total-footer">
-      <div class="total-text">총합 <strong>12,000,000원</strong> (총 1명)</div>
+      <div class="total-text">총합 <strong>0원</strong> (선택된 0명)</div>
       <div class="buttons">
         <button class="btn cancel">취소</button>
-        <button class="btn confirm">정산 승인</button>
+        <button class="btn confirm" onclick="openSettlementModal()">정산 승인</button>
       </div>
     </div>
+  </div>
 
+  <div id="settlementModal" class="modal-overlay" style="display:none;">
+
+
+    <div class="modal">
+      <h2>정산을 진행하시겠습니까?</h2>
+      <p>선택된 <strong id="freelancerCount">0</strong>명의 프리랜서에게 정산을 진행합니다.</p>
+      <div class="modal-table-wrapper">
+        <table class="modal-table">
+          <thead>
+          <tr><th>참여자명</th><th>구분</th><th>정산 금액</th></tr>
+          </thead>
+          <tbody id="modalFreelancerBody"></tbody>
+        </table>
+      </div>
+      <form id="settlementForm" method="post" action="<c:url value='/admin/settlement' />">
+        <input type="hidden" name="projectId" value="${project.projectId}" />
+        <input type="hidden" name="projectName" value="${project.projectName}" />
+        <input type="hidden" name="settleDate" value="${project.settleDate}" />
+        <input type="hidden" id="jsonData" name="jsonData" />
+        <div class="modal-buttons">
+          <button type="submit" class="btn confirm">정산하기</button>
+          <button type="button" class="btn cancel" onclick="closeModal()">닫기</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 </body>

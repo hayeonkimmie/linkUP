@@ -15,6 +15,6 @@ public class DashboardService implements IDashboardService {
 
     @Override
     public List<AdminProject> getDashboardProjectList() throws Exception {
-        return settlementDAO.selectProjectsForSettlement();
+        return settlementDAO.selectProjectsForSettlementList();
     }
 }

@@ -94,10 +94,9 @@
 <aside>
   <!-- ✅ 타이틀 및 아이콘 -->
   <div class="sidebar-title">
-    <span id="sidebarIcon" class="sidebar-icon">📁</span>
-    <span id="sidebarTitleText">프로젝트 관리</span>
+    <span id="sidebarIcon" class="sidebar-icon">📊</span>
+    <span id="sidebarTitleText">대시 보드</span>
   </div>
-
   <!-- 사용자 관리 -->
   <div class="menu-section">
     <div class="menu-header" onclick="toggleMenu('userMenu')">
@@ -120,17 +119,20 @@
     </div>
   </div>
 
-  <!-- 정산 관리 -->
   <div class="menu-section">
     <div class="menu-header" onclick="toggleMenu('settlementMenu')">
       정산 관리
       <span class="toggle-icon" id="icon-settlementMenu">▲</span>
     </div>
     <div class="submenu" id="settlementMenu">
-      <a href="<c:url value='/admin/settlement'/>" onclick="setSidebar('정산 목록', '📄')">정산 대상</a>
-      <a href="<c:url value='/admin/settlement'/>" onclick="setSidebar('프로젝트 정산', '💰')">정산 내역</a>
+      <a href="<c:url value='/admin/settlement?type=list'/>"
+         onclick="setSidebar('정산 목록', '📄')" id="settleListLink">정산 대상</a>
+      <a href="<c:url value='/admin/settlement?type=detail'/>"
+         onclick="setSidebar('프로젝트 정산', '💰')" id="makeSettlementLink">정산 내역</a>
     </div>
   </div>
+
+
 
   <!-- Q&A 관리 -->
   <div class="menu-section">
@@ -139,8 +141,8 @@
       <span class="toggle-icon" id="icon-qaMenu">▲</span>
     </div>
     <div class="submenu" id="qaMenu">
-      <a href="<c:url value='/admin/qna'/>" onclick="setSidebar('Q&A 관리', '❓')">전체 문의 내역</a>
-      <a href="<c:url value='/admin/qna?status=complete'/>" onclick="setSidebar('답변 완료 내역', '💬')">답변 완료 내역</a>
+      <a href="<c:url value='/admin/qna'/>" onclick="setSidebar('Q&A 관리', '❓')" id="qnaListLink">전체 문의 내역</a>
+      <a href="<c:url value='/admin/qna?status=complete'/>" id="answeredQnaLink" onclick="setSidebar('답변 완료 내역', '💬')">답변 완료 내역</a>
     </div>
   </div>
 </aside>

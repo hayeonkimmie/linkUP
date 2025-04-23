@@ -5,16 +5,25 @@ import java.util.Date;
 public class Settlelist {
     int slistId;
     String contractId;
-    int categoryId;
+    int projectPayId;
     String clientId;
     String pname;
-    int pay;
-    Date startDate;
-    Date endDate;
+    int ammount;
+    Date settleDate;
     int cnt;
 
     public Settlelist() {
         super();
+    }
+
+    public Settlelist(String contractId, int projectPayId, String clientId, String pname, int ammount, Date settleDate, int cnt) {
+        this.contractId = contractId;
+        this.projectPayId = projectPayId;
+        this.clientId = clientId;
+        this.pname = pname;
+        this.ammount = ammount;
+        this.settleDate = settleDate;
+        this.cnt = cnt;
     }
 
     public int getSlistId() {
@@ -33,12 +42,12 @@ public class Settlelist {
         this.contractId = contractId;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getProjectPayId() {
+        return projectPayId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setProjectPayId(int projectPayId) {
+        this.projectPayId = projectPayId;
     }
 
     public String getClientId() {
@@ -57,28 +66,20 @@ public class Settlelist {
         this.pname = pname;
     }
 
-    public int getPay() {
-        return pay;
+    public int getAmmount() {
+        return ammount;
     }
 
-    public void setPay(int pay) {
-        this.pay = pay;
+    public void setAmmount(int ammount) {
+        this.ammount = ammount;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getSettleDate() {
+        return settleDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setSettleDate(Date settleDate) {
+        this.settleDate = settleDate;
     }
 
     public int getCnt() {

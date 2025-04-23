@@ -36,6 +36,8 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     // JSON
     implementation "com.googlecode.json-simple:json-simple:1.1.1"
+    // GSON
+    implementation("com.google.code.gson:gson:2.9.0")
 }
 
 tasks.withType(JavaCompile) {
