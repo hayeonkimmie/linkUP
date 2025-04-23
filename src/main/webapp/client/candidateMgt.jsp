@@ -8,8 +8,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>지원자 관리</title>
-  <link rel="stylesheet" href="${contextPath}/css/style.css" />
-  <link rel="stylesheet" href="${contextPath}/css/style.css" />
+  <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
+  <link rel="stylesheet" href="${contextPath}/css/client/candidateMgt.css" />
   <style>
     /* 그대로 복붙해도 되지만, 가독성을 위해 style은 필요 시 따로 분리 권장 */
     /* ... 기존 CSS는 그대로 유지 ... */

@@ -29,10 +29,11 @@ public class FreeMyPageMainController extends HttpServlet {
         session.setAttribute("id", id);
         IJjimProjService service = new JjimProjService();
         List<JjimProj> jjimProjList;
+
         try{
-            Integer jjimProjCnt = service.selectJjimProjCnt(freelancerId);
+            Integer jjimProjCnt = service.selectJjimProjCnt(id);
             if (jjimProjCnt > 0) {
-                jjimProjList = service.selectJjimProjListByPage(freelancerId);
+                jjimProjList = service.selectJjimProjListForMain(id);
                 System.out.println("JJimProjList 서블릿 47 JJimProjList = " + jjimProjList);
                 request.setAttribute("jjimProjList", jjimProjList);
             } else if (jjimProjCnt == 0){

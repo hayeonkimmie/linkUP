@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Link Up - 찜한 프로젝트 목록</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_like.css'/>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">

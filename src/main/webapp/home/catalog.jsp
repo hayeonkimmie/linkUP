@@ -17,7 +17,7 @@
     <title>구인 · 구직 플랫폼</title>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet" />
 <%--    <link rel="stylesheet" href="../css/catalog.css">--%>
-    <link rel="stylesheet" href="../css/headerSt.css">
+    <link rel="stylesheet" href="../css/common/headerSt.css">
     <link rel="stylesheet" href="<c:url value='../css/catalog.css'/>">
     <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
 </head>

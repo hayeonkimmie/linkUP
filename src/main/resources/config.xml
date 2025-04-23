@@ -11,10 +11,11 @@
         <typeAlias type="dto.ClientUserDetail" alias="adminuserdetail"/>
         <typeAlias type="dto.User" alias="user"/>
         <typeAlias type="dto.Project" alias="project"/>
-        <typeAlias type="dto.Ammount" alias="ammount"/>
+        <typeAlias type="dto.Amount" alias="ammount"/>
         <typeAlias type="dto.Apply" alias="apply"/>
         <typeAlias type="dto.Category" alias="category"/>
         <typeAlias type="dto.Client" alias="client"/>
+        <typeAlias type="dto.ClientProfile" alias="clientProfile" />
         <typeAlias type="dto.Contract" alias="contract"/>
         <typeAlias type="dto.Freelancer" alias="freelancer"/>
         <typeAlias type="dto.ClientFavorites" alias="jjimfree"/>

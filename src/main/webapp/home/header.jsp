@@ -13,7 +13,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Link up Header</title>
-  <link rel="stylesheet" href="${contextPath}/css/headerSt.css">
+  <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css">
 
 </head>
 <body>

@@ -9,9 +9,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>찜한 프리랜서</title>
-    <link rel="stylesheet" href="${contextPath}/css/style.css" />
-    <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
-    <link rel="stylesheet" href="${contextPath}/css/client_favorites.css" />
+    <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+    <link rel="stylesheet" href="${contextPath}/css/client/client_favorites.css" />
 </head>
 <%--// JS에서 해당 값을 읽어와서 AJAX 경로로 사용 가능 --%>
 <body data-context-path="${contextPath}">

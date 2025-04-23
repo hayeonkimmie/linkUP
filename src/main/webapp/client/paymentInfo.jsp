@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>결제 정보</title>
-  <link rel="stylesheet" href="${contextPath}/css/common.css" />
+  <link rel="stylesheet" href="${contextPath}/css/common/common.css" />
   <link rel="stylesheet" href="${contextPath}/css/payment.css" />
 </head>
 <body>

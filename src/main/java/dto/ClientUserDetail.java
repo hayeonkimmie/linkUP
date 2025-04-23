@@ -15,6 +15,7 @@ public class ClientUserDetail {
     private String companyPhoneNumber; // 대표 전화번호
     private String companyFaxNum;      // FAX
     private String ceo;
+    private String companyWebsiteUrl; // 웹사이트
 
     public ClientUserDetail() {
     }
@@ -32,6 +33,7 @@ public class ClientUserDetail {
         this.companyPhoneNumber = companyPhoneNumber;
         this.companyFaxNum = companyFaxNum;
         this.ceo = ceo;
+        this.companyWebsiteUrl = companyWebsiteUrl;
     }
 
     public String getCeo() {
@@ -128,5 +130,13 @@ public class ClientUserDetail {
 
     public void setCompanyFaxNum(String companyFaxNum) {
         this.companyFaxNum = companyFaxNum;
+    }
+
+    public String getCompanyWebsiteUrl() {
+        return companyWebsiteUrl;
+    }
+
+    public void setCompanyWebsiteUrl(String companyWebsiteUrl) {
+        this.companyWebsiteUrl = companyWebsiteUrl;
     }
 }

@@ -7,8 +7,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>알림 설정</title>
-    <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
-    <link rel="stylesheet" href="${contextPath}/css/alarm_settings.css" />
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+    <link rel="stylesheet" href="${contextPath}/css/client/alarm_settings.css" />
 </head>
 <body>
 <div class="layout">

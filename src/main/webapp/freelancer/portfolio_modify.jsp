@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up 포트폴리오 수정</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
     <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
 
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">

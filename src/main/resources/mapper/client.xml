@@ -29,4 +29,54 @@
 
     </select>
 
+<!--    구인자 마이페이지 프로필설정 조회-->
+    <select id="selectClientProfile" parameterType="String" resultType="map">
+#     parameter는 userId (String type)
+            SELECT u.name,
+                   u.user_id,
+                   u.email,
+                   u.phone_num,
+                   c.company_name,
+                   c.company_website_url,
+                   c.founded_date,
+                   c.company_reg_no,
+                   c.company_description,
+                   c.company_fax_num
+                FROM user u JOIN client c
+            ON u.user_id = c.client_id
+            WHERE u.user_id = #{userId}
+    </select>
+
+    <!--    구인자 마이페이지 프로필설정 수정-->
+<!--    update라 결과반환 하지 않으므로 resultType 없음 (몇행이 수정됐는지 정수만 DAO로 리턴됨)  -->
+    <update id="updateClientProfile" parameterType="dto.ClientProfile">
+        UPDATE user u
+        JOIN client c ON u.user_id = c.client_id
+        SET
+            u.name = #{info.name},
+            u.email = #{info.email},
+            u.phone_num = #{info.phoneNumber},
+
+            c.company_name = #{detail.name},
+            c.company_website_url = #{detail.companyWebsiteUrl},
+            c.founded_date = #{detail.registrationDate},
+            c.company_reg_no = #{detail.companyRegNo},
+            c.company_phone_number = #{detail.companyPhoneNumber},
+            c.company_fax_num = #{detail.companyFaxNum},
+            c.company_description = #{detail.companyDescription}
+        WHERE u.user_id = #{info.userId}
+    </update>
+
+<!--    비밀번호 조회-->
+    <select id="getPasswordByUserId" parameterType="String" resultType="String">
+        SELECT password FROM user WHERE user_id = #{userId}
+    </select>
+
+<!--    비밀번호 변경-->
+    <update id="updatePassword" parameterType="map">
+        UPDATE user
+        SET password = #{newPassword}
+        WHERE user_id = #{userId}
+    </update>
+
 </mapper>

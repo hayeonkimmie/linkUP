@@ -8,9 +8,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>리뷰 내역</title>
-  <link rel="stylesheet" href="${contextPath}/css/style.css" />
-  <link rel="stylesheet" href="${contextPath}/css/headerSt.css" />
-  <link rel="stylesheet" href="${contextPath}/css/reviewMgt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
+  <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/client/reviewMgt.css" />
 </head>
 <body>
   <%-- 공통 헤더 (선택) --%>

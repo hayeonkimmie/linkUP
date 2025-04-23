@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio.css'/>">
 --%>
-    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
     <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio_write_and_modify.css'/>">
