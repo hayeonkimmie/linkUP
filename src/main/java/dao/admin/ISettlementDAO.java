@@ -2,7 +2,9 @@ package dao.admin;
 
 import dto.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,5 +21,17 @@ public interface ISettlementDAO {
 
     void insertSettlement(Settlement settlement) throws SQLException;
 
-    Integer getMaxCntByContractId(String id) throws SQLException;
+    Integer getMaxCntByProjectId(Integer projectId) throws SQLException;
+
+    Date selectLatestSettleDateByProjectId(Integer contractId) throws SQLException;
+
+    Settlelist selectSettlelistByDateAndProject(int projectId, Date settleDate) throws SQLException;
+
+    Settlelist selectSettlelistByProjectIdAndDate(int projectId, Date settleDate);
+
+    boolean existsSettlementBySlistIdAndsettleDate(int slistId, Date settleDate) throws Exception;
+
+    Settlelist selectAnySettlelistByProjectIdAndDate(int projectId, Date settleDate) throws Exception;
+
+
 }

@@ -9,12 +9,15 @@ package controller.admin;
 import com.google.gson.Gson;
 import dao.admin.*;
 import dto.*;
+import service.admin.ISettlementService;
+import service.admin.SettlementService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,8 +42,6 @@ public class SettlementController extends HttpServlet {
             if (contractIdParam != null) {
                 // 👉 정산내역 페이지 (settlement_info.jsp)
                 int contractId = Integer.parseInt(contractIdParam);
-
-
                 request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
             } else if (slistIdParam != null) {
                 // 👉 정산하기 페이지 (settlement_detail.jsp)
@@ -49,6 +50,7 @@ public class SettlementController extends HttpServlet {
                 int totalAmount = 0;
                 List<AdminSettleTarget> targetList = settlementDAO.selectFreelancersForSettlement(projectId, cnt);
                 for (AdminSettleTarget t : targetList) {
+                    System.out.println("Target : " + t);
                     totalAmount += t.getTotalPay();
                 }
                 projectList = request.getSession().getAttribute("projectList") != null ?
@@ -64,6 +66,9 @@ public class SettlementController extends HttpServlet {
             } else {
                 // 👉 기본 목록 페이지 (settlement.jsp)
                 projectList = settlementDAO.selectProjectsForSettlement();
+                for(AdminProject project : projectList.values()) {
+                    System.out.println(project);
+                }
                 request.setAttribute("projectList", projectList);
                 request.getSession().setAttribute("projectList", projectList);
                 request.getRequestDispatcher("/admin/settlement.jsp").forward(request, response);
@@ -77,62 +82,28 @@ public class SettlementController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+
         IContractDAO contractDAO = new ContractDAO();
         IProjectDAO projectDAO = new ProjectDAO();
         ISettlementDAO settlementDAO = new SettlementDAO();
-
+        SettlementService settlementService = new SettlementService(contractDAO, projectDAO, settlementDAO);
         Integer projectId = Integer.valueOf(request.getParameter("projectId"));
         String jsonData = request.getParameter("jsonData");
-
         Gson gson = new Gson();
+
         try {
             PrepareSettleJson[] item = gson.fromJson(jsonData, PrepareSettleJson[].class);
-            PrepareSettleJson psJson = (PrepareSettleJson) item[0];
-            AdminPrepareSettle prepareSettle = contractDAO.selectInfoForSettleById(item[0].getId());
-            AdminProjectDetail project = projectDAO.selectProjectDetail(projectId);
-            // 정산 회차 만들기
-            int maxCnt = settlementDAO.getMaxCntByContractId(psJson.getId()); // e.g. MyBatis 매퍼 호출
-            int newCnt = maxCnt + 1;
-
-            System.out.println(psJson);
-
-            Settlelist settlelist = new Settlelist(
-                    psJson.getId(), // contractId
-                    Integer.parseInt(prepareSettle.getPosition()),
-                    prepareSettle.getClientId(),
-                    project.getProjectName(),
-                    item[0].getAmount(),
-                    Date.valueOf(item[0].getSettleDate()),
-                    newCnt
-            );
-
-            for (PrepareSettleJson p : item) {
-                AdminPrepareSettle aprepareSettle = contractDAO.selectInfoForSettleById(p.getId());
-
-//                Settlement settlement = new Settlement(
-//                        settlelist.getSlistId(), // 정산 회차 ID (방금 insert된 값)
-//                        Integer.parseInt(aprepareSettle.getPosition()), // categoryId or projectPayId
-//                        aprepareSettle.getClientId(),
-//                        project.getProjectName(),
-//                        p.getAmount(),
-//                        Date.valueOf(p.getStart()),
-//                        Date.valueOf(p.getEnd()),
-//                        Integer.parseInt(request.getParameter("settleDate")), // 전달된 정산일
-//                        aprepareSettle.getPosition(), // 직급명 or 포지션명
-//                        aprepareSettle.getName(), // 이름
-//                        "미지급", // 초기 상태
-//                        ""
-////                        aprepareSettle.getAccount() // 계좌번호 (account 필드가 있다면)
-//                );
-
-//                settlementDAO.insertSettlement(settlement);
+            Settlelist settlelist = settlementService.createSettleList(item[0], projectId);
+            System.out.println("settlelist = " + settlelist);
+            if (settlelist == null) {
+                System.out.println("정산 생성 조건 미충족으로 정산 중단됨");
+                response.sendRedirect("/admin/project");
+                return;
             }
-
-            settlementDAO.createSettlelist(settlelist);
+            settlementService.createSettlement(settlelist, item, projectId);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         response.sendRedirect("/admin/project");
     }
 }

@@ -30,7 +30,6 @@
       <div class="summary-item"><span class="label">이번달 정산 금액</span><span class="value"><fmt:formatNumber value="${totalAmount}" type="number" pattern="#,##0원" /></span></div>
       <div class="summary-item"><span class="label">프로젝트 기간</span><span class="value">${project.projectDuration}</span></div>
       <div class="summary-item"><span class="label">총 참여 인원</span><span class="value">${fn:length(targetList)}명</span></div>
-      <div class="summary-item"><span class="label">프로젝트 정산일</span><span class="value">${project.settleDate}일</span></div>
       <div class="summary-item" id="settleDateWrapper" data-settle-date="${project.settleDate}">
         <span class="label">프로젝트 정산일</span><span class="value">${project.settleDate}일</span>
       </div>
@@ -44,8 +43,8 @@
         <tr>
           <th>참여자명</th>
           <th>구분</th>
-          <th>참여 기간</th>
-          <th>전화번호</th>
+          <th>시작일</th>
+          <th>종료일</th>
           <th>입금 계좌</th>
           <th>이번달 정산 금액</th>
           <th>정산 대상</th>
@@ -56,15 +55,12 @@
           <tr>
             <td class="name">${t.freelancerName}</td>
             <td class="category">${t.categoryName}</td>
-            <td>
-              <fmt:formatDate value="${t.startDate}" pattern="yyyy.MM.dd"/> ~
-              <fmt:formatDate value="${t.endDate}" pattern="yyyy.MM.dd"/>
-            </td>
-            <td>${t.fphone}</td>
+            <td><input type="date" class="start-date" value="${t.startDate}" /></td>
+            <td><input type="date" class="end-date" value="${t.endDate}" /></td>
             <td>${t.account}</td>
-            <td class="amount" data-id="${t.id}" data-fid="${t.freelancerId}"  data-name="${t.freelancerName}"
-                data-amount="${t.totalPay}" data-start="${t.startDate}" data-end="${t.endDate}"
-                data-category="${t.categoryName}">
+            <td class="amount"
+                data-id="${t.id}" data-fid="${t.freelancerId}" data-name="${t.freelancerName}" data-account="${t.account}"
+                data-amount="${t.totalPay}" data-category="${t.categoryName}">
               <fmt:formatNumber value="${t.totalPay}" type="number" pattern="#,##0원"/>
             </td>
             <td><input type="checkbox" class="settle-checkbox" value="${t.id}"></td>
@@ -72,6 +68,7 @@
         </c:forEach>
         </tbody>
       </table>
+
     </div>
 
     <div class="total-footer">

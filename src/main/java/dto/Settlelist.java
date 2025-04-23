@@ -6,6 +6,7 @@ public class Settlelist {
     int slistId;
     String contractId;
     int projectPayId;
+    Integer projectId;
     String clientId;
     String pname;
     int ammount;
@@ -16,9 +17,10 @@ public class Settlelist {
         super();
     }
 
-    public Settlelist(String contractId, int projectPayId, String clientId, String pname, int ammount, Date settleDate, int cnt) {
+    public Settlelist(String contractId, int projectPayId, Integer projectId, String clientId, String pname, int ammount, Date settleDate, int cnt) {
         this.contractId = contractId;
         this.projectPayId = projectPayId;
+        this.projectId = projectId;
         this.clientId = clientId;
         this.pname = pname;
         this.ammount = ammount;
@@ -88,5 +90,28 @@ public class Settlelist {
 
     public void setCnt(int cnt) {
         this.cnt = cnt;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    @Override
+    public String toString() {
+        return "Settlelist{" +
+                "slistId=" + slistId +
+                ", contractId='" + contractId + '\'' +
+                ", projectPayId=" + projectPayId +
+                ", projectId=" + projectId +
+                ", clientId='" + clientId + '\'' +
+                ", pname='" + pname + '\'' +
+                ", ammount=" + ammount +
+                ", settleDate=" + settleDate +
+                ", cnt=" + cnt +
+                '}';
     }
 }

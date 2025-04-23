@@ -1,19 +1,43 @@
 package dto;
 
+import java.sql.Date;
+
 public class AdminPrepareSettle {
     private String id;
     private String clientId;
     private String position;
     private String name;
+    private Date settleDay;
+    private Date startDate;
+    private Date endDate;
 
     public AdminPrepareSettle() {
     }
 
-    public AdminPrepareSettle(String id, String clientId, String position, String name) {
+    public AdminPrepareSettle(String id, String clientId, String position, String name, Date settleDay, Date startDate, Date endDate) {
         this.id = id;
         this.clientId = clientId;
         this.position = position;
         this.name = name;
+        this.settleDay = settleDay;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getId() {
@@ -56,5 +80,13 @@ public class AdminPrepareSettle {
                 ", position='" + position + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public Date getSettleDay() {
+        return settleDay;
+    }
+
+    public void setSettleDay(Date settleDay) {
+        this.settleDay = settleDay;
     }
 }

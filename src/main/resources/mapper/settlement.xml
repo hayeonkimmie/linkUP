@@ -4,7 +4,7 @@
 
 <mapper namespace="mapper.settlement">
     <!-- 4. 정산 내역 테이블 등록 -->
-    <insert id="insertSettlement" parameterType="dto.Settlement">
+    <insert id="insertSettlement" parameterType="dto.Settlement" useGeneratedKeys="true">
         INSERT INTO settlement (
             slist_id,
             category_id,
@@ -34,6 +34,20 @@
                  )
     </insert>
 
+    <select id="countSettlementsByProjectAndDate" parameterType="Map" resultType="int">
+        SELECT COUNT(*)
+        FROM settlement s
+                 JOIN settlelist sl ON s.slist_id = sl.slist_id
+        WHERE sl.project_id = #{projectId}
+          AND sl.settle_date = #{settleDate}
+    </select>
+
+    <select id="existsSettlementBySlistIdAndsettleDate" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM settlement
+        WHERE slist_id = #{slistId}
+          AND settleday = #{settleDate}
+    </select>
 
 
 </mapper>

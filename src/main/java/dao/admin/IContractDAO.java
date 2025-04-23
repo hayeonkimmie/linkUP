@@ -7,4 +7,5 @@ import java.util.HashMap;
 public interface IContractDAO {
     HashMap<String, AdminPrepareSettle> selectInfoForSettle(String id) throws Exception;
     AdminPrepareSettle selectInfoForSettleById(String id) throws Exception;
+    Integer countContractsByProjectId(int projectId) throws Exception;
 }

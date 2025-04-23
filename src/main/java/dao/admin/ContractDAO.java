@@ -22,6 +22,11 @@ public class ContractDAO implements IContractDAO{
     }
 
     @Override
+    public Integer countContractsByProjectId(int projectId) {
+        return sqlSession.selectOne("mapper.contract.countContractsByProjectId", projectId);
+    }
+
+    @Override
     public AdminPrepareSettle selectInfoForSettleById(String id) throws Exception {
         return sqlSession.selectOne("mapper.contract.selectInfoForSettleById", id);
     }

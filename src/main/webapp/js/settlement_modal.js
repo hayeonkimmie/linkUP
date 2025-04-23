@@ -10,13 +10,18 @@ function openSettlementModal() {
   checked.forEach(cb => {
     const row = cb.closest("tr");
     const amountEl = row.querySelector(".amount");
+    const startDate = row.querySelector(".start-date").value;
+    const endDate = row.querySelector(".end-date").value;
     const data = {
       id: amountEl.dataset.id,
       fid: amountEl.dataset.fid, // freelancer_id
       name: amountEl.dataset.name,
       category: amountEl.dataset.category,
       amount: amountEl.dataset.amount,
-      settleDate: settleDate
+      settleDate: settleDate,
+      account: amountEl.dataset.amount,
+      start: startDate,
+      end: endDate
     };
 
     jsonList.push(data);
