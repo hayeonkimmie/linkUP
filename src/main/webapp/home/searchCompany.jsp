@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <title>회사 검색 결과</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/search.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home/search.css" />
 </head>
 <body>
 

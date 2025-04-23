@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>회원가입 - 구인자</title>
-  <link rel="stylesheet" href="${contextPath}/css/createAccRecruiter.css" />
+  <link rel="stylesheet" href="${contextPath}/css/home/createAccRecruiter.css" />
 </head>
 <body>
 

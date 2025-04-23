@@ -15,4 +15,5 @@ public interface IFreelancerService {
     void deleteCareer(String freelancerId) throws Exception;
     List<Career> selectCareerListById (String freelancerId) throws Exception;
     Map<Integer, String> selectAllportfolioInfoMap(String userId) throws Exception;
+
 }

@@ -14,7 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Link up 회원가입</title>
-    <link rel="stylesheet" href="${contextPath}/css/createAcc.css">
+    <link rel="stylesheet" href="${contextPath}/css/home/createAcc.css">
 </head>
 
 <body>

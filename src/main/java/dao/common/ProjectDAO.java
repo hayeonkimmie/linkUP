@@ -8,10 +8,23 @@ import java.util.List;
 import java.util.Map;
 
 public class ProjectDAO implements IProjectDAO {
-    private SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
     @Override
     public List<Project> MainProjectsByCategory(String category) {
-        return sqlSession.selectList("mapper.project.MainProjectsByCategory", category);
+        try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            return sqlSession.selectList("mapper.project.MainProjectsByCategory", category);
+        }
+    }
+    @Override
+    public List<Project> catalogProjectByCategory(String category) {
+        try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            return sqlSession.selectList("mapper.project.catalogProjectByCategory", category);
+        }
+    }
+    @Override
+    public List<Project> searchProjectsByCategoryAndKeyword(Map<String, String> param) {
+        try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            return sqlSession.selectList("mapper.project.searchProjectsByCategoryAndKeyword", param);
+        }
     }
 }

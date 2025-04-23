@@ -46,6 +46,16 @@ public class Freelancer {
     double averageScore; //평점
     int projectCount; //프로젝트 수
 
+    private double avgStar; // ⭐ 평균 별점
+
+    public double getAvgStar() {
+        return avgStar;
+    }
+
+    public void setAvgStar(double avgStar) {
+        this.avgStar = avgStar;
+    }
+
     public Freelancer() {
         super();
     }

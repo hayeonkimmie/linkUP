@@ -98,7 +98,7 @@ color: white !important;
 }
 
 .section-wrapper {
-  background-color: #ece5ee; /* 배경색만 전체로 */
+  background-color: #f8f8f8; /* 배경색만 전체로 */
   padding: 2rem 0; /* 위아래 여백 (선택사항) */
 }
 
@@ -218,7 +218,7 @@ a{
   cursor: pointer;
 }
 .card {
-  background-color: #98498b;
+  background-color: #5e455a;
   border-radius: 30px;
   width: 250px;
   height: 300px;
@@ -237,7 +237,7 @@ a{
   color: #ffffff;
   padding: 10px 5px;
   font-size: 0.9rem;
-  background-color: #98498b; /* 텍스트 영역 색상 고정 */
+  background-color: #5e455a; /* 텍스트 영역 색상 고정 */
   flex-grow: 1;
   display: flex;
   flex-direction: column;

@@ -51,6 +51,7 @@
     </environments>
 
     <mappers>
+        <mapper resource="mapper/categoryMenuMapper.xml"/>
         <mapper resource="mapper/user.xml"/>
         <mapper resource="mapper/client.xml"/>
         <mapper resource="mapper/project.xml"/>

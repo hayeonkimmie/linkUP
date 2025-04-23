@@ -26,9 +26,9 @@ public class MainLoginVersionController extends HttpServlet {
         System.out.println("MainLoginVersionController 들어옴!");
 
         // 카테고리별 프로젝트 리스트 가져오기
-        List<Project> devProjects = projectService.MainProjectsByCategory("개발");
-        List<Project> designProjects = projectService.MainProjectsByCategory("디자인");
-        List<Project> planProjects = projectService.MainProjectsByCategory("기획");
+        List<Project> devProjects = projectService.MainProjectsByCategory("웹 제작");
+        List<Project> designProjects = projectService.MainProjectsByCategory("웹 유지보수");
+        List<Project> planProjects = projectService.MainProjectsByCategory("프로그램");
 
         // 각각 따로 request에 담기
         request.setAttribute("devProjects", devProjects);

@@ -15,7 +15,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항 목록 - LinkUp</title>
-  <link rel="stylesheet" href="${contextPath}/css/noticeList.css">
+  <link rel="stylesheet" href="${contextPath}/css/home/noticeList.css">
 </head>
 <body>
 <div class="container">

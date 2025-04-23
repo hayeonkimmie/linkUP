@@ -13,7 +13,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Link up 회원가입</title>
-  <link rel="stylesheet" href="${contextPath}/css/createAccChoose.css">
+  <link rel="stylesheet" href="${contextPath}/css/home/createAccChoose.css">
 </head>
 <body>
 <div class="container">

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.categoryMenuMapper">
+
+    <!-- 🟩 대분류 전체 조회 -->
+    <select id="selectAllCategories" resultType="dto.Category">
+        SELECT
+            category_id AS categoryId,
+            category_name AS categoryName
+        FROM category
+        ORDER BY category_id ASC
+    </select>
+
+    <!-- 🟦 소분류 전체 조회 (category_name 포함) -->
+    <select id="selectAllSubCategories" resultType="dto.SubCategory">
+        SELECT
+            sc.sub_category_id AS subCategoryId,
+            sc.category_id      AS categoryId,
+            c.category_name     AS categoryName,
+            sc.sub_category_name AS subCategoryName
+        FROM sub_category sc
+                 JOIN category c ON sc.category_id = c.category_id
+        ORDER BY sc.category_id ASC, sc.sub_category_id ASC
+    </select>
+
+</mapper>
