@@ -12,4 +12,5 @@ public interface IProjectService {
     List<DashboardProject> getDashboardProjectList() throws Exception;
     Integer selectProjectCnt(String userId) throws Exception;
     List<Project> selectProjectListByPage(PageInfo pageInfo, String userId) throws Exception;
+    List<Project> MainProjectsByCategory(String category);
 }

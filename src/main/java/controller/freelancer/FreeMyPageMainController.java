@@ -31,9 +31,9 @@ public class FreeMyPageMainController extends HttpServlet {
         List<JjimProj> jjimProjList;
 
         try{
-            Integer jjimProjCnt = service.selectJjimProjCnt(freelancerId);
-            if (jjimProjCnt != 0 || jjimProjCnt != null ) {
-                jjimProjList = service.selectJjimProjListForMain(freelancerId);
+            Integer jjimProjCnt = service.selectJjimProjCnt(id);
+            if (jjimProjCnt > 0) {
+                jjimProjList = service.selectJjimProjListForMain(id);
                 System.out.println("JJimProjList 서블릿 47 JJimProjList = " + jjimProjList);
                 request.setAttribute("jjimProjList", jjimProjList);
             } else if (jjimProjCnt == 0 || jjimProjCnt == null){

@@ -23,7 +23,6 @@
       <a href="${contextPath}/home/main.jsp" class="header-logo">
         <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
       </a>
-      <input type="text" class="header-search-bar" placeholder="어떤 전문가를 찾고 계신가요" />
     </div>
   </div>
 
@@ -31,7 +30,7 @@
     <nav class="header-category-nav">
       <ul>
         <li class="header-dropdown">
-          <a href="#" class="header-dropdown-toggle">웹제작</a>
+          <a href="${contextPath}/home/catalog.jsp" class="header-dropdown-toggle">웹제작</a>
           <ul class="header-dropdown-menu">
             <li><a href="${contextPath}/home/catalogWebProduction.jsp">홈페이지 신규 제작</a></li>
             <li><a href="#">쇼핑몰 신규 제작</a></li>

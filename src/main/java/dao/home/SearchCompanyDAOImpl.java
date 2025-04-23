@@ -7,13 +7,14 @@ import util.MybatisSqlSessionFactory;
 import java.util.List;
 
 public class SearchCompanyDAOImpl implements ISearchCompanyDAO {
-    SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
     @Override
     public List<Client> searchCompanyByName(String keyword) throws Exception {
+        // ✅ 메소드 안에서 열기
+        SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
         try {
             return sqlSession.selectList("mapper.client.searchCompanyByName", keyword);
         } finally {
-            sqlSession.close();
+            sqlSession.close(); // ✅ 메소드 끝날 때 닫기
         }
     }
 }

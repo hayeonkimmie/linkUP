@@ -13,4 +13,52 @@
         FROM project
         WHERE status = '진행중'
     </select>-->
+
+    <select id="MainProjectsByCategory" resultType="dto.Project" parameterType="String">
+        SELECT
+        p.project_name,
+        p.client_id,
+        p.category,
+        p.advertisement_title,
+        COALESCE(AVG(r.star), 0) AS avg_star,
+        u.profile_img  <!-- profile_img 추가 -->
+
+        FROM
+        project p
+        LEFT JOIN review r ON p.client_id = r.r_user_id
+        LEFT JOIN user u ON p.client_id = u.user_id  <!-- user 테이블 조인 추가 -->
+        WHERE
+        p.category = #{category}
+        GROUP BY
+        p.project_id
+        ORDER BY
+        RAND()
+        LIMIT 3
+    </select>
+
+<!--    <select id="MainProjectsByCategory" resultType="dto.Project" parameterType="String">-->
+<!--        SELECT-->
+<!--            p.project_name,-->
+<!--            p.client_id,-->
+<!--            p.category,-->
+<!--            p.advertisement_title,-->
+
+<!--            COALESCE(AVG(r.star), 0) AS avg_star-->
+<!--        FROM-->
+<!--            project p-->
+<!--                LEFT JOIN-->
+<!--            review r-->
+<!--            ON-->
+<!--                p.client_id = r.r_user_id-->
+<!--        WHERE-->
+<!--            p.category = #{category}-->
+<!--        GROUP BY-->
+<!--            p.project_id-->
+<!--        ORDER BY-->
+<!--            RAND()-->
+<!--            LIMIT 3-->
+<!--    </select>-->
+
+
+
 </mapper>

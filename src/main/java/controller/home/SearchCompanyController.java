@@ -21,8 +21,9 @@ public class SearchCompanyController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String keyword = request.getParameter("keyword");
-
+        System.out.println("검색어 확인: " + keyword);
         try {
             if (keyword == null || keyword.trim().isEmpty()) {
                 // 검색어 없으면 그냥 결과 없음 처리
@@ -39,6 +40,7 @@ public class SearchCompanyController extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException(e);
         }
+
     }
 
     @Override

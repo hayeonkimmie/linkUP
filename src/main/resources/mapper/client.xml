@@ -25,8 +25,7 @@
             company_fax_num,
             ceo
         FROM client
-        WHERE company_name LIKE CONCAT('%', #{keyword}, '%')
-
+        WHERE company_name LIKE CONCAT('%', TRIM(#{keyword}), '%')
     </select>
 
 <!--    구인자 마이페이지 프로필설정 조회-->
