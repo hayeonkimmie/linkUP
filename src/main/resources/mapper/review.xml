@@ -3,9 +3,55 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.review">
-    <insert id="insert_review" parameterType="review">
-        insert review (review_id,project_id,w_user_id,r_user_id,star,comment,create_date)
-        values (#{review_id}, #{project_id},#{w_user_id},#{r_user_id},#{star},#{comment},#{create_date})
-    </insert>
-
+<!--    <insert id="insertReview" parameterType="review">
+        insert review (project_id, w_user_id,r_user_id,star,comment,create_date)
+        values (#{project_id}, #{w_user_id},#{r_user_id},#{star},#{comment}, curdate())
+    </insert>-->
+    <update id="updateReview" parameterType="review">
+        update review
+        set star = #{star},
+            comment = #{comment}
+        where review_id = #{reviewId} and w_user_id = #{freelancerId}
+    </update>
+    <select id="selectReceiveReviewByFreelancerId" parameterType="Map" resultType="review">
+        select r.*, CONCAT('(',u.name, ') ', c.company_name) as wUserInfo, u.profile_img as wUserProfileImg, p.project_name
+        from review r
+            join user u on r.w_user_id = u.user_id
+            join project p on r.project_id = p.project_id
+            join client c on c.client_id = u.user_id
+        where r_user_id = #{freelancerId}
+        order by create_date desc, review_id desc
+        limit #{row}, 10
+    </select>
+    <select id="selectWrittenReviewByFreelancerId" parameterType="Map" resultType="review">
+        SELECT
+            r.*,
+            CONCAT('(',u.name, ') ', c.company_name) AS rUserInfo,
+            u.profile_img AS rUserProfileImg,
+            p.project_name
+        FROM review r
+                 JOIN user u ON r.r_user_id = u.user_id
+                 JOIN project p ON r.project_id = p.project_id
+                 JOIN client c ON c.client_id = u.user_id
+        WHERE r.w_user_id = #{freelancerId}
+        ORDER BY r.create_date DESC, r.review_id DESC
+        limit #{row}, 10
+    </select>
+    <select id="selectWrittenReviewsCnt" parameterType="String" resultType="Integer">
+        select count(*)
+        from review
+        where w_user_id = #{userId}
+    </select>
+    <select id="selectReceivedReviewCnt" parameterType="String" resultType="Integer">
+        select count(*)
+        from review
+        where r_user_id = #{userId}
+    </select>
+    <update id="deleteReviewByReviewId" parameterType="Integer">
+        delete from review where review_id = #{reviewId}
+    </update>
+    <select id="isReviewWriter" parameterType="Map"  resultType="Integer">
+        select count(*) from review
+        where review_id = #{reviewId} and w_user_id = #{freelancerId}
+    </select>
 </mapper>

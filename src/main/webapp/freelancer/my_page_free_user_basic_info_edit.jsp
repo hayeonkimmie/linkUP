@@ -7,8 +7,8 @@
     <title>Link up Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page_info_edit.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_info_edit.css'/>">
     <script src="${contextPath}/js/freelancer_my_page_info_edit.js"></script>
 
 </head>

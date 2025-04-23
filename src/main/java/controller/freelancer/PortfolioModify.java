@@ -28,27 +28,30 @@ public class PortfolioModify extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String userId = (String) request.getAttribute("userId");
-        userId = "free002"; //로그인 기능이 구현된 이후에는 빼기
-        if (userId == null) {
+        String freelancerId = (String) request.getSession().getAttribute("userId");
+        freelancerId = "free002"; //로그인 기능이 구현된 이후에는 빼기
+        if (freelancerId == null) {
             request.setAttribute("err", "로그인 후 이용해주세요.");
             request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
         }
         Integer portfolioId = Integer.parseInt(request.getParameter("id"));
         System.out.println("portfolioId: " + portfolioId);
-        if (portfolioId == null) {
-            request.setAttribute("err", "포트폴리오 ID가 없습니다.");
-            request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
-        } else {
-            IPortfolioService service = new PortfolioService();
-            try {
-                Map<Integer, String> projectInfoMap = service.projectInfoForPortfolio(userId);
+        IPortfolioService service = new PortfolioService();
+        try {
+            if (portfolioId == null) {
+                request.setAttribute("err", "포트폴리오 ID가 없습니다.");
+                request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
+            } else if(!service.isPortfolioOwner(freelancerId, portfolioId)) {
+                request.setAttribute("err", "본인이 작성하지 않은 포트폴리오를 수정할 수 없습니다.");
+                request.getRequestDispatcher("/freelancer/portfolio_list.jsp").forward(request, response);
+            } else {
+                Map<Integer, String> projectInfoMap = service.projectInfoForPortfolio(freelancerId);
                 Portfolio portfolio = service.selectPortfolioById(portfolioId);
                 request.setAttribute("projectInfoMap", projectInfoMap);
                 request.setAttribute("portfolio", portfolio);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         /* Map<Integer, String> projectInfoMap = service.projectInfoForProtfolio(userId);*/
         request.getRequestDispatcher("/freelancer/portfolio_modify.jsp").forward(request, response);

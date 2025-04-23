@@ -12,5 +12,5 @@ public interface IPortfolioDAO {
     public Map<Integer, String> projectInfoForPortfolio(String userId) throws Exception;
     public Integer writePortfolio(Portfolio portfolio) throws Exception;
     public void modifyPortfolio(Portfolio portfolio) throws Exception;
-
+    public boolean isPortfolioOwner (String userId, Integer portfolioId) throws Exception;
 }

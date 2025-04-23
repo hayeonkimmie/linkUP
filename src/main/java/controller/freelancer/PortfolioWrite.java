@@ -33,15 +33,15 @@ public class PortfolioWrite extends HttpServlet {
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String userId = (String) request.getAttribute("userId");
-        userId = "free002"; //로그인 기능이 구현된 이후에는 빼기
-        if(userId == null) {
+        String freelancerId = (String) request.getSession().getAttribute("userId");
+        freelancerId = "free002"; //로그인 기능이 구현된 이후에는 빼기
+        if(freelancerId == null) {
             request.setAttribute("err", "로그인 후 이용해주세요.");
             request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
         }
         IPortfolioService service = new PortfolioService();
         try {
-            Map<Integer, String> projectInfoMap = service.projectInfoForPortfolio(userId);
+            Map<Integer, String> projectInfoMap = service.projectInfoForPortfolio(freelancerId);
             System.out.println(projectInfoMap.toString());
             if (projectInfoMap != null) {
                 request.setAttribute("projectInfoMap", projectInfoMap);
@@ -56,7 +56,7 @@ public class PortfolioWrite extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String freelancerId = (String) request.getAttribute("userId");
+        String freelancerId = (String) request.getSession().getAttribute("userId");
         freelancerId = "free002"; //로그인 기능이 구현된 이후에는 빼기
         String path = request.getServletContext().getRealPath("upload"); // 업로드 폴더의 물리적 경로 가져오기
         System.out.println("파일 저장경로: = " + path);

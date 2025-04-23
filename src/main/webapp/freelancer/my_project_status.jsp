@@ -7,15 +7,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_get_my_proj.css'/>">
-    <script src="/../js/freelancer_my_get_my_proj.js"></script>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_get_my_proj.css'/>">
+    <script src="${contextPath}/js/freelancer_my_get_my_proj.js"></script>
 </head>
 <body>
 
@@ -32,12 +33,12 @@
         <div class="main-content">
             <div>
                 <h2>내 프로젝트 현황</h2>
-                <p>지원한 프로젝트 목록을 확인하세요</p>
+                <p>진행중인 / 완료된 프로젝트 목록을 확인하세요</p>
             </div>
 
             <div class="tabs">
-                <div class="tab active" onclick="switchTab('ongoing')">진행중인 프로젝트 <span>(2)</span></div>
-                <div class="tab" onclick="switchTab('completed')">완료된 프로젝트 <span>(2)</span></div>
+                <div class="tab active" onclick="switchTab('ongoing')">진행중인 프로젝트 <span>(${goingProjCnt})</span></div>
+                <div class="tab" onclick="switchTab('completed')">완료된 프로젝트 <span>(${completedProjCnt})</span></div>
             </div>
 
             <!--진행중인 프로젝트-->
@@ -50,61 +51,116 @@
                         <th>기간</th>
                         <th>예산</th>
                         <th>요구사항</th>
+                        <th>작업방식</th>
                         <th>마감일</th>
+                        <th>정산 내역 확인하기</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="clickable" onclick="toggleDetails(this)">
-                        <td>반응형 웹사이트 리디자인</td>
-                        <td>UI/UX 디자인</td>
-                        <td>2개월</td>
-                        <td>800만원</td>
-                        <td>React, TypeScript, 3년 이상</td>
-                        <td>2024년 12월 31일</td>
-                        <td><!-- 예시: 버튼 클릭 시 -->
-                            <button onclick="showSettlementModal(${projectid})">정산 내역 보기</button>
-                        </td>
-                    </tr>
-                    <tr class="accordion-row">
-                        <td colspan="7">프로젝트 소개<br>신규 모바일 앱을 위한 RESTful API 개발 프로젝트입니다.</td>
-                    </tr>
+                        <c:choose>
+                            <c:when test="${empty ongoingProjects}">
+                                <tr>
+                                    <td colspan="8">진행중인 프로젝트가 없습니다.</td>
+                                </tr>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach items="${ongoingProjects}" var="project">
+                                    <tr class="clickable" onclick="toggleDetails(this)">
+                                        <td><a href="${project.projectId}">${project.projectName}</a><br/>${project.clientName}</td>
+                                        <td>${project.categories}</td>
+                                        <td>${project.projectDuration}</td>
+                                        <td>${project.totalBudget}</td>
+                                        <td>${project.reqSkills}, ${project.qualification}</td>
+                                        <td>${project.workingEnvironment}
+                                            <c:if test="${project.workingEnvironment ne '재택'}">(${project.workingMethod})</c:if>| ${project.workingHours}
+                                        </td>
+                                        <td>${project.deadlineDate}</td>
+                                        <td>${project.dDay}</td>
+                                        <td><!-- 예시: 버튼 클릭 시 -->
+                                            <button onclick="showSettlementModal(${project.projectId})">정산 내역 보기</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="accordion-row">
+                                        <td colspan="7">
+                                            <p>프로젝트 소개</p>
+                                            <p>${project.description}</p>
+                                            <p>프로젝트 상세 업무 내용</p>
+                                            <p>${project.jobDetails}</p>
+                                            <hr/>
+                                            <p>프로젝트 담당자 정보</p>
+                                            <p>${project.projectManager}</p>
+                                            <p>${project.managerPhone}</p>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
                     </tbody>
                 </table>
             </div>
             <!--완료된 프로젝트-->
             <div id="completed" class="tab-content" style="display: none;">
                 <table>
-                    <thead>
-                    <tr>
-                        <th>프로젝트 정보</th>
-                        <th>분야</th>
-                        <th>기간</th>
-                        <th>예산</th>
-                        <th>요구사항</th>
-                        <th>마감일</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="clickable" onclick="toggleDetails(this)">
-                        <td>이커머스 플랫폼 구축</td>
-                        <td>풀스택 개발</td>
-                        <td>6개월</td>
-                        <td>5,000만원</td>
-                        <td>React, TypeScript, 3년 이상</td>
-                        <td>2024년 12월 31일</td>
-                        <td><!-- 예시: 버튼 클릭 시 -->
-                            <button onclick="showSettlementModal(${projectid})">정산 내역 보기</button>
-                        </td>
-                    </tr>
-                    <tr class="accordion-row">
-                        <td colspan="7">프로젝트 소개<br> 온라인 쇼핑몰 시스템 전반 구축 프로젝트입니다.</td>
-                    </tr>
-                    </tbody>
+                    <c:choose>
+                        <c:when test="${empty ongoingProjects}">
+                            <tr>
+                                <td colspan="7">진행중인 프로젝트가 없습니다.</td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${completedProjectList}" var="project">
+                                <tr class="clickable" onclick="toggleDetails(this)">
+                                    <td><a href="${project.projectId}">${project.projectName}</a></td>
+                                    <td>${project.field}</td>
+                                    <td>${project.period}</td>
+                                    <td>${project.totalBudget}</td>
+                                    <td>${project.requirements}</td>
+                                    <td>${project.deadline}</td>
+                                    <td><!-- 예시: 버튼 클릭 시 -->
+                                        <button onclick="showSettlementModal(${project.projectId})">정산 내역 보기</button>
+                                    </td>
+                                </tr>
+                                <tr class="accordion-row">
+                                    <td colspan="7">${project.description}</td>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </table>
             </div>
+            <div class="pagination" id="paging">
+                <c:choose>
+                    <c:when test="${pageInfo.curPage > 1}">
+                        <a href="?page=${pageInfo.curPage - 1}">&lt;</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a>&lt;</a>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
+                    <c:choose>
+                        <c:when test="${page eq pageInfo.curPage}">
+                            <a href="?page=${page}" class="select">${page}</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="?page=${page}" class="btn">${page}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <c:choose>
+                    <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+                        <a href="?page=${pageInfo.curPage + 1}">&gt;</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a>&gt;</a>
+                    </c:otherwise>
+                </c:choose>
+            </div> <!-- end of pagination -->
         </div>
     </div>
-    <jsp:include page="/freelancer/settlement_modal.jsp"/>
+<%--    <jsp:include page="/freelancer/settlement_modal.jsp"/>--%>
     <script>
         function showSettlementModal(projectId) {
             fetch(`/settlement?projectId=${projectId}`)
@@ -116,12 +172,12 @@
                     document.getElementById("settlementModal").style.display = "flex";
                 });
         }
-        function openModal() {
+/*        function openModal() {
             document.getElementById('settlementModal').style.display = 'flex';
         }
         function closeModal() {
             document.getElementById('settlementModal').style.display = 'none';
-        }
+        }*/
     </script>
 </body>
 </html>

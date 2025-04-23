@@ -23,8 +23,13 @@ public class FreelancerDAO implements IFreelancerDAO {
             return null;
         }
         if(freelancer.getCategory() != null) {
-            String[] categoryIdsStr = freelancer.getCategory().split("\\^");
-            List<String> categoryNames =  sqlSession.selectList("mapper.selectCategoryNamesBySubIds", categoryIdsStr);
+            String[] categoryIdsStr = freelancer.getCategory().split(",");
+            List<Integer> categoryIds = new ArrayList<>();
+            for (String categoryId : categoryIdsStr) {
+                categoryIds.add(Integer.parseInt(categoryId));
+            }
+            freelancer.setCategoryIdList(categoryIds);
+            List<String> categoryNames =  sqlSession.selectList("mapper.subCategory.selectCategoryNamesBySubIds", categoryIdsStr);
             freelancer.setCategoryList(categoryNames);
         }
         if(freelancer.getSkill() != null) {
@@ -44,6 +49,7 @@ public class FreelancerDAO implements IFreelancerDAO {
         System.out.println("FreelancerDAO 24 + selectExpertFreelancerById "+freelancer);
         return freelancer;
     }
+
     public Map<Integer, String> selectAllportfolioInfoMap(String freelancerId) throws Exception {
         return sqlSession.selectMap("mapper.portfolio.selectAllPortfolioInfoForProfile", freelancerId, "project_id");
     }
@@ -79,6 +85,21 @@ public class FreelancerDAO implements IFreelancerDAO {
         sqlSession.update("mapper.freelancer.updateFreelancerProfile", freelancer);
         sqlSession.commit();
     }
+
+    @Override
+    public List<Integer> selectCategoryIdByFreelancerId(String freelancerId) throws Exception {
+        Freelancer freelancer = sqlSession.selectOne("mapper.freelancer.selectCategoryByFreelancerId", freelancerId);
+        List<Integer> categoryIds = new ArrayList<>();
+        if(freelancer.getCategory() != null) {
+            String[] categoryIdsStr = freelancer.getCategory().split(",");
+            for (String categoryId : categoryIdsStr) {
+                categoryIds.add(Integer.parseInt(categoryId));
+            }
+            freelancer.setCategoryIdList(categoryIds);
+        }
+        return categoryIds;
+    }
+
     @Override
     public void insertCareer(Career career) throws Exception {
         sqlSession.insert("mapper.freelancer.insertCareer", career);

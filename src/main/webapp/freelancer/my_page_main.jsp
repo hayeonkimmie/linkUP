@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up 마이페이지</title>
     <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css' />">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css' />">
 </head>
 <body>
 <div class="header">

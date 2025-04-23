@@ -9,8 +9,8 @@
     <title>문의 내역 - Link up</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page_qna_log.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_qna_log.css'/>">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
 </head>

@@ -93,7 +93,6 @@ public class PortfolioService implements IPortfolioService{
         return portfolio;
     }
     @Override
-
     public Map<Integer, String> projectInfoForPortfolio(String userId) {
         try {
             return iportfolioDAO.projectInfoForPortfolio(userId);
@@ -141,5 +140,8 @@ public class PortfolioService implements IPortfolioService{
             portfolio.setProjectId(p.getProjectId());
         }
         iportfolioDAO.modifyPortfolio(portfolio);
+    }
+    public boolean isPortfolioOwner (String userId, Integer portfolioId) throws Exception {
+        return iportfolioDAO.isPortfolioOwner(userId, portfolioId);
     }
 }

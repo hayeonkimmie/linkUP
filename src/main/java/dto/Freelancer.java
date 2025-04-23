@@ -24,6 +24,7 @@ public class Freelancer {
     String type;
     String category;
     List<String> categoryList;
+    List<Integer> categoryIdList;
     String skill;
     String address;
     List<Academic> academicList;
@@ -51,43 +52,6 @@ public class Freelancer {
 
     public String getType() {
         return type;
-    }
-
-    public Freelancer(String freelancerId, String name, String nickname, String email, String password, String phoneNum, String profileImg, boolean acceptNoti, String token, Date registrationDate, Date withdrawalDate, boolean acceptConsent, String type, String category, List<String> categoryList, String skill, String address, List<Academic> academicList, String academic, String introduction, List<License> licenseList, String license, String bank, String accountNum, boolean isNegotiable, boolean isResident, int desiredSalary, String desiredLocation, String otherRequest, String attachment, String externalUrl, Map<Integer, String> portfolioInfoMap, double averageScore, int projectCount) {
-        this.freelancerId = freelancerId;
-        this.name = name;
-        this.nickname = nickname;
-        this.email = email;
-        this.password = password;
-        this.phoneNum = phoneNum;
-        this.profileImg = profileImg;
-        this.acceptNoti = acceptNoti;
-        this.token = token;
-        this.registrationDate = registrationDate;
-        this.withdrawalDate = withdrawalDate;
-        this.acceptConsent = acceptConsent;
-        this.type = type;
-        this.category = category;
-        this.categoryList = categoryList;
-        this.skill = skill;
-        this.address = address;
-        this.academicList = academicList;
-        this.academic = academic;
-        this.introduction = introduction;
-        this.licenseList = licenseList;
-        this.license = license;
-        this.bank = bank;
-        this.accountNum = accountNum;
-        this.isNegotiable = isNegotiable;
-        this.isResident = isResident;
-        this.desiredSalary = desiredSalary;
-        this.desiredLocation = desiredLocation;
-        this.otherRequest = otherRequest;
-        this.attachment = attachment;
-        this.externalUrl = externalUrl;
-        this.portfolioInfoMap = portfolioInfoMap;
-        this.averageScore = averageScore;
-        this.projectCount = projectCount;
     }
 
     public void setType(String type) {
@@ -196,6 +160,14 @@ public class Freelancer {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public List<Integer> getCategoryIdList() {
+        return categoryIdList;
+    }
+
+    public void setCategoryIdList(List<Integer> categoryIdList) {
+        this.categoryIdList = categoryIdList;
     }
 
     public String getSkill() {
