@@ -2,6 +2,8 @@ package service;
 
 import dao.admin.DashboardProjectDAO;
 import dao.admin.IDashboardProjectDAO;
+import dao.common.IProjectDAO;
+import dao.common.ProjectDAO;
 import dto.DashboardProject;
 import dto.Project;
 import util.PageInfo;
@@ -11,7 +13,7 @@ import java.util.List;
 public class ProjectService implements IProjectService {
 
     private final IDashboardProjectDAO dashboardProjectDAO = new DashboardProjectDAO();
-
+    private final IProjectDAO projectDAO = new ProjectDAO();
     @Override
     public List<DashboardProject> getDashboardProjectList() {
         return dashboardProjectDAO.selectAllOngoingProjects();
@@ -25,5 +27,9 @@ public class ProjectService implements IProjectService {
     @Override
     public List<Project> selectProjectListByPage(PageInfo pageInfo, String userId) throws Exception {
         return null;
+    }
+    @Override
+    public List<Project> MainProjectsByCategory(String category) {
+        return projectDAO.MainProjectsByCategory(category);
     }
 }

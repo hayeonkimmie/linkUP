@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: KOSTA
-  Date: 25. 4. 16.
-  Time: 오전 9:17
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
@@ -19,135 +13,139 @@
     <link rel="stylesheet" href="${contextPath}/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=SUIT&display=swap" rel="stylesheet">
 </head>
+
+<body>
 <header>
     <div>
-        <img src="../img/링크업 로고.png" alt="Link Up 로고" style="height: 40px;" />
+        <img src="${contextPath}/img/링크업 로고.png" alt="Link Up 로고" style="height: 40px;" />
     </div>
     <div class="auth-buttons">
-        <a href="login.jsp" class="login">로그인</a>
-        <a href="createAcc.jsp" class="signup">회원가입</a>
+        <a href="${contextPath}/login" class="login">로그인</a>
+        <a href="${contextPath}/createAcc" class="signup">회원가입</a>
     </div>
 </header>
 
-</br>
+<br/>
 <div class="main-title">사람과 사람을 연결해주는 사이트 <strong>LINK UP!</strong></div>
-</br>
+
+<br/><br/>
+
 <div class="search-box">
-    <div class="search-box">
-        <select id="search-type" class="search-type">
-            <option value="company">회사명</option>
-            <option value="project">구인</option>
-            <option value="expert">구직</option>
-        </select>
-        <input class="search-input" type="text" id="search-keyword" placeholder="검색어를 입력하세요" />
-        <button class="search-button" onclick="handleSearch()">검색</button>
-    </div>
+    <select id="search-type" class="search-type">
+        <option value="company">회사명</option>
+        <option value="project">구인</option>
+        <option value="expert">구직</option>
+    </select>
+    <input class="search-input" type="text" id="search-keyword" placeholder="검색어를 입력하세요" />
+    <button class="search-button" onclick="handleSearch()">검색</button>
 </div>
-</br>
-</br>
-</br>
+
+<br/><br/><br/>
+
 <div class="categories">
     <div class="category-item">
         <a href="${contextPath}/home/catalog.jsp">
-            <img src="../img/웹제작.png" alt="웹제작" />
+            <img src="${contextPath}/img/webDesign.png" alt="웹제작" />
             <div class="category-label">웹제작</div>
         </a>
     </div>
     <div class="category-item">
-        <img src="../img/유지보수.png" alt="유지보수" />
+        <img src="${contextPath}/img/maintenance.png" alt="유지보수" />
         <div class="category-label">유지보수</div>
     </div>
     <div class="category-item">
-        <img src="c:\Users\KOSTA\Downloads\design-tools_11933683.png" alt="프로그램" />
+        <img src="${contextPath}/img/program.png" alt="프로그램" />
         <div class="category-label">프로그램</div>
     </div>
     <div class="category-item">
-        <img src="c:\Users\KOSTA\Downloads\design-tools_11933683.png" alt="모바일" />
+        <img src="${contextPath}/img/mobile.png" alt="모바일" />
         <div class="category-label">모바일</div>
     </div>
     <div class="category-item">
-        <img src="c:\Users\KOSTA\Downloads\design-tools_11933683.png" alt="Ai" />
+        <img src="${contextPath}/img/ai.png" alt="Ai" />
         <div class="category-label">Ai</div>
     </div>
     <div class="category-item">
-        <img src="c:\Users\KOSTA\Downloads\design-tools_11933683.png" alt="데이터" />
+        <img src="${contextPath}/img/data.png" alt="데이터" />
         <div class="category-label">데이터</div>
     </div>
     <div class="category-item">
-        <img src="c:\Users\KOSTA\Downloads\design-tools_11933683.png" alt="트렌드" />
+        <img src="${contextPath}/img/trend.png" alt="트렌드" />
         <div class="category-label">트렌드</div>
     </div>
     <div class="category-item">
-        <img src="c:\Users\KOSTA\Downloads\design-tools_11933683.png" alt="직무직군" />
+        <img src="${contextPath}/img/developer.png" alt="직무직군" />
         <div class="category-label">직무직군</div>
     </div>
 </div>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+<br/><br/><br/><br/><br/><br/>
+<div class="section-wrapper">
 <div class="section">
-    </br>
-    </br>
+
+    <!-- 개발 섹션 -->
     <div class="section-row">
         <div class="section-title">
-            <a href="catalog2.html">
-                <div class="title-text">IT - FrontEnd</div>
-                <button class="arrow-button">→</button>
-            </a>
+            <div class="title-text">개발</div>
         </div>
+
         <div class="cards">
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
+            <c:forEach var="project" items="${devProjects}">
+                <div class="card">
+                    <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
+                    <div class="card-text">
+                        <strong>${project.projectName}</strong><br/>
+                        ★ <fmt:formatNumber value="${project.avgStar}" pattern="#.##" /><br/>
+                            ${project.clientId}
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
+
+    <!-- 디자인 섹션 -->
     <div class="section-row">
         <div class="section-title">
-            <div class="title-text">IT - BackEnd</div>
-            <button class="arrow-button">→</button>
+            <div class="title-text">디자인</div>
         </div>
+
         <div class="cards">
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
+            <c:forEach var="project" items="${designProjects}">
+                <div class="card">
+                    <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
+                    <div class="card-text">
+                        <strong>${project.projectName}</strong><br/>
+                        ★ ${project.avgStar}<br/>
+                            ${project.clientId}
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
+
+    <!-- 기획 섹션 -->
     <div class="section-row">
         <div class="section-title">
-            <div class="title-text">IT - App</div>
-            <button class="arrow-button">→</button>
+            <div class="title-text">기획</div>
         </div>
+
         <div class="cards">
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
-            <div class="card">
-                <div class="card-text">입고 알기쉬는 그래피티 디자인 제작해드립니다.<br><br>★ 4.3 (154)<br>33,000원<br>starbbung</div>
-            </div>
+            <c:forEach var="project" items="${planProjects}">
+                <div class="card">
+                    <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
+                    <div class="card-text">
+                        <strong>${project.projectName}</strong><br/>
+                        ★ <fmt:formatNumber value="${project.avgStar}" pattern="#.##" /><br/>
+                            ${project.clientId}
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>
-</br>
-</br>
-</br>
+</div>
+<br/><br/><br/>
+
 <script>
     const contextPath = "${contextPath}";
 
@@ -161,8 +159,9 @@
         }
 
         if (searchType === "company") {
-            // 회사명 검색 → 컨트롤러로 GET 요청
-            location.href = `${contextPath}/SearchCompany?keyword=${keyword}`;
+            const url = `${contextPath}/SearchCompany?keyword=${keyword}` + keyword;
+            console.log("넘어가는 url: " + url); // ✅ 이거 찍어서 URL 제대로 찍히는지 확인
+            location.href = url;
         } else {
             alert("해당 검색 유형은 아직 준비 중입니다!");
         }
@@ -170,5 +169,4 @@
 </script>
 
 </body>
-
 </html>

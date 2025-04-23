@@ -22,6 +22,7 @@ body {
   align-items: center;
   gap: 20px;
 }
+
 .header-logo img {
   height: 40px;
 }
@@ -65,13 +66,18 @@ body {
   color: white !important;
 }
 
+/* 카테고리 메뉴 */
 .header-category-nav ul {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
   margin: 0;
   display: flex;
   gap: 30px;
   font-size: 16px;
+  position: relative;
+}
+
+.header-category-nav ul li {
   position: relative;
 }
 
@@ -85,12 +91,15 @@ body {
   color: #940683;
 }
 
-.header-category-nav .header-dropdown {
-  position: relative;
-}
-
+/* 드롭다운 메뉴 스타일 */
 .header-category-nav .header-dropdown-menu {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+
+  display: flex;
+  flex-direction: column; /* ⭐ 세로 정렬 */
   position: absolute;
   top: 35px;
   left: 0;
@@ -103,17 +112,25 @@ body {
   z-index: 999;
 }
 
-.header-category-nav .header-dropdown.open .header-dropdown-menu {
-  display: block;
+/* 드롭다운 열릴 때 */
+.header-category-nav .header-dropdown:hover .header-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
+/* 드롭다운 항목 */
 .header-category-nav .header-dropdown-menu li {
-  padding: 5px 20px;
+  padding: 5px 15px;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .header-category-nav .header-dropdown-menu li a {
+  display: block;
   color: #333;
   font-size: 14px;
+  text-decoration: none;
+  line-height: 0.5; /* 👉 줄 간격도 살짝 조정 */
 }
 
 .header-category-nav .header-dropdown-menu li a:hover {

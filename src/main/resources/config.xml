@@ -53,7 +53,7 @@
     <mappers>
         <mapper resource="mapper/user.xml"/>
         <mapper resource="mapper/client.xml"/>
-<!--        <mapper resource="mapper/project.xml"/>-->
+        <mapper resource="mapper/project.xml"/>
 <!--        <mapper resource="mapper/ammount.xml"/>-->
        <mapper resource="mapper/apply.xml"/>
 <!--        <mapper resource="mapper/category.xml"/>-->
