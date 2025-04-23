@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
     <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
 
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio_write_and_modify.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
     <%--    <script src="../js/freelancer_my_page_portfolio_write_and_modify.js"></script>--%>
     <%--<script src="<c:url value='/js/freelancer_my_page_portfolio_write_and_modify.js'/>"></script>--%>
     <script src="${contextPath}/js/freelancer_my_page_portfolio_write_and_modify.js"></script>

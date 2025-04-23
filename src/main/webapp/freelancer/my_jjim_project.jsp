@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Link Up - 찜한 프로젝트 목록</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_like.css'/>">
+    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_like.css'/>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<div class="header">
+<div>
     <!-- 헤더 인클루드 영역 -->
     <jsp:include page="/common/header.jsp"/>
 </div>
@@ -42,6 +42,9 @@
                 </c:when>
                 <c:otherwise>
                     <div class="project-table">
+                        <div class="project-table-header">
+                            <h3>찜한 프로젝트 목록</h3>
+                            <p>${jjimProjCnt}</p>
                         <form action="${contextPath}/my-page/project-jjim-list" method="post">
                             <div class="delete-button-wrapper">
                                 <button class="delete-button" type="submit">삭제</button>
@@ -79,8 +82,6 @@
                                 </tbody>
                             </table>
                         </form>
-
-                        <!-- ✅ 페이지네이션은 별도 choose로 밖으로 빼야 함 -->
                         <div class="pagination" id="paging">
                             <c:choose>
                                 <c:when test="${pageInfo.curPage > 1}">

@@ -92,13 +92,19 @@
         FROM freelancer
         where freelancer_id = #{freelancerId}
     </select>
-    <insert id="insertCareer" parameterType="freelancer">
+
+    <select id="selectCategoryByFreelancerId" parameterType="String" resultType="String">
+        SELECT category
+        FROM freelancer
+        where freelancer_id = #{freelancerId}
+    </select>
+    <insert id="insertCareer" parameterType="career">
         insert career (freelancer_id, company_name, department_name, position, job_title, job_description, salary,
                            join_date, resign_date)
         values (#{freelancerId}, #{companyName}, #{departmentName}, #{position}, #{jobTitle}, #{jobDescription}, #{salary},
                 #{joinDate}, #{resignDate})
     </insert>
-    <select id="selectCareerListByFreelancerId" parameterType="String" resultType="dto.Career">
+    <select id="selectCareerListByFreelancerId" parameterType="String" resultType="career">
         SELECT
             freelancer_id,
             company_name,
@@ -115,5 +121,120 @@
             freelancer_id = #{freelancerId}
         ORDER BY
             join_date DESC
+    </select>
+
+    <select id="countOngoingProjectsByFreelancerId" resultType="int" parameterType="String">
+        SELECT COUNT(*)
+        FROM contract c
+                 JOIN project p ON c.project_id = p.project_id
+        WHERE c.freelancer_id = #{freelancerId}
+          AND c.end_date > CURDATE()
+    </select>
+    <select id="selectOngoingProjectsByFreelancerId" resultType="dto.FreelancerProject" parameterType="Map">
+        <![CDATA[
+        SELECT
+        p.project_id AS projectId,
+        cl.company_name AS clientName,
+        p.project_name AS projectName,
+        CONCAT(DATE_FORMAT(c.start_date, '%Y.%m.%d'), ' ~ ', DATE_FORMAT(c.end_date, '%Y.%m.%d')) AS projectDuration,
+        c.end_date as deadlineDate,
+        p.req_skills AS reqSkills,
+        p.qualification AS qualification,
+        p.project_description AS projectDescription,
+        p.job_details AS jobDetails,
+        p.working_method AS workingMethod,
+        p.working_environment AS workingEnvironment,
+        p.working_hours AS workingHours,
+        p.manager AS projectManager,
+        p.mphone AS managerPhone,
+        CONCAT(FORMAT(c.total_pay, 0), '만 원') AS totalBudget,
+        p.deadline_date,
+        CASE
+        WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
+        WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
+        ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
+        END AS d_day,
+
+            IFNULL(( -- 카테고리
+            SELECT
+            GROUP_CONCAT(CONCAT(ca.category_name, ' > ', sc.sub_category_name)
+            ORDER BY sc.sub_category_id SEPARATOR ', ')
+            FROM (
+            SELECT
+            CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p.category, ',', numbers.n), ',', -1) AS UNSIGNED) AS sub_category_id
+            FROM (
+            SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
+            ) AS numbers
+            WHERE numbers.n <= 1 + LENGTH(p.category) - LENGTH(REPLACE(p.category, ',', ''))
+            ) AS parsed
+            JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
+            JOIN category ca ON ca.category_id = sc.category_id
+            ), '') AS categories -- 카테고리 끝
+        FROM contract c
+        JOIN project p ON c.project_id = p.project_id
+        JOIN client cl ON p.client_id = cl.client_id
+        WHERE c.freelancer_id = #{freelancerId}
+        AND c.end_date > CURDATE()
+        ORDER BY c.end_date ASC
+        LIMIT #{row}, 10
+        ]]>
+    </select>
+
+    <select id="cntCompletedProjectsByFreelancerId" resultType="int" parameterType="String">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM contract c
+                 JOIN project p ON c.project_id = p.project_id
+        WHERE c.freelancer_id = #{freelancerId}
+          AND c.end_date <= CURDATE()
+        ]]>
+    </select>
+
+    <select id="selectCompletedProjectsByFreelancerId" resultType="dto.FreelancerProject" parameterType="Map">
+        <![CDATA[
+        SELECT
+        p.project_id AS projectId,
+        cl.company_name AS clientName,
+        p.project_name AS projectName,
+        CONCAT(DATE_FORMAT(c.start_date, '%Y.%m.%d'), ' ~ ', DATE_FORMAT(c.end_date, '%Y.%m.%d')) AS projectDuration,
+        p.req_skills AS reqSkills,
+        p.qualification AS qualification,
+        p.project_description AS projectDescription,
+        p.job_details AS jobDetails,
+        p.working_method AS workingMethod,
+        p.working_environment AS workingEnvironment,
+        p.working_hours AS workingHours,
+        p.manager AS projectManager,
+        p.mphone AS managerPhone,
+        CONCAT(FORMAT(c.total_pay, 0), '만 원') AS totalBudget,
+        p.deadline_date,
+        CASE
+        WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
+        WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
+        ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
+        END AS d_day,
+        IFNULL((
+        SELECT
+        GROUP_CONCAT(CONCAT(ca.category_name, ' > ', sc.sub_category_name)
+        ORDER BY sc.sub_category_id SEPARATOR ', ')
+        FROM (
+        SELECT
+        CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p.category, ',', numbers.n), ',', -1) AS UNSIGNED) AS sub_category_id
+        FROM (
+        SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
+        ) AS numbers
+        WHERE numbers.n <= 1 + LENGTH(p.category) - LENGTH(REPLACE(p.category, ',', ''))
+        ) AS parsed
+        JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
+        JOIN category ca ON ca.category_id = sc.category_id
+        ), '') AS categories
+        FROM contract c
+        JOIN project p ON c.project_id = p.project_id
+        JOIN client cl ON p.client_id = cl.client_id
+        WHERE c.freelancer_id = #{freelancerId}
+        AND c.end_date <= CURDATE()
+        ORDER BY c.end_date ASC
+        LIMIT #{row}, 10
+        ]]>
     </select>
 </mapper>

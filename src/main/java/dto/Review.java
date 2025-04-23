@@ -3,31 +3,44 @@ package dto;
 import java.util.Date;
 
 public class Review {
-    int reviewId;
-    int projectId;
+    Integer reviewId;
+    Integer projectId;
     String wUserId;
+    String projectName;
     String rUserId;
-    int star;
+    String wUserInfo; // 이름
+    String rUserInfo; // 이름
+    String wUserProfileImg; // 이름
+    String rUserProfileImg; // 이름
+    Integer star;
     String comment;
-    Date create_date;
+    Date createDate;
 
     public Review() {
     }
 
-    public int getReviewId() {
+    public Integer getReviewId() {
         return reviewId;
     }
 
-    public void setReviewId(int reviewId) {
+    public void setReviewId(Integer reviewId) {
         this.reviewId = reviewId;
     }
 
-    public int getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getwUserId() {
@@ -46,11 +59,44 @@ public class Review {
         this.rUserId = rUserId;
     }
 
-    public int getStar() {
+    public String getrUserInfo() {
+        return rUserInfo;
+    }
+
+    public void setrUserInfo(String rUserInfo) {
+        this.rUserInfo = rUserInfo;
+    }
+
+    public String getrUserProfileImg() {
+        return rUserProfileImg;
+    }
+
+    public void setrUserProfileImg(String rUserProfileImg) {
+        this.rUserProfileImg = rUserProfileImg;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getwUserInfo() {
+        return wUserInfo;
+    }
+
+    public void setwUserInfo(String wUserInfo) {
+        this.wUserInfo = wUserInfo;
+    }
+    public String getwUserProfileImg() {
+        return wUserProfileImg;
+    }
+    public void setwUserProfileImg(String wUserProfileImg) {
+        this.wUserProfileImg = wUserProfileImg;
+    }
+    public Integer getStar() {
         return star;
     }
 
-    public void setStar(int star) {
+    public void setStar(Integer star) {
         this.star = star;
     }
 
@@ -62,11 +108,29 @@ public class Review {
         this.comment = comment;
     }
 
-    public Date getCreate_date() {
-        return create_date;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreate_date(Date create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", projectId=" + projectId +
+                ", wUserId='" + wUserId + '\'' +
+                ", projectName='" + projectName + '\'' +
+                ", rUserId='" + rUserId + '\'' +
+                ", wUserInfo='" + wUserInfo + '\'' +
+                ", rUserInfo='" + rUserInfo + '\'' +
+                ", wUserProfileImg='" + wUserProfileImg + '\'' +
+                ", rUserProfileImg='" + rUserProfileImg + '\'' +
+                ", star=" + star +
+                ", comment='" + comment + '\'' +
+                ", createDate=" + createDate +
+                '}';
     }
 }

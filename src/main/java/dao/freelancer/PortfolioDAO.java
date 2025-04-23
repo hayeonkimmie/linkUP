@@ -70,4 +70,15 @@ public class PortfolioDAO implements IPortfolioDAO {
             throw new RuntimeException(e);
         }
     }
+    public boolean isPortfolioOwner(String userId, Integer portfolioId) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("user_id", userId);
+        param.put("portfolio_id", portfolioId);
+        int cnt = sqlSession.selectOne("mapper.portfolio.isPortfolioOwner", param);
+        if (cnt == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

@@ -8,8 +8,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
-  <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-  <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page_project_review.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_project_review.css'/>">
   <script src="../js/freelancer_my_page_project_review.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
@@ -42,9 +42,9 @@
           <form class="accordion-item" action="" method="post">
             <div class="accordion-header">
               <span class="user">구인자3</span>
-              <input type="text" value="" style="display: none;" name=""/>
+              <input type="text" value="" style="display: none;" name="rUserId"/>
               <span class="project">브랜딩 웹사이트 제작</span>
-              <input type="text" value="" style="display: none;" name="project_id"/>
+              <input type="text" value="" style="display: none;" name="projectId"/>
             </div>
             <div class="accordion-body review-form">
               <div class="form-row">

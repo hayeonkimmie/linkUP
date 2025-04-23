@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>개인 프로젝트 지원 현황</title>
   <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
-  <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
-  <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-  <link rel="stylesheet" href="<c:url value='/css/freelancer_my_apply_proj_list.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_apply_proj_list.css'/>">
   <script src="../js/freelancer_apply_proj_list.js"></script>
 </head>
 

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up Profile</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page_info_edit.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_info_edit.css'/>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${contextPath}/js/freelancer_my_page_info_edit.js"></script>

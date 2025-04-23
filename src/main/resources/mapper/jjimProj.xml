@@ -25,6 +25,19 @@
             WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
             ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
             END AS duration,                                  -- 기간
+            -- project_fee 서브쿼리
+            IFNULL((
+                       SELECT CONCAT(FORMAT(pay.project_fee, 0), '만원')
+                       FROM freelancer f
+                                JOIN career ca ON f.freelancer_id = ca.freelancer_id
+                                JOIN lv l ON PERIOD_DIFF(DATE_FORMAT(IFNULL(ca.resign_date, CURDATE()), '%Y%m'), DATE_FORMAT(ca.join_date, '%Y%m'))
+                           BETWEEN l.start_month AND l.end_month
+                                JOIN pay ON FIND_IN_SET(pay.sub_category_id, f.category) > 0
+                           AND pay.lv_id = l.lv_id
+                           AND pay.sub_category_id = p.category
+                       WHERE f.freelancer_id = #{freelancerId}
+                       LIMIT 1
+                   ), '') AS project_fee,
             p.deadline_date,                             -- 마감일
             p.qualification,                             -- 자격 요건
             p.working_method,                            -- 근무 방식
@@ -71,7 +84,7 @@
                 WHEN duration < 12 THEN CONCAT(duration, '개월')
                 WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
                 ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
-                END AS duration,                                  -- 기간
+                END AS duration,                             -- 기간
             p.deadline_date,                             -- 마감일
             c.company_name,                              -- 회사명
             p.qualification,                             -- 자격 요건
@@ -85,7 +98,7 @@
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
                 ELSE '마감'
-                END AS d_day-- D-Day 표시
+                END AS d_day                                 -- D-Day 표시
         FROM project p
                  JOIN client c ON p.client_id = c.client_id
                  JOIN jjimProj jp ON p.project_id = jp.project_id

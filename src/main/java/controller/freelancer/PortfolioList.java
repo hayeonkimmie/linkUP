@@ -23,8 +23,8 @@ public class PortfolioList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String userId = (String) request.getAttribute("userId");
-        userId = "free002"; // 로그인 구현 이후 빼기
+        String freelancerId = (String) request.getSession().getAttribute("userId");
+        freelancerId = "free002"; // 로그인 구현 이후 빼기
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
         Integer page = null;
@@ -38,9 +38,9 @@ public class PortfolioList extends HttpServlet {
         IPortfolioService service = new PortfolioService();
         List<Portfolio> portfolioList;
         try {
-            Integer portfolioCnt = service.selectPortfolioCnt(userId);
+            Integer portfolioCnt = service.selectPortfolioCnt(freelancerId);
             if (portfolioCnt > 0) {
-                portfolioList = service.selectPortfolioListByPage(pageInfo, userId);
+                portfolioList = service.selectPortfolioListByPage(pageInfo, freelancerId);
                 request.setAttribute("pageInfo", pageInfo);
                 request.setAttribute("portfolioList", portfolioList);
             } else if (portfolioCnt == 0){

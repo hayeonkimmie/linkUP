@@ -21,6 +21,11 @@
         WHERE c.freelancer_id = #{freelancerId}
         ORDER BY c.id DESC
     </select>
+    <select id="isPortfolioOwner" resultType="Integer" parameterType="Map">
+        SELECT count(*)
+        from portfolio
+        where portfolio_id = #{portfolioId} and freelancer_id = #{freelancerId}
+    </select>
     <select id="selectAllPortfolioInfoForProfile" resultType="Map" parameterType="String">
         SELECT portfolio_id, title
         FROM portfolio

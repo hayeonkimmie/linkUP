@@ -14,5 +14,5 @@ public interface IPortfolioService {
     void deletePortfolio(Integer num) throws Exception;
     Integer writePortfolio(Portfolio Portfolio) throws Exception;
     Map<Integer, String> projectInfoForPortfolio(String userId) throws Exception;
-
+    public boolean isPortfolioOwner (String userId, Integer portfolioId) throws Exception;
 }

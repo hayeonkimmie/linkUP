@@ -14,6 +14,7 @@
         <typeAlias type="dto.Amount" alias="ammount"/>
         <typeAlias type="dto.Apply" alias="apply"/>
         <typeAlias type="dto.Category" alias="category"/>
+        <typeAlias type="dto.Career" alias="career"/>
         <typeAlias type="dto.Client" alias="client"/>
         <typeAlias type="dto.ClientProfile" alias="clientProfile" />
         <typeAlias type="dto.Contract" alias="contract"/>
@@ -21,10 +22,9 @@
         <typeAlias type="dto.ClientFavorites" alias="jjimfree"/>
         <typeAlias type="dto.JjimProj" alias="jjimProj"/>
         <typeAlias type="dto.Level" alias="lv"/>
-<!--        <typeAlias type="dto.Pay" alias="pay"/>-->
+        <typeAlias type="dto.Pay" alias="pay"/>
         <typeAlias type="dto.Portfolio" alias="portfolio"/>
         <typeAlias type="dto.QnA" alias="qna"/>
-        <typeAlias type="dto.RepresentPortfolio" alias="represenPortfolio"/>
         <typeAlias type="dto.Review" alias="review"/>
         <typeAlias type="dto.Settlelist" alias="settlelist"/>
         <typeAlias type="dto.Settlement" alias="settlement"/>
@@ -68,12 +68,10 @@
 <!--        <mapper resource="mapper/pay.xml"/>-->
         <mapper resource="mapper/portfolio.xml"/>
         <mapper resource="mapper/dashboardproject.xml"/>
-<!--        <mapper resource="mapper/project.xml"/>-->
         <mapper resource="mapper/qna.xml"/>
-<!--        <mapper resource="mapper/RepresenPortfolio.xml"/>-->
-<!--        <mapper resource="mapper/riview.xml"/>-->
-<!--        <mapper resource="mapper/settlelist.xml"/>-->
-<!--        <mapper resource="mapper/settlement.xml"/>-->
+        <mapper resource="mapper/review.xml"/>
+        <mapper resource="mapper/settlelist.xml"/>
+        <mapper resource="mapper/settlement.xml"/>
         <mapper resource="mapper/subCategory.xml"/>
 <!--        <mapper resource="mapper/alarm.xml"/>-->
         <mapper resource="mapper/notice.xml"/>

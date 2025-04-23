@@ -40,16 +40,18 @@ public class JJimProjList extends HttpServlet {
         PageInfo pageInfo = new PageInfo(page);
         IJjimProjService service = new JjimProjService();
         List<JjimProj> jjimProjList;
+        Integer jjimProjCnt;
         try{
-            Integer jjimProjCnt = service.selectJjimProjCnt(freelancerId);
+            jjimProjCnt = service.selectJjimProjCnt(freelancerId);
             if (jjimProjCnt > 0) {
-                jjimProjList = service.selectJjimProjListForMain(freelancerId);
+                jjimProjList = service.selectJjimProjListByPage(pageInfo, freelancerId);
                 System.out.println("JJimProjList 서블릿 47 JJimProjList = " + jjimProjList);
                 request.setAttribute("pageInfo", pageInfo);
                 request.setAttribute("jjimProjList", jjimProjList);
             } else if (jjimProjCnt == 0){
                 request.setAttribute("jjimProjList", null);
             }
+            request.setAttribute("jjimProjCnt",jjimProjCnt);
         } catch(Exception e) {
             e.printStackTrace();
             request.setAttribute("err", "찜한 프로젝트 조회에 실패했습니다.");

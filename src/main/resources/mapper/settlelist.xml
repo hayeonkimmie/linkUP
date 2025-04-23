@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.settlelist">
-    <insert id="insertSettlelist" parameterType="settlelist">
+<!--    <insert id="insertSettlelist" parameterType="settlelist">
         insert settlelist (slist_id,contract_id,category_id,client_id,pname,pay,start_date,end_date,cnt)
         values (#{slist_id}, #{contract_id},#{category_id},#{client_id}, #{pname},#{pay},#{start_date},#{end_date},#{cnt})
-    </insert>
+    </insert>-->
 
 </mapper>

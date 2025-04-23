@@ -22,9 +22,9 @@
 --%>
     <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
     <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio_write_and_modify.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
@@ -99,7 +99,6 @@
                             </div>
                         </div>
                     </c:forEach>
-
                     <div class="pagination" id="paging">
                         <c:choose>
                             <c:when test="${pageInfo.curPage > 1}">
@@ -126,7 +125,7 @@
                                 <a href="?page=${pageInfo.curPage+1 }">&gt;</a>
                             </c:when>
                             <c:otherwise>
-                                <a>&lt;</a>
+                                <a>&gt;</a>
                             </c:otherwise>
                         </c:choose>
                     </div>
