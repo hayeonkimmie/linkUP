@@ -50,8 +50,8 @@
 <div class="search-box">
     <select id="search-type" class="search-type">
         <option value="company">회사명</option>
-        <option value="project">구인</option>
-        <option value="expert">구직</option>
+        <option value="project">구인 구직</option>
+
     </select>
     <input class="search-input" type="text" id="search-keyword" placeholder="검색어를 입력하세요" />
     <button class="search-button" onclick="handleSearch()">검색</button>

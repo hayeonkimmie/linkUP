@@ -50,11 +50,16 @@ body {
 /* 카테고리 네비게이션 */
 .category-nav ul {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
   margin: 0;
   display: flex;
   gap: 30px;
   font-size: 16px;
+  position: relative;
+}
+
+.category-nav ul li {
+  position: relative;
 }
 
 .category-nav ul li a {
@@ -64,6 +69,52 @@ body {
 }
 
 .category-nav ul li a:hover {
+  color: #940683;
+}
+
+/* 드롭다운 메뉴 */
+.category-nav .header-dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 35px;
+  left: 0;
+  background-color: white;
+  border: 0.2px solid #eee;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 10px 0;
+  min-width: 200px;
+  z-index: 999;
+}
+
+/* 드롭다운 hover 시 열림 */
+.category-nav .header-dropdown:hover .header-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* 드롭다운 항목 */
+.category-nav .header-dropdown-menu li {
+  padding: 5px 15px;
+  white-space: nowrap;
+}
+
+.category-nav .header-dropdown-menu li a {
+  display: block;
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  line-height: 1.5;
+}
+
+.category-nav .header-dropdown-menu li a:hover {
   color: #940683;
 }
 
@@ -134,6 +185,7 @@ body {
 .profile-menu li a:hover {
   background-color: #f5f5f5;
 }
+
 .post-job-btn {
   background-color: #940683;
   color: white;

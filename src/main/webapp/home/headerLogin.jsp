@@ -14,13 +14,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Link up Header</title>
-  <link rel="stylesheet" href="${contextPath}/css/home/headerLoginSt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/common/headerLoginSt.css" />
 </head>
 <body>
 <header class="header">
   <div class="header-container">
     <div class="logo-search">
-      <a href="main.jsp" class="logo">
+      <a href=${contextPath}/mainPage class="logo">
         <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
       </a>
     </div>
@@ -29,35 +29,46 @@
   <div class="nav-auth-wrapper">
     <nav class="category-nav">
       <ul>
-        <li><a href="#">웹제작</a></li>
-        <li><a href="#">웹유지보수</a></li>
-        <li><a href="#">프로그램</a></li>
-        <li><a href="#">모바일</a></li>
-        <li><a href="#">Ai</a></li>
-        <li><a href="#">데이터</a></li>
-        <li><a href="#">트렌드</a></li>
-        <li><a href="#">직무직군</a></li>
+        <c:forEach var="c" items="${categoryList}">
+          <li class="header-dropdown">
+            <a href="${contextPath}/catalog?category=${c.categoryName}" class="header-dropdown-toggle">
+                ${c.categoryName}
+            </a>
+            <ul class="header-dropdown-menu">
+              <c:forEach var="sc" items="${c.subCategories}">
+                <li>
+                  <a href="${contextPath}/catalog?category=${c.categoryName}&subCategory=${sc.subCategoryName}">
+                      ${sc.subCategoryName}
+                  </a>
+                </li>
+              </c:forEach>
+            </ul>
+          </li>
+        </c:forEach>
       </ul>
+
     </nav>
 
     <div class="user-section">
       <a href="makeProject.jsp" class="post-job-btn">구인등록</a>
       <button class="notification-btn">
-        <img src="../img/알람벨.png" alt="알림" class="icon" />
+        <img src="${contextPath}/img/알람벨.png" alt="알림" class="icon" />
       </button>
       <div class="profile-wrapper">
         <div class="profile-icon"></div>
         <button class="profile-toggle">&#9662;</button>
         <ul class="profile-menu">
           <li><a href="#">마이페이지</a></li>
-          <li><a href="#">고객센터</a></li>
-          <li><a href="#">로그아웃</a></li>
+          <li><a href="${contextPath}/gogakCenter">고객센터</a></li>
+          <li><a href="${contextPath}/mainPage">로그아웃</a></li>
         </ul>
       </div>
     </div>
   </div>
 </header>
-
-<script src="../js/headerLogin.js"></script>
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

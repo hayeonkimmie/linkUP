@@ -27,4 +27,10 @@ public class ProjectDAO implements IProjectDAO {
             return sqlSession.selectList("mapper.project.searchProjectsByCategoryAndKeyword", param);
         }
     }
+    @Override
+    public List<Project> catalogProjectByConditions(Map<String, String> param) {
+        try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            return sqlSession.selectList("mapper.project.catalogProjectByConditions", param);
+        }
+    }
 }

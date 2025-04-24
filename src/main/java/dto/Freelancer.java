@@ -22,7 +22,7 @@ public class Freelancer {
 
     // User Type 04.18 15:02 추가
     String type;
-    String category;
+    Integer sub_category_id;
     String skill;
     String[] skillList;
     String address;
@@ -39,7 +39,7 @@ public class Freelancer {
     String desiredLocation;
     String otherRequest;
     String attachment;
-
+    String externalUrl;
 
     Map<Integer, String> portfolioInfoMap;
     double averageScore; //평점
@@ -47,24 +47,15 @@ public class Freelancer {
 
     private double avgStar; // ⭐ 평균 별점
 
-    public double getAvgStar() {
-        return avgStar;
-    }
-
-    public void setAvgStar(double avgStar) {
-        this.avgStar = avgStar;
-    }
-
     public Freelancer() {
-        super();
     }
 
-    public String getType() {
-        return type;
+    public String getFreelancerId() {
+        return freelancerId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setFreelancerId(String freelancerId) {
+        this.freelancerId = freelancerId;
     }
 
     public String getName() {
@@ -155,20 +146,20 @@ public class Freelancer {
         this.acceptConsent = acceptConsent;
     }
 
-    public String getFreelancerId() {
-        return freelancerId;
+    public String getType() {
+        return type;
     }
 
-    public void setFreelancerId(String freelancerId) {
-        this.freelancerId = freelancerId;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getCategory() {
-        return category;
+    public Integer getSub_category_id() {
+        return sub_category_id;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setSub_category_id(Integer sub_category_id) {
+        this.sub_category_id = sub_category_id;
     }
 
     public String getSkill() {
@@ -195,6 +186,14 @@ public class Freelancer {
         this.address = address;
     }
 
+    public List<Academic> getAcademicList() {
+        return academicList;
+    }
+
+    public void setAcademicList(List<Academic> academicList) {
+        this.academicList = academicList;
+    }
+
     public String getAcademic() {
         return academic;
     }
@@ -209,6 +208,14 @@ public class Freelancer {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public List<License> getLicenseList() {
+        return licenseList;
+    }
+
+    public void setLicenseList(List<License> licenseList) {
+        this.licenseList = licenseList;
     }
 
     public String getLicense() {
@@ -283,6 +290,27 @@ public class Freelancer {
         this.attachment = attachment;
     }
 
+    public String getExternalUrl() {
+        return externalUrl;
+    }
+
+    public int getProjectCount() {
+        return projectCount;
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
+    }
+
+    public void setProjectCount(int projectCount) {
+        this.projectCount = projectCount;
+    }
+    public Map<Integer, String> getPortfolioInfoMap() {
+        return portfolioInfoMap;
+    }
+
+    public void setPortfolioInfoMap(Map<Integer, String> portfolioInfoMap) {
+        this.portfolioInfoMap = portfolioInfoMap;
+    }
+
     public double getAverageScore() {
         return averageScore;
     }
@@ -298,28 +326,13 @@ public class Freelancer {
     public void setProjectCount(int projectCount) {
         this.projectCount = projectCount;
     }
-    public Map<Integer, String> getPortfolioInfoMap() {
-        return portfolioInfoMap;
-    }
-    public void setPortfolioInfoMap(Map<Integer, String> portfolioInfoMap) {
-        this.portfolioInfoMap = portfolioInfoMap;
+
+    public double getAvgStar() {
+        return avgStar;
     }
 
-
-    public List<Academic> getAcademicList() {
-        return academicList;
-    }
-
-    public void setAcademicList(List<Academic> academicList) {
-        this.academicList = academicList;
-    }
-
-    public List<License> getLicenseList() {
-        return licenseList;
-    }
-
-    public void setLicenseList(List<License> licenseList) {
-        this.licenseList = licenseList;
+    public void setAvgStar(double avgStar) {
+        this.avgStar = avgStar;
     }
 
     @Override
@@ -338,9 +351,9 @@ public class Freelancer {
                 ", withdrawalDate=" + withdrawalDate +
                 ", acceptConsent=" + acceptConsent +
                 ", type='" + type + '\'' +
-                ", category='" + category + '\'' +
+                ", sub_category_id=" + sub_category_id +
                 ", skill='" + skill + '\'' +
-                ", skillList=" + skillList +
+                ", skillList=" + Arrays.toString(skillList) +
                 ", address='" + address + '\'' +
                 ", academicList=" + academicList +
                 ", academic='" + academic + '\'' +
@@ -358,6 +371,7 @@ public class Freelancer {
                 ", portfolioInfoMap=" + portfolioInfoMap +
                 ", averageScore=" + averageScore +
                 ", projectCount=" + projectCount +
+                ", avgStar=" + avgStar +
                 '}';
     }
 }
