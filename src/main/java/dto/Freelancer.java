@@ -294,15 +294,10 @@ public class Freelancer {
         return externalUrl;
     }
 
-    public int getProjectCount() {
-        return projectCount;
     public void setExternalUrl(String externalUrl) {
         this.externalUrl = externalUrl;
     }
 
-    public void setProjectCount(int projectCount) {
-        this.projectCount = projectCount;
-    }
     public Map<Integer, String> getPortfolioInfoMap() {
         return portfolioInfoMap;
     }
@@ -368,6 +363,7 @@ public class Freelancer {
                 ", desiredLocation='" + desiredLocation + '\'' +
                 ", otherRequest='" + otherRequest + '\'' +
                 ", attachment='" + attachment + '\'' +
+                ", externalUrl='" + externalUrl + '\'' +
                 ", portfolioInfoMap=" + portfolioInfoMap +
                 ", averageScore=" + averageScore +
                 ", projectCount=" + projectCount +
