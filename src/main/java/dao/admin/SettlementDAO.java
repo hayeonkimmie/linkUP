@@ -18,10 +18,10 @@ public class SettlementDAO implements ISettlementDAO {
     SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
     @Override
-    public HashMap<Integer, AdminProject> selectProjectsForSettlement() throws SQLException {
-        HashMap<Integer, AdminProject> projects = new HashMap<>();
-        List<AdminProject> adminProjects = sqlSession.selectList("mapper.aproject.selectProjectsForSettlement");
-        for(AdminProject project : adminProjects) {
+    public HashMap<Integer, AdminSettleProject> selectProjectsForSettlement() throws SQLException {
+        HashMap<Integer, AdminSettleProject> projects = new HashMap<>();
+        List<AdminSettleProject> adminProjects = sqlSession.selectList("mapper.aproject.selectProjectsForSettlement");
+        for(AdminSettleProject project : adminProjects) {
             projects.put(project.getProjectId(), project);
         }
         return projects;
@@ -29,7 +29,7 @@ public class SettlementDAO implements ISettlementDAO {
 
     @Override
     public List<AdminProject> selectProjectsForSettlementList() throws SQLException {
-        return sqlSession.selectList("mapper.aproject.selectProjectsForSettlement");
+        return sqlSession.selectList("mapper.aproject.selectProjectsForDashboard");
     }
 
 
@@ -39,8 +39,8 @@ public class SettlementDAO implements ISettlementDAO {
     public Integer selectNextSettlementCount(Integer projectId) throws SQLException {
         return sqlSession.selectOne("mapper.settlelist.selectNextSettlementCount", projectId);
     }
-    // 정산 대상자 가져오기
 
+    // 정산 대상자 가져오기
     @Override
     public List<AdminSettleTarget> selectFreelancersForSettlement(Integer projectId, Integer cnt) throws SQLException {
         Map<String, Integer> params = new HashMap<>();
@@ -90,10 +90,11 @@ public class SettlementDAO implements ISettlementDAO {
     }
 
     @Override
-    public boolean existsSettlementBySlistIdAndsettleDate(int slistId, Date settleDate) throws Exception {
+    public boolean existsSettlementBySlistIdAndsettleDate(String clientId, int slistId, Date settleDate) throws Exception {
         Map<String, Object> param = new HashMap<>();
         param.put("slistId", slistId);
         param.put("settleDate", settleDate);
+        param.put("clientId", clientId);
         Integer count = sqlSession.selectOne("mapper.settlement.existsSettlementBySlistIdAndsettleDate", param);
         return count != null && count > 0;
     }
@@ -105,6 +106,5 @@ public class SettlementDAO implements ISettlementDAO {
         param.put("settleDate", settleDate);
         return sqlSession.selectOne("mapper.settlelist.selectAnySettlelistByProjectIdAndDate", param);
     }
-
 
 }

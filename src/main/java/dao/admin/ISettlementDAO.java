@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ISettlementDAO {
-    HashMap<Integer, AdminProject> selectProjectsForSettlement() throws SQLException;
+    HashMap<Integer, AdminSettleProject> selectProjectsForSettlement() throws SQLException;
 
     List<AdminProject> selectProjectsForSettlementList() throws SQLException;
 
@@ -29,9 +29,10 @@ public interface ISettlementDAO {
 
     Settlelist selectSettlelistByProjectIdAndDate(int projectId, Date settleDate);
 
-    boolean existsSettlementBySlistIdAndsettleDate(int slistId, Date settleDate) throws Exception;
+    boolean existsSettlementBySlistIdAndsettleDate(String clientId, int slistId, Date settleDate) throws Exception;
 
     Settlelist selectAnySettlelistByProjectIdAndDate(int projectId, Date settleDate) throws Exception;
+
 
 
 }

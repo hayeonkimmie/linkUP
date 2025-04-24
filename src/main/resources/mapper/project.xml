@@ -3,16 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.project">
-<!--    <insert id="" parameterType="">
-        insert ammount ()
-        values (#{}, #{},#{},#{})
-    </insert>
-
-    <select id="selectAllOngoingProjects" resultType="dto.Project">
-        SELECT *
-        FROM project
-        WHERE status = '진행중'
-    </select>-->
 
     <select id="MainProjectsByCategory" resultType="dto.Project" parameterType="String">
         SELECT
