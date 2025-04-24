@@ -2,7 +2,9 @@ package dao.admin;
 
 import dto.*;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import util.MybatisSqlSessionFactory;
+import util.SingleTonSession;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -14,6 +16,8 @@ import java.util.Map;
 public class SettlementDAO implements ISettlementDAO {
 
     ISettlementDAO settlementDAO;
+
+    private final SqlSessionFactory sqlSessionFactory = SingleTonSession.getInstance();
 
     SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 
@@ -105,6 +109,34 @@ public class SettlementDAO implements ISettlementDAO {
         param.put("projectId", projectId);
         param.put("settleDate", settleDate);
         return sqlSession.selectOne("mapper.settlelist.selectAnySettlelistByProjectIdAndDate", param);
+    }
+
+    @Override
+    public List<AdminSettleHistory> selectHistoryList(Map<String, Object> param) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectList("mapper.settlelist.selectHistoryList", param);
+        }
+    }
+
+    @Override
+    public Integer countHistory(Map<String, Object> param) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectOne("mapper.settlelist.countHistory", param);
+        }
+    }
+
+    @Override
+    public List<AdminSettleHistorySummary> selectHistorySummaryList(Map<String, Object> param) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectList("mapper.settlelist.selectHistorySummaryList", param);
+        }
+    }
+
+    @Override
+    public int countHistorySummary(Map<String, Object> param) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectOne("mapper.settlelist.countHistory", param);
+        }
     }
 
 }

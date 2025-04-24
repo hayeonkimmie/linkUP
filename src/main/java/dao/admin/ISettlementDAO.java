@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ISettlementDAO {
     HashMap<Integer, AdminSettleProject> selectProjectsForSettlement() throws SQLException;
@@ -33,6 +34,11 @@ public interface ISettlementDAO {
 
     Settlelist selectAnySettlelistByProjectIdAndDate(int projectId, Date settleDate) throws Exception;
 
+    List<AdminSettleHistory> selectHistoryList(Map<String, Object> param) throws Exception;
+
+    Integer countHistory(Map<String, Object> param) throws Exception;
 
 
+    List<AdminSettleHistorySummary> selectHistorySummaryList(Map<String, Object> param);
+    int countHistorySummary(Map<String, Object> param);
 }

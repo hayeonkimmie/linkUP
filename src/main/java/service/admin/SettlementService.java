@@ -4,10 +4,13 @@ import dao.admin.IContractDAO;
 import dao.admin.IProjectDAO;
 import dao.admin.ISettlementDAO;
 import dto.*;
+import util.PageInfo;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SettlementService implements ISettlementService {
 
@@ -107,5 +110,38 @@ public class SettlementService implements ISettlementService {
         return filtered;
     }
 
+    @Override
+    public List<AdminSettleHistory> getHistoryList(String keyword, String startDate, String endDate, int offset, int limit) throws Exception {
 
+        return null;
+    }
+
+    @Override
+    public int countHistory(String keyword, String startDate, String endDate) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("keyword", keyword);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        return settlementDAO.countHistory(param);
+    }
+
+    @Override
+    public List<AdminSettleHistorySummary> selectHistorySummaryList(String keyword, String startDate, String endDate, int offset, int limit) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("keyword", keyword);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        param.put("offset", offset);
+        param.put("limit", limit);
+        return settlementDAO.selectHistorySummaryList(param);
+    }
+
+    @Override
+    public int countHistorySummary(String keyword, String startDate, String endDate) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("keyword", keyword);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        return settlementDAO.countHistorySummary(param);
+    }
 }

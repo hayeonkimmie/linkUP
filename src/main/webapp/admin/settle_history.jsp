@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="card history-section" style="min-height: calc(100vh - 300px);">
+        <div class="card history-section" style="min-height: calc(100vh - 400px);">
             <div class="total-count">
              <h2>
                  총 <c:out value="${totalCount}" />건의 정산
@@ -72,33 +72,26 @@
                 <tr>
                     <th>정산 회차</th>
                     <th>프로젝트명</th>
-                    <th>프리랜서</th>
-                    <th>직무</th>
-                    <th>정산 금액</th>
-                    <th>계좌번호</th>
-                    <th>정산 기간</th>
+                    <th>정산 총액</th>
                     <th>정산일</th>
                     <th>상태</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="s" items="${settlementList}">
-                    <tr>
-                        <td>${s.cnt}회차</td>
-                        <td>${s.projectName}</td>
-                        <td>${s.freelancerName}</td>
-                        <td>${s.position}</td>
-                        <td><fmt:formatNumber value="${s.amount}" type="currency" currencySymbol="₩"/></td>
-                        <td>${s.account}</td>
-                        <td>${s.startDate} ~ ${s.endDate}</td>
-                        <td>${s.settleDate}</td>
+                <c:forEach var="h" items="${settlementList}">
+                    <tr onclick="location.href='<c:url value="/admin/settlement_info?slist_id=${h.projectId}"/>'" style="cursor: pointer;">
+                        <td>${h.cnt}회차</td>
+                        <td>${h.projectName}</td>
+                        <td><fmt:formatNumber value="${h.totalAmount}" type="currency" currencySymbol="₩"/></td>
+                        <td>${h.settleDate}</td>
                         <td>
-                            <span class="badge ${s.status}">${s.status}</span>
+                            <span class="badge ${h.status}">${h.status}</span>
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
+
 
             <div class="pagination" style="margin-top: 32px; text-align: center;">
                 <button <c:if test="${pageInfo.curPage == 1}">disabled</c:if> onclick="location.href='?page=${pageInfo.curPage - 1}'">이전</button>
