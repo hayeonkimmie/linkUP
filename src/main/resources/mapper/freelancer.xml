@@ -282,7 +282,7 @@
     <select id="catalogFreelancersByCategory" parameterType="String" resultType="dto.Freelancer">
         SELECT
             f.freelancer_id,
-            f.category,
+            f.sub_category_id,
             f.skill,
             f.desired_salary,
             f.introduction,
@@ -290,7 +290,7 @@
             u.profile_img
         FROM freelancer f
                  LEFT JOIN user u ON f.freelancer_id = u.user_id
-        WHERE f.category = #{category}
+        WHERE f.sub_category_id = #{category}
     </select>
 
 <!--    <select id="searchFreelancersByCategoryAndKeyword" parameterType="map" resultType="dto.Freelancer">-->
@@ -314,7 +314,7 @@
     <select id="searchFreelancersByCategoryAndKeyword" parameterType="map" resultType="dto.Freelancer">
         SELECT
         f.freelancer_id,
-        f.category,
+        f.sub_category_id,
         f.skill,
         f.desired_salary,
         f.introduction,
@@ -324,7 +324,7 @@
         FROM freelancer f
         LEFT JOIN user u ON f.freelancer_id = u.user_id
         LEFT JOIN review r ON f.freelancer_id = r.r_user_id  <!-- ⭐ 리뷰 테이블 조인 -->
-        WHERE f.category = #{category}
+        WHERE f.sub_category_id = #{sub_category_id}
         AND (
         f.introduction LIKE CONCAT('%', #{keyword}, '%')
         OR u.nickname LIKE CONCAT('%', #{keyword}, '%')

@@ -29,29 +29,39 @@ public class CatalogController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String category = request.getParameter("category");
+        String subCategory = request.getParameter("subCategory");
         String keyword = request.getParameter("keyword");
 
         List<Project> projectList;
         List<Freelancer> freelancerList;
 
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            // ✅ Map 안전하게 생성 (null 허용X)
-            Map<String, String> param = new HashMap<>();
+        Map<String, String> param = new HashMap<>();
+
+        // ✅ 카테고리가 유효할 때만 Map에 추가
+        if (category != null && !category.trim().isEmpty() && !"전체".equals(category)) {
             param.put("category", category);
+        }
+
+        if (subCategory != null && !subCategory.trim().isEmpty()) {
+            param.put("subCategory", subCategory);
+        }
+
+        if (keyword != null && !keyword.trim().isEmpty()) {
             param.put("keyword", keyword);
 
-            // ✅ 검색 결과 가져오기
+            // ✅ keyword 있는 경우: 검색
             projectList = projectService.searchProjectsByCategoryAndKeyword(param);
             freelancerList = freelancerService.searchFreelancersByCategoryAndKeyword(param);
         } else {
-            // ✅ 검색어 없을 경우 전체 조회
-            projectList = projectService.catalogProjectByCategory(category);
+            // ✅ keyword 없는 경우: 카테고리 기반 필터
+            projectList = projectService.catalogProjectByConditions(param);
             freelancerList = freelancerService.catalogFreelancersByCategory(category);
         }
 
-        // ✅ JSP 전달
+        // ✅ JSP로 전달
         request.setAttribute("category", category);
-        request.setAttribute("keyword", keyword); // 검색어 유지
+        request.setAttribute("subCategory", subCategory);
+        request.setAttribute("keyword", keyword);
         request.setAttribute("projectList", projectList);
         request.setAttribute("freelancerList", freelancerList);
 

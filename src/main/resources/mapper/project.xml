@@ -3,82 +3,246 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.project">
-<!--    <insert id="" parameterType="">
-        insert ammount ()
-        values (#{}, #{},#{},#{})
-    </insert>
 
-    <select id="selectAllOngoingProjects" resultType="dto.Project">
-        SELECT *
-        FROM project
-        WHERE status = '진행중'
-    </select>-->
-
+    <!-- ✅ 메인페이지용 - 카테고리명으로 조회 (JOIN 필요) -->
     <select id="MainProjectsByCategory" resultType="dto.Project" parameterType="String">
         SELECT
+            p.project_id,
             p.project_name,
             p.client_id,
-            p.category,
             p.advertisement_title,
-            COALESCE(AVG(r.star), 0) AS avg_star,
-            u.profile_img -- profile_img 추가
-
+            p.thumbnail,
+            p.duration,
+            p.settle_day,
+            p.manager,
+            p.sub_category_id,
+            sc.sub_category_name,
+            c.category_name,
+            u.profile_img,
+            COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
+                 LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
+                 LEFT JOIN category c ON sc.category_id = c.category_id
                  LEFT JOIN review r ON p.client_id = r.r_user_id
-                 LEFT JOIN user u ON p.client_id = u.user_id -- user 테이블 조인 추가
-
-        WHERE p.category = #{category}
-
+                 LEFT JOIN user u ON p.client_id = u.user_id
+        WHERE c.category_name = #{category}
         GROUP BY p.project_id
-
         ORDER BY RAND()
             LIMIT 3
     </select>
 
+    <!-- ✅ 카탈로그 화면: 카테고리 조건으로만 조회 -->
     <select id="catalogProjectByCategory" parameterType="String" resultType="dto.Project">
         SELECT
             p.project_id,
-            p.client_id,
-            p.category,
-            p.advertisement_title,
             p.project_name,
+            p.client_id,
+            p.advertisement_title,
             p.thumbnail,
             p.duration,
             p.settle_day,
             p.manager,
+            p.sub_category_id,
+            sc.sub_category_name,
+            c.category_name,
             u.profile_img,
-            COALESCE(AVG(r.star), 0) AS avg_star  <!-- ⭐ 별점 평균 추가 -->
+            COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
+                 LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
+                 LEFT JOIN category c ON sc.category_id = c.category_id
                  LEFT JOIN user u ON p.client_id = u.user_id
-                 LEFT JOIN review r ON p.client_id = r.r_user_id  <!-- 리뷰 테이블 조인 -->
-        WHERE p.category = #{category}
+                 LEFT JOIN review r ON p.client_id = r.r_user_id
+        WHERE c.category_name = #{category}
         GROUP BY p.project_id
         ORDER BY p.created_date DESC
     </select>
+
+    <!-- ✅ 키워드 포함 검색 (카테고리, 서브카테고리 선택 가능) -->
     <select id="searchProjectsByCategoryAndKeyword" parameterType="map" resultType="dto.Project">
         SELECT
-            p.project_id,
-            p.client_id,
-            p.category,
-            p.advertisement_title,
-            p.project_name,
-            p.thumbnail,
-            p.duration,
-            p.settle_day,
-            p.manager,
-            u.profile_img,
-        COALESCE(AVG(r.star), 0) AS avg_star  <!-- ⭐ 별점 평균 추가 -->
-
+        p.project_id,
+        p.project_name,
+        p.client_id,
+        p.advertisement_title,
+        p.thumbnail,
+        p.duration,
+        p.settle_day,
+        p.manager,
+        p.sub_category_id,
+        sc.sub_category_name,
+        c.category_name,
+        u.profile_img,
+        COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
-                 LEFT JOIN user u ON p.client_id = u.user_id
-        LEFT JOIN review r ON p.client_id = r.r_user_id  <!-- ⭐ 리뷰 테이블 조인 -->
-        WHERE p.category = #{category}
-          AND (
+        LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
+        LEFT JOIN category c ON sc.category_id = c.category_id
+        LEFT JOIN user u ON p.client_id = u.user_id
+        LEFT JOIN review r ON p.client_id = r.r_user_id
+        WHERE 1=1
+        <if test="category != null and category != '' and category != '전체'">
+            AND c.category_name = #{category}
+        </if>
+        <if test="subCategory != null and subCategory != ''">
+            AND sc.sub_category_name = #{subCategory}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (
             p.advertisement_title LIKE CONCAT('%', #{keyword}, '%')
-                OR p.manager LIKE CONCAT('%', #{keyword}, '%')
+            OR p.manager LIKE CONCAT('%', #{keyword}, '%')
             )
-        GROUP BY p.project_id  <!-- ⭐ 집계함수 쓰면 GROUP BY 필요 -->
+        </if>
+        GROUP BY p.project_id
+        ORDER BY p.created_date DESC
+    </select>
+
+    <!-- ✅ 조건 검색 (서브카테고리만 선택 가능) -->
+    <select id="catalogProjectByConditions" parameterType="map" resultType="dto.Project">
+        SELECT
+        p.project_id,
+        p.project_name,
+        p.client_id,
+        p.advertisement_title,
+        p.thumbnail,
+        p.duration,
+        p.settle_day,
+        p.manager,
+        p.sub_category_id,
+        sc.sub_category_name,
+        c.category_name,
+        u.profile_img,
+        COALESCE(AVG(r.star), 0) AS avg_star
+        FROM project p
+        LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
+        LEFT JOIN category c ON sc.category_id = c.category_id
+        LEFT JOIN user u ON p.client_id = u.user_id
+        LEFT JOIN review r ON p.client_id = r.r_user_id
+        WHERE 1=1
+        <if test="category != null and category != ''">
+            AND c.category_name = #{category}
+        </if>
+        <if test="subCategory != null and subCategory != ''">
+            AND sc.sub_category_name = #{subCategory}
+        </if>
+        GROUP BY p.project_id
         ORDER BY p.created_date DESC
     </select>
 
 </mapper>
+
+        <!--<?xml version="1.0" encoding="UTF-8" standalone="no"?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"-->
+<!--        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >-->
+
+<!--<mapper namespace="mapper.project">-->
+<!--&lt;!&ndash;    <insert id="" parameterType="">-->
+<!--        insert ammount ()-->
+<!--        values (#{}, #{},#{},#{})-->
+<!--    </insert>-->
+
+<!--    <select id="selectAllOngoingProjects" resultType="dto.Project">-->
+<!--        SELECT *-->
+<!--        FROM project-->
+<!--        WHERE status = '진행중'-->
+<!--    </select>&ndash;&gt;-->
+
+<!--    <select id="MainProjectsByCategory" resultType="dto.Project" parameterType="String">-->
+<!--        SELECT-->
+<!--            p.project_name,-->
+<!--            p.client_id,-->
+<!--            p.category,-->
+<!--            p.advertisement_title,-->
+<!--            COALESCE(AVG(r.star), 0) AS avg_star,-->
+<!--            u.profile_img &#45;&#45; profile_img 추가-->
+
+<!--        FROM project p-->
+<!--                 LEFT JOIN review r ON p.client_id = r.r_user_id-->
+<!--                 LEFT JOIN user u ON p.client_id = u.user_id &#45;&#45; user 테이블 조인 추가-->
+
+<!--        WHERE p.category = #{category}-->
+
+<!--        GROUP BY p.project_id-->
+
+<!--        ORDER BY RAND()-->
+<!--            LIMIT 3-->
+<!--    </select>-->
+
+<!--    <select id="catalogProjectByCategory" parameterType="String" resultType="dto.Project">-->
+<!--        SELECT-->
+<!--            p.project_id,-->
+<!--            p.client_id,-->
+<!--            p.category,-->
+<!--            p.advertisement_title,-->
+<!--            p.project_name,-->
+<!--            p.thumbnail,-->
+<!--            p.duration,-->
+<!--            p.settle_day,-->
+<!--            p.manager,-->
+<!--            u.profile_img,-->
+<!--            COALESCE(AVG(r.star), 0) AS avg_star  &lt;!&ndash; ⭐ 별점 평균 추가 &ndash;&gt;-->
+<!--        FROM project p-->
+<!--                 LEFT JOIN user u ON p.client_id = u.user_id-->
+<!--                 LEFT JOIN review r ON p.client_id = r.r_user_id  &lt;!&ndash; 리뷰 테이블 조인 &ndash;&gt;-->
+<!--        WHERE p.category = #{category}-->
+<!--        GROUP BY p.project_id-->
+<!--        ORDER BY p.created_date DESC-->
+<!--    </select>-->
+<!--    <select id="searchProjectsByCategoryAndKeyword" parameterType="map" resultType="dto.Project">-->
+<!--        SELECT-->
+<!--        p.project_id,-->
+<!--        p.client_id,-->
+<!--        p.category,-->
+<!--        p.sub_category AS subCategory,-->
+<!--        p.advertisement_title,-->
+<!--        p.project_name,-->
+<!--        p.thumbnail,-->
+<!--        p.duration,-->
+<!--        p.settle_day,-->
+<!--        p.manager,-->
+<!--        u.profile_img,-->
+<!--        COALESCE(AVG(r.star), 0) AS avg_star-->
+<!--        FROM project p-->
+<!--        LEFT JOIN user u ON p.client_id = u.user_id-->
+<!--        LEFT JOIN review r ON p.client_id = r.r_user_id-->
+<!--        WHERE 1=1-->
+<!--        <if test="category != null and category != '' and category != '전체'">-->
+<!--            AND p.category = #{category}-->
+<!--        </if>-->
+<!--        <if test="subCategory != null and subCategory != ''">-->
+<!--            AND p.sub_category = #{subCategory}-->
+<!--        </if>-->
+<!--        <if test="keyword != null and keyword != ''">-->
+<!--            AND (-->
+<!--            p.advertisement_title LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            OR p.manager LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            )-->
+<!--        </if>-->
+<!--        GROUP BY p.project_id-->
+<!--        ORDER BY p.created_date DESC-->
+<!--    </select>-->
+<!--    &lt;!&ndash; ✅ 카테고리 + 서브카테고리 필터링 쿼리 &ndash;&gt;-->
+<!--    <select id="catalogProjectByConditions" parameterType="map" resultType="dto.Project">-->
+<!--        SELECT-->
+<!--        p.project_id,-->
+<!--        p.client_id,-->
+<!--        p.category,-->
+<!--        p.sub_category AS subCategory,-->
+<!--        p.advertisement_title,-->
+<!--        p.project_name,-->
+<!--        p.thumbnail,-->
+<!--        p.duration,-->
+<!--        p.settle_day,-->
+<!--        p.manager,-->
+<!--        u.profile_img,-->
+<!--        COALESCE(AVG(r.star), 0) AS avg_star-->
+<!--        FROM project p-->
+<!--        LEFT JOIN user u ON p.client_id = u.user_id-->
+<!--        LEFT JOIN review r ON p.client_id = r.r_user_id-->
+<!--        WHERE p.category = #{category}-->
+<!--        <if test="subCategory != null and subCategory != ''">-->
+<!--            AND p.sub_category = #{subCategory}-->
+<!--        </if>-->
+<!--        GROUP BY p.project_id-->
+<!--        ORDER BY p.created_date DESC-->
+<!--    </select>-->
+<!--</mapper>-->
+

@@ -9,4 +9,5 @@ public interface IProjectDAO {
     List<Project> MainProjectsByCategory(String category);
     List<Project> catalogProjectByCategory(String category);
     List<Project> searchProjectsByCategoryAndKeyword(Map<String, String> param);
+    List<Project> catalogProjectByConditions(Map<String, String> param);
 }

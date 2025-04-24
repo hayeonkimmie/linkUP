@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch(contextPath +'/home/header.jsp')
+    fetch(contextPath +'/header')
         .then(res => res.text())
         .then(data => {
             document.getElementById('header-placeholder').innerHTML = data;
