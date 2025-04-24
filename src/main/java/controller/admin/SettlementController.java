@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/admin/settlement")
 public class SettlementController extends HttpServlet {
@@ -34,18 +35,20 @@ public class SettlementController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         ISettlementDAO settlementDAO = new SettlementDAO();
+        ISettlementService settlementService = new SettlementService(null,null,settlementDAO);
         String contractIdParam = request.getParameter("contractid");
         String slistIdParam = request.getParameter("slistid");
 
         try {
-            HashMap<Integer, AdminProject> projectList;
-            if (contractIdParam != null) {
+            HashMap<Integer, AdminSettleProject> projectList;
+            if (slistIdParam != null) {
                 // 👉 정산내역 페이지 (settlement_info.jsp)
-                int contractId = Integer.parseInt(contractIdParam);
+                int contractId = Integer.parseInt(slistIdParam);
+                System.out.println("contractId : " + contractId);
                 request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
-            } else if (slistIdParam != null) {
+            } else if (contractIdParam != null) {
                 // 👉 정산하기 페이지 (settlement_detail.jsp)
-                int projectId = Integer.parseInt(slistIdParam);
+                int projectId = Integer.parseInt(contractIdParam);
                 int cnt = 1;
                 int totalAmount = 0;
                 List<AdminSettleTarget> targetList = settlementDAO.selectFreelancersForSettlement(projectId, cnt);
@@ -54,20 +57,20 @@ public class SettlementController extends HttpServlet {
                     totalAmount += t.getTotalPay();
                 }
                 projectList = request.getSession().getAttribute("projectList") != null ?
-                        (HashMap<Integer, AdminProject>) request.getSession().getAttribute("projectList") : new HashMap<>();
+                        (HashMap<Integer, AdminSettleProject>) request.getSession().getAttribute("projectList") : new HashMap<>();
                 if(projectList.get(projectId) == null){
                     projectList = settlementDAO.selectProjectsForSettlement();
                 }
-                AdminProject selected = projectList.get(projectId);
+                AdminSettleProject selected = projectList.get(projectId);
                 request.setAttribute("totalAmount", totalAmount);
                 request.setAttribute("targetList", targetList);
                 request.setAttribute("project", selected);
                 request.getRequestDispatcher("/admin/settlement_detail.jsp").forward(request, response);
             } else {
-                // 👉 기본 목록 페이지 (settlement.jsp)
                 projectList = settlementDAO.selectProjectsForSettlement();
-                for(AdminProject project : projectList.values()) {
-                    System.out.println(project);
+                projectList = settlementService.filterProjectsWithUnsettled(projectList);
+                for (AdminSettleProject p : projectList.values()) {
+                    System.out.println("Project : " + p);
                 }
                 request.setAttribute("projectList", projectList);
                 request.getSession().setAttribute("projectList", projectList);
@@ -90,20 +93,19 @@ public class SettlementController extends HttpServlet {
         Integer projectId = Integer.valueOf(request.getParameter("projectId"));
         String jsonData = request.getParameter("jsonData");
         Gson gson = new Gson();
-
+        Settlelist settlelist = null;
         try {
             PrepareSettleJson[] item = gson.fromJson(jsonData, PrepareSettleJson[].class);
-            Settlelist settlelist = settlementService.createSettleList(item[0], projectId);
-            System.out.println("settlelist = " + settlelist);
+            settlelist = settlementService.createSettleList(item[0], projectId);
             if (settlelist == null) {
                 System.out.println("정산 생성 조건 미충족으로 정산 중단됨");
-                response.sendRedirect("/admin/project");
+                response.sendRedirect("/admin/settlement");
                 return;
             }
             settlementService.createSettlement(settlelist, item, projectId);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        response.sendRedirect("/admin/project");
+        response.sendRedirect("/admin/settlement_info?slist_id=" +  Objects.requireNonNull(settlelist).getSlistId());
     }
 }

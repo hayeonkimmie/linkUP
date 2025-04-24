@@ -27,5 +27,8 @@
         SELECT COUNT(*) FROM contract WHERE project_id = #{projectId}
     </select>
 
+    <update id="updateClientStatus" parameterType="Map">
+        update contract set client_status = #{clientStatus} where project_id = #{projectId}
+    </update>
 
 </mapper>

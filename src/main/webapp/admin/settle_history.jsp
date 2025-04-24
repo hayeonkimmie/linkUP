@@ -1,0 +1,151 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>정산 내역 조회</title>
+    <link rel="stylesheet" href="../css/admin/admin_header.css">
+    <link rel="stylesheet" href="../css/settlement.css">
+    <link rel="stylesheet" href="../css/settlement_history.css">
+    <script> const defaultOpenMenuId = "projectMenu"; </script>
+    <style>
+        .search-input {
+            width: 100%;
+            font-size: 15px;
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: flex-end;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-item input[type="date"] {
+            min-width: 120px !important;
+            font-size: 14px;
+            padding: 6px 10px;
+        }
+
+        .filter-item input[type="text"] {
+            font-size: 15px;
+            padding: 8px 12px;
+        }
+
+        .filter-action {
+            margin-left: auto;
+        }
+
+        .pagination {
+            margin-top: 40px; /* ✅ 테이블과의 간격 */
+            text-align: center;
+            padding-bottom: 30px; /* ✅ 페이지 하단 여백 */
+        }
+
+        .card.history-section {
+            min-width: 1400px;
+            min-height: calc(100vh - 400px); /* ✅ 컨텐츠 높이 보장 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* ✅ 내부 요소 하단 정렬 */
+        }
+
+        .settlement-table {
+            margin-bottom: auto; /* ✅ 위 요소는 위로 밀고 */
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="header-include"></div>
+
+<div class="layout-wrapper">
+    <div id="menu-include"></div>
+    <div class="content">
+        <div class="card filter-box">
+            <h1>정산 내역 조회</h1>
+            <div class="filter-row">
+                <form method="get" action="<c:url value='/admin/settlement-history'/>" class="search-form" style="width: 100%; display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-end;">
+                    <div class="filter-item" style="flex: 2;">
+                        <label>검색어</label>
+                        <input type="text" name="keyword" placeholder="🔍 프로젝트명 또는 프리랜서명" value="${param.keyword}" class="search-input">
+                    </div>
+                    <div class="filter-item">
+                        <label>시작일</label>
+                        <input type="date" name="startDate" value="${param.startDate}">
+                    </div>
+                    <div class="filter-item">
+                        <label>종료일</label>
+                        <input type="date" name="endDate" value="${param.endDate}">
+                    </div>
+                    <div class="filter-action">
+                        <button type="submit" class="search-btn">검색</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card history-section">
+            <div class="total-count">
+                <h2>총 <c:out value="${totalCount}" />건의 정산</h2>
+            </div>
+
+            <table class="settlement-table">
+                <thead>
+                <tr>
+                    <th>정산 회차</th>
+                    <th>프로젝트명</th>
+                    <th>정산 총액</th>
+                    <th>정산일</th>
+                    <th>상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="h" items="${settlementList}">
+                    <tr onclick="location.href='<c:url value="/admin/settlement?slist_id=${h.projectId}"/>'" style="cursor: pointer;">
+                        <td>${h.cnt}회차</td>
+                        <td>${h.projectName}</td>
+                        <td><fmt:formatNumber value="${h.totalAmount}" type="currency" currencySymbol="₩"/></td>
+                        <td>${h.settleDate}</td>
+                        <td><span class="badge ${h.status}">${h.status}</span></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <button <c:if test="${pageInfo.curPage == 1}">disabled</c:if>
+                        onclick="location.href='?page=${pageInfo.curPage - 1}'">이전</button>
+
+                <c:forEach var="i" begin="1" end="${pageInfo.allPage}">
+                    <c:choose>
+                        <c:when test="${i == pageInfo.curPage}">
+                            <button class="page-button selected" disabled>${i}</button>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="page-button" onclick="location.href='?page=${i}'">${i}</button>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <button <c:if test="${pageInfo.curPage == pageInfo.allPage}">disabled</c:if>
+                        onclick="location.href='?page=${pageInfo.curPage + 1}'">다음</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<script src="../js/include_common.js"></script>
+</body>
+</html>

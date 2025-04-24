@@ -49,7 +49,9 @@ public class ProjectController extends HttpServlet {
             if (idParam != null) {
                 // ✅ 프로젝트 상세 페이지 처리
                 int id = Integer.parseInt(idParam);
+                System.out.println("id : " + id);
                 AdminProjectDetail detail = projectDAO.selectProjectDetail(id);
+                System.out.println(detail);
                 request.setAttribute("project", detail);
                 request.getRequestDispatcher("/admin/project_detail.jsp").forward(request, response);
             // 프로젝트 전체 목록 페이지 : /admin/project_list.jsp
@@ -64,6 +66,9 @@ public class ProjectController extends HttpServlet {
                 int endPage = Math.min(allPage, startPage + 4);
                 pageInfo.setStartPage(startPage);
                 pageInfo.setEndPage(endPage);
+                for(AdminProject project : projectList) {
+                    System.out.println(project);
+                }
                 request.setAttribute("totalCount", totalCount);
                 request.setAttribute("projectList", projectList);
                 request.setAttribute("pageInfo", pageInfo);

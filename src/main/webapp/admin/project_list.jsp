@@ -19,6 +19,21 @@
   <link rel="stylesheet" href="../css/admin/admin_header.css">
   <link rel="stylesheet" href="../css/admin/admin_project_list.css">
   <link rel="stylesheet" href="../css/table_common.css">
+  <style>
+     table th:nth-child(3),
+     table td:nth-child(3) {
+       width: 90px !important;        /* 담당자 열 축소 */
+       white-space: nowrap !important;
+       overflow: hidden !important;
+       text-overflow: ellipsis !important;
+     }
+
+    table th:nth-child(4),
+    table td:nth-child(4) {
+      width: 200px !important;       /* 기간 열 확대 */
+      white-space: nowrap !important;
+    }
+  </style>
   <script> const defaultOpenMenuId = "projectMenu"; </script>
 </head>
 
@@ -84,7 +99,16 @@
             <td>${p.projectDuration}</td>
             <td>${p.managerPhone}</td>
             <td><span class="badge ${p.settleStatus}">${p.settleStatus}</span></td>
-            <td><fmt:formatNumber value="${p.totalSettlement}" type="currency" currencySymbol="₩"/></td>
+            <td>
+              <c:choose>
+                <c:when test="${p.totalSettlement == 0}">
+                  <span class="no-settlement">정산 예정 없음</span>
+                </c:when>
+                <c:otherwise>
+                  <fmt:formatNumber value="${p.totalSettlement}" type="currency" currencySymbol="₩"/>
+                </c:otherwise>
+              </c:choose>
+            </td>
           </tr>
         </c:forEach>
         </tbody>

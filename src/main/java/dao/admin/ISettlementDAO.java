@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ISettlementDAO {
-    HashMap<Integer, AdminProject> selectProjectsForSettlement() throws SQLException;
+    HashMap<Integer, AdminSettleProject> selectProjectsForSettlement() throws SQLException;
 
     List<AdminProject> selectProjectsForSettlementList() throws SQLException;
 
@@ -29,9 +30,15 @@ public interface ISettlementDAO {
 
     Settlelist selectSettlelistByProjectIdAndDate(int projectId, Date settleDate);
 
-    boolean existsSettlementBySlistIdAndsettleDate(int slistId, Date settleDate) throws Exception;
+    boolean existsSettlementBySlistIdAndsettleDate(String clientId, int slistId, Date settleDate) throws Exception;
 
     Settlelist selectAnySettlelistByProjectIdAndDate(int projectId, Date settleDate) throws Exception;
 
+    List<AdminSettleHistory> selectHistoryList(Map<String, Object> param) throws Exception;
 
+    Integer countHistory(Map<String, Object> param) throws Exception;
+
+
+    List<AdminSettleHistorySummary> selectHistorySummaryList(Map<String, Object> param);
+    int countHistorySummary(Map<String, Object> param);
 }

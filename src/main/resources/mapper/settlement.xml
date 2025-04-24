@@ -47,6 +47,7 @@
         FROM settlement
         WHERE slist_id = #{slistId}
           AND settleday = #{settleDate}
+          AND client_id = #{clientId}
     </select>
 
 
