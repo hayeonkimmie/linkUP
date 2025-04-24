@@ -12,23 +12,59 @@
     <script> const defaultOpenMenuId = "projectMenu"; </script>
     <style>
         .search-input {
-            width: 1000px !important;
+            width: 100%;
+            font-size: 15px;
         }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: flex-end;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 200px;
+        }
+
         .filter-item input[type="date"] {
-            min-width: 150px !important;
+            min-width: 120px !important;
             font-size: 14px;
-            margin-left: 12px;
+            padding: 6px 10px;
         }
+
+        .filter-item input[type="text"] {
+            font-size: 15px;
+            padding: 8px 12px;
+        }
+
         .filter-action {
             margin-left: auto;
         }
+
         .pagination {
+            margin-top: 40px; /* ✅ 테이블과의 간격 */
             text-align: center;
+            padding-bottom: 30px; /* ✅ 페이지 하단 여백 */
         }
+
         .card.history-section {
             min-width: 1400px;
+            min-height: calc(100vh - 400px); /* ✅ 컨텐츠 높이 보장 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* ✅ 내부 요소 하단 정렬 */
+        }
+
+        .settlement-table {
+            margin-bottom: auto; /* ✅ 위 요소는 위로 밀고 */
         }
     </style>
+
 </head>
 
 <body>
@@ -60,11 +96,9 @@
             </div>
         </div>
 
-        <div class="card history-section" style="min-height: calc(100vh - 400px);">
+        <div class="card history-section">
             <div class="total-count">
-             <h2>
-                 총 <c:out value="${totalCount}" />건의 정산
-             </h2>
+                <h2>총 <c:out value="${totalCount}" />건의 정산</h2>
             </div>
 
             <table class="settlement-table">
@@ -79,22 +113,21 @@
                 </thead>
                 <tbody>
                 <c:forEach var="h" items="${settlementList}">
-                    <tr onclick="location.href='<c:url value="/admin/settlement_info?slist_id=${h.projectId}"/>'" style="cursor: pointer;">
+                    <tr onclick="location.href='<c:url value="/admin/settlement?slist_id=${h.projectId}"/>'" style="cursor: pointer;">
                         <td>${h.cnt}회차</td>
                         <td>${h.projectName}</td>
                         <td><fmt:formatNumber value="${h.totalAmount}" type="currency" currencySymbol="₩"/></td>
                         <td>${h.settleDate}</td>
-                        <td>
-                            <span class="badge ${h.status}">${h.status}</span>
-                        </td>
+                        <td><span class="badge ${h.status}">${h.status}</span></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
 
+            <div class="pagination">
+                <button <c:if test="${pageInfo.curPage == 1}">disabled</c:if>
+                        onclick="location.href='?page=${pageInfo.curPage - 1}'">이전</button>
 
-            <div class="pagination" style="margin-top: 32px; text-align: center;">
-                <button <c:if test="${pageInfo.curPage == 1}">disabled</c:if> onclick="location.href='?page=${pageInfo.curPage - 1}'">이전</button>
                 <c:forEach var="i" begin="1" end="${pageInfo.allPage}">
                     <c:choose>
                         <c:when test="${i == pageInfo.curPage}">
@@ -105,11 +138,13 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-                <button <c:if test="${pageInfo.curPage == pageInfo.allPage}">disabled</c:if> onclick="location.href='?page=${pageInfo.curPage + 1}'">다음</button>
+
+                <button <c:if test="${pageInfo.curPage == pageInfo.allPage}">disabled</c:if>
+                        onclick="location.href='?page=${pageInfo.curPage + 1}'">다음</button>
             </div>
         </div>
     </div>
-</div>
+    </div>
 
 <script src="../js/include_common.js"></script>
 </body>
