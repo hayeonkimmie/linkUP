@@ -17,36 +17,31 @@ public class FreelancerDAO implements IFreelancerDAO {
         return sqlSession.selectOne("mapper.freelancer.selectBasicFreelancerById", freelancerId);
     }
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception {
-        System.out.println("FreelancerDAO 21 + selectExpertFreelancerById "+freelancerId);
+        System.out.println("FreelancerDAO 20 + selectExpertFreelancerById "+freelancerId);
         Freelancer freelancer = sqlSession.selectOne("mapper.freelancer.selectExpertFreelancerById", freelancerId);
         if (freelancer == null) {
             return null;
-        }
-        if(freelancer.getCategory() != null) {
-            String[] categoryIdsStr = freelancer.getCategory().split(",");
-            List<Integer> categoryIds = new ArrayList<>();
-            for (String categoryId : categoryIdsStr) {
-                categoryIds.add(Integer.parseInt(categoryId));
+        } else {
+            if(freelancer.getSkill() != null) {
+                freelancer.setSkillList(freelancer.getSkill().split(", "));
             }
-            freelancer.setCategoryIdList(categoryIds);
-            List<String> categoryNames =  sqlSession.selectList("mapper.subCategory.selectCategoryNamesBySubIds", categoryIdsStr);
-            freelancer.setCategoryList(categoryNames);
+            if(selectAllportfolioInfoMap(freelancerId) != null) {
+                freelancer.setPortfolioInfoMap(selectAllportfolioInfoMap(freelancerId));
+            }
+            if(freelancer.getLicense() != null) {
+                List<License> licenseList = infoSerializer.deserializeLicenseList(freelancer.getLicense());
+                freelancer.setLicenseList(licenseList);
+            }
+            if (freelancer.getAcademic() != null) {
+                List<Academic> academicList = infoSerializer.deserializeAcademicList(freelancer.getAcademic());
+                freelancer.setAcademicList(academicList);
+            }
+            if (selectPortfolioInfoMapForProfile(freelancerId) != null) {
+                Map<Integer, String> portfolioInfoMap = selectPortfolioInfoMapForProfile(freelancerId);
+                freelancer.setPortfolioInfoMap(portfolioInfoMap);
+            }
         }
-        if(freelancer.getSkill() != null) {
-            freelancer.setPortfolioInfoMap(selectAllportfolioInfoMap(freelancerId));
-
-            List<License> licenseList = infoSerializer.deserializeLicenseList(freelancer.getLicense());
-            freelancer.setLicenseList(licenseList);
-        }
-        if (freelancer.getAcademic() != null) {
-            List<Academic> academicList = infoSerializer.deserializeAcademicList(freelancer.getAcademic());
-            freelancer.setAcademicList(academicList);
-        }
-        if (selectPortfolioInfoMapForProfile(freelancerId) != null) {
-            Map<Integer, String> portfolioInfoMap = selectPortfolioInfoMapForProfile(freelancerId);
-            freelancer.setPortfolioInfoMap(portfolioInfoMap);
-        }
-        System.out.println("FreelancerDAO 24 + selectExpertFreelancerById "+freelancer);
+        System.out.println("FreelancerDAO 47 + selectExpertFreelancerById "+freelancer);
         return freelancer;
     }
 
@@ -60,7 +55,7 @@ public class FreelancerDAO implements IFreelancerDAO {
     public List<Career> selectCareerById(String freelancerId) throws Exception{
         List<Career> careerList = new ArrayList<Career>();
         try {
-            careerList = sqlSession.selectList("mapper.freelancer.selectCareerById", freelancerId);
+            careerList = sqlSession.selectList("mapper.freelancer.selectCareerListByFreelancerId", freelancerId);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -78,26 +73,16 @@ public class FreelancerDAO implements IFreelancerDAO {
 
     }
     @Override
+    public String selectFreelancerProfileImg(String freelancerId) throws Exception {
+        return sqlSession.selectOne("mapper.freelancer.selectProfileImgById", freelancerId);
+    }
+    @Override
     public void updateUserProfile(Freelancer freelancer) throws Exception {
         System.out.println("DAO 47 + updateUserProfile"+freelancer);
         sqlSession.update("mapper.freelancer.updateUserProfile", freelancer);
         System.out.println("DAO 49 + updateUserProfile "+freelancer);
         sqlSession.update("mapper.freelancer.updateFreelancerProfile", freelancer);
         sqlSession.commit();
-    }
-
-    @Override
-    public List<Integer> selectCategoryIdByFreelancerId(String freelancerId) throws Exception {
-        Freelancer freelancer = sqlSession.selectOne("mapper.freelancer.selectCategoryByFreelancerId", freelancerId);
-        List<Integer> categoryIds = new ArrayList<>();
-        if(freelancer.getCategory() != null) {
-            String[] categoryIdsStr = freelancer.getCategory().split(",");
-            for (String categoryId : categoryIdsStr) {
-                categoryIds.add(Integer.parseInt(categoryId));
-            }
-            freelancer.setCategoryIdList(categoryIds);
-        }
-        return categoryIds;
     }
 
     @Override

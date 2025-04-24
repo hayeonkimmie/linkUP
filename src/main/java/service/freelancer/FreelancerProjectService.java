@@ -36,6 +36,14 @@ public class FreelancerProjectService implements IFreelancerProjectService {
          Integer row = (pageInfo.getCurPage()-1)*10+1;
          return projectDAO.selectOngoingProject(row, freelancerId);
     }
+    public List<FreelancerProject> selectOngoingProjectForMain(String freelancerId) throws Exception {
+         Integer projCnt = cntOngoingProjects(freelancerId);
+         if(projCnt == null) {
+             return null;
+         }
+         System.out.println("FreelancerProjectService.java 24 진행중인 프로젝트 갯수 = " + projCnt);
+         return projectDAO.selectOngoingProjectForMain(freelancerId);
+    }
 
      @Override
      public List<FreelancerProject> selectCompletedProject(PageInfo pageInfo, String freelancerId) throws Exception {

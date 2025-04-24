@@ -15,5 +15,5 @@ public interface IFreelancerDAO {
     public void updateCareer(Career career) throws Exception;
     public void deleteCareer(String freelancerId) throws Exception;
     public void updateUserProfile(Freelancer freelancer) throws Exception;
-    public List<Integer> selectCategoryIdByFreelancerId(String freelancerId) throws Exception;
+    public String selectFreelancerProfileImg(String freelancerId) throws Exception;
 }

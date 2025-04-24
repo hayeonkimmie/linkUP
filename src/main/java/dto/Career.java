@@ -101,4 +101,19 @@ public class Career {
     public void setResignDate(Date resignDate) {
         this.resignDate = resignDate;
     }
+
+    @Override
+    public String toString() {
+        return "Career{" +
+                "freelancerId='" + freelancerId + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                ", position='" + position + '\'' +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", jobDescription='" + jobDescription + '\'' +
+                ", salary=" + salary +
+                ", joinDate=" + joinDate +
+                ", resignDate=" + resignDate +
+                '}';
+    }
 }

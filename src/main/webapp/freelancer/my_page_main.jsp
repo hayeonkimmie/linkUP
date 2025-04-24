@@ -26,29 +26,37 @@
             <table>
                 <thead>
                 <tr>
-                    <th>프로젝트 명</th>
+                    <th>프로젝트명</th>
                     <th>분야</th>
                     <th>기간</th>
-                    <th>예산</th>
-                    <th>고객사</th>
-                    <th>요구 스킬/경력</th>
-                    <th>모집 마감일</th>
-                    <th>D-Day</th>
+                    <th>근무 환경 | 근무 시간</th>
+                    <th>지원 자격</th>
+                    <th colspan="2">모집 마감일</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>웹 쇼핑몰 리뉴얼</td>
-                    <td>웹 개발</td>
-                    <td>3개월</td>
-                    <td>2,500만원</td>
-                    <td>패션스토어(주)</td>
-                    <td>React, TypeScript, 3년 이상</td>
-                    <td>25. 04. 07</td>
-                    <td>
-                        <span class="d-day">D-6</span>
-                    </td>
-                </tr>
+                <c:choose>
+                    <c:when test="${empty jjimProjList} && ${jjimProjList eq null}">
+                        <tr>
+                            <td colspan="8" style="height: 39px;"><b>찜한 프로젝트가 없습니다.</b></td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="jp" items="${jjimProjList}">
+                            <tr>
+                                <td><a href="${jp.projectId}">${jp.projectName}</a></td>
+                                <td>${jp.category}</td>
+                                <td>${jp.duration}</td>
+                                <td>${jp.workingEnvironment}
+                                    <c:if test="${jp.workingEnvironment ne '재택'}">(${jp.workingMethod})</c:if> | ${jp.workingHours}
+                                </td>
+                                <td>${jp.qualification}</td>
+                                <td>${jp.deadlineDate}</td>
+                                <td class="d-day">${jp.dDay}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
                 </tbody>
             </table>
         </section>
@@ -61,31 +69,41 @@
             <table>
                 <thead>
                 <tr>
-                    <th>진행여부</th>
-                    <th>프로젝트 명</th>
+                    <th>프로젝트 정보</th>
                     <th>분야</th>
                     <th>기간</th>
                     <th>예산</th>
                     <th>요구사항</th>
-                    <th>프로젝트 마감일</th>
-                    <th>D-Day</th>
+                    <th>작업방식</th>
+                    <th colspan="2">마감일</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><span class="status">진행중</span></td>
-                    <td>데이터 대시보드 구축</td>
-                    <td>데이터시각화</td>
-                    <td>2개월</td>
-                    <td>1,800만원</td>
-                    <td>D3.js, React, 2년 이상</td>
-                    <td>25. 04. 07</td>
-                    <td><span class="d-day">D-6</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="6" style="height: 39px;"><b>진행중인 프로젝트가 없습니다.</b></td>
-                </tr>
+                    <c:choose>
+                        <c:when test="${empty onGoingProjList} && ${onGoingProjList eq null}">
+                            <tr>
+                                <td colspan="8" style="height: 39px;"><b>찜한 프로젝트가 없습니다.</b></td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="project" items="${onGoingProjList}">
+                                <tr>
+                                    <td><a href="${project.projectId}">${project.projectName}</a><hr/>${project.clientName}</td>
+                                    <td>${project.categories}</td>
+                                    <td>${project.projectDuration}</td>
+                                    <td>${project.totalBudget}</td>
+                                    <td>
+                                        <c:if test="${project.reqSkills ne null}">${project.reqSkills}, </c:if>
+                                            ${project.qualification}</td>
+                                    <td>${project.workingEnvironment}
+                                        <c:if test="${project.workingEnvironment ne '재택'}">(${project.workingMethod})</c:if>| ${project.workingHours}
+                                    </td>
+                                    <td>${project.deadlineDate}</td>
+                                    <td><span class="d-day">${project.dDay}</span></td>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </tbody>
             </table>
         </section>

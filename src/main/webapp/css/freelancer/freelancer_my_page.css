@@ -111,6 +111,11 @@ tbody td {
   color: #333;
 }
 
+tbody tr td a {
+  text-decoration: none;
+  color: black;
+}
+
 .d-day {
   display: block;
   margin-top: 4px;

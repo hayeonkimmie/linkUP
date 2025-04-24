@@ -134,7 +134,7 @@ function initSkillTagsTextInput() {
         span.classList.add('skill-tag');
         span.setAttribute('data-skill', trimmed);
         span.innerHTML = ` ${trimmed}
-            <button class="delete-skill-btn">X</button>
+            <a class="delete-skill-btn">X</a>
         `;
 
         span.querySelector('.delete-skill-btn').addEventListener('click', function (e) {

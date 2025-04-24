@@ -1,0 +1,784 @@
+/* ==============================
+   기본 설정
+============================== */
+body {
+    margin: 0;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    background: #f5f9f8;
+    color: #222;
+}
+
+input, textarea, select {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* ==============================
+   헤더
+============================== */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #8b2c8c;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav ul li {
+    margin: 0 1rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.icons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* ==============================
+   컨테이너 & 본문
+============================== */
+.container {
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    background: white;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+h2, h3 {
+    margin-top: 0;
+    font-weight: bold;
+}
+
+.form-section h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* ==============================
+   폼 레이아웃
+============================== */
+.star {
+    color: red;
+    font-size: 1.2rem;
+    margin-left: 4px;
+}
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form-row.center {
+    justify-content: center;
+}
+
+.form-group {
+    /*margin-bottom: 40px;*/
+    margin-top: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 6px;
+}
+.form-group label {
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.names {
+    display: inline-flex;
+    flex-direction: row;
+    width: 100%;
+}
+/* ===== 공통 태그 스타일 (전문 분야 / 스킬) ===== */
+
+.skill-tag, .specialization span {
+    display: inline-flex;
+    align-items: center;
+    background-color: #e5d4f5;
+    color: #5c057b;
+    /*padding: 10px 18px;*/
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 16px;
+    margin: 6px 8px 0 0;
+    height: 36px;
+    position: relative;
+}
+
+/* 삭제 버튼 스타일 */
+.skill-tag a.delete-skill-btn,
+.specialization a.delete-skill-btn {
+    text-decoration: none;
+    margin-left: 8px;
+    color: #5c057b;
+    background-color: rgba(92, 5, 123, 0.1);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
+    line-height: 1;
+}
+a.delete-skill-btn{
+    text-decoration: none;
+}
+
+/* 입력창 스타일 */
+.skills-section input#skills {
+    width: 85%;
+    height: 50px;
+    padding: 12px 16px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+/* 스킬 입력창과 초기화 버튼을 한 줄에 정렬 */
+.skill-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+/* 스킬 입력창 스타일 (가로폭 유지를 위해 flex-grow 추가) */
+.skill-input-wrapper input#skills {
+    flex-grow: 1;
+    height: 48px;
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* 초기화 버튼 스타일 */
+.skill-input-wrapper a#clear-skills {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    background-color: #eee;
+    color: #333;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    text-decoration: none;
+}
+/* 태그 정렬 */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* 드롭다운 셀렉트박스 스타일 */
+.form-group select {
+    width: 260px;
+    height: 50px;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+#clear-skills {
+    background-color: #772e91;
+    color: white;
+    /*border: none;*/
+    font-weight: 500;
+    /*background-color: #eee;*/
+    /*color: #333;*/
+    border: 1px solid #bbb;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 6px;
+    text-decoration: none;
+    height: 36px;
+    line-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 25px;
+}
+
+.education-box .row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+/* 입력 필드 너비 통일 */
+.input input,
+.dropdown select,
+textarea,
+select,
+input[type="month"],
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+/* ============================
+   학력 영역
+============================ */
+#education-container .education-box {
+/*    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #fff;*/
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px 12px;
+    padding: 24px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    position: relative;
+}
+/* 라벨 및 인풋 기본 스타일 */
+.dropdown, .input {
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+}
+.education-box, .career-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 24px;
+    background-color: #fff;
+}
+
+/* 입력 라인 정렬 */
+
+.education-box .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.input, .dropdown {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 200px;
+}
+
+.input input,
+.dropdown select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 4px;
+}
+
+.input-education-date {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.input-education-date label {
+    margin-right: 6px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.input-education-graduate {
+    margin-top: 10px;
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonDeleteField {
+    margin-top: 10px;
+    background: none;
+    border: none;
+    color: #666;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 6px 10px;
+    align-self: flex-start;
+}
+
+/* 학력 추가 버튼 */
+#education_addbutton {
+    display: inline-block;
+    margin-top: 10px;
+    color: #772e91;
+    font-weight: bold;
+    cursor: pointer;
+}
+/* 라벨 그룹 구조 개선 */
+.label {
+/*    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #333;*/
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+}
+.dropdown select,
+.input input,
+input[type="month"] {
+    height: 42px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+/* 전공명과 졸업상태 같은 줄 정렬 */
+.education-box .row {
+    display: contents; /* 내부 인풋은 grid 직접 배치 */
+}
+
+/* 입학/졸업 연월 각 한 칸씩 */
+.input-education-date {
+    display: flex;
+    flex-direction: column;
+    grid-column: span 1;
+}
+
+
+/* 전공명 필드 */
+.input-education-graduate {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 입학/졸업 연월 정렬 */
+.input-education-date {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.input-education-date label {
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+/* 삭제 버튼을 우측 상단으로 */
+.education-box .buttonDeleteField {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: transparent;
+    color: #888;
+    border: none;
+    font-size: 20px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.education-box .buttonDeleteField:hover {
+    color: #222;
+}
+
+/* 학력 추가 버튼 */
+#education_addbutton {
+    display: inline-block;
+    margin-top: 12px;
+    color: #772e91;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+/* ============================
+   경력 영역
+============================ */
+#career-container .career-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.career-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.career-row input,
+.career-row select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    flex: 1;
+    min-width: 150px;
+}
+
+.career-row:nth-of-type(2) {
+    grid-template-columns: 1.5fr 1.5fr 1fr;
+    align-items: center;
+}
+.salary-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* 경력 삭제/추가 버튼 */
+.button.buttonDeleteField span,
+.add-career-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #eee;
+    border: 1px solid #bbb;
+    color: #333;
+    padding: 6px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* 추가 버튼 스타일 정렬 */
+.add-career-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+    color: #772e91;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+#career-container .career-box {
+    background-color: #fdfdfd;
+}
+
+textarea {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    min-height: 90px;
+    resize: vertical;
+}
+/* 연봉 입력 후 단위 정렬 */
+.career-row span {
+    align-self: center;
+    padding-left: 4px;
+}
+
+/* 삭제 버튼 */
+.buttonDeleteField {
+    /*background-color: #f0f0f0;*/
+    border: 1px solid #ccc;
+    /*padding: 6px 10px;*/
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    align-self: flex-start;
+    background: #eee;
+    color: #333;
+    padding: 6px 14px;
+}
+
+.buttonDeleteField span {
+    font-weight: bold;
+}
+/* 연봉 단위 정렬 */
+.salary-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1 1 200px;
+}
+
+/* 추가 버튼 스타일 */
+#education_addbutton,
+.add-career-btn {
+    display: inline-block;
+    color: #772e91;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 16px;
+}
+
+/* ===============================
+   자격증 입력폼 스타일
+=============================== */
+#certificate-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.certificate-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.add-certificate-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+    color: #772e91;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+/* ==============================
+   버튼 공통
+============================== */
+button,
+.submit-btn {
+    background-color: #8b2c8c;
+    color: white;
+    padding: 0.7rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover,
+.submit-btn:hover {
+    background-color: #6e2070;
+}
+
+.clear_fields,
+.buttonDeleteField,
+.buttonAddField,
+.add-career-btn,
+.search-btn {
+    background-color: #eee;
+    color: #333;
+    border: 1px solid #bbb;
+    padding: 6px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    margin-top: 8px;
+}
+.file-upload-section {
+    background-color: #fff;
+    padding: 24px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.file-upload-section h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.file-upload-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.file-upload-buttons button {
+    background-color: #91009e;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.file-upload-buttons button:hover {
+    background-color: #73007e;
+}
+
+.file-upload-section table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.file-upload-section th,
+.file-upload-section td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #eee;
+}
+
+.file-upload-section td:last-child {
+    color: #91009e;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 희망 근무조건 영역 */
+.form-group .radio-group {
+    margin-bottom: 16px;
+}
+
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+.form-group input[type="number"],
+.form-group input[type="text"],
+.form-group textarea {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group .submit-wrap {
+    margin-top: 30px;
+}
+/* ==============================
+   테이블
+============================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 14px;
+}
+.wanting-condition{
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+/* 라디오 버튼 라인 정렬 */
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.radio-group input {
+    margin-right: 4px;
+}
+
+/* 연봉 + 단위 정렬 */
+.salary-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.salary-wrap input {
+    flex: 1;
+}
+/* ==============================
+   저장 버튼 영역
+============================== */
+.submit-wrap {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.save-btn {
+    background-color: #91009e;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    font-size: 16px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-btn:hover {
+    background-color: #74007a;
+}

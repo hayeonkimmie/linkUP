@@ -21,7 +21,6 @@ public class MyPageReview extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("doPost() 호출됨");
         request.setCharacterEncoding("UTF-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
 /*        if (freelancerId == null) {
@@ -41,7 +40,6 @@ public class MyPageReview extends HttpServlet {
         IReviewService service = new ReviewService();
         List<Review> receivedReviewList = null;
         List<Review> writtenReviewList = null;
-        List<Review> writeReviewList = null;
         String type = request.getParameter("review");
         Integer receivedReviewCnt = 0;
         Integer writtenReviewCnt = 0;
@@ -70,47 +68,51 @@ public class MyPageReview extends HttpServlet {
         request.setAttribute("writtenReviewList", writtenReviewList);
         request.getRequestDispatcher("/freelancer/review_list_update.jsp").forward(request, response);
     }
+   @Override
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       System.out.println("MyPageReview.java 75 doPost() called");
+       request.setCharacterEncoding("UTF-8");
+       String freelancerId = (String) request.getSession().getAttribute("userId");
+       freelancerId = "free002";
+       if (freelancerId == null) {
+           request.setAttribute("err", "로그인 후 이용해주세요.");
+           request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
+           return;
+       }
+       String reviewIdStr = request.getParameter("reviewId");
+       if (reviewIdStr == null || reviewIdStr.isEmpty()) {
+           request.setAttribute("err", "후기 ID가 없습니다.");
+           request.getRequestDispatcher("/freelancer/review_list_update.jsp").forward(request, response);
+           return;
+       }
+       try {
+           Integer reviewId = Integer.parseInt(reviewIdStr);
+           Integer star = Integer.parseInt(request.getParameter("star"));
+           String comment = request.getParameter("comment");
+           Integer projectId = Integer.parseInt(request.getParameter("projectId"));
+           String rUserId = request.getParameter("rUserId");
+            System.out.println("reviewId = " + reviewId +
+                   ", star = " + star +
+                   ", comment = " + comment );
+           IReviewService service = new ReviewService();
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        Integer reviewId = Integer.parseInt(request.getParameter("id"));
-        System.out.println("MyPageReview.java 78 reviewId = " + reviewId);
-        String freelancerId = (String) request.getSession().getAttribute("userId");
-        freelancerId = "free002"; //로그인 기능이 구현된 이후에는 빼기
-        if (freelancerId == null) {
-            request.setAttribute("err", "로그인 후 이용해주세요.");
-            request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
-        }
-        if(reviewId == null) {
-            request.setAttribute("err", "프로젝트 후기 ID가 없습니다.");
-            request.getRequestDispatcher("/freelancer/review_list_update.jsp").forward(request, response);
-        } else {
-            IReviewService service = new ReviewService();
-            try {
-                if(!service.isReviewWriter(freelancerId, reviewId)) {
-                    request.setAttribute("err", "본인이 작성하지 않은 프로젝트 후기를 수정할 수 없습니다.");
-                    request.getRequestDispatcher("/freelancer/review_list_update.jsp").forward(request, response);
-                } else {
-                    Review review =null;
-                    request.setAttribute("review", review);
-                    Integer star = Integer.parseInt(request.getParameter("star"));
+           if (!service.isReviewWriter(freelancerId, reviewId)) {
+               System.out.println("본인이 작성한 후기만 수정할 수 있습니다.");
+               request.setAttribute("err", "본인이 작성한 후기만 수정할 수 있습니다.");
+           } else {
+               Review review = new Review();
+               review.setReviewId(reviewId);
+               review.setStar(star);
+               review.setComment(comment);
+               service.updateReview(review); // 실제 DB 업데이트
 
-                    String comment = request.getParameter("comment");
-                    Integer projectId = Integer.parseInt(request.getParameter("projectId"));
-                    String rUserId = request.getParameter("rUserId");
-                    review.setStar(star);
-                    review.setComment(comment);
-                    review.setProjectId(projectId);
-                    review.setwUserInfo(freelancerId);
-                    System.out.println("MyPageReview.java 88 review = " + review);
-                   // Review review = service.updateReview();
-                    request.setAttribute("err", "후기 수정이 완료되었습니다.");
-                    request.getRequestDispatcher("/freelancer/review_list_update.jsp").forward(request, response);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+               request.setAttribute("msg", "후기 수정이 완료되었습니다.");
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+           request.setAttribute("err", "후기 수정 중 오류 발생");
+       }
+
+       request.getRequestDispatcher("/freelancer/review_list_update.jsp").forward(request, response);
+   }
 }

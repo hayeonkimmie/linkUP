@@ -13,13 +13,22 @@ public class ReviewDAO implements IReviewDAO {
 
     @Override
     public void writeReview(Review review) {
-        sqlSession.insert("mapper.review.insertReview", review);
+        Map<String, Object> param = new HashMap<>();
+        param.put("reviewId", review.getReviewId());
+        param.put("star", review.getStar());
+        param.put("comment", review.getComment());
+        sqlSession.insert("mapper.review.insertReview", param);
         sqlSession.commit();
     }
 
     @Override
     public void updateReview(Review review) {
-        sqlSession.update("mapper.review.updateReview", review);
+        Map<String, Object> param = new HashMap<>();
+        param.put("reviewId", review.getReviewId());
+        param.put("star", review.getStar());
+        param.put("comment", review.getComment());
+        param.put("wUserId", review.getwUserId());
+        sqlSession.update("mapper.review.updateReview", param);
         sqlSession.commit();
     }
 
@@ -39,8 +48,24 @@ public class ReviewDAO implements IReviewDAO {
         param.put("row", row-1);
         return sqlSession.selectList("mapper.review.selectWrittenReviewByFreelancerId", param);
     }
+
+    @Override
+    public List<Review> getUnWrittenReviewListById(Integer row, String freelancerId) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("freelancerId", freelancerId);
+        param.put("row", row-1);
+        List<Review> unWrittenReviewList = sqlSession.selectList("mapper.review.selectUnWrittenReviewByFreelancerId", param);
+        System.out.println("ReviewDAO.java 54 unWrittenReviewList"+ unWrittenReviewList);
+        return unWrittenReviewList;
+    }
+
     public Integer receivedReviewCnt(String userId) {
         return sqlSession.selectOne("mapper.review.selectReceivedReviewCnt", userId);
+    }
+
+    @Override
+    public Integer unWrittenReviewCnt(String userId) throws Exception {
+        return sqlSession.selectOne("mapper.review.selectUnWrittenReviewsCnt", userId);
     }
 
     public Integer writtenReviewsCnt(String userId) {

@@ -28,7 +28,7 @@ public class FreeMyPageEditInfo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             request.setCharacterEncoding("UTF-8");
-            String freelancerId = request.getParameter("userId");
+            String freelancerId = (String) request.getSession().getAttribute("userId");
             /*if (freelancerId == null) {
                 response.sendRedirect("/login");
             };*/
@@ -48,9 +48,11 @@ public class FreeMyPageEditInfo extends HttpServlet {
                 // 전문가 정보 수정
                 FreelancerDAO freelancerDAO = new FreelancerDAO();
                 freelancer = service.selectExpertFreelancerById(freelancerId);
+
                 Map<Integer, String> allPortfolioInfoMap = service.selectAllportfolioInfoMap(freelancerId);
                 Map<Integer, Category> categoriesMap = freelancerDAO.selectCategoriesAsMap();
                 List<Career> careerList = service.selectCareerListById(freelancerId);
+
                 request.setAttribute("freelancer", freelancer);
                 request.setAttribute("allPortfolioInfoMap", allPortfolioInfoMap);
                 request.setAttribute("categoriesMap", categoriesMap);
@@ -80,14 +82,19 @@ public class FreeMyPageEditInfo extends HttpServlet {
         try {
             String type = multi.getParameter("type");
         System.out.println(type + "일단 여기까지 오기는 옴");
-            String freelancerId = multi.getParameter("userId");
+            String freelancerId = (String) request.getSession().getAttribute("userId");
+            System.out.println("서블릿 84" + freelancerId);
             freelancerId= "free002";
-        Freelancer freelancer = new Freelancer();
+            Freelancer freelancer = new Freelancer();
             if(type == null || type.equals("basic")) {
                 freelancer.setPhoneNum(multi.getParameter("phoneNum"));
                 freelancer.setName(multi.getParameter("name"));
                 freelancer.setNickname(multi.getParameter("nickname"));
-                freelancer.setProfileImg(multi.getParameter("profileImg"));
+                if(multi.getParameter("profileImg") != null) {
+                    freelancer.setProfileImg("프로필 변경 없음.");
+                } else {
+                    freelancer.setProfileImg(multi.getParameter("profileImg"));
+                }
                 freelancer.setEmail(multi.getParameter("email"));
                 freelancer.setAddress(multi.getParameter("address"));
                 String newPassword = multi.getParameter("newPassword");
