@@ -16,6 +16,10 @@
         <typeAlias type="dto.Career" alias="career"/>
         <typeAlias type="dto.Client" alias="client"/>
         <typeAlias type="dto.ClientProfile" alias="clientProfile" />
+        <typeAlias type="dto.ProjectMgt" alias="projectMgt" />
+        <typeAlias type="dto.ProjectPay" alias="projectPay" />
+
+
         <typeAlias type="dto.Contract" alias="contract"/>
         <typeAlias type="dto.Freelancer" alias="freelancer"/>
         <typeAlias type="dto.ClientFavorites" alias="jjimfree"/>
@@ -73,5 +77,6 @@
         <mapper resource="mapper/notice.xml"/>
         <mapper resource="mapper/news.xml"/>
         <mapper resource="mapper/afreelancer.xml"/>
+        <mapper resource="mapper/projectmgt.xml"/>
     </mappers>
 </configuration>

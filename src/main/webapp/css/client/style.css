@@ -77,7 +77,7 @@ body {
   }
 
   .status-open { background-color: #d1f7d6; color: #2e7d32; }
-  .status-temp { background-color: #fff3cd; color: #856404; }
+  .status-complete { background-color: #fff3cd; color: #856404; }
   .status-done { background-color: #e2e3e5; color: #6c757d; }
 
   .settlement-status {
