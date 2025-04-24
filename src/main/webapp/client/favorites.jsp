@@ -44,10 +44,13 @@
         <!--  정렬 드롭다운 -->
         <form method="get" action="${contextPath}/clientFavorites" style="margin-bottom: 20px;">
             <select name="sort" onchange="this.form.submit()">
-                <option value="recent" ${param.sort == 'recent' ? 'selected' : ''}>최신순</option>
-                <option value="score" ${param.sort == 'score' ? 'selected' : ''}>평점순</option>
-                <option value="project" ${param.sort == 'project' ? 'selected' : ''}>프로젝트 개수 순</option>
+                <option value="recent" ${sort == 'recent' ? 'selected' : ''}>최신순</option>
+                <option value="score" ${sort == 'score' ? 'selected' : ''}>평점순</option>
+                <option value="project" ${sort == 'project' ? 'selected' : ''}>프로젝트 개수 순</option>
+
             </select>
+        </form>
+
         </form>
 
         <!-- ‍ 찜한 프리랜서 카드 (이미지 없음 버전) -->

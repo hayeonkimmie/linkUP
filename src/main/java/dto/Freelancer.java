@@ -39,7 +39,7 @@ public class Freelancer {
     String desiredLocation;
     String otherRequest;
     String attachment;
-    String 12;
+
 
     Map<Integer, String> portfolioInfoMap;
     double averageScore; //평점
@@ -283,14 +283,6 @@ public class Freelancer {
         this.attachment = attachment;
     }
 
-    public String getExternalUrl() {
-        return externalUrl;
-    }
-
-    public void setExternalUrl(String externalUrl) {
-        this.externalUrl = externalUrl;
-    }
-
     public double getAverageScore() {
         return averageScore;
     }
@@ -363,7 +355,6 @@ public class Freelancer {
                 ", desiredLocation='" + desiredLocation + '\'' +
                 ", otherRequest='" + otherRequest + '\'' +
                 ", attachment='" + attachment + '\'' +
-                ", externalUrl='" + externalUrl + '\'' +
                 ", portfolioInfoMap=" + portfolioInfoMap +
                 ", averageScore=" + averageScore +
                 ", projectCount=" + projectCount +

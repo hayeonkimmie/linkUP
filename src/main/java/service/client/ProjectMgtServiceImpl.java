@@ -19,16 +19,27 @@ public class ProjectMgtServiceImpl implements IProjectMgtService {
         return projectMgtDAO.selectProjectMgtByStatus(param);
     }
 
-    // DB에 변환을 주기만 하고 , 결과값을 사용하지 않기 때문에 따로 return 필요없음
     @Override
-    public void updateProjectStatusToConfirmed(int projectId) throws Exception {
-        projectMgtDAO.updateStatusToConfirmed(projectId);
-
+    public void updateStatusToConfirmed(Map<String, Object> param) throws Exception {
+        projectMgtDAO.updateStatusToConfirmed(param);
     }
+
+    // DB에 변환을 주기만 하고 , 결과값을 사용하지 않기 때문에 따로 return 필요없음
+
 
     @Override
     public void deleteProject(int projectId) throws Exception {
         projectMgtDAO.deleteProject(projectId);
+    }
+
+    @Override
+    public void updateProgressToOngoing(Map<String, Object> param) throws Exception {
+        projectMgtDAO.updateProgressToOngoing(param);
+    }
+
+    @Override
+    public void updateProgressToEnd(Map<String, Object> param) throws Exception {
+        projectMgtDAO.updateProgressToEnd(param);
     }
 }
 
