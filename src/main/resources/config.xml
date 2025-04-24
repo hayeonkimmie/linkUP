@@ -63,6 +63,7 @@
        <mapper resource="mapper/apply.xml"/>
         <mapper resource="mapper/adminclient.xml"/>
         <mapper resource="mapper/adminproject.xml"/>
+        <mapper resource="mapper/contract.xml"/>
         <mapper resource="mapper/freelancer.xml"/>
         <mapper resource="mapper/jjimfree.xml"/>
         <mapper resource="mapper/jjimProj.xml"/>

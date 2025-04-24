@@ -11,7 +11,7 @@ public class Settlement {
     private int ammount;
     private Date startDate;
     private Date endDate;
-    private int settleday;
+    private Date settleday;
     private String position;
     private String name;
     private String status;
@@ -20,7 +20,7 @@ public class Settlement {
     public Settlement() {
     }
 
-    public Settlement( int slistId, int categoryId, String clientId, String pname, int ammount, Date startDate, Date endDate, int settleday, String position, String name, String status, String account) {
+    public Settlement( int slistId, int categoryId, String clientId, String pname, int ammount, Date startDate, Date endDate, Date settleday, String position, String name, String status, String account) {
         this.slistId = slistId;
         this.categoryId = categoryId;
         this.clientId = clientId;
@@ -99,11 +99,11 @@ public class Settlement {
         this.endDate = endDate;
     }
 
-    public int getSettleday() {
+    public Date getSettleday() {
         return settleday;
     }
 
-    public void setSettleday(int settleday) {
+    public void setSettleday(Date settleday) {
         this.settleday = settleday;
     }
 
@@ -137,5 +137,24 @@ public class Settlement {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    @Override
+    public String toString() {
+        return "Settlement{" +
+                "settlementId=" + settlementId +
+                ", slistId=" + slistId +
+                ", categoryId=" + categoryId +
+                ", clientId='" + clientId + '\'' +
+                ", pname='" + pname + '\'' +
+                ", ammount=" + ammount +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", settleday=" + settleday +
+                ", position='" + position + '\'' +
+                ", name='" + name + '\'' +
+                ", status='" + status + '\'' +
+                ", account='" + account + '\'' +
+                '}';
     }
 }

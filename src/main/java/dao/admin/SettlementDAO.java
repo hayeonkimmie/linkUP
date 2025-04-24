@@ -4,7 +4,9 @@ import dto.*;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,17 +52,59 @@ public class SettlementDAO implements ISettlementDAO {
     // 정산 테이블에 해당 회차 데이터 Insert(Insert into settleList)
     @Override
     public void createSettlelist(Settlelist settlelist) throws SQLException {
-        sqlSession.insert("mapper.settlelist.insertSettlelist", settlelist);
+        sqlSession.insert("mapper.settlelist.createSettlelist", settlelist);
         sqlSession.commit();
     }
 
     @Override
     public void insertSettlement(Settlement settlement) throws SQLException {
         sqlSession.insert("mapper.settlement.insertSettlement", settlement);
+        sqlSession.commit();
     }
 
     @Override
-    public Integer getMaxCntByContractId(String id) throws SQLException {
-        return sqlSession.selectOne("mapper.settlelist.getMaxCntByContractId", id);
+    public Integer getMaxCntByProjectId(Integer projectId) throws SQLException {
+        return sqlSession.selectOne("mapper.settlelist.getMaxCntByProjectId", projectId);
     }
+
+    @Override
+    public Date selectLatestSettleDateByProjectId(Integer projectId) throws SQLException {
+        return sqlSession.selectOne("mapper.settlelist.selectLatestSettleDateByProjectId", projectId);
+    }
+
+    @Override
+    public Settlelist selectSettlelistByDateAndProject(int projectId, Date settleDate) throws SQLException {
+        Map<String, Object> param = new HashMap<>();
+        param.put("projectId", projectId);
+        param.put("settleDate", settleDate);
+        return sqlSession.selectOne("mapper.settlelist.selectSettlelistByDateAndProject", param);
+    }
+
+
+    @Override
+    public Settlelist selectSettlelistByProjectIdAndDate(int projectId, Date settleDate) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("projectId", projectId);
+        param.put("settleDate", settleDate);
+        return sqlSession.selectOne("mapper.settlelist.selectSettlelistByContractIdAndDate", param);
+    }
+
+    @Override
+    public boolean existsSettlementBySlistIdAndsettleDate(int slistId, Date settleDate) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("slistId", slistId);
+        param.put("settleDate", settleDate);
+        Integer count = sqlSession.selectOne("mapper.settlement.existsSettlementBySlistIdAndsettleDate", param);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public Settlelist selectAnySettlelistByProjectIdAndDate(int projectId, Date settleDate) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("projectId", projectId);
+        param.put("settleDate", settleDate);
+        return sqlSession.selectOne("mapper.settlelist.selectAnySettlelistByProjectIdAndDate", param);
+    }
+
+
 }

@@ -39,15 +39,12 @@
     </select>
 
 
-    <!-- 3. 정산 테이블(정산 리스트) 등록 -->
-    <insert id="insertSettlelist" parameterType="settlelist">
-        INSERT INTO settlelist (slist_id, contract_id, project_pay_id, client_id, pname, ammount, start_date, end_date, cnt)
-        VALUES (#{slistId}, #{contractId}, #{projectPayId}, #{clientId}, #{pname}, #{ammount}, #{startDate}, #{endDate}, #{cnt})
-    </insert>
-
-    <select id="getMaxCntByContractId" parameterType="String" resultType="int">
-        SELECT IFNULL(MAX(cnt), 0) FROM settlelist WHERE contract_id = #{id}
+    <select id="getMaxCntByProjectId" parameterType="int" resultType="int">
+        SELECT IFNULL(MAX(cnt), 0)
+        FROM settlelist
+        WHERE project_id = #{projectId}
     </select>
+
 
 
     <!-- ✅ 최초 정산시 settlelist 테이블에 데이터 insert -->
@@ -55,22 +52,53 @@
             INSERT INTO settlelist (
                   contract_id,
                   project_pay_id,
+                  project_id,
                   client_id,
                   pname,
                   ammount,
-                  start_date,
-                  end_date,
+                  settle_date,
                   cnt
                 ) VALUES (
                 #{contractId},
                 #{projectPayId},
+                #{projectId},
                 #{clientId},
                 #{pname},
                 #{ammount},
-                #{startDate},
-                #{endDate},
+                #{settleDate},
                 #{cnt}
                 )
     </insert>
+
+    <select id="selectLatestSettleDateByProjectId"  resultType="java.sql.Date">
+        SELECT MAX(settle_date)
+        FROM settlelist
+        WHERE project_id = #{value}
+    </select>
+
+    <select id="selectSettlelistByDateAndProject" resultType="dto.Settlelist" parameterType="map">
+        SELECT * FROM settlelist
+        WHERE project_id = #{projectId}
+          AND settle_date = #{settleDate}
+        LIMIT 1
+    </select>
+
+    <select id="selectSettlelistByContractIdAndDate" parameterType="map" resultType="dto.Settlelist">
+        SELECT * FROM settlelist
+        WHERE project_id = #{projectId}
+          AND settle_date = #{settleDate}
+        LIMIT 1
+    </select>
+
+    <select id="selectAnySettlelistByProjectIdAndDate" parameterType="map" resultType="dto.Settlelist">
+        SELECT *
+        FROM settlelist
+        WHERE project_id = #{projectId}
+          AND settle_date = #{settleDate}
+        LIMIT 1
+    </select>
+
+
+
 
 </mapper>
