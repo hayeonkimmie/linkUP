@@ -104,20 +104,6 @@ window.onload = function () {
         updateCategoryListHiddenInput();
     });
 
-    // 전화번호 입력 시 자동 하이픈 포맷팅 처리
-    document.getElementById('phone').addEventListener('input', function (e) {
-        let value = e.target.value.replace(/[^0-9]/g, '');
-        let result = '';
-        if (value.length < 4) {
-            result = value;
-        } else if (value.length < 8) {
-            result = value.slice(0, 3) + '-' + value.slice(3);
-        } else {
-            result = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
-        }
-        e.target.value = result;
-    });
-
     function initFileSection() {
         const tbody = document.querySelector(".file-upload-section tbody");
 

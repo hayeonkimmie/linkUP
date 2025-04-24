@@ -50,7 +50,8 @@ public class MyProjectStatus extends HttpServlet {
             request.setAttribute("completedProjCnt",completedProjCnt);
             if (goingProjCnt > 0) {
                 onGoingProjectList = service.selectOngoingProject(pageInfo, freelancerId);
-                System.out.println("MyProjectStatus 서블릿 53 projectList = " + goingProjCnt);
+                System.out.println("MyProjectStatus 서블릿 53 goingProjCnt = " + goingProjCnt);
+                System.out.println("MyProjectStatus 서블릿 53 projectList = " + onGoingProjectList);
                 request.setAttribute("onGoingProjectList", onGoingProjectList);
             } else if (goingProjCnt == 0) {
                 request.setAttribute("onGoingProjectList", null);

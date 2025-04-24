@@ -23,9 +23,8 @@ public class Freelancer {
     // User Type 04.18 15:02 추가
     String type;
     String category;
-    List<String> categoryList;
-    List<Integer> categoryIdList;
     String skill;
+    String[] skillList;
     String address;
     List<Academic> academicList;
     String academic;
@@ -40,7 +39,7 @@ public class Freelancer {
     String desiredLocation;
     String otherRequest;
     String attachment;
-    String externalUrl;
+    String 12;
 
     Map<Integer, String> portfolioInfoMap;
     double averageScore; //평점
@@ -172,20 +171,20 @@ public class Freelancer {
         this.category = category;
     }
 
-    public List<Integer> getCategoryIdList() {
-        return categoryIdList;
-    }
-
-    public void setCategoryIdList(List<Integer> categoryIdList) {
-        this.categoryIdList = categoryIdList;
-    }
-
     public String getSkill() {
         return skill;
     }
 
     public void setSkill(String skill) {
         this.skill = skill;
+    }
+
+    public String[] getSkillList() {
+        return skillList;
+    }
+
+    public void setSkillList(String[] skillList) {
+        this.skillList = skillList;
     }
 
     public String getAddress() {
@@ -314,13 +313,6 @@ public class Freelancer {
         this.portfolioInfoMap = portfolioInfoMap;
     }
 
-    public List<String> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<String> categoryList) {
-        this.categoryList = categoryList;
-    }
 
     public List<Academic> getAcademicList() {
         return academicList;
@@ -347,7 +339,7 @@ public class Freelancer {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +
-                ", profilImg='" + profileImg + '\'' +
+                ", profileImg='" + profileImg + '\'' +
                 ", acceptNoti=" + acceptNoti +
                 ", token='" + token + '\'' +
                 ", registrationDate=" + registrationDate +
@@ -355,8 +347,8 @@ public class Freelancer {
                 ", acceptConsent=" + acceptConsent +
                 ", type='" + type + '\'' +
                 ", category='" + category + '\'' +
-                ", categoryList=" + categoryList +
                 ", skill='" + skill + '\'' +
+                ", skillList=" + skillList +
                 ", address='" + address + '\'' +
                 ", academicList=" + academicList +
                 ", academic='" + academic + '\'' +

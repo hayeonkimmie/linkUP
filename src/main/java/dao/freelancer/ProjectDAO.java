@@ -17,17 +17,26 @@ public class ProjectDAO implements IProjectDAO {
     @Override
     public List<FreelancerProject> selectOngoingProject(Integer row, String freelancerId) throws Exception {
         Map<String, Object> param = new HashMap<>();
-        param.put("row", row);
+        param.put("row", row-1);
         param.put("freelancerId", freelancerId);
-        return sqlSession.selectList("mapper.freelancer.selectOngoingProjectsByFreelancerId", param);
+        List<FreelancerProject> projectList = sqlSession.selectList("mapper.freelancer.selectOngoingProjectsByFreelancerId", param);
+        System.out.println("ProjectDAO.java 23 projectList = " + projectList);
+        return projectList;
+    }    @Override
+    public List<FreelancerProject> selectOngoingProjectForMain(String freelancerId) throws Exception {
+        List<FreelancerProject> projectList = sqlSession.selectList("mapper.freelancer.selectOngoingProjectsForMyPage", freelancerId);
+        System.out.println("ProjectDAO.java 28 projectList = " + projectList);
+        return projectList;
     }
 
     @Override
     public List<FreelancerProject> selectCompletedProject(Integer row, String freelancerId) throws Exception {
         Map<String, Object> param = new HashMap<>();
-        param.put("row", row);
+        param.put("row", row-1);
         param.put("freelancerId", freelancerId);
-        return sqlSession.selectList("mapper.freelancer.selectCompletedProjectsByFreelancerId", param);
+        List<FreelancerProject> projectList = sqlSession.selectList("mapper.freelancer.selectCompletedProjectsByFreelancerId", param);
+        System.out.println("ProjectDAO.java 33 projectList = " + projectList);
+        return projectList;
     }
 
     @Override

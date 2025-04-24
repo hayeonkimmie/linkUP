@@ -10,9 +10,12 @@ public interface IReviewService {
     void updateReview(Review review) throws Exception;
     public List<Review> getReceivedReviewListById(PageInfo pageInfo, String freelancerId) throws Exception;
     public List<Review> getWrittenReviewListById(PageInfo pageInfo, String freelancerId) throws Exception;
+    public List<Review> getUnWrittenReviewListById(PageInfo pageInfo, String freelancerId) throws Exception;
 
     public Integer receivedReviewCnt(String userId) throws Exception;
     public Integer writtenReviewsCnt(String userId) throws Exception;
+
+    Integer unWrittenReviewsCnt(String userId) throws Exception;
 
     boolean isReviewWriter(String userId, Integer reviewId) throws Exception;
     void deleteReview(Integer reviewId)throws Exception;

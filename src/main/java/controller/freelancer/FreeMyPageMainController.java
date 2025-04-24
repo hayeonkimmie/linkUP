@@ -1,8 +1,8 @@
 package controller.freelancer;
 
+import dto.FreelancerProject;
 import dto.JjimProj;
-import service.freelancer.IJjimProjService;
-import service.freelancer.JjimProjService;
+import service.freelancer.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -27,22 +27,32 @@ public class FreeMyPageMainController extends HttpServlet {
         String freelancerId = (String) request.getSession().getAttribute("userId");
         String password = (String) request.getSession().getAttribute("password");
         freelancerId = "free002";
-        /*IJjimProjService service = new JjimProjService();
-        List<JjimProj> jjimProjList;
+        IFreelancerProjectService fService = new FreelancerProjectService();
+        IJjimProjService jService = new JjimProjService();
 
         try{
-            Integer jjimProjCnt = service.selectJjimProjCnt(id);
+            Integer jjimProjCnt = jService.selectJjimProjCnt(freelancerId);
             if (jjimProjCnt > 0) {
-                jjimProjList = service.selectJjimProjListForMain(id);
+                List<JjimProj> jjimProjList;
+                jjimProjList = jService.selectJjimProjListForMain(freelancerId);
                 System.out.println("JJimProjList 서블릿 47 JJimProjList = " + jjimProjList);
                 request.setAttribute("jjimProjList", jjimProjList);
             } else if (jjimProjCnt == 0 || jjimProjCnt == null){
                 request.setAttribute("jjimProjList", null);
             }
+            Integer onGoingProjCnt = fService.cntOngoingProjects(freelancerId);
+            if (onGoingProjCnt > 0) {
+                List<FreelancerProject> onGoingProjList;
+                onGoingProjList = fService.selectOngoingProjectForMain(freelancerId);
+                System.out.println("OnGoingProjList 서블릿 47 OnGoingProjList = " + onGoingProjList);
+                request.setAttribute("onGoingProjList", onGoingProjList);
+            } else if (onGoingProjCnt == 0 || onGoingProjCnt == null){
+                request.setAttribute("onGoingProjList", null);
+            }
         } catch(Exception e) {
             e.printStackTrace();
             request.setAttribute("err", "찜한 프로젝트 조회에 실패했습니다.");
-        }*/
+        }
         request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
     }
 

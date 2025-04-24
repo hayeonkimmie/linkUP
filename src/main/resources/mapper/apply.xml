@@ -18,7 +18,21 @@
                 ELSE '지원취소'
                 END AS apply_status, -- 상태
             p.project_id,                                -- 프로젝트 ID
-            p.category,                                  -- 카테고리
+            IFNULL(( -- 카테고리
+                       SELECT
+                           GROUP_CONCAT(CONCAT(ca.category_name, ' > ', sc.sub_category_name)
+                                        ORDER BY sc.sub_category_id SEPARATOR ', ')
+                       FROM (
+                                SELECT
+                                    CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p.category, ',', numbers.n), ',', -1) AS UNSIGNED) AS sub_category_id
+                                FROM (
+                                         SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
+                                     ) AS numbers
+                                WHERE numbers.n <= 1 + LENGTH(p.category) - LENGTH(REPLACE(p.category, ',', ''))
+                            ) AS parsed
+                                JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
+                                JOIN category ca ON ca.category_id = sc.category_id
+                   ), '') AS categories,
             p.advertisement_title,                       -- 공고 제목
             p.project_name,                              -- 프로젝트명
             CASE

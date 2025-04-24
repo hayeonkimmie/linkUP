@@ -78,7 +78,7 @@ public class InfoSerializer {
     public static List<License> deserializeLicenseList(String input) {
         List<License> list = new ArrayList<>();
         if (input == null || input.isEmpty()) return list;
-
+        //자격증명^급/점수^발급기관^취득연월
         String[] entries = input.split("#"); // 각 자격증 항목 분리
         for (String entry : entries) {
             String[] fields = entry.split("\\^"); // 필드 분리

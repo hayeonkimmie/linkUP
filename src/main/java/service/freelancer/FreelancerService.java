@@ -28,6 +28,7 @@ public class FreelancerService implements IFreelancerService{
     @Override
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception {
         Freelancer freelancer = ifreelancerDAO.selectExpertFreelancerById(freelancerId);
+        System.out.println("FreelancerService.java 31 freelancer "+freelancer);
         return freelancer;
     }
 
@@ -48,6 +49,10 @@ public class FreelancerService implements IFreelancerService{
     @Override
     public void updateFreelancer(Freelancer freelancer) throws Exception {
         System.out.println("FreelancerService.java 56 updateFreelancer "+freelancer);
+        String curProfileImg = ifreelancerDAO.selectFreelancerProfileImg(freelancer.getFreelancerId());
+        if(freelancer.getProfileImg() == null || freelancer.getProfileImg().equals(curProfileImg)) {
+            freelancer.setProfileImg(curProfileImg);
+        }
         ifreelancerDAO.updateUserProfile(freelancer);
         System.out.println("FreelancerService.java 56 + updateFreelancer");
     }

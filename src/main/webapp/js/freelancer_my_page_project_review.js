@@ -48,11 +48,6 @@ window.onload = function () {
             }
         });
     });
-    document.querySelector('.review-form')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // 등록 동작 처리 로직
-        alert('리뷰가 등록되었습니다!');
-    });
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
             const currentItem = header.parentElement;
@@ -68,3 +63,32 @@ window.onload = function () {
         });
     });
 };
+document.addEventListener("DOMContentLoaded", function () {
+    const headers = document.querySelectorAll(".accordion-header");
+
+    headers.forEach(header => {
+        header.addEventListener("click", () => {
+            const allBodies = document.querySelectorAll(".accordion-body");
+
+            // 현재 클릭한 header에 연결된 body 요소 가져오기
+            const body = header.nextElementSibling;
+
+            // 열려 있는 다른 아코디언 닫기
+            allBodies.forEach(b => {
+                if (b !== body) {
+                    b.classList.remove("active");
+                    b.style.display = "none";
+                }
+            });
+
+            // 현재 클릭한 아코디언 toggle
+            if (body.classList.contains("active")) {
+                body.classList.remove("active");
+                body.style.display = "none";
+            } else {
+                body.classList.add("active");
+                body.style.display = "block";
+            }
+        });
+    });
+});

@@ -160,4 +160,27 @@ public class FreelancerProject { //구직자 기준 진행중/완료된 프로�
     public void setdDay(String dDay) {
         this.dDay = dDay;
     }
+
+    @Override
+    public String toString() {
+        return "FreelancerProject{" +
+                "projectId=" + projectId +
+                ", clientName='" + clientName + '\'' +
+                ", projectName='" + projectName + '\'' +
+                ", projectDuration='" + projectDuration + '\'' +
+                ", reqSkills='" + reqSkills + '\'' +
+                ", qualification='" + qualification + '\'' +
+                ", categories='" + categories + '\'' +
+                ", projectDescription='" + projectDescription + '\'' +
+                ", totalBudget='" + totalBudget + '\'' +
+                ", jobDetails='" + jobDetails + '\'' +
+                ", workingMethod='" + workingMethod + '\'' +
+                ", workingEnvironment='" + workingEnvironment + '\'' +
+                ", workingHours='" + workingHours + '\'' +
+                ", projectManager='" + projectManager + '\'' +
+                ", managerPhone='" + managerPhone + '\'' +
+                ", deadlineDate=" + deadlineDate +
+                ", dDay='" + dDay + '\'' +
+                '}';
+    }
 }

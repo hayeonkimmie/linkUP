@@ -68,6 +68,28 @@ public class ReviewService implements IReviewService{
         System.out.println("PortfolioService.java 64 row "+row);
         return iReviewDAO.getWrittenReviewListById(row, freelancerId);
     }
+
+    @Override
+    public List<Review> getUnWrittenReviewListById(PageInfo pageInfo, String freelancerId) throws Exception {
+        Integer unWrittenReviewCnt = iReviewDAO.unWrittenReviewCnt(freelancerId);
+        System.out.println("PortfolioService.java 75 unWrittenReviewCnt "+unWrittenReviewCnt);
+        if(unWrittenReviewCnt == null || unWrittenReviewCnt == 0) {
+            return null;
+        }
+        Integer allPage = (int)Math.ceil((double)unWrittenReviewCnt/10);
+        Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
+        Integer endPage = startPage+10-1;
+        if(endPage>allPage) endPage=allPage;
+
+        pageInfo.setAllPage(allPage);
+        pageInfo.setStartPage(startPage);
+        pageInfo.setEndPage(endPage);
+
+        Integer row = (pageInfo.getCurPage()-1)*10+1;
+        System.out.println("PortfolioService.java 64 row "+row);
+        return iReviewDAO.getUnWrittenReviewListById(row, freelancerId);
+    }
+
     @Override
     public Integer receivedReviewCnt(String userId) throws Exception {
         return iReviewDAO.receivedReviewCnt(userId);
@@ -75,6 +97,10 @@ public class ReviewService implements IReviewService{
     @Override
     public Integer writtenReviewsCnt(String userId) throws Exception {
         return iReviewDAO.writtenReviewsCnt(userId);
+    }
+    @Override
+    public Integer unWrittenReviewsCnt(String userId) throws Exception {
+        return iReviewDAO.unWrittenReviewCnt(userId);
     }
     @Override
     public boolean isReviewWriter(String userId, Integer reviewId) throws Exception {

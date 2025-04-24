@@ -12,14 +12,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>내 프로젝트 현황</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_get_my_proj.css'/>">
     <script src="${contextPath}/js/freelancer_my_get_my_proj.js"></script>
 </head>
 <body>
-
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
     <jsp:include page="/common/header.jsp"/>
@@ -30,12 +30,11 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
 
+        <div class="topbar">
+            <h2>내 프로젝트 현황</h2>
+            <p>진행중인 / 완료된 프로젝트 목록을 확인하세요</p>
+        </div>
         <div class="main-content">
-            <div>
-                <h2>내 프로젝트 현황</h2>
-                <p>진행중인 / 완료된 프로젝트 목록을 확인하세요</p>
-            </div>
-
             <div class="tabs">
                 <div class="tab active" onclick="switchTab('ongoing')">진행중인 프로젝트 <span>(${goingProjCnt})</span></div>
                 <div class="tab" onclick="switchTab('completed')">완료된 프로젝트 <span>(${completedProjCnt})</span></div>
@@ -52,38 +51,40 @@
                         <th>예산</th>
                         <th>요구사항</th>
                         <th>작업방식</th>
-                        <th>마감일</th>
+                        <th colspan="2">마감일</th>
                         <th>정산 내역 확인하기</th>
                     </tr>
                     </thead>
                     <tbody>
                         <c:choose>
-                            <c:when test="${empty ongoingProjects}">
+                            <c:when test="${empty onGoingProjectList}">
                                 <tr>
                                     <td colspan="8">진행중인 프로젝트가 없습니다.</td>
                                 </tr>
                             </c:when>
                             <c:otherwise>
-                                <c:forEach items="${ongoingProjects}" var="project">
+                                <c:forEach items="${onGoingProjectList}" var="project">
                                     <tr class="clickable" onclick="toggleDetails(this)">
                                         <td><a href="${project.projectId}">${project.projectName}</a><br/>${project.clientName}</td>
                                         <td>${project.categories}</td>
                                         <td>${project.projectDuration}</td>
                                         <td>${project.totalBudget}</td>
-                                        <td>${project.reqSkills}, ${project.qualification}</td>
+                                        <td>
+                                            <c:if test="${project.reqSkills ne null}">${project.reqSkills}, </c:if>
+                                                ${project.qualification}</td>
                                         <td>${project.workingEnvironment}
                                             <c:if test="${project.workingEnvironment ne '재택'}">(${project.workingMethod})</c:if>| ${project.workingHours}
                                         </td>
                                         <td>${project.deadlineDate}</td>
-                                        <td>${project.dDay}</td>
+                                        <td><span class="d-day">${project.dDay}</span></td>
                                         <td><!-- 예시: 버튼 클릭 시 -->
                                             <button onclick="showSettlementModal(${project.projectId})">정산 내역 보기</button>
                                         </td>
                                     </tr>
                                     <tr class="accordion-row">
-                                        <td colspan="7">
+                                        <td colspan="9">
                                             <p>프로젝트 소개</p>
-                                            <p>${project.description}</p>
+                                            <p>${project.projectDescription}</p>
                                             <p>프로젝트 상세 업무 내용</p>
                                             <p>${project.jobDetails}</p>
                                             <hr/>

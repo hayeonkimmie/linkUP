@@ -80,7 +80,7 @@
                             <span>${skill}<button class="delete-skill-btn">X</button></span>
                         </c:forEach>
                     </div>
-                    <button type="button" id="clear-skills">초기화</button>
+                    <a id="clear-skills">초기화</a>
                 </div>
                 <!-- 포트폴리오 소개 -->
                 <div class="portfolio-description">
