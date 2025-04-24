@@ -237,4 +237,57 @@
         LIMIT #{row}, 10
         ]]>
     </select>
+
+    <select id="catalogFreelancersByCategory" parameterType="String" resultType="dto.Freelancer">
+        SELECT
+            f.freelancer_id,
+            f.category,
+            f.skill,
+            f.desired_salary,
+            f.introduction,
+            u.nickname,
+            u.profile_img
+        FROM freelancer f
+                 LEFT JOIN user u ON f.freelancer_id = u.user_id
+        WHERE f.category = #{category}
+    </select>
+
+<!--    <select id="searchFreelancersByCategoryAndKeyword" parameterType="map" resultType="dto.Freelancer">-->
+<!--        SELECT-->
+<!--            f.freelancer_id,-->
+<!--            f.category,-->
+<!--            f.skill,-->
+<!--            f.desired_salary,-->
+<!--            f.introduction,-->
+<!--            u.nickname,-->
+<!--            u.profile_img-->
+<!--        FROM freelancer f-->
+<!--                 LEFT JOIN user u ON f.freelancer_id = u.user_id-->
+<!--        WHERE f.category = #{category}-->
+<!--          AND (-->
+<!--            f.introduction LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                OR u.nickname LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            )-->
+<!--    </select>-->
+
+    <select id="searchFreelancersByCategoryAndKeyword" parameterType="map" resultType="dto.Freelancer">
+        SELECT
+        f.freelancer_id,
+        f.category,
+        f.skill,
+        f.desired_salary,
+        f.introduction,
+        u.nickname,
+        u.profile_img,
+        COALESCE(AVG(r.star), 0) AS avg_star  <!-- ⭐ 별점 추가 -->
+        FROM freelancer f
+        LEFT JOIN user u ON f.freelancer_id = u.user_id
+        LEFT JOIN review r ON f.freelancer_id = r.r_user_id  <!-- ⭐ 리뷰 테이블 조인 -->
+        WHERE f.category = #{category}
+        AND (
+        f.introduction LIKE CONCAT('%', #{keyword}, '%')
+        OR u.nickname LIKE CONCAT('%', #{keyword}, '%')
+        )
+        GROUP BY f.freelancer_id  <!-- ⭐ 집계함수 쓰면 무조건 필요 -->
+    </select>
 </mapper>

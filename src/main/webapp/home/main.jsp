@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Link Up</title>
 
-    <link rel="stylesheet" href="${contextPath}/css/main.css">
+    <link rel="stylesheet" href="${contextPath}/css/home/main.css">
     <link href="https://fonts.googleapis.com/css2?family=SUIT&display=swap" rel="stylesheet">
 </head>
 
@@ -44,38 +44,52 @@
 
 <div class="categories">
     <div class="category-item">
-        <a href="${contextPath}/home/catalog.jsp">
-            <img src="${contextPath}/img/webDesign.png" alt="웹제작" />
+        <a href="${contextPath}/catalog?category=웹 제작">
+            <img src="${contextPath}/img/webDesign.png" alt="웹 제작" />
             <div class="category-label">웹제작</div>
         </a>
     </div>
     <div class="category-item">
-        <img src="${contextPath}/img/maintenance.png" alt="유지보수" />
-        <div class="category-label">유지보수</div>
+        <a href="${contextPath}/catalog?category=웹 유지보수">
+            <img src="${contextPath}/img/maintenance.png" alt="웹 유지보수" />
+            <div class="category-label">웹 유지보수</div>
+        </a>
     </div>
     <div class="category-item">
-        <img src="${contextPath}/img/program.png" alt="프로그램" />
-        <div class="category-label">프로그램</div>
+        <a href="${contextPath}/catalog?category=프로그램">
+            <img src="${contextPath}/img/program.png" alt="프로그램" />
+            <div class="category-label">프로그램</div>
+        </a>
     </div>
     <div class="category-item">
-        <img src="${contextPath}/img/mobile.png" alt="모바일" />
-        <div class="category-label">모바일</div>
+        <a href="${contextPath}/catalog?category=모바일">
+            <img src="${contextPath}/img/mobile.png" alt="모바일" />
+            <div class="category-label">모바일</div>
+        </a>
     </div>
     <div class="category-item">
-        <img src="${contextPath}/img/ai.png" alt="Ai" />
-        <div class="category-label">Ai</div>
+        <a href="${contextPath}/catalog?category=Ai">
+            <img src="${contextPath}/img/ai.png" alt="Ai" />
+            <div class="category-label">Ai</div>
+        </a>
     </div>
     <div class="category-item">
-        <img src="${contextPath}/img/data.png" alt="데이터" />
-        <div class="category-label">데이터</div>
+        <a href="${contextPath}/catalog?category=데이터">
+            <img src="${contextPath}/img/data.png" alt="데이터" />
+            <div class="category-label">데이터</div>
+        </a>
     </div>
     <div class="category-item">
-        <img src="${contextPath}/img/trend.png" alt="트렌드" />
-        <div class="category-label">트렌드</div>
+        <a href="${contextPath}/catalog?category=트렌드">
+            <img src="${contextPath}/img/trend.png" alt="트렌드" />
+            <div class="category-label">트렌드</div>
+        </a>
     </div>
     <div class="category-item">
-        <img src="${contextPath}/img/developer.png" alt="직무직군" />
-        <div class="category-label">직무직군</div>
+        <a href="${contextPath}/catalog?category=직무직군">
+            <img src="${contextPath}/img/developer.png" alt="직무직군" />
+            <div class="category-label">직무직군</div>
+        </a>
     </div>
 </div>
 
@@ -86,7 +100,7 @@
     <!-- 개발 섹션 -->
     <div class="section-row">
         <div class="section-title">
-            <div class="title-text">개발</div>
+            <div class="title-text">웹 제작</div>
         </div>
 
         <div class="cards">
@@ -106,7 +120,7 @@
     <!-- 디자인 섹션 -->
     <div class="section-row">
         <div class="section-title">
-            <div class="title-text">디자인</div>
+            <div class="title-text">웹 유지보수</div>
         </div>
 
         <div class="cards">
@@ -126,7 +140,7 @@
     <!-- 기획 섹션 -->
     <div class="section-row">
         <div class="section-title">
-            <div class="title-text">기획</div>
+            <div class="title-text">프로그램</div>
         </div>
 
         <div class="cards">

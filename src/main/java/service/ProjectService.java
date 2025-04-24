@@ -9,6 +9,7 @@ import dto.Project;
 import util.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProjectService implements IProjectService {
 
@@ -31,5 +32,13 @@ public class ProjectService implements IProjectService {
     @Override
     public List<Project> MainProjectsByCategory(String category) {
         return projectDAO.MainProjectsByCategory(category);
+    }
+    @Override
+    public List<Project> catalogProjectByCategory(String category) {
+        return projectDAO.catalogProjectByCategory(category);
+    }
+    @Override
+    public List<Project> searchProjectsByCategoryAndKeyword(Map<String, String> param) {
+        return projectDAO.searchProjectsByCategoryAndKeyword(param);
     }
 }

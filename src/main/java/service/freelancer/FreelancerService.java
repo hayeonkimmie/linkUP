@@ -36,6 +36,7 @@ public class FreelancerService implements IFreelancerService{
         return ifreelancerDAO.selectAllportfolioInfoMap(freelancerId);
     }
 
+
     @Override
     public void insertCareer(Career career) throws Exception {
         ifreelancerDAO.insertCareer(career);

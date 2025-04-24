@@ -14,7 +14,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>새 소식 상세 - LinkUp</title>
-  <link rel="stylesheet" href="${contextPath}/css/NewDT.css">
+  <link rel="stylesheet" href="${contextPath}/css/home/NewDT.css">
 </head>
 <body>
 <div class="container">

@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Link up - 로그인</title>
-  <link rel="stylesheet" href="${contextPath}/css/login.css"/>
+  <link rel="stylesheet" href="${contextPath}/css/home/login.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>

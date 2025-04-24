@@ -14,7 +14,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>테크놀로지 주식회사</title>
-  <link rel="stylesheet" href="${contextPath}/css/CompanySearch.css">
+  <link rel="stylesheet" href="${contextPath}/css/home/CompanySearch.css">
 </head>
 <body>
 

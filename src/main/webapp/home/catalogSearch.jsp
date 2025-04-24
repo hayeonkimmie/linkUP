@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>구인 · 구직 플랫폼</title>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="${contextPath}/css/catalog.css">
+  <link rel="stylesheet" href="${contextPath}/css/home/catalog.css">
 </head>
 <body>
 

@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Link up Header</title>
-  <link rel="stylesheet" href="${contextPath}/css/headerLoginSt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/home/headerLoginSt.css" />
 </head>
 <body>
 <header class="header">

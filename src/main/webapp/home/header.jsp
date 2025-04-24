@@ -20,7 +20,7 @@
 <header class="header-header">
   <div class="header-header-container">
     <div class="header-logo-search">
-      <a href="${contextPath}/home/main.jsp" class="header-logo">
+      <a href="${contextPath}/mainPage" class="header-logo">
         <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
       </a>
     </div>
@@ -30,7 +30,7 @@
     <nav class="header-category-nav">
       <ul>
         <li class="header-dropdown">
-          <a href="${contextPath}/home/catalog.jsp" class="header-dropdown-toggle">웹제작</a>
+          <a href="${contextPath}/catalog?category=웹 제작">웹 제작</a>
           <ul class="header-dropdown-menu">
             <li><a href="${contextPath}/home/catalogWebProduction.jsp">홈페이지 신규 제작</a></li>
             <li><a href="#">쇼핑몰 신규 제작</a></li>
@@ -38,7 +38,7 @@
           </ul>
         </li>
         <li class="header-dropdown">
-          <a href="#" class="header-dropdown-toggle">웹유지보수</a>
+          <a href="${contextPath}/catalog?category=웹 유지보수" class="header-dropdown-toggle">웹 유지보수</a>
           <ul class="header-dropdown-menu">
             <li><a href="#">홈페이지 수정·유지보수</a></li>
             <li><a href="#">쇼핑몰 수정·유지보수</a></li>
@@ -48,7 +48,7 @@
           </ul>
         </li>
         <li class="header-dropdown">
-          <a href="#" class="header-dropdown-toggle">프로그램</a>
+          <a href="${contextPath}/catalog?category=프로그램" class="header-dropdown-toggle">프로그램</a>
           <ul class="header-dropdown-menu">
             <li><a href="#">프로그램 스토어</a></li>
             <li><a href="#">수익 자동화</a></li>
@@ -62,7 +62,7 @@
           </ul>
         </li>
         <li class="header-dropdown">
-          <a href="#" class="header-dropdown-toggle">모바일</a>
+          <a href="${contextPath}/catalog?category=모바일" class="header-dropdown-toggle">모바일</a>
           <ul class="header-dropdown-menu">
             <li><a href="#">앱</a></li>
             <li><a href="#">앱 패키징</a></li>
@@ -70,7 +70,7 @@
           </ul>
         </li>
         <li class="header-dropdown">
-          <a href="#" class="header-dropdown-toggle">AI</a>
+          <a href="${contextPath}/catalog?category=Ai" class="header-dropdown-toggle">AI</a>
           <ul class="header-dropdown-menu">
             <li><a href="#">AI·GPT 서비스 개발</a></li>
             <li><a href="#">AI·GPT 챗봇</a></li>
@@ -81,7 +81,7 @@
           </ul>
         </li>
         <li class="header-dropdown">
-          <a href="#" class="header-dropdown-toggle">데이터</a>
+          <a href="${contextPath}/catalog?category=데이터" class="header-dropdown-toggle">데이터</a>
           <ul class="header-dropdown-menu">
             <li><a href="#">데이터 구매·구축</a></li>
             <li><a href="#">데이터 라벨링</a></li>
@@ -90,7 +90,7 @@
           </ul>
         </li>
         <li class="header-dropdown">
-          <a href="#" class="header-dropdown-toggle">트렌드</a>
+          <a href="${contextPath}/catalog?category=트렌드" class="header-dropdown-toggle">트렌드</a>
           <ul class="header-dropdown-menu">
             <li><a href="#">게임∙AR∙VR</a></li>
             <li><a href="#">메타버스</a></li>
@@ -98,7 +98,7 @@
           </ul>
         </li>
         <li class="header-dropdown">
-          <a href="#" class="header-dropdown-toggle">직무직군</a>
+          <a href="${contextPath}/catalog?category=직무직군" class="header-dropdown-toggle">직무직군</a>
           <ul class="header-dropdown-menu">
             <li><a href="#">UI·UX 기획</a></li>
             <li><a href="#">프론트엔드</a></li>
@@ -117,7 +117,9 @@
   </div>
 </header>
 </div>
-
-<script src="../js/header.js"></script>
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
 </body>
 </html>
