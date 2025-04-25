@@ -2,6 +2,7 @@ package service.freelancer;
 
 import dto.Career;
 import dto.Freelancer;
+import dto.Portfolio;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ public interface IFreelancerService {
     void updateCareer(Career career) throws Exception;
     void deleteCareer(String freelancerId) throws Exception;
     List<Career> selectCareerListById (String freelancerId) throws Exception;
-    Map<Integer, String> selectAllportfolioInfoMap(String userId) throws Exception;
+    Map<Integer, String> selectAllPortfolioInfoMap(String userId) throws Exception;
+    List<Portfolio> selectedPortfolioListForProfile(String freelancerId) throws Exception;
 
 }

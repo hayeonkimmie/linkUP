@@ -25,9 +25,10 @@
 <body>
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/home/header.jsp"/>
+<%--    <jsp:include page="/home/header.jsp"/>--%>
 </div>
 <div class="container">
+    <script>console.log(${err})</script>
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
     <!-- 메인 콘텐츠 -->
@@ -108,12 +109,13 @@
                 </tbody>
             </table>
         </section>
+        <script>console.log(${portfolio.portfolioId})</script>
         <div class="action-buttons">
             <button class="edit-btn" onclick="location.href='${contextPath}/my-page/portfolio-modify?id=${portfolio.portfolioId }'">
                 포트폴리오 수정
             </button>
             <button id="list-btn" type="button" class="list-btn" onclick="location.href='${contextPath}/my-page/portfolio-list'">목록</button>
-            <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId }'">
+            <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">
                 포트폴리오 삭제
             </button>
         </div>

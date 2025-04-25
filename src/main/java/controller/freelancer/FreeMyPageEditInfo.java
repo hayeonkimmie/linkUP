@@ -48,17 +48,16 @@ public class FreeMyPageEditInfo extends HttpServlet {
                 // 전문가 정보 수정
                 FreelancerDAO freelancerDAO = new FreelancerDAO();
                 freelancer = service.selectExpertFreelancerById(freelancerId);
-
-                Map<Integer, String> allPortfolioInfoMap = service.selectAllportfolioInfoMap(freelancerId);
-                Map<Integer, Category> categoriesMap = freelancerDAO.selectCategoriesAsMap();
+                Map<Integer,String> allPortfolioInfoMap = service.selectAllPortfolioInfoMap(freelancerId);
+                List<Category> selectCategoryList = freelancerDAO.selectCategoryList();
                 List<Career> careerList = service.selectCareerListById(freelancerId);
 
                 request.setAttribute("freelancer", freelancer);
+                request.setAttribute("selectCategoryList", selectCategoryList);
                 request.setAttribute("allPortfolioInfoMap", allPortfolioInfoMap);
-                request.setAttribute("categoriesMap", categoriesMap);
                 request.setAttribute("careerList", careerList);
                 System.out.println("FreeMyPageEditInfo 서블릿 59 : " + careerList);
-                System.out.println("FreeMyPageEditInfo 서블릿 60 : " + allPortfolioInfoMap);
+                System.out.println("allPortfolioInfoMap 서블릿 60 : " + allPortfolioInfoMap);
                 System.out.println("FreeMyPageEditInfo 서블릿 61 : " + freelancer);
                 request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit.jsp").forward(request, response);
             } else{
@@ -113,6 +112,7 @@ public class FreeMyPageEditInfo extends HttpServlet {
                 request.getRequestDispatcher("/freelancer/my_page_free_user_basic_info_edit.jsp").forward(request, response);
             } else{
                 // 전문가 정보 수정
+
                 request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit.jsp").forward(request, response);
             }
         } catch (Exception e) {

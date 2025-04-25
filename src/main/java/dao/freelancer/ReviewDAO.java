@@ -28,6 +28,7 @@ public class ReviewDAO implements IReviewDAO {
         param.put("star", review.getStar());
         param.put("comment", review.getComment());
         param.put("wUserId", review.getwUserId());
+        System.out.println("review 31 + "+review);
         sqlSession.update("mapper.review.updateReview", param);
         sqlSession.commit();
     }

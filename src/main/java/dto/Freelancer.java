@@ -39,9 +39,11 @@ public class Freelancer {
     String desiredLocation;
     String otherRequest;
     String attachment;
-    String 12;
+    String externalUrl;
+    String[] externalUrlList;
+    String[] attachmentList;
 
-    Map<Integer, String> portfolioInfoMap;
+    List<Portfolio> portfolioInfoList;
     double averageScore; //평점
     int projectCount; //프로젝트 수
 
@@ -235,19 +237,19 @@ public class Freelancer {
         this.accountNum = accountNum;
     }
 
-    public boolean isNegotiable() {
+    public boolean getIsNegotiable() {
         return isNegotiable;
     }
 
-    public void setNegotiable(boolean negotiable) {
+    public void setIsNegotiable(boolean negotiable) {
         isNegotiable = negotiable;
     }
 
-    public boolean isResident() {
+    public boolean getIsResident() {
         return isResident;
     }
 
-    public void setResident(boolean resident) {
+    public void setIsResident(boolean resident) {
         isResident = resident;
     }
 
@@ -291,6 +293,22 @@ public class Freelancer {
         this.externalUrl = externalUrl;
     }
 
+    public String[] getExternalUrlList() {
+        return externalUrlList;
+    }
+
+    public void setExternalUrlList(String[] externalUrlList) {
+        this.externalUrlList = externalUrlList;
+    }
+
+    public String[] getAttachmentList() {
+        return attachmentList;
+    }
+
+    public void setAttachmentList(String[] attachmentList) {
+        this.attachmentList = attachmentList;
+    }
+
     public double getAverageScore() {
         return averageScore;
     }
@@ -306,11 +324,11 @@ public class Freelancer {
     public void setProjectCount(int projectCount) {
         this.projectCount = projectCount;
     }
-    public Map<Integer, String> getPortfolioInfoMap() {
-        return portfolioInfoMap;
+    public List<Portfolio> getPortfolioInfoList() {
+        return portfolioInfoList;
     }
-    public void setPortfolioInfoMap(Map<Integer, String> portfolioInfoMap) {
-        this.portfolioInfoMap = portfolioInfoMap;
+    public void setPortfolioInfoList(List<Portfolio> portfolioInfoList) {
+        this.portfolioInfoList = portfolioInfoList;
     }
 
 
@@ -364,7 +382,7 @@ public class Freelancer {
                 ", otherRequest='" + otherRequest + '\'' +
                 ", attachment='" + attachment + '\'' +
                 ", externalUrl='" + externalUrl + '\'' +
-                ", portfolioInfoMap=" + portfolioInfoMap +
+                ", portfolioInfoList=" + portfolioInfoList +
                 ", averageScore=" + averageScore +
                 ", projectCount=" + projectCount +
                 '}';
