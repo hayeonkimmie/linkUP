@@ -11,7 +11,9 @@ public class ProjectMgt {
     private String status; //상태
     private String regDate; //프로젝트 등록일
     private String startDate; //프로젝트 시작일
+    private String deadlineDate;
     private String endDate; // 프로젝트 끝나는 날
+    private int duration; //프로젝트 진행 개월 수
     private int totalAmount; // 프로젝트 총 단가
     private int applyCount; //지원자 수
     //서블릿에서 직접 계산
@@ -22,7 +24,7 @@ public class ProjectMgt {
 
     public ProjectMgt() {} //기본 생성자
 
-    public ProjectMgt(int projectId, String title, String category, String skills, String status, String regDate, String startDate, String endDate, int totalAmount, int applyCount, List<ProjectPay> payList) {
+    public ProjectMgt(int projectId, String title, String category, String skills, String status, String regDate, String startDate, String endDate, String deadlineDate, int duration, int totalAmount, int applyCount, List<ProjectPay> payList) {
         this.projectId = projectId;
         this.title = title;
         this.category = category;
@@ -31,9 +33,12 @@ public class ProjectMgt {
         this.regDate = regDate;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.deadlineDate = deadlineDate;
         this.totalAmount = totalAmount;
         this.applyCount = applyCount;
         this.payList = payList;
+        this.duration = duration;
+
     }
 
     public int getProjectId() {
@@ -100,6 +105,14 @@ public class ProjectMgt {
         this.endDate = endDate;
     }
 
+    public String getDeadlineDate() {
+        return deadlineDate;
+    }
+
+    public void setDeadlineDate(String deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
+
     public int getTotalAmount() {
         return totalAmount;
     }
@@ -138,5 +151,13 @@ public class ProjectMgt {
 
     public void setSettleStatus(String settleStatus) {
         this.settleStatus = settleStatus;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

@@ -41,4 +41,8 @@ public class ProjectService implements IProjectService {
     public List<Project> searchProjectsByCategoryAndKeyword(Map<String, String> param) {
         return projectDAO.searchProjectsByCategoryAndKeyword(param);
     }
+    @Override
+    public List<Project> catalogProjectByConditions(Map<String, String> param) {
+        return projectDAO.catalogProjectByConditions(param);
+    }
 }

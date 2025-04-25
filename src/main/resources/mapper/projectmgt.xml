@@ -11,10 +11,13 @@
         <result property="title" column="advertisement_title"/> <!-- 공고 제목 -->
         <result property="category" column="category"/> <!-- 카테고리 -->
         <result property="skills" column="req_skills"/> <!-- 요구기술 -->
+        <result property="projectProgress" column="project_progress"/> <!-- 프로젝트 진행 상태 -->
         <result property="status" column="status"/> <!-- 구인상태 -->
         <result property="regDate" column="created_date"/> <!-- 등록일 -->
         <result property="startDate" column="start_date"/> <!-- 시작일 -->
         <result property="endDate" column="end_date"/> <!-- 종료일 -->
+        <result property="deadlineDate" column="deadline_date"/> <!-- 마감일 -->
+        <result property="duration" column="duration"/> <!-- 프로젝트 개월 수 -->
         <result property="totalAmount" column="total_amount"/> <!-- 총 단가 -->
         <result property="applyCount" column="apply_count"/> <!-- 지원자 수 -->
 
@@ -23,59 +26,98 @@
             <result property="level" column="Lv"/>  <!-- 초급/중급/고급 -->
             <result property="fee" column="project_fee"/> <!-- 레벨 별 1인 당 월급  -->
             <result property="count" column="recruit_count"/> <!-- 인원 수 -->
+
         </collection>
     </resultMap>
 
-<!--        프로젝트 상태별로 리스트 조회-->
-<!--    status, clientId 두개 받으므로 parameterTyper = "map"-->
+    <!--        프로젝트 상태별로 리스트 조회-->
+    <!--    status, clientId 두개 받으므로 parameterTyper = "map"-->
     <select id="selectProjectMgtByStatus" resultMap="projectMgtMap" parameterType="map">
         SELECT
-            pj.project_id, #프로젝트 아이디
-            pj.advertisement_title, # 프로젝트 공고 제목
-            pj.category, # 카테고리 (웹개발,,) 아이디로 바뀌면 JOIN 다시 필요할 듯
-            pj.req_skills, # 요구하는 스킬
-            pj.status , # 프로젝트 상태 (구인 중, 구인완료, 임시저장,..)
-            pj.created_date, # 프로젝트 등록일
-            pj.deadline_date, # 구인 마감일
-            pj.duration, # 프로젝트 개월 수
-            pj.start_date, # 프로젝트 시작일
-            pj.end_date, # 프로젝트 끝나는 날e
-            l.Lv_id, # 레벨 아이디
-            l.Lv, # 레벨 (초급, 중급, 고급,..)
-            p.project_fee, # 프로젝트 단가 (1,000,000원/인)
-            COUNT(l.Lv_id) AS recruit_count,# 레벨 별 구인 수
-            (SELECT COUNT(*) FROM apply a WHERE a.project_id = pj.project_id) as apply_count,  # 해당 프로젝트의 지원자 수
-        <!-- 총 프로젝트(구인 = 초급 + 중급 + 고급 카테고리별 ) 단가 -->
-            (SELECT SUM(p2.project_fee) FROM pay p2 WHERE p2.project_id = pj.project_id) as total_amount
-            FROM project pj JOIN client c ON pj.client_id = c.client_id
-                JOIN user u ON c.client_id=u.user_id
-                LEFT JOIN pay p ON pj.project_id = p.project_id
-                LEFT JOIN lv l ON p.lv_id = l.Lv_id
-#             // 클라이언트 아이디 = 로그인 세션 아이디 (내가 프로젝트 등록한 것만 가져오기)
-        WHERE pj.client_id = #{clientId}
+        pj.project_id,
+        pj.advertisement_title,
+        pj.category,
+        pj.req_skills,
+        pj.status,
+        pj.created_date,
+        pj.deadline_date,
+        pj.duration,
+        pj.start_date,
+        pj.end_date,
+        pj.project_progress,
+        l.Lv_id,
+        l.Lv,
+        p.project_fee,
+        COUNT(l.Lv_id) AS recruit_count,
+        (SELECT COUNT(*) FROM apply a WHERE a.project_id = pj.project_id) AS apply_count,
+        (SELECT SUM(p2.project_fee) FROM pay p2 WHERE p2.project_id = pj.project_id) AS total_amount
+        FROM project pj
+        JOIN client c ON pj.client_id = c.client_id
+        JOIN user u ON c.client_id = u.user_id
+        LEFT JOIN pay p ON pj.project_id = p.project_id
+        LEFT JOIN lv l ON p.lv_id = l.Lv_id
+        WHERE pj.client_id = #{clientId} AND pj.is_deleted = FALSE
         AND pj.status IS NOT NULL
-
         <if test="status != null and status != 'all'">
-        AND pj.status = #{status}
+            AND pj.status = #{status}
         </if>
-
         GROUP BY
         pj.project_id, pj.advertisement_title, pj.category, pj.req_skills, pj.status,
-        pj.created_date, pj.start_date, pj.end_date, pj.duration,
+        pj.created_date, pj.start_date, pj.end_date, pj.project_progress,  pj.duration,
         l.Lv_id, l.Lv, p.project_fee;
     </select>
 
-
-    <update id="updateStatusToConfirmed" parameterType="int">
+    <!--    구인확정하기 기능 (구인중 => 시작전) -->
+    <update id="updateStatusToConfirmed" parameterType="map">
+    <![CDATA[
         UPDATE project
-        SET status = '구인완료'
+        SET status = '구인완료',
+            project_progress =
+                CASE
+                    WHEN start_date IS NULL THEN '시작전' -- 날짜 없으면 무조건 시작전
+#                 날짜비교
+                    WHEN start_date > DATE(#{today}) THEN '시작전'
+                    WHEN start_date <= DATE(#{today}) THEN '진행중'
+                    ELSE NULL
+                    END
+        WHERE project_id = #{projectId}
+        ]]>
+</update>
+
+
+    <!--    나의 프로젝트 삭제 (is_deleted) 물리삭제가 아닌 논리삭제 -->
+    <update id="deleteProject" parameterType="int">
+        UPDATE project
+        SET is_deleted = TRUE,
+            deleted_at = NOW()
         WHERE project_id = #{projectId}
     </update>
 
-<!--    나의 프로젝트 삭제 (is_deleted) 추가해야할 듯 / 물리삭제 -> 논리삭제로 변경하기  -->
-<!--ㄴ-->
+            <!--    프로젝트 시작 전 -> 진행 중 로직 (프로젝트 시작일 되는 순간 시작전 => 진행중으로 변경 됨) -->
+        <update id="updateProgressToOngoing" parameterType="map">
+        <![CDATA[
+            UPDATE project
+            SET project_progress = '진행중'
+            WHERE project_progress = '시작전'
+              AND start_date IS NOT NULL
+              AND start_date <= DATE(#{today})
+            ]]>
+    </update>
 
+            <!--   구인중 : 수정하기, 삭제하기, 모집 확정하기-->
+            <!--    구인완료 : 시작전 (모집확정했고, 프로젝트 시작은 안된 상태) - 수정하기 가능-->
+            <!--    구인완료 : 진행중 (모집확정했고, 프로젝트 시작한 상태) - 수정하기 가능-->
+            <!--    구인완료 : 완료 (모집확정했고, 프로젝트가 완료된 상태) - 정산하기, 리뷰달기 -->
+
+
+    <!--    프로젝트 진행 중 -> 프로젝트 완료 로직 (프로직트 endDate 되면, 진행 중 -> 완료로 변경 됨 ) -->
+    <update id="updateProgressToEnd" parameterType="map">
+    <![CDATA[
+        UPDATE project
+        SET project_progress = '종료됨'
+        WHERE project_progress = '진행중'
+          AND start_date IS NOT NULL AND end_date IS NOT NULL
+          AND end_date <= DATE(#{today})
+        ]]>
+</update>
 </mapper>
-
-
-

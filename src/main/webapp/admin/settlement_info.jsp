@@ -48,10 +48,6 @@
         <span class="label">프로젝트 정산일</span>
         <span class="value">매월 14일</span>
       </div>
-      <div class="summary-item">
-        <span class="label">미정산 금액</span>
-        <span class="value danger">7,200,000원</span>
-      </div>
     </div>
 
     <div class="card">

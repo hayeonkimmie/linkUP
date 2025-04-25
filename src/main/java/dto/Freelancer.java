@@ -19,6 +19,11 @@ public class Freelancer {
     Date registrationDate;
     Date withdrawalDate;
     boolean acceptConsent;
+    private int subCategoryId;
+    private String subCategoryName;
+    private int categoryId;
+    private String categoryName;
+    private double avgStar; // ⭐ 평균 별점
 
     // User Type 04.18 15:02 추가
     String type;
@@ -47,7 +52,6 @@ public class Freelancer {
     double averageScore; //평점
     int projectCount; //프로젝트 수
 
-    private double avgStar; // ⭐ 평균 별점
 
     public double getAvgStar() {
         return avgStar;
@@ -346,6 +350,54 @@ public class Freelancer {
 
     public void setLicenseList(List<License> licenseList) {
         this.licenseList = licenseList;
+    }
+
+    public int getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(int subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public boolean isNegotiable() {
+        return isNegotiable;
+    }
+
+    public void setNegotiable(boolean negotiable) {
+        isNegotiable = negotiable;
+    }
+
+    public boolean isResident() {
+        return isResident;
+    }
+
+    public void setResident(boolean resident) {
+        isResident = resident;
     }
 
     @Override

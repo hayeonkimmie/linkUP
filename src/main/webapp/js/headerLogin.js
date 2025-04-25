@@ -1,43 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // 전체보기 드롭다운
-  const dropdown = document.querySelector('.dropdown');
-  const toggle = dropdown?.querySelector('.dropdown-toggle');
-  const menu = dropdown?.querySelector('.dropdown-menu');
+fetch(contextPath + "/headerLogin")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("header-login-placeholder").innerHTML = data;
 
-  toggle?.addEventListener('click', function (e) {
-    e.preventDefault();
-    dropdown.classList.toggle('open');
-  });
+        const profileToggle = document.querySelector('#header-login-placeholder .profile-toggle');
+        const profileMenu = document.querySelector('#header-login-placeholder .profile-menu');
 
-  document.addEventListener('click', function (e) {
-    if (dropdown && !dropdown.contains(e.target)) {
-      dropdown.classList.remove('open');
-    }
-  });
 
-  // 프로필 메뉴 토글
-  const profileToggle = document.querySelector('.profile-toggle');
-  const profileMenu = document.querySelector('.profile-menu');
+        if (profileToggle && profileMenu) {
+            profileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
 
-  profileToggle?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    profileMenu.style.display = profileMenu.style.display === 'block' ? 'none' : 'block';
-  });
+                const isVisible = profileMenu.style.display === 'block';
+                profileMenu.style.display = isVisible ? 'none' : 'block';
+            });
 
-  document.addEventListener('click', () => {
-    if (profileMenu) profileMenu.style.display = 'none';
-  });
-});
-fetch("headerLogin.jsp")
-.then(res => res.text())
-.then(data => {
-  document.getElementById("header-login-placeholder").innerHTML = data;
-
-  // header.html 안의 스크립트 다시 실행해주기
-  const scripts = document.querySelectorAll('#header-login-placeholder script');
-  scripts.forEach((script) => {
-    const newScript = document.createElement('script');
-    newScript.src = script.src;
-    document.body.appendChild(newScript);
-  });
-});
+            document.addEventListener('click', (e) => {
+                if (!profileToggle.contains(e.target) && !profileMenu.contains(e.target)) {
+                    profileMenu.style.display = 'none';
+                }
+            });
+        } else {
+            console.warn('❌ profileToggle 또는 profileMenu 못 찾음!');
+        }
+    });

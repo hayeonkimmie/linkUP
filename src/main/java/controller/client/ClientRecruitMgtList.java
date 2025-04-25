@@ -5,8 +5,8 @@ import service.client.IProjectMgtService;
 import service.client.ProjectMgtServiceImpl;
 
 import javax.servlet.*;
-        import javax.servlet.http.*;
-        import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,83 +22,60 @@ public class ClientRecruitMgtList extends HttpServlet {
         super();
     }
 
+    // 서비스 호출 준비
     private final IProjectMgtService service = new ProjectMgtServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // 세션에서 로그인 한 clientId가져오기
+            // [오늘 날짜를 기준으로 DB 상태 갱신]
+            Map<String, Object> statusParam = new HashMap<>();
+            statusParam.put("today", new java.sql.Date(System.currentTimeMillis()));
+            service.updateProgressToOngoing(statusParam); // 시작전 -> 진행중
+            service.updateProgressToEnd(statusParam); // 진행중 -> 종료됨
+
+            // 세션에서 로그인 한 clientId 확인해서 가져오기
             HttpSession session = request.getSession();
             String clientId = (String) session.getAttribute("userId");
-
-            if (clientId == null) {
-                clientId = "client001"; //테스트용 기본값
+            if (clientId == null || clientId.isEmpty()) {
+                clientId = "client001"; // 테스트용 기본값
             }
 
-            // 파라미터로 status받기 (전체보기, 구인중, 완료, 임시저장)
+            // 파라미터로 status받기 (전체보기, 구인중, 시작전, 진행중, 종료됨)
             String status = request.getParameter("status");
-            if (status == null || status.isEmpty()) {  //디폴트는 전체보기
-                status = "all";
+            if (status == null || status.isEmpty()) {
+                status = "all"; // 기본값: 전체보기
             }
 
-            // param 구성
+            // param 구성 및 DB조회
             Map<String, Object> param = new HashMap<>();
             param.put("clientId", clientId);
-            param.put("status", status); // 'all'포함
+            param.put("status", status);
 
             // 서비스 호출
             List<ProjectMgt> projectList = service.getProjectByStatus(param);
 
-            // 날짜 기반 진행상태 세팅 추가
-            LocalDate today = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-            // 날짜 기반 진행상태 세팅
-            for (ProjectMgt projectMgt : projectList) {
-                try {
-                    String startStr = projectMgt.getStartDate();
-                    String endStr = projectMgt.getEndDate();
-
-                    if (startStr != null && endStr != null) {
-                        LocalDate start = LocalDate.parse(startStr, formatter);
-                        LocalDate end = LocalDate.parse(endStr, formatter);
-
-                        if (today.isBefore(start)) {
-                            projectMgt.setProjectProgress("시작전");
-                        } else if (today.isAfter(end)) {
-                            projectMgt.setProjectProgress("종료됨");
-                        } else {
-                            projectMgt.setProjectProgress("진행중");
-                        }
-                    }
-
-                    // 상태가 "모집완료"가 아닌 경우 projectProgress 비우기
-                    if (!"구인완료".equals(projectMgt.getStatus())) {
-                        projectMgt.setProjectProgress("");
-                    }
-
-                } catch (Exception e) {
-                    System.err.println("날짜 파싱 실패: " + e.getMessage());
-                    projectMgt.setProjectProgress("");  // "알수없음" 대신 공백 처리
+            // DB project의 컬럼 project_progress는 오직 구인완료 상태에만 의미 있음
+            for (ProjectMgt project : projectList) {
+                if (!"구인완료".equals(project.getStatus())) {
+                    project.setProjectProgress(""); // 구인완료 상태가 아니면 값 비우기
                 }
             }
 
-
             // 결과 저장해서 JSP로 전달
-            request.setAttribute("projectList", projectList); //서비스 호출해서 list받아오기
+            request.setAttribute("projectList", projectList); // 서비스 호출해서 list 받아오기
             request.setAttribute("status", status); // 상태 값 받아오기
-            System.out.println("projectList.size() = " + projectList.size()); // 값 받아오는지 테스트
+            System.out.println("projectList.size() = " + projectList.size()); // 테스트 출력
+
+            // 출력 테스트 코드
             for (ProjectMgt projectMgt : projectList) {
                 System.out.println("startDate = " + projectMgt.getStartDate());
                 System.out.println("endDate = " + projectMgt.getEndDate());
-
                 System.out.println("status = " + projectMgt.getStatus());
                 System.out.println("progress = " + projectMgt.getProjectProgress());
             }
 
-
-
-
+            // JSP로 이동
             request.getRequestDispatcher("./client/recruitmentList.jsp").forward(request, response);
 
         } catch (Exception e){
@@ -109,9 +86,10 @@ public class ClientRecruitMgtList extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        // 사용 안함
     }
 
+    // 날짜 처리 함수
     private LocalDate parseFlexibleDate(String dateStr) {
         String[] patterns = {
                 "yyyy-MM-dd", "yyyy.MM.dd", "yyyy/MM/dd",
@@ -123,11 +101,10 @@ public class ClientRecruitMgtList extends HttpServlet {
                 DateTimeFormatter fmt = DateTimeFormatter.ofPattern(pattern);
                 return LocalDate.parse(dateStr, fmt);
             } catch (Exception e) {
-                // skip
+                // 무시
             }
         }
 
         throw new IllegalArgumentException("지원하지 않는 날짜 형식: " + dateStr);
     }
 }
-

@@ -33,8 +33,7 @@
 <div class="search-box">
     <select id="search-type" class="search-type">
         <option value="company">회사명</option>
-        <option value="project">구인</option>
-        <option value="expert">구직</option>
+        <option value="project">구인 구직</option>
     </select>
     <input class="search-input" type="text" id="search-keyword" placeholder="검색어를 입력하세요" />
     <button class="search-button" onclick="handleSearch()">검색</button>
@@ -166,19 +165,24 @@
     function handleSearch() {
         const searchType = document.getElementById('search-type').value;
         const keyword = document.getElementById('search-keyword').value.trim();
-
         if (!keyword) {
             alert("검색어를 입력하세요!");
             return;
         }
 
+        let url = "";
+
         if (searchType === "company") {
-            const url = `${contextPath}/SearchCompany?keyword=${keyword}` + keyword;
-            console.log("넘어가는 url: " + url); // ✅ 이거 찍어서 URL 제대로 찍히는지 확인
-            location.href = url;
+            url = `\${contextPath}/SearchCompany?keyword=\${keyword}`;
+        } else if (searchType === "project") { // ✅ 구인 구직 통합
+            url = `\${contextPath}/catalog?keyword=\${keyword}`;
         } else {
-            alert("해당 검색 유형은 아직 준비 중입니다!");
+            alert("검색 유형을 선택해 주세요!");
+            return;
         }
+
+        console.log("이동할 URL:", url); // ✅ 디버깅 로그
+        location.href = url;
     }
 </script>
 

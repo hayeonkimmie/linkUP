@@ -342,3 +342,8 @@ a {
   background-color: black;
   border-radius: 20px;
 }
+
+.user-section .profile-wrapper .username {
+  color: #505050 !important;
+  font-size: 18px !important;
+}

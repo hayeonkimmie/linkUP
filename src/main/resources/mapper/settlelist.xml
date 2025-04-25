@@ -98,7 +98,59 @@
         LIMIT 1
     </select>
 
+    <select id="selectHistorySummaryList" parameterType="map" resultType="dto.AdminSettleHistorySummary">
+        SELECT
+        sl.slist_id,
+        sl.project_id AS projectId,
+        p.project_name AS projectName,
+        DATE_FORMAT(sl.settle_date, '%Y-%m-%d') AS settleDate,
+        sl.cnt AS cnt,
+        SUM(s.ammount) AS totalAmount,
+        MAX(s.status) AS status,
+        SUM(c.pay) AS pay,
+        SUM(c.fee) AS fee
+        FROM settlement s
+        JOIN settlelist sl ON s.slist_id = sl.slist_id
+        JOIN contract c ON c.project_pay_id = s.category_id
+        JOIN project p ON sl.project_id = p.project_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                p.project_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND sl.settle_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND sl.settle_date &lt;= #{endDate}
+            </if>
+        </where>
+        GROUP BY sl.project_id, sl.settle_date, sl.cnt
+        ORDER BY sl.settle_date DESC
+        LIMIT #{offset}, #{limit}
+    </select>
 
+
+
+    <select id="countHistory" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM (
+        SELECT 1
+        FROM settlement s
+        JOIN settlelist sl ON s.slist_id = sl.slist_id
+        JOIN project p ON sl.project_id = p.project_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                p.project_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND sl.settle_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND sl.settle_date &lt;= #{endDate}
+            </if>
+        </where>
+        GROUP BY sl.project_id, sl.settle_date, sl.cnt
+        ) sub
+    </select>
 
 
 </mapper>

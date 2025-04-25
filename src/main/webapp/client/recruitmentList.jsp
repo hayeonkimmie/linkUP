@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>구인 관리</title>
     <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
-    <link rel="stylesheet" href="${contextPath}/css/client/headerSt.css" />
+    <link rel="stylesheet" href="${contextPath}/css/client/headerScss" />
 </head>
 <body>
 
@@ -116,52 +116,9 @@
     </main>
 </div>
 
-<script>
-    const tabs = document.querySelectorAll('.filter-tab');
-    const cards = document.querySelectorAll('.job-card');
+<%--js 이벤드 작동--%>
+<script src="${contextPath}/js/recruitmentList.js"></script>
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-
-            const status = tab.getAttribute('data-status');
-            cards.forEach(card => {
-                card.style.display = status === 'all' || card.getAttribute('data-status') === status
-                    ? 'block' : 'none';
-            });
-        });
-    });
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-        const confirmButtons = document.querySelectorAll('.btn-secondary');
-
-        confirmButtons.forEach(button => {
-        button.addEventListener('click', () => {
-        const projectCard = button.closest('.job-card');
-        const projectId = projectCard.getAttribute('data-project-id');
-
-        fetch('${contextPath}/confirmRecruitment', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-    },
-        body: `projectId=${projectId}`
-    })
-        .then(response => {
-        if (response.ok) {
-        alert('모집이 확정되었습니다!');
-        location.reload(); // 새로고침해서 시작전 필터로 분류됨을 반영
-    } else {
-        alert('모집 확정 실패!');
-    }
-    });
-    });
-    });
-    });
-
-</script>
 
 </body>
 </html>

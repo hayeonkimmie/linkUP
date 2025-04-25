@@ -25,6 +25,7 @@
                 <img src="${contextPath}/img/알람벨.png" alt="알림" class="icon" />
             </button>
             <div class="profile-wrapper">
+                <p class="username"> <%= session.getAttribute("userId") %>&nbsp;&nbsp;</p>
                 <div class="profile-icon"></div>
                 <button class="profile-toggle">&#9662;</button>
                 <ul class="profile-menu">
@@ -50,8 +51,8 @@
 <div class="search-box">
     <select id="search-type" class="search-type">
         <option value="company">회사명</option>
-        <option value="project">구인</option>
-        <option value="expert">구직</option>
+        <option value="project">구인 구직</option>
+
     </select>
     <input class="search-input" type="text" id="search-keyword" placeholder="검색어를 입력하세요" />
     <button class="search-button" onclick="handleSearch()">검색</button>
@@ -197,6 +198,27 @@
     }
 </script>
 
+<%--토글 뜨는 창--%>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleButton = document.querySelector(".profile-toggle");
+        const menu = document.querySelector(".profile-menu");
+
+        if (toggleButton && menu) {
+            toggleButton.addEventListener("click", function (e) {
+                e.stopPropagation(); // 다른 클릭 이벤트 막기
+                menu.style.display = menu.style.display === "block" ? "none" : "block";
+            });
+
+            // 메뉴 바깥 클릭 시 닫기
+            document.addEventListener("click", function (e) {
+                if (!e.target.closest(".profile-wrapper")) {
+                    menu.style.display = "none";
+                }
+            });
+        }
+    });
+</script>
 <script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

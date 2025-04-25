@@ -11,11 +11,22 @@ public class CatalogFreelancerServiceImpl implements ICatalogFreelancerService {
     private final ICatalogFreelancerDAO freelancerDAO = new CatalogFreelancerDAOImpl();
 
     @Override
-    public List<Freelancer> catalogFreelancersByCategory(String category) {
-        return freelancerDAO.catalogFreelancersByCategory(category);
+    public List<Freelancer> catalogFreelancersByCategory(int categoryId) {
+        return freelancerDAO.catalogFreelancersByCategory(categoryId);
     }
+
     @Override
     public List<Freelancer> searchFreelancersByCategoryAndKeyword(Map<String, String> params) {
         return freelancerDAO.searchFreelancersByCategoryAndKeyword(params);
+    }
+
+    @Override
+    public List<Freelancer> catalogFreelancersBySubCategoryIds(List<Integer> subCategoryIds) {
+        return freelancerDAO.catalogFreelancersBySubCategoryIds(subCategoryIds);
+    }
+
+    @Override
+    public List<Freelancer> findAllFreelancers() {
+        return freelancerDAO.findAllFreelancers();
     }
 }
