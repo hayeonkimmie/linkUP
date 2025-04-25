@@ -4,10 +4,10 @@
 
 <mapper namespace="mapper.freelancer">
     <insert id="insertFreelancer" parameterType="freelancer">
-        insert freelancer (freelancer_id, category, skill, address, academic, introduction, license,
+        insert freelancer (freelancer_id, sub_category_id, skill, address, academic, introduction, license,
                            is_negotiable, is_resident, desired_salary, desired_location, other_requests, attachment,
                            external_url)
-        values (#{freelancerId}, #{category}, #{skill}, #{address}, #{academic}, #{introduction}, #{license},
+        values (#{freelancerId}, #{subCategoryId}, #{skill}, #{address}, #{academic}, #{introduction}, #{license},
                 #{isNegotiable}, #{isResident}, #{desiredSalary}, #{desiredLocation},
                 #{otherRequest}, #{attachment}, #{externalUrl})
     </insert>
@@ -44,7 +44,7 @@
     </select>
     <update id="updateFreelancer" parameterType="freelancer">
         UPDATE freelancer
-            SET category = #{category},
+            SET sub_category_id = #{subCategoryId},
             skill = #{skill},
             address = #{address},
             academic = #{academic},
@@ -82,26 +82,28 @@
     </update>
 
     <select id="selectExpertFreelancerById" parameterType="String" resultType="freelancer">
-        SELECT category,
-               skill,
-               academic,
-               introduction,
-               license,
-               is_resident,
-               desired_salary,
-               desired_location,
-               other_requests,
-               is_negotiable,
-               attachment,
-               is_resident
-        FROM freelancer
-        where freelancer_id = #{freelancerId}
+        SELECT  CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+                f.skill,
+                f.academic,
+                f.introduction,
+                f.license,
+                f.is_resident,
+                f.desired_salary,
+                f.desired_location,
+                f.other_requests,
+                f.is_negotiable,
+                f.attachment,
+               f.is_resident
+        FROM freelancer f
+            LEFT JOIN subCategory subcat ON f.sub_category_id = subcat.sub_category_id
+            LEFT JOIN category cat ON subcat.category_id = cat.category_id
+        where f.freelancer_id = #{freelancerId}
     </select>
 
     <select id="selectCategoryByFreelancerId" parameterType="String" resultType="String">
-        SELECT category
-        FROM freelancer
-        where freelancer_id = #{freelancerId}
+        SELECT s.sub_category_name as category
+        FROM freelancer f join subCategory s
+        where f.freelancer_id = #{freelancerId}
     </select>
     <insert id="insertCareer" parameterType="career">
         insert career (freelancer_id, company_name, department_name, position, job_title, job_description, salary,
@@ -136,7 +138,7 @@
           AND c.end_date > CURDATE()
         ]]>
     </select>
-    <select id="selectOngoingProjectsByFreelancerId" resultType="dto.FreelancerProject" parameterType="String">
+    <select id="selectOngoingProjectsByFreelancerId" resultType="dto.FreelancerProject" parameterType="Map">
         <![CDATA[
         SELECT
         p.project_id AS projectId,
@@ -160,25 +162,28 @@
         WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
         ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
         END AS d_day,
-#             IFNULL(( -- 카테고리
-#                 SELECT
-#                     GROUP_CONCAT(CONCAT(ca.category_name, ' > ', sc.sub_category_name)
-#                 ORDER BY sc.sub_category_id SEPARATOR ', ')
-#                 FROM (
-#                     SELECT
-#                         CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p.category, ',', numbers.n), ',', -1) AS UNSIGNED) AS sub_category_id
-#                     FROM (
-#                         SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
-#                     ) AS numbers
-#                 WHERE numbers.n <= 1 + LENGTH(p.category) - LENGTH(REPLACE(p.category, ',', ''))
-#                 ) AS parsed
-#                 JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
-#                 JOIN category ca ON ca.category_id = sc.category_id
-#             ), '') AS categories -- 카테고리 끝
-        p.category AS categories
+/*            IFNULL(( -- 카테고리
+                SELECT
+                    GROUP_CONCAT(CONCAT(ca.category_name, ' > ', sc.sub_category_name)
+                ORDER BY sc.sub_category_id SEPARATOR ', ')
+                FROM (
+                    SELECT
+                        CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p.category, ',', numbers.n), ',', -1) AS UNSIGNED) AS sub_category_id
+                    FROM (
+                        SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
+                    ) AS numbers
+                WHERE numbers.n <= 1 + LENGTH(p.category) - LENGTH(REPLACE(p.category, ',', ''))
+                ) AS parsed
+                JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
+                JOIN category ca ON ca.category_id = sc.category_id
+            ), '') AS categories -- 카테고리 끝*/
+        CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category
         FROM project p
         JOIN contract c ON c.project_id = p.project_id
         JOIN client cl ON p.client_id = cl.client_id
+        JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
+        JOIN category cat ON subcat.category_id = cat.category_id
+
         WHERE c.freelancer_id = #{freelancerId}
         AND c.end_date > CURDATE()
         ORDER BY c.end_date ASC
@@ -209,10 +214,12 @@
         WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
         ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
         END AS d_day,
-        p.category AS categories
+        CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS categories
         FROM project p
         JOIN contract c ON c.project_id = p.project_id
         JOIN client cl ON p.client_id = cl.client_id
+        JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
+        JOIN category cat ON subcat.category_id = cat.category_id
         WHERE c.freelancer_id = #{freelancerId}
         AND c.end_date > CURDATE()
         ORDER BY c.end_date ASC
@@ -268,10 +275,12 @@
         JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
         JOIN category ca ON ca.category_id = sc.category_id
         ), '') AS categories*/
-        p.category AS categories
+        CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS categories
         FROM contract c
         JOIN project p ON c.project_id = p.project_id
         JOIN client cl ON p.client_id = cl.client_id
+        JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
+        JOIN category cat ON subcat.category_id = cat.category_id
         WHERE c.freelancer_id = #{freelancerId}
         AND c.end_date <= CURDATE()
         ORDER BY c.end_date ASC
@@ -287,6 +296,20 @@
             f.desired_salary,
             f.introduction,
             u.nickname,
+            u.profile_img
+        FROM freelancer f
+            LEFT JOIN user u ON f.freelancer_id = u.user_id
+        WHERE f.sub_category_id = #{category}
+    </select>
+
+<!--    <select id="searchFreelancersByCategoryAndKeyword" parameterType="map" resultType="dto.Freelancer">
+        SELECT
+            f.freelancer_id,
+            f.category,
+            f.skill,
+            f.desired_salary,
+            f.introduction,
+            u.nickname,
             u.profile_img,
             sc.sub_category_name,
             c.category_id,
@@ -294,35 +317,17 @@
             COALESCE(AVG(r.star), 0) AS avg_star
         FROM freelancer f
                  LEFT JOIN user u ON f.freelancer_id = u.user_id
-                 LEFT JOIN subCategory sc ON f.sub_category_id = sc.sub_category_id
-                 LEFT JOIN category c ON sc.category_id = c.category_id
-                 LEFT JOIN review r ON f.freelancer_id = r.r_user_id
-        WHERE c.category_id = #{category}
-        GROUP BY f.freelancer_id
-        ORDER BY f.freelancer_id DESC
-    </select>
-
-<!--    <select id="searchFreelancersByCategoryAndKeyword" parameterType="map" resultType="dto.Freelancer">-->
-<!--        SELECT-->
-<!--            f.freelancer_id,-->
-<!--            f.category,-->
-<!--            f.skill,-->
-<!--            f.desired_salary,-->
-<!--            f.introduction,-->
-<!--            u.nickname,-->
-<!--            u.profile_img-->
-<!--        FROM freelancer f-->
-<!--                 LEFT JOIN user u ON f.freelancer_id = u.user_id-->
-<!--        WHERE f.category = #{category}-->
-<!--          AND (-->
-<!--            f.introduction LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                OR u.nickname LIKE CONCAT('%', #{keyword}, '%')-->
-<!--            )-->
-<!--    </select>-->
+        WHERE f.category = #{category}
+          AND (
+            f.introduction LIKE CONCAT('%', #{keyword}, '%')
+                OR u.nickname LIKE CONCAT('%', #{keyword}, '%')
+            )
+    </select>-->
 
     <select id="searchFreelancersByCategoryAndKeyword" parameterType="map" resultType="dto.Freelancer">
         SELECT
         f.freelancer_id,
+        f.sub_category_id,
         f.skill,
         f.desired_salary,
         f.introduction,
@@ -337,65 +342,12 @@
         LEFT JOIN subCategory sc ON f.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id
         LEFT JOIN user u ON f.freelancer_id = u.user_id
-        LEFT JOIN review r ON f.freelancer_id = r.r_user_id
-        WHERE 1=1
-        <if test="keyword != null and keyword != ''">
-            AND (
-            f.introduction LIKE CONCAT('%', #{keyword}, '%')
-            OR u.nickname LIKE CONCAT('%', #{keyword}, '%')
-            )
-        </if>
-        <if test="category != null and category != '' and category != '전체'">
-            AND c.category_name = #{category}
-        </if>
-        GROUP BY f.freelancer_id
-        ORDER BY f.freelancer_id DESC
-    </select>
-    <select id="catalogFreelancersBySubCategoryIds" parameterType="list" resultType="dto.Freelancer">
-        SELECT
-        f.freelancer_id,
-        f.sub_category_id,
-        f.skill,
-        f.desired_salary,
-        f.introduction,
-        u.nickname,
-        u.profile_img,
-        sc.sub_category_name,
-        c.category_id,
-        c.category_name,
-        COALESCE(AVG(r.star), 0) AS avg_star
-        FROM freelancer f
-        LEFT JOIN subCategory sc ON f.sub_category_id = sc.sub_category_id
-        LEFT JOIN category c ON sc.category_id = c.category_id
-        LEFT JOIN user u ON f.freelancer_id = u.user_id
-        LEFT JOIN review r ON f.freelancer_id = r.r_user_id
-        WHERE f.sub_category_id IN
-        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-        GROUP BY f.freelancer_id
-        ORDER BY f.freelancer_id DESC
-    </select>
-
-    <select id="findAllFreelancers" resultType="dto.Freelancer">
-        SELECT
-            f.freelancer_id,
-            f.sub_category_id,
-            f.skill,
-            f.desired_salary,
-            f.introduction,
-            u.nickname,
-            u.profile_img,
-            sc.sub_category_name,
-            c.category_id,
-            c.category_name,
-            COALESCE(AVG(r.star), 0) AS avg_star
-        FROM freelancer f
-                 LEFT JOIN subCategory sc ON f.sub_category_id = sc.sub_category_id
-                 LEFT JOIN category c ON sc.category_id = c.category_id
-                 LEFT JOIN user u ON f.freelancer_id = u.user_id
-                 LEFT JOIN review r ON f.freelancer_id = r.r_user_id
-        GROUP BY f.freelancer_id
-        ORDER BY f.freelancer_id DESC
+        LEFT JOIN review r ON f.freelancer_id = r.r_user_id  <!-- ⭐ 리뷰 테이블 조인 -->
+        WHERE f.sub_category_id = #{category}
+        AND (
+        f.introduction LIKE CONCAT('%', #{keyword}, '%')
+        OR u.nickname LIKE CONCAT('%', #{keyword}, '%')
+        )
+        GROUP BY f.freelancer_id  <!-- ⭐ 집계함수 쓰면 무조건 필요 -->
     </select>
 </mapper>

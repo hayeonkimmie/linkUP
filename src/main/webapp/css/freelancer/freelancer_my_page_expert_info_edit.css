@@ -120,6 +120,20 @@ h2, h3 {
     flex-direction: row;
     width: 100%;
 }
+a{
+    text-decoration: none;
+}
+textarea {
+    width: 100%;
+    min-height: 80px;
+    resize: none !important;
+    overflow-y: auto !important;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 8px;
+}
 /* ===== 공통 태그 스타일 (전문 분야 / 스킬) ===== */
 
 .skill-tag, .specialization span {
@@ -338,16 +352,6 @@ input[type="text"] {
     flex-direction: column;
 }
 
-.buttonDeleteField {
-    margin-top: 10px;
-    background: none;
-    border: none;
-    color: #666;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 6px 10px;
-    align-self: flex-start;
-}
 
 /* 학력 추가 버튼 */
 #education_addbutton {
@@ -411,16 +415,26 @@ input[type="month"] {
     font-size: 13px;
 }
 /* 삭제 버튼을 우측 상단으로 */
-.education-box .buttonDeleteField {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background-color: transparent;
-    color: #888;
-    border: none;
-    font-size: 20px;
-    padding: 4px 8px;
+.buttonDeleteField {
+    margin-top: 10px;
+    background: none;
+    font-weight: bold;
     cursor: pointer;
+    padding: 6px 10px;
+    align-self: flex-start;
+    top: -14px;
+    right: -2px;
+    position: absolute;
+    width: fit-content;
+/*    background-color: transparent;*/
+    border: none;
+    /*background-color: #f0f0f0;*/
+/*    border: 1px solid #ccc;*/
+    /*padding: 6px 10px;*/
+    border-radius: 4px;
+    font-size: 13px;
+   /* background: #eee;*/
+    color: #333;
 }
 
 .education-box .buttonDeleteField:hover {
@@ -444,10 +458,11 @@ input[type="month"] {
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 16px;
-    background-color: #fff;
+    background-color: #fdfdfd;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
 }
 
 .career-row {
@@ -478,16 +493,6 @@ input[type="month"] {
     gap: 4px;
 }
 
-textarea {
-    width: 100%;
-    min-height: 80px;
-    resize: vertical;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 10px;
-    font-size: 14px;
-    margin-top: 8px;
-}
 
 /* 경력 삭제/추가 버튼 */
 .button.buttonDeleteField span,
@@ -515,10 +520,6 @@ textarea {
     background: transparent;
     cursor: pointer;
 }
-#career-container .career-box {
-    background-color: #fdfdfd;
-}
-
 textarea {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -535,19 +536,6 @@ textarea {
     padding-left: 4px;
 }
 
-/* 삭제 버튼 */
-.buttonDeleteField {
-    /*background-color: #f0f0f0;*/
-    border: 1px solid #ccc;
-    /*padding: 6px 10px;*/
-    border-radius: 4px;
-    font-size: 13px;
-    cursor: pointer;
-    align-self: flex-start;
-    background: #eee;
-    color: #333;
-    padding: 6px 14px;
-}
 
 .buttonDeleteField span {
     font-weight: bold;
@@ -619,17 +607,14 @@ button:hover,
 }
 
 .clear_fields,
-.buttonDeleteField,
 .buttonAddField,
 .add-career-btn,
 .search-btn {
     background-color: #eee;
     color: #333;
     border: 1px solid #bbb;
-    padding: 6px 10px;
     font-size: 13px;
     border-radius: 6px;
-    margin-top: 8px;
 }
 .file-upload-section {
     background-color: #fff;
@@ -758,6 +743,9 @@ th, td {
 
 .salary-wrap input {
     flex: 1;
+}
+.new{
+    width: 100%;
 }
 /* ==============================
    저장 버튼 영역

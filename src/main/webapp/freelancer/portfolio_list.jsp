@@ -109,7 +109,8 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1" var="page">
+                        <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"
+                                   var="page">
                             <c:choose>
                                 <c:when test="${page eq pageInfo.curPage }">
                                     <a href="?page=${page }" class="select">${page }</a>

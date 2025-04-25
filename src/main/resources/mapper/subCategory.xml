@@ -14,7 +14,7 @@
     WHERE s.category_id = #{categoryId}
     order by c.category_id asc, s.sub_category_id asc
     </select>
-    <select id="selectCategoriesAsMap" resultType="category">
+    <select id="selectCategoryList" resultType="category">
         SELECT
             category_id AS categoryId,
             category_name AS categoryName

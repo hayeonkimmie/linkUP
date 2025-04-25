@@ -46,7 +46,7 @@ public class Freelancer {
     private String categoryName;
 
 
-    Map<Integer, String> portfolioInfoMap;
+    List<Portfolio> portfolioInfoList;
     double averageScore; //평점
     int projectCount; //프로젝트 수
 
@@ -279,19 +279,19 @@ public class Freelancer {
         this.accountNum = accountNum;
     }
 
-    public boolean isNegotiable() {
+    public boolean getIsNegotiable() {
         return isNegotiable;
     }
 
-    public void setNegotiable(boolean negotiable) {
+    public void setIsNegotiable(boolean negotiable) {
         isNegotiable = negotiable;
     }
 
-    public boolean isResident() {
+    public boolean getIsResident() {
         return isResident;
     }
 
-    public void setResident(boolean resident) {
+    public void setIsResident(boolean resident) {
         isResident = resident;
     }
 
@@ -401,7 +401,7 @@ public class Freelancer {
                 ", otherRequest='" + otherRequest + '\'' +
                 ", attachment='" + attachment + '\'' +
                 ", externalUrl='" + externalUrl + '\'' +
-                ", portfolioInfoMap=" + portfolioInfoMap +
+                ", portfolioInfoList=" + portfolioInfoList +
                 ", averageScore=" + averageScore +
                 ", projectCount=" + projectCount +
                 ", avgStar=" + avgStar +
