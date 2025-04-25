@@ -12,4 +12,9 @@ public class CategoryServiceImpl implements ICategoryService{
     public List<Integer> findSubCategoryIdsByCategoryName(String categoryName) {
         return categoryDAO.findSubCategoryIdsByCategoryName(categoryName);
     }
+    @Override
+    public int findSubCategoryIdByName(String subCategoryName) {
+        return categoryDAO.findSubCategoryIdByName(subCategoryName);
+    }
+
 }

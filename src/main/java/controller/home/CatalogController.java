@@ -30,7 +30,7 @@ public class CatalogController extends HttpServlet {
         String category = request.getParameter("category");
         String subCategory = request.getParameter("subCategory");
         String keyword = request.getParameter("keyword");
-
+        System.out.println("subCategory: " + subCategory);
         List<Project> projectList;
         List<Freelancer> freelancerList;
 
@@ -44,6 +44,7 @@ public class CatalogController extends HttpServlet {
             param.put("subCategory", subCategory);
         }
 
+        // 키워드가 있을 경우, 검색 필터로 처리
         if (keyword != null && !keyword.trim().isEmpty()) {
             param.put("keyword", keyword);
             projectList = projectService.searchProjectsByCategoryAndKeyword(param);
@@ -51,12 +52,23 @@ public class CatalogController extends HttpServlet {
         } else {
             projectList = projectService.catalogProjectByConditions(param);
 
-            // ✅ 카테고리로 하위 sub_category_id 리스트를 조회해 프리랜서 필터링
-            if (category != null && !category.trim().isEmpty() && !"전체".equals(category)) {
+            if (subCategory != null && !subCategory.trim().isEmpty()) {
+                // 서브카테고리 이름을 ID로 변환 후 필터링
+                try {
+                    int subCategoryId = categoryService.findSubCategoryIdByName(subCategory);
+                    freelancerList = freelancerService.catalogFreelancersBySubCategoryIds(List.of(subCategoryId));
+                } catch (Exception e) {
+                    freelancerList = List.of(); // 실패 시 빈 리스트
+                    System.out.println("Invalid subCategory name or DB issue: " + subCategory);
+                    e.printStackTrace();
+                }
+
+            } else if (category != null && !category.trim().isEmpty() && !"전체".equals(category)) {
+                // 카테고리 선택 시 해당 카테고리의 모든 서브카테고리 ID로 필터링
                 List<Integer> subCategoryIds = categoryService.findSubCategoryIdsByCategoryName(category);
                 freelancerList = freelancerService.catalogFreelancersBySubCategoryIds(subCategoryIds);
             } else {
-                // ✅ 카테고리 '전체'일 경우: 모든 프리랜서 조회
+                // 전체 조회
                 freelancerList = freelancerService.findAllFreelancers();
             }
         }

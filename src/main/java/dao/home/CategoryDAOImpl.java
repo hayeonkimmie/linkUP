@@ -12,4 +12,10 @@ public class CategoryDAOImpl implements ICategoryDAO {
             return sqlSession.selectList("mapper.category.findSubCategoryIdsByCategoryName", categoryName);
         }
     }
+    @Override
+    public int findSubCategoryIdByName(String subCategoryName) {
+        try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            return sqlSession.selectOne("mapper.category.selectSubCategoryIdByName", subCategoryName);
+        }
+    }
 }
