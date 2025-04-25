@@ -7,8 +7,7 @@
     <meta charset="UTF-8">
     <title>정산 내역 조회</title>
     <link rel="stylesheet" href="../css/admin/admin_header.css">
-    <link rel="stylesheet" href="../css/settlement.css">
-    <link rel="stylesheet" href="../css/settlement_history.css">
+    <link rel="stylesheet" href="../css/admin/settlement.css">
     <script> const defaultOpenMenuId = "projectMenu"; </script>
     <style>
         .search-input {
@@ -106,6 +105,8 @@
                 <tr>
                     <th>정산 회차</th>
                     <th>프로젝트명</th>
+                    <th>정산 금액</th>
+                    <th>수수료</th>
                     <th>정산 총액</th>
                     <th>정산일</th>
                     <th>상태</th>
@@ -113,14 +114,26 @@
                 </thead>
                 <tbody>
                 <c:forEach var="h" items="${settlementList}">
-                    <tr onclick="location.href='<c:url value="/admin/settlement?slist_id=${h.projectId}"/>'" style="cursor: pointer;">
+                    <tr class="settlement-row"
+                        data-slistid="${h.slistId}"
+                        data-cnt="${h.cnt}"
+                        data-projectname="${h.projectName}"
+                        data-pay="${h.pay}"
+                        data-fee="${h.fee}"
+                        data-totalamount="${h.totalAmount}"
+                        data-settledate="${h.settleDate}"
+                        data-status="${h.status}"
+                        style="cursor: pointer;">
                         <td>${h.cnt}회차</td>
                         <td>${h.projectName}</td>
-                        <td><fmt:formatNumber value="${h.totalAmount}" type="currency" currencySymbol="₩"/></td>
+                        <td><fmt:formatNumber value="${h.pay}" pattern="#,##0원"/></td>
+                        <td><fmt:formatNumber value="${h.fee}" pattern="#,##0원"/></td>
+                        <td><fmt:formatNumber value="${h.totalAmount}" pattern="#,##0원"/></td>
                         <td>${h.settleDate}</td>
                         <td><span class="badge ${h.status}">${h.status}</span></td>
                     </tr>
                 </c:forEach>
+
                 </tbody>
             </table>
 
@@ -144,7 +157,44 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const rows = document.querySelectorAll(".settlement-row");
+
+        rows.forEach(row => {
+            row.addEventListener("click", function () {
+                const data = {
+                    slistId: this.dataset.slistid,
+                    cnt: this.dataset.cnt,
+                    projectName: this.dataset.projectname,
+                    pay: this.dataset.pay,
+                    fee: this.dataset.fee,
+                    totalAmount: this.dataset.totalamount,
+                    settleDate: this.dataset.settledate,
+                    status: this.dataset.status
+                };
+
+                // ✅ slistId는 쿼리스트링으로, 나머지는 JSON으로 전송
+                const query = new URLSearchParams({ slistid: data.slistId, format: 'json' }).toString();
+
+                fetch(`/admin/settlement?${query}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log("서버 응답:", result);
+                        // 필요하다면 이후 로직 추가
+                    })
+                    .catch(err => console.error("전송 오류:", err));
+            });
+        });
+    });
+</script>
 
 <script src="../js/include_common.js"></script>
 </body>

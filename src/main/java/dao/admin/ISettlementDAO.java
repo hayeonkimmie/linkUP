@@ -40,5 +40,9 @@ public interface ISettlementDAO {
 
 
     List<AdminSettleHistorySummary> selectHistorySummaryList(Map<String, Object> param);
+
     int countHistorySummary(Map<String, Object> param);
+
+    HashMap<Integer ,AdminSettleHistory> selectSettlementHistoryDetail(Integer projectId);
+
 }

@@ -2,6 +2,7 @@ package dto;
 
 import java.util.List;
 
+
 public class Category {
     private int categoryId;
     private String categoryName;
@@ -46,7 +47,6 @@ public class Category {
         return "Category{" +
                 "categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
-                ", subCategories=" + subCategories +
                 '}';
     }
 }

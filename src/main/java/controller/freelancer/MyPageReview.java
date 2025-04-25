@@ -102,6 +102,7 @@ public class MyPageReview extends HttpServlet {
            } else {
                Review review = new Review();
                review.setReviewId(reviewId);
+               review.setwUserId(freelancerId);
                review.setStar(star);
                review.setComment(comment);
                service.updateReview(review); // 실제 DB 업데이트
@@ -112,7 +113,6 @@ public class MyPageReview extends HttpServlet {
            e.printStackTrace();
            request.setAttribute("err", "후기 수정 중 오류 발생");
        }
-
-       request.getRequestDispatcher("/freelancer/review_list_update.jsp").forward(request, response);
+       request.getRequestDispatcher("/my-page/project-review").forward(request, response);
    }
 }

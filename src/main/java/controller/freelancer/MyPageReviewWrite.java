@@ -84,9 +84,9 @@ public class MyPageReviewWrite extends HttpServlet {
 
             IReviewService service = new ReviewService();
 
-            if (!service.isReviewWriter(freelancerId, reviewId)) {
+            /*if (!service.isReviewWriter(freelancerId, reviewId)) {
                 request.setAttribute("err", "본인이 작성한 후기만 수정할 수 있습니다.");
-            } else {
+            } else {*/
                 Review review = new Review();
                 review.setReviewId(reviewId);
                 review.setStar(star);
@@ -95,7 +95,7 @@ public class MyPageReviewWrite extends HttpServlet {
                 review.setwUserId(freelancerId);
                 service.writeReview(review); // 실제 DB 업데이트
                 request.setAttribute("msg", "후기 작성이 완료되었습니다.");
-            }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("err", "후기 작성 중 오류 발생");

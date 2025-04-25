@@ -7,77 +7,91 @@
         <![CDATA[
         SELECT
             a.apply_id,
+            a.freelancer_id,
             a.apply_date, -- 지원일
             a.cancel_date, -- 취소일
             CASE
                 WHEN is_approved = true THEN '승인완료'
-                ELSE '지원취소'
+                WHEN is_approved = false THEN '승인거절'
+                ELSE ''
                 END AS approved, -- 상태
             CASE
                 WHEN cancel_date is null THEN '지원완료'
                 ELSE '지원취소'
                 END AS apply_status, -- 상태
-            p.project_id,                                -- 프로젝트 ID
-            IFNULL(( -- 카테고리
-                       SELECT
-                           GROUP_CONCAT(CONCAT(ca.category_name, ' > ', sc.sub_category_name)
-                                        ORDER BY sc.sub_category_id SEPARATOR ', ')
-                       FROM (
-                                SELECT
-                                    CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p.category, ',', numbers.n), ',', -1) AS UNSIGNED) AS sub_category_id
-                                FROM (
-                                         SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
-                                     ) AS numbers
-                                WHERE numbers.n <= 1 + LENGTH(p.category) - LENGTH(REPLACE(p.category, ',', ''))
-                            ) AS parsed
-                                JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
-                                JOIN category ca ON ca.category_id = sc.category_id
-                   ), '') AS categories,
-            p.advertisement_title,                       -- 공고 제목
-            p.project_name,                              -- 프로젝트명
+            p.project_id, -- 프로젝트 ID
+
+            -- 카테고리명과 서브카테고리명을 JOIN으로 가져와서 표시
+            CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+
+            a.sub_category_name AS apply_category, -- 내가 지원한 분야
+            p.advertisement_title, -- 공고 제목
+            p.project_name, -- 프로젝트명
+
             CASE
                 WHEN duration < 12 THEN CONCAT(duration, '개월')
                 WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
                 ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
-                END AS duration,                             -- 기간
+                END AS duration, -- 기간
+
             -- project_fee 서브쿼리
             IFNULL((
-                       SELECT CONCAT(FORMAT(pay.project_fee, 0), '만 원')
-                       FROM freelancer f
-                                JOIN career ca ON f.freelancer_id = ca.freelancer_id
-                                JOIN lv l ON PERIOD_DIFF(DATE_FORMAT(IFNULL(ca.resign_date, CURDATE()), '%Y%m'), DATE_FORMAT(ca.join_date, '%Y%m'))
-                           BETWEEN l.start_month AND l.end_month
-                                JOIN pay ON FIND_IN_SET(pay.sub_category_id, f.category) > 0
-                           AND pay.lv_id = l.lv_id
-                           AND pay.sub_category_id = p.category
-                       WHERE f.freelancer_id = #{freelancerId}
+                       SELECT CONCAT(FORMAT(pay.project_fee, 0), '만원')
+                       FROM pay
+                                JOIN (
+                           SELECT SUM(TIMESTAMPDIFF(MONTH, join_date, IFNULL(resign_date, CURDATE()))) AS total_months
+                           FROM career
+                           WHERE freelancer_id = #{freelancerId}
+                       ) AS career_summary
+                                JOIN lv ON career_summary.total_months BETWEEN lv.start_month AND lv.end_month
+                                JOIN subCategory sc ON sc.sub_category_name = (
+                           SELECT category FROM freelancer WHERE freelancer_id = #{freelancerId}
+                       )
+                       WHERE pay.lv_id = lv.lv_id
+                         AND pay.sub_category_id = sc.sub_category_id
+                         AND pay.project_id = a.project_id
                        LIMIT 1
-                   ), '') AS project_fee,
-            p.deadline_date,                             -- 마감일
-            c.company_name,                              -- 회사명
-            p.qualification,                             -- 자격 요건
-            p.working_method,                            -- 근무 방식
-            p.req_skills,                                -- 요구 스킬
-            p.qualification,                            -- 자격 요건
-            p.working_environment,                       -- 근무 환경
-            p.working_hours,                             -- 근무 시간,
+                   ), '') AS projectfee,
+
+            p.project_description, -- 프로젝트 설명
+            p.job_details, -- 업무 상세 설명
+            c.company_name, -- 회사명
+            p.working_method, -- 근무 방식
+            p.working_environment, -- 근무 환경
+            p.working_hours, -- 근무 시간
+            p.deadline_date, -- 마감일
             CASE
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
                 ELSE '마감'
-                END AS d_day                                 -- D-Day 표시
-        FROM project p
+                END AS d_day -- D-Day 표시
+
+        FROM apply a
+                 JOIN project p ON a.project_id = p.project_id
                  JOIN client c ON p.client_id = c.client_id
-                 JOIN apply a ON p.project_id = a.project_id
+                 LEFT JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
+                 LEFT JOIN category cat ON subcat.category_id = cat.category_id
         WHERE a.freelancer_id = #{freelancerId}
+
         ORDER BY
             CASE
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) >= 0 THEN DATEDIFF(p.deadline_date, CURDATE())
                 ELSE 99999
                 END ASC, -- 임박 마감 우선
-            a.apply_id DESC -- 최신 찜 우선
+            a.apply_id DESC -- 최신 지원 우선
         LIMIT #{row}, 10
         ]]>
     </select>
+    <insert id="insertApplyProject" parameterType="map">
 
+    </insert>
+    <update id="cancelApplyProject" parameterType="Integer">
+        UPDATE apply
+        SET cancel_date = curdate()
+        WHERE apply_id = #{applyId}
+    </update>
+    <select id="selectApplyProjectCnt" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM apply
+        WHERE freelancer_id = #{freelancerId}
+    </select>
 </mapper>
