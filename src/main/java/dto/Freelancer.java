@@ -40,6 +40,11 @@ public class Freelancer {
     String otherRequest;
     String attachment;
     String externalUrl;
+    private int subCategoryId;
+    private String subCategoryName;
+    private int categoryId;
+    private String categoryName;
+
 
     Map<Integer, String> portfolioInfoMap;
     double averageScore; //평점
@@ -48,6 +53,38 @@ public class Freelancer {
     private double avgStar; // ⭐ 평균 별점
 
     public Freelancer() {
+    }
+
+    public int getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(int subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getFreelancerId() {

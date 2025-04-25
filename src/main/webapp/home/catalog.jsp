@@ -32,7 +32,6 @@
 <body>
 
 <div id="header-placeholder"></div>
-
 <div class="container">
     <main class="main">
         <!-- 검색창 -->

@@ -5,7 +5,9 @@ import dto.Project;
 import service.IProjectService;
 import service.ProjectService;
 import service.home.CatalogFreelancerServiceImpl;
+import service.home.CategoryServiceImpl;
 import service.home.ICatalogFreelancerService;
+import service.home.ICategoryService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -21,23 +23,19 @@ public class CatalogController extends HttpServlet {
 
     private final IProjectService projectService = new ProjectService();
     private final ICatalogFreelancerService freelancerService = new CatalogFreelancerServiceImpl();
-
-    public CatalogController() {
-        super();
-    }
+    private final ICategoryService categoryService = new CategoryServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String category = request.getParameter("category");
         String subCategory = request.getParameter("subCategory");
         String keyword = request.getParameter("keyword");
-
+        System.out.println("subCategory: " + subCategory);
         List<Project> projectList;
         List<Freelancer> freelancerList;
 
         Map<String, String> param = new HashMap<>();
 
-        // ✅ 카테고리가 유효할 때만 Map에 추가
         if (category != null && !category.trim().isEmpty() && !"전체".equals(category)) {
             param.put("category", category);
         }
@@ -46,19 +44,35 @@ public class CatalogController extends HttpServlet {
             param.put("subCategory", subCategory);
         }
 
+        // 키워드가 있을 경우, 검색 필터로 처리
         if (keyword != null && !keyword.trim().isEmpty()) {
             param.put("keyword", keyword);
-
-            // ✅ keyword 있는 경우: 검색
             projectList = projectService.searchProjectsByCategoryAndKeyword(param);
             freelancerList = freelancerService.searchFreelancersByCategoryAndKeyword(param);
         } else {
-            // ✅ keyword 없는 경우: 카테고리 기반 필터
             projectList = projectService.catalogProjectByConditions(param);
-            freelancerList = freelancerService.catalogFreelancersByCategory(category);
+
+            if (subCategory != null && !subCategory.trim().isEmpty()) {
+                // 서브카테고리 이름을 ID로 변환 후 필터링
+                try {
+                    int subCategoryId = categoryService.findSubCategoryIdByName(subCategory);
+                    freelancerList = freelancerService.catalogFreelancersBySubCategoryIds(List.of(subCategoryId));
+                } catch (Exception e) {
+                    freelancerList = List.of(); // 실패 시 빈 리스트
+                    System.out.println("Invalid subCategory name or DB issue: " + subCategory);
+                    e.printStackTrace();
+                }
+
+            } else if (category != null && !category.trim().isEmpty() && !"전체".equals(category)) {
+                // 카테고리 선택 시 해당 카테고리의 모든 서브카테고리 ID로 필터링
+                List<Integer> subCategoryIds = categoryService.findSubCategoryIdsByCategoryName(category);
+                freelancerList = freelancerService.catalogFreelancersBySubCategoryIds(subCategoryIds);
+            } else {
+                // 전체 조회
+                freelancerList = freelancerService.findAllFreelancers();
+            }
         }
 
-        // ✅ JSP로 전달
         request.setAttribute("category", category);
         request.setAttribute("subCategory", subCategory);
         request.setAttribute("keyword", keyword);
@@ -70,6 +84,6 @@ public class CatalogController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 사용 안 함
+        // POST는 사용하지 않음
     }
 }
