@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up 포트폴리오 수정</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
+<%--    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">--%>
     <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
 
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
@@ -16,11 +16,12 @@
     <%--    <script src="../js/freelancer_my_page_portfolio_write_and_modify.js"></script>--%>
     <%--<script src="<c:url value='/js/freelancer_my_page_portfolio_write_and_modify.js'/>"></script>--%>
     <script src="${contextPath}/js/freelancer_my_page_portfolio_write_and_modify.js"></script>
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
-
 <body>
 <div class="header">
-    <jsp:include page="/common/header.jsp"/>
+    <!-- 헤더 인클루드 영역 -->
+    <jsp:include page="../home/header.jsp" />
 </div>
 
 <div class="container">

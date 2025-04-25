@@ -68,4 +68,16 @@ public class Academic {
     public void setGraduateStatus(String graduatStatus) {
         this.graduateStatus = graduatStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Academic{" +
+                "academicType='" + academicType + '\'' +
+                ", academicName='" + academicName + '\'' +
+                ", academicMajor='" + academicMajor + '\'' +
+                ", entranceDate='" + entranceDate + '\'' +
+                ", graduateDate='" + graduateDate + '\'' +
+                ", graduateStatus='" + graduateStatus + '\'' +
+                '}';
+    }
 }

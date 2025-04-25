@@ -40,8 +40,8 @@ public class Freelancer {
     String otherRequest;
     String attachment;
     String externalUrl;
-    String[] externalUrlList;
-    String[] attachmentList;
+    List<String> externalUrlList;
+    List<String> attachmentList;
 
     List<Portfolio> portfolioInfoList;
     double averageScore; //평점
@@ -293,19 +293,19 @@ public class Freelancer {
         this.externalUrl = externalUrl;
     }
 
-    public String[] getExternalUrlList() {
+    public List<String> getExternalUrlList() {
         return externalUrlList;
     }
 
-    public void setExternalUrlList(String[] externalUrlList) {
+    public void setExternalUrlList(List<String> externalUrlList) {
         this.externalUrlList = externalUrlList;
     }
 
-    public String[] getAttachmentList() {
+    public List<String> getAttachmentList() {
         return attachmentList;
     }
 
-    public void setAttachmentList(String[] attachmentList) {
+    public void setAttachmentList(List<String> attachmentList) {
         this.attachmentList = attachmentList;
     }
 

@@ -31,7 +31,7 @@
 <body>
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
+    <jsp:include page="../home/header.jsp" />
 </div>
 <div class="container">
     <!-- 사이드바 -->

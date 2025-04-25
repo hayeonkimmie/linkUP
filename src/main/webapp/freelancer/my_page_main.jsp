@@ -8,10 +8,12 @@
     <title>Link up 마이페이지</title>
     <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css' />">
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
 <div class="header">
-    <jsp:include page="/common/header.jsp" />
+    <!-- 헤더 인클루드 영역 -->
+    <jsp:include page="../home/header.jsp" />
    <%-- <%@ include file="<c:url value='/common/header.jsp'/>" %>--%>
 </div>
 <div class="container">
@@ -23,42 +25,44 @@
                     <h3>찜한 프로젝트</h3>
                 </div>
             </div>
-            <table>
-                <thead>
-                <tr>
-                    <th>프로젝트명</th>
-                    <th>분야</th>
-                    <th>기간</th>
-                    <th>근무 환경 | 근무 시간</th>
-                    <th>지원 자격</th>
-                    <th colspan="2">모집 마감일</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:choose>
-                    <c:when test="${empty jjimProjList} && ${jjimProjList eq null}">
-                        <tr>
-                            <td colspan="8" style="height: 39px;"><b>찜한 프로젝트가 없습니다.</b></td>
-                        </tr>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach var="jp" items="${jjimProjList}">
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>프로젝트명</th>
+                        <th>분야</th>
+                        <th>기간</th>
+                        <th>근무 환경 | 근무 시간</th>
+                        <th>지원 자격</th>
+                        <th colspan="2">모집 마감일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:choose>
+                        <c:when test="${empty jjimProjList} && ${jjimProjList eq null}">
                             <tr>
-                                <td><a href="${jp.projectId}">${jp.projectName}</a></td>
-                                <td>${jp.category}</td>
-                                <td>${jp.duration}</td>
-                                <td>${jp.workingEnvironment}
-                                    <c:if test="${jp.workingEnvironment ne '재택'}">(${jp.workingMethod})</c:if> | ${jp.workingHours}
-                                </td>
-                                <td>${jp.qualification}</td>
-                                <td>${jp.deadlineDate}</td>
-                                <td class="d-day">${jp.dDay}</td>
+                                <td colspan="8" style="height: 39px;"><b>찜한 프로젝트가 없습니다.</b></td>
                             </tr>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-                </tbody>
-            </table>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="jp" items="${jjimProjList}">
+                                <tr>
+                                    <td><a href="${jp.projectId}">${jp.projectName}</a></td>
+                                    <td>${jp.category}</td>
+                                    <td>${jp.duration}</td>
+                                    <td>${jp.workingEnvironment}
+                                        <c:if test="${jp.workingEnvironment ne '재택'}">(${jp.workingMethod})</c:if> | ${jp.workingHours}
+                                    </td>
+                                    <td>${jp.qualification}</td>
+                                    <td>${jp.deadlineDate}</td>
+                                    <td class="d-day">${jp.dDay}</td>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                    </tbody>
+                </table>
+            </div>
         </section>
         <section class="section">
             <div class="content-header">
@@ -66,6 +70,7 @@
                     <h3>진행중 프로젝트</h3>
                 </div>
             </div>
+            <div class="table-container">
             <table>
                 <thead>
                 <tr>
@@ -106,6 +111,7 @@
                     </c:choose>
                 </tbody>
             </table>
+</div>
         </section>
     </main>
 </div>

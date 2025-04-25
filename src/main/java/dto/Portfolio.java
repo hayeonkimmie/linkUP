@@ -221,6 +221,30 @@ public class Portfolio {
         this.createdDate = createdDate;
     }
 
+    public Map<Integer, String> getProjectInfoMap() {
+        return projectInfoMap;
+    }
+
+    public void setProjectInfoMap(Map<Integer, String> projectInfoMap) {
+        this.projectInfoMap = projectInfoMap;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public boolean isTempSaved() {
+        return isTempSaved;
+    }
+
     @Override
     public String toString() {
         return "Portfolio{" +

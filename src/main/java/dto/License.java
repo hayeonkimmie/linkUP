@@ -54,4 +54,14 @@ public class License {
     public void setLicenseGrade(String licenseGrade) {
         this.licenseGrade = licenseGrade;
     }
+
+    @Override
+    public String toString() {
+        return "License{" +
+                "licenseName='" + licenseName + '\'' +
+                ", licenseAgency='" + licenseAgency + '\'' +
+                ", licenseDate=" + licenseDate +
+                ", licenseGrade='" + licenseGrade + '\'' +
+                '}';
+    }
 }

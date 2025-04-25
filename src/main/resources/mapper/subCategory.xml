@@ -20,7 +20,7 @@
             category_name AS categoryName
         FROM
             category
-        order by category_id asc
+        order by category_id
     </select>
     <select id="selectCategoryNamesBySubIds" resultType="String">
         SELECT CONCAT(c.category_name, ' > ', s.sub_category_name)

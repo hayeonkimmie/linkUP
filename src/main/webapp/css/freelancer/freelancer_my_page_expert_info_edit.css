@@ -453,7 +453,7 @@ input[type="month"] {
 /* ============================
    경력 영역
 ============================ */
-#career-container .career-box {
+#career-container .career-box, #license-container  {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
@@ -464,7 +464,9 @@ input[type="month"] {
     gap: 16px;
     position: relative;
 }
-
+#career-container, #license-container #education-container{
+    position: relative;
+}
 .career-row {
     display: flex;
     gap: 12px;
@@ -552,7 +554,7 @@ textarea {
 #education_addbutton,
 .add-career-btn {
     display: inline-block;
-    color: #772e91;
+    color: #fff;
     font-weight: bold;
     cursor: pointer;
     font-size: 14px;
@@ -673,7 +675,14 @@ button:hover,
     font-weight: bold;
     cursor: pointer;
 }
-
+file-upload-section td input{
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
 /* 희망 근무조건 영역 */
 .form-group .radio-group {
     margin-bottom: 16px;

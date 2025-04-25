@@ -91,7 +91,7 @@ table {
   background-color: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   border-radius: 8px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 thead th {
@@ -117,10 +117,13 @@ tbody tr td a {
 }
 
 .d-day {
-  display: block;
+  display: inline-flex;
   margin-top: 4px;
   color: red;
-  font-weight: bold;
+  /* margin-top: 4px; */
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 }
 
 .status {

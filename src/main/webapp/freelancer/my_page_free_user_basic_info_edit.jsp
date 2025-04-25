@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="${contextPath}/css/freelancer/freelancer_my_page.css"/>
     <link rel="stylesheet" href="${contextPath}/css/freelancer/freelancer_my_page_info_edit.css"/>
     <script src="${contextPath}/js/freelancer_my_page_info_edit_basic.js"></script>
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
-
 <body>
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
+    <jsp:include page="../home/header.jsp" />
 </div>
 <div class="container">
     <!-- 사이드바 -->

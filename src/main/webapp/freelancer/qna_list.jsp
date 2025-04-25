@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>문의 내역 - Link up</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
+<%--    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">--%>
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_qna_log.css'/>">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
+<div class="header" id="header-placeholder">
+<%--    <jsp:include page="../home/header.jsp" /--%>>
 </div>
 <div class="container">
     <!-- 사이드바 -->
@@ -143,4 +143,8 @@
         });
     });
 </script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
 </html>

@@ -6,6 +6,7 @@ import service.freelancer.InfoSerializer;
 import util.MybatisSqlSessionFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -40,12 +41,12 @@ public class FreelancerDAO implements IFreelancerDAO {
                 freelancer.setAcademicList(null);
             }
             if(freelancer.getExternalUrl() != null) {
-                freelancer.setExternalUrlList(freelancer.getExternalUrl().split("\\^"));
+                freelancer.setExternalUrlList(Arrays.asList(freelancer.getExternalUrl().split("\\^")));
             } else{
                 freelancer.setExternalUrlList(null);
             }
             if(freelancer.getAttachment() != null) {
-                freelancer.setAttachmentList(freelancer.getAttachment().split("\\^"));
+                freelancer.setAttachmentList(Arrays.asList(freelancer.getAttachment().split("\\^")));
             } else{
                 freelancer.setAttachmentList(null);
             }

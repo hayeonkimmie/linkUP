@@ -12,14 +12,12 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_project_review.css'/>">
     <script src="${contextPath}/js/freelancer_my_page_project_review.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
-<!-- 헤더 include -->
-<!--#include file="header.html" -->
-
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
+    <jsp:include page="../home/header.jsp" />
 </div>
 <div class="container">
     <!-- 사이드바 -->

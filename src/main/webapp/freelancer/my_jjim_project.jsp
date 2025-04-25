@@ -16,11 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="${contextPath}/js/freelancer_my_page_like_proj.js"></script>
 </head>
-
 <body>
-<div>
+<div class="header">
     <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
+    <jsp:include page="../home/header.jsp" />
 </div>
 <div class="container">
 <!-- 사이드바 -->

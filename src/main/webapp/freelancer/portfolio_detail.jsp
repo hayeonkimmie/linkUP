@@ -14,18 +14,19 @@
     <meta charset="UTF-8"/>
     <title>포트폴리오 조회</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
+<%--    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">--%>
 <%--   <link rel="stylesheet" href="${contextPath}/css/headerSt.css"/>--%>
 <%--   <link rel="stylesheet" href="${contextPath}/css/freelancer_my_page.css'/>">--%>
 <%--    <link rel="stylesheet" href="${contextPath}/css/freelancer_main_portfolio_detail.css'/>"/>--%>
    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_detail.css'/>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
-<%--    <jsp:include page="/home/header.jsp"/>--%>
+    <jsp:include page="../home/header.jsp" />
 </div>
 <div class="container">
     <script>console.log(${err})</script>
