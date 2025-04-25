@@ -50,7 +50,7 @@
     </nav>
 
     <div class="user-section">
-      <a href="makeProject.jsp" class="post-job-btn">구인등록</a>
+      <a href="${contextPath}/makeProject" class="post-job-btn">구인등록</a>
       <button class="notification-btn">
         <img src="${contextPath}/img/알람벨.png" alt="알림" class="icon" />
       </button>
