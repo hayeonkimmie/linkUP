@@ -55,6 +55,7 @@
         <img src="${contextPath}/img/알람벨.png" alt="알림" class="icon" />
       </button>
       <div class="profile-wrapper">
+        <p class="username"> <%= session.getAttribute("userId") %>&nbsp;&nbsp;</p>
         <div class="profile-icon"></div>
         <button class="profile-toggle">&#9662;</button>
         <ul class="profile-menu">
@@ -68,6 +69,26 @@
 </header>
 <script>
   const contextPath = '${pageContext.request.contextPath}';
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // 프로필 토글 버튼과 메뉴를 가져옵니다.
+    const profileToggleButton = document.querySelector('.profile-toggle');
+    const profileMenu = document.querySelector('.profile-menu');
+
+    // 메뉴의 기본 상태는 숨김으로 설정
+    profileMenu.style.display = 'none';
+
+    // 버튼 클릭 시 메뉴를 토글하는 함수
+    profileToggleButton.addEventListener('click', function() {
+      // 현재 메뉴의 display 스타일이 'none'이면 보여주고, 아니면 숨깁니다.
+      if (profileMenu.style.display === 'none') {
+        profileMenu.style.display = 'block';
+      } else {
+        profileMenu.style.display = 'none';
+      }
+    });
+  });
+
 </script>
 <script src="${contextPath}/js/headerLogin.js"></script>
 </body>

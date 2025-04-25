@@ -72,7 +72,7 @@ public class CreateAccRecruiterController extends HttpServlet {
 
         if (isSuccess) {
             // 회원가입 성공 ➔ 메인 페이지로 이동
-            response.sendRedirect(request.getContextPath() + "./home/main.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         } else {
             // 회원가입 실패 ➔ 에러 페이지로 이동
             response.sendRedirect(request.getContextPath() + "./error/error.jsp");

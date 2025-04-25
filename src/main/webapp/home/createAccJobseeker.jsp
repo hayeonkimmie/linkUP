@@ -41,7 +41,7 @@
             <label><input type="checkbox" class="agree required" required> 개인정보 수집/이용에 동의합니다.<span class="required">(필수)</span></label>
             <label><input type="checkbox" class="agree"> 마케팅 수신 · 홍보 목적의 개인정보 수집 및 이용에 동의합니다.</label>
         </div>
-        <a href="${contextPath}/main">
+        <a href="${contextPath}/login">
         <button type="submit" id="submitBtn" disabled>가입하기</button>
         </a>
     </form>

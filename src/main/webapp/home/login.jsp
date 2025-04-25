@@ -13,8 +13,8 @@
 </head>
 <body>
 <div class="container">
-  <a href="${contextPath}/home/main.jsp" class="logo">
-    <img src="../img/링크업 로고.png" alt="Link up 로고">
+  <a href="${contextPath}/mainPage"  class="logo">
+    <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
   </a>
 
   <div class="role-toggle">

@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
             session.setAttribute("userId", id);
             session.setAttribute("role", role);
 
-            response.sendRedirect(request.getContextPath() + "/mainLoginVersion");
+            response.sendRedirect(request.getContextPath() + "/mainPage");
         } else {
             // 로그인 실패 (에러 메시지 전달)
             request.setAttribute("errorMsg", "아이디 또는 비밀번호가 올바르지 않습니다.");

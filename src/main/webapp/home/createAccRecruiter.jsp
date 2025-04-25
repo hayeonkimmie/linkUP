@@ -20,7 +20,7 @@
 
 <div class="container">
   <a href="${contextPath}/home/main.jsp" class="logo">
-    <img src="../img/링크업 로고.png" alt="Link up 로고">
+    <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
   </a>
 
   <p class="text1">간단한 정보로<br>바로 가입 가능!</p>
@@ -54,7 +54,7 @@
       <label><input type="checkbox" class="agree" /> 마케팅 수신 · 홍보 목적의 개인정보 수집 및 이용에 동의합니다. (선택)</label>
     </div>
 
-    <a href="${contextPath}/main">
+    <a href="${contextPath}/login">
     <button type="submit" id="submitBtn" disabled>가입하기</button>
     </a>
   </form>

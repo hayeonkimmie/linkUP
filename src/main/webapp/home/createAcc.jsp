@@ -19,8 +19,8 @@
 
 <body>
 <div class="signup-container">
-    <a href="${contextPath}/home/main.jsp" class="logo">
-        <img src="../img/링크업 로고.png" alt="Link up 로고">
+    <a href="${contextPath}/mainPage" class="logo">
+        <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
     </a>
     <p class="description">10초의 간단한 가입으로,<br>Link up의 여러 기능을 사용해보자!</p>
 
