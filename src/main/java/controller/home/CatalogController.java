@@ -5,7 +5,9 @@ import dto.Project;
 import service.IProjectService;
 import service.ProjectService;
 import service.home.CatalogFreelancerServiceImpl;
+import service.home.CategoryServiceImpl;
 import service.home.ICatalogFreelancerService;
+import service.home.ICategoryService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -21,10 +23,7 @@ public class CatalogController extends HttpServlet {
 
     private final IProjectService projectService = new ProjectService();
     private final ICatalogFreelancerService freelancerService = new CatalogFreelancerServiceImpl();
-
-    public CatalogController() {
-        super();
-    }
+    private final ICategoryService categoryService = new CategoryServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +36,6 @@ public class CatalogController extends HttpServlet {
 
         Map<String, String> param = new HashMap<>();
 
-        // ✅ 카테고리가 유효할 때만 Map에 추가
         if (category != null && !category.trim().isEmpty() && !"전체".equals(category)) {
             param.put("category", category);
         }
@@ -48,17 +46,21 @@ public class CatalogController extends HttpServlet {
 
         if (keyword != null && !keyword.trim().isEmpty()) {
             param.put("keyword", keyword);
-
-            // ✅ keyword 있는 경우: 검색
             projectList = projectService.searchProjectsByCategoryAndKeyword(param);
             freelancerList = freelancerService.searchFreelancersByCategoryAndKeyword(param);
         } else {
-            // ✅ keyword 없는 경우: 카테고리 기반 필터
             projectList = projectService.catalogProjectByConditions(param);
-            freelancerList = freelancerService.catalogFreelancersByCategory(category);
+
+            // ✅ 카테고리로 하위 sub_category_id 리스트를 조회해 프리랜서 필터링
+            if (category != null && !category.trim().isEmpty() && !"전체".equals(category)) {
+                List<Integer> subCategoryIds = categoryService.findSubCategoryIdsByCategoryName(category);
+                freelancerList = freelancerService.catalogFreelancersBySubCategoryIds(subCategoryIds);
+            } else {
+                // ✅ 카테고리 '전체'일 경우: 모든 프리랜서 조회
+                freelancerList = freelancerService.findAllFreelancers();
+            }
         }
 
-        // ✅ JSP로 전달
         request.setAttribute("category", category);
         request.setAttribute("subCategory", subCategory);
         request.setAttribute("keyword", keyword);
@@ -70,6 +72,6 @@ public class CatalogController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 사용 안 함
+        // POST는 사용하지 않음
     }
 }
