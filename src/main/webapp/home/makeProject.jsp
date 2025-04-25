@@ -197,7 +197,7 @@
   </script>
 </head>
 <body>
-<div id="header-login-placeholder"></div>
+<div id="header-placeholder"></div>
 <div class="bg-gray-50 p-6">
 
   <br>
@@ -357,6 +357,11 @@
     </form>
   </div>
 </div>
-<script src="../js/headerLogin.js"></script>
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

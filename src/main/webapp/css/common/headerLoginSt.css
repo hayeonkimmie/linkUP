@@ -9,6 +9,8 @@ body {
   border-bottom: 1px solid #eee;
   padding: 10px 20px;
   background-color: white;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .header-container {
@@ -198,4 +200,8 @@ body {
 
 .post-job-btn:hover {
   background-color: #7c066c;
+}
+.user-section .profile-wrapper .username {
+  color: #505050 !important;
+  font-size: 18px !important;
 }
