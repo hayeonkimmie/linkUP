@@ -1,30 +1,44 @@
 package dto;
 
 public class AdminSettleHistorySummary {
-    private int projectId;
+    private Integer slistId;
+    private Integer projectId;
     private String projectName;
     private String settleDate;
-    private int cnt;
-    private int totalAmount;
+    private Integer cnt;
+    private Integer totalAmount;
     private String status;
+    private Integer pay;
+    private Integer fee;
 
     public AdminSettleHistorySummary() {
     }
 
-    public AdminSettleHistorySummary(int projectId, String projectName, String settleDate, int cnt, int totalAmount, String status) {
+    public AdminSettleHistorySummary(Integer slistId, Integer projectId, String projectName, String settleDate, Integer cnt, Integer totalAmount, String status, Integer pay, Integer fee) {
+        this.slistId = slistId;
         this.projectId = projectId;
         this.projectName = projectName;
         this.settleDate = settleDate;
         this.cnt = cnt;
         this.totalAmount = totalAmount;
         this.status = status;
+        this.pay = pay;
+        this.fee = fee;
     }
 
-    public int getProjectId() {
+    public Integer getSlistId() {
+        return slistId;
+    }
+
+    public void setSlistId(Integer slistId) {
+        this.slistId = slistId;
+    }
+
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(int projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
@@ -44,19 +58,19 @@ public class AdminSettleHistorySummary {
         this.settleDate = settleDate;
     }
 
-    public int getCnt() {
+    public Integer getCnt() {
         return cnt;
     }
 
-    public void setCnt(int cnt) {
+    public void setCnt(Integer cnt) {
         this.cnt = cnt;
     }
 
-    public int getTotalAmount() {
+    public Integer getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(int totalAmount) {
+    public void setTotalAmount(Integer totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -66,5 +80,21 @@ public class AdminSettleHistorySummary {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getPay() {
+        return pay;
+    }
+
+    public void setPay(Integer pay) {
+        this.pay = pay;
+    }
+
+    public Integer getFee() {
+        return fee;
+    }
+
+    public void setFee(Integer fee) {
+        this.fee = fee;
     }
 }

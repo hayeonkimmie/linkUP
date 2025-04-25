@@ -50,7 +50,6 @@ public class SettleHistoryController extends HttpServlet {
             e.printStackTrace();
         }
         int allPage = (int) Math.ceil((double) totalCount / listCount);
-
         int startPage = ((curPage - 1) / 10) * 10 + 1;
         int endPage = Math.min(startPage + 9, allPage);
 
@@ -65,7 +64,9 @@ public class SettleHistoryController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        for(AdminSettleHistorySummary s : list) {
+            System.out.println("s = " + s);
+        }
         request.setAttribute("settlementList", list);
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("totalCount", totalCount);

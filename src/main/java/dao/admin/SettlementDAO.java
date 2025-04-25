@@ -139,4 +139,17 @@ public class SettlementDAO implements ISettlementDAO {
         }
     }
 
+    @Override
+    public HashMap<Integer ,AdminSettleHistory> selectSettlementHistoryDetail(Integer projectId) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            HashMap<Integer ,AdminSettleHistory> historyMap = new HashMap<>();
+            List<AdminSettleHistory> list = session.selectList("mapper.settlement.selectSettlementHistoryDetail", projectId);
+            for (AdminSettleHistory history : list) {
+                System.out.println("History : " + history);
+                historyMap.put(history.getSlistId(), history);
+            }
+            return historyMap;
+        }
+    }
+
 }

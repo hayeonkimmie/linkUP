@@ -16,9 +16,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -42,9 +39,16 @@ public class SettlementController extends HttpServlet {
         try {
             HashMap<Integer, AdminSettleProject> projectList;
             if (slistIdParam != null) {
-                // 👉 정산내역 페이지 (settlement_info.jsp)
-                int contractId = Integer.parseInt(slistIdParam);
-                System.out.println("contractId : " + contractId);
+                Integer slistId = Integer.parseInt(slistIdParam);
+                HashMap<Integer, AdminSettleHistory> projects = settlementDAO.selectSettlementHistoryDetail(slistId);
+                // JSON 응답 처리
+                response.setContentType("application/json; charset=UTF-8");
+                response.setCharacterEncoding("UTF-8");
+
+                Gson gson = new Gson();
+                String json = gson.toJson(projects);
+                response.getWriter().write(json);
+
                 request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
             } else if (contractIdParam != null) {
                 // 👉 정산하기 페이지 (settlement_detail.jsp)
