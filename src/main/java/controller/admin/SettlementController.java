@@ -35,21 +35,29 @@ public class SettlementController extends HttpServlet {
         ISettlementService settlementService = new SettlementService(null,null,settlementDAO);
         String contractIdParam = request.getParameter("contractid");
         String slistIdParam = request.getParameter("slistid");
-
+        String formatParam = request.getParameter("format"); // ✅ format=json 여부 확인
         try {
             HashMap<Integer, AdminSettleProject> projectList;
             if (slistIdParam != null) {
                 Integer slistId = Integer.parseInt(slistIdParam);
                 HashMap<Integer, AdminSettleHistory> projects = settlementDAO.selectSettlementHistoryDetail(slistId);
-                // JSON 응답 처리
-                response.setContentType("application/json; charset=UTF-8");
-                response.setCharacterEncoding("UTF-8");
-
-                Gson gson = new Gson();
-                String json = gson.toJson(projects);
-                response.getWriter().write(json);
-
-                request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
+                if ("json".equals(formatParam)) {
+                    response.setContentType("application/json; charset=UTF-8");
+                    response.setCharacterEncoding("UTF-8");
+                    Gson gson = new Gson();
+                    String json = gson.toJson(projects);
+                    Integer pay = Integer.parseInt(request.getParameter("pay"));
+                    AdminSettleHistory main = projects.values().stream().findFirst().orElse(null);
+                    if (main != null) {
+                        request.setAttribute("projectJson", new Gson().toJson(main));
+                    }
+                    List<SettledInfoDTO> doneList = settlementDAO.selectSettledFreelancers(slistId);
+                    List<SettledInfoDTO> waitList = settlementDAO.selectWaitingFreelancers(Integer.parseInt(request.getParameter("projectId")), slistId);
+                    request.setAttribute("doneList", doneList);
+                    request.setAttribute("totalAmount", pay);
+                    request.setAttribute("waitList", waitList);
+                    request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
+                }
             } else if (contractIdParam != null) {
                 // 👉 정산하기 페이지 (settlement_detail.jsp)
                 int projectId = Integer.parseInt(contractIdParam);

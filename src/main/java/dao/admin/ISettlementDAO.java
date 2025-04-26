@@ -45,4 +45,7 @@ public interface ISettlementDAO {
 
     HashMap<Integer ,AdminSettleHistory> selectSettlementHistoryDetail(Integer projectId);
 
+    List<SettledInfoDTO> selectSettledFreelancers(Integer slistId) throws Exception;
+
+    List<SettledInfoDTO> selectWaitingFreelancers(Integer projectId, Integer slistId) throws Exception;
 }

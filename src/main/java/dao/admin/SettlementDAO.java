@@ -152,4 +152,21 @@ public class SettlementDAO implements ISettlementDAO {
         }
     }
 
+    @Override
+    public List<SettledInfoDTO> selectSettledFreelancers(Integer slistId) throws Exception {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectList("mapper.settlement.selectSettledFreelancers", slistId);
+        }
+    }
+
+    @Override
+    public List<SettledInfoDTO> selectWaitingFreelancers(Integer projectId, Integer slistId) throws Exception {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("projectId", projectId);
+            param.put("slistId", slistId);
+            return session.selectList("mapper.settlement.selectWaitingFreelancers", param);
+        }
+    }
+
 }

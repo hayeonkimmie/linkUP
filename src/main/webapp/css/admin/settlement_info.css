@@ -148,3 +148,21 @@ th, td {
   margin: 0;
   font-weight: bold;
 }
+.fixed-table-wrapper {
+  min-height: 150px; /* ✅ 원하는 최소 높이로 조정 가능 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.fixed-table-wrapper table {
+  width: 100%;
+}
+
+.no-data {
+  font-size: 16px;
+  color: gray;
+  text-align: center;
+  padding: 20px 0;
+}
+

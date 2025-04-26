@@ -7,7 +7,6 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/ammount.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/apply.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/category.xml" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/categoryMenuMapper.xml" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/client.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/contract.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/freelancer.xml" dialect="MySQL" />
@@ -19,7 +18,6 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/pay.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/portfolio.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/project.xml" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/projectmgt.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/qna.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/settlelist.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/settlement.xml" dialect="MySQL" />

@@ -73,6 +73,46 @@
         ORDER BY u.name
     </select>
 
+    <select id="selectSettledFreelancers" parameterType="int" resultType="dto.SettledInfoDTO">
+        SELECT
+            s.name AS freelancerName,
+            s.position AS position,
+            DATEDIFF(s.end_date, s.start_date) DIV 30 + 1 AS duration,
+            s.ammount AS settleAmount,
+            s.status AS status,
+            sl.cnt AS cnt,
+            s.start_date AS startDate,
+            s.end_date AS endDate
+        FROM settlement s
+                 JOIN settlelist sl ON s.slist_id = sl.slist_id
+        WHERE s.slist_id = #{slistId}
+    </select>
+
+
+
+    <select id="selectWaitingFreelancers" parameterType="map" resultType="dto.SettledInfoDTO">
+        SELECT
+            a.freelancer_id,
+            a.sub_category_name AS position,
+            DATEDIFF(c.end_date, c.start_date) DIV 30 + 1 AS duration,
+            c.pay AS settleAmount,
+            '대기중' AS status,
+            sl.cnt AS cnt,
+            NULL AS startDate,
+            NULL AS endDate
+        FROM contract c
+                 JOIN apply a ON c.apply_id = a.apply_id
+                 JOIN settlelist sl ON c.project_id = sl.project_id
+        WHERE c.project_id = #{projectId}
+          AND NOT EXISTS (
+            SELECT 1
+            FROM settlement s
+            WHERE s.slist_id = #{slistId}
+              AND s.category_id = c.project_pay_id
+        )
+    </select>
+
+
 
 
 </mapper>
