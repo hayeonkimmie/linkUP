@@ -94,14 +94,16 @@ public class SettlementDAO implements ISettlementDAO {
     }
 
     @Override
-    public boolean existsSettlementBySlistIdAndsettleDate(String clientId, int slistId, Date settleDate) throws Exception {
+    public boolean existsSettlementBySlistIdAndStartEndDate(int slistId, String startDate, String endDate, String freelancerName) throws Exception {
         Map<String, Object> param = new HashMap<>();
         param.put("slistId", slistId);
-        param.put("settleDate", settleDate);
-        param.put("clientId", clientId);
-        Integer count = sqlSession.selectOne("mapper.settlement.existsSettlementBySlistIdAndsettleDate", param);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        param.put("freelancerName", freelancerName);
+        Integer count = sqlSession.selectOne("mapper.settlement.existsSettlementBySlistIdAndStartEndDate", param);
         return count != null && count > 0;
     }
+
 
     @Override
     public Settlelist selectAnySettlelistByProjectIdAndDate(int projectId, Date settleDate) throws Exception {

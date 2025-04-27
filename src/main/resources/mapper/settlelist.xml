@@ -16,8 +16,8 @@
         SELECT
             c.id,
             c.freelancer_id,
-            u.name AS freelancer_name,              -- 참여자명
-            p.category_name,              -- 구분 (계약 타이틀 대신 카테고리명)
+            u.name AS freelancer_name,
+            p.category_name,
             c.start_date,
             c.end_date,
             c.fphone,
@@ -33,10 +33,12 @@
             SELECT 1
             FROM settlement s
                      JOIN settlelist sl ON s.slist_id = sl.slist_id
-            WHERE sl.contract_id = c.id
-              AND sl.cnt = #{cnt}
+            WHERE sl.project_id = #{projectId}
+              AND sl.cnt = #{cnt}    -- 이번 회차
+              AND s.account = c.account  -- 프리랜서 연결
         )
     </select>
+
 
 
     <select id="getMaxCntByProjectId" parameterType="int" resultType="int">

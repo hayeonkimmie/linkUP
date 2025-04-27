@@ -42,12 +42,13 @@
           AND sl.settle_date = #{settleDate}
     </select>
 
-    <select id="existsSettlementBySlistIdAndsettleDate" parameterType="map" resultType="int">
+    <select id="existsSettlementBySlistIdAndStartEndDate" parameterType="map" resultType="int">
         SELECT COUNT(*)
         FROM settlement
         WHERE slist_id = #{slistId}
-          AND settleday = #{settleDate}
-          AND client_id = #{clientId}
+          AND start_date = #{startDate}
+          AND end_date = #{endDate}
+          AND name = #{freelancerName}
     </select>
 
     <select id="selectSettlementHistoryDetail" parameterType="int" resultType="dto.AdminSettleHistory">

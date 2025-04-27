@@ -30,7 +30,7 @@ public interface ISettlementDAO {
 
     Settlelist selectSettlelistByProjectIdAndDate(int projectId, Date settleDate);
 
-    boolean existsSettlementBySlistIdAndsettleDate(String clientId, int slistId, Date settleDate) throws Exception;
+    public boolean existsSettlementBySlistIdAndStartEndDate(int slistId, String startDate, String endDate, String freelancerName) throws Exception;
 
     Settlelist selectAnySettlelistByProjectIdAndDate(int projectId, Date settleDate) throws Exception;
 

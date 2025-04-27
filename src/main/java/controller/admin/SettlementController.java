@@ -105,6 +105,10 @@ public class SettlementController extends HttpServlet {
         Integer projectId = Integer.valueOf(request.getParameter("projectId"));
         String jsonData = request.getParameter("jsonData");
         Gson gson = new Gson();
+
+        System.out.println("jsonData : " + jsonData);
+        System.out.println("projectId : " +projectId);
+
         Settlelist settlelist = null;
         try {
             PrepareSettleJson[] item = gson.fromJson(jsonData, PrepareSettleJson[].class);

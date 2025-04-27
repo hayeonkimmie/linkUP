@@ -117,16 +117,18 @@
             IFNULL(SUM(ct.total_pay - ct.fee), 0) AS total_amount,
             IFNULL(SUM(ct.fee), 0) AS total_fee,
             IFNULL(SUM(ct.total_pay), 0) AS total_settlement,
-
             COUNT(DISTINCT ct.id) AS total_contracts,
 
+            -- ✅ 이번달 정산 예정일자 기준으로 완료 인원 세기
             (
                 SELECT COUNT(DISTINCT s.position)
                 FROM settlement s
                          JOIN settlelist sl ON s.slist_id = sl.slist_id
-                WHERE s.status = '정산완료'
-                  AND sl.project_id = p.project_id
+                WHERE sl.project_id = p.project_id
+                  AND s.status = '정산완료'
+                  AND DATE_FORMAT(sl.settle_date, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')
             ) AS settled_count,
+
             (
                 SELECT COUNT(DISTINCT a2.freelancer_id)
                 FROM apply a2
@@ -139,9 +141,10 @@
             MAX(ct.status) AS settle_status
 
         FROM project p
-                 LEFT JOIN client c ON p.client_id = c.client_id
-                 LEFT JOIN contract ct ON ct.project_id = p.project_id
-        WHERE p.settle_day <= CURDATE() and ct.status= '진행중'
+            JOIN client c ON p.client_id = c.client_id
+            JOIN contract ct ON ct.project_id = p.project_id
+
+        WHERE ct.status = '진행중'
         GROUP BY
             p.project_id,
             p.client_id,
@@ -151,9 +154,12 @@
             p.settle_day,
             p.manager,
             p.mphone
-        ORDER BY p.settle_day DESC;
+        ORDER BY p.settle_day DESC
         ]]>
 </select>
+
+
+
 
 
 
