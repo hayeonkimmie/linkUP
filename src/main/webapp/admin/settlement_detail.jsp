@@ -28,6 +28,7 @@
     <div class="summary-box">
       <div class="summary-item"><span class="label">프로젝트명</span><span class="value">${project.projectName}</span></div>
       <div class="summary-item"><span class="label">이번달 정산 금액</span><span class="value"><fmt:formatNumber value="${totalAmount}" type="number" pattern="#,##0원" /></span></div>
+      <div class="summary-item"><span class="label">이번달 수수료</span><span class="value"><fmt:formatNumber value="${totalFee}" type="number" pattern="#,##0원" /></span></div>
       <div class="summary-item"><span class="label">프로젝트 기간</span><span class="value">${project.projectDuration}</span></div>
       <div class="summary-item"><span class="label">총 참여 인원</span><span class="value">${fn:length(targetList)}명</span></div>
       <div class="summary-item" id="settleDateWrapper" data-settle-date="${project.settleDate}">
@@ -47,6 +48,7 @@
           <th>종료일</th>
           <th>입금 계좌</th>
           <th>이번달 정산 금액</th>
+          <th>수수료</th>
           <th>정산 대상</th>
         </tr>
         </thead>
@@ -62,6 +64,9 @@
                 data-id="${t.id}" data-fid="${t.freelancerId}" data-name="${t.freelancerName}" data-account="${t.account}"
                 data-amount="${t.totalPay}" data-category="${t.categoryName}">
               <fmt:formatNumber value="${t.totalPay}" type="number" pattern="#,##0원"/>
+            </td>
+            <td>
+              <fmt:formatNumber value="${t.fee}" type="number" pattern="#,##0원"/>
             </td>
             <td><input type="checkbox" class="settle-checkbox" value="${t.id}"></td>
           </tr>

@@ -30,16 +30,31 @@ public class SettlementService implements ISettlementService {
         AdminPrepareSettle prepareSettle = contractDAO.selectInfoForSettleById(item.getId());
 
         LocalDate firstSettleDay = prepareSettle.getSettleDay().toLocalDate(); // 최초 정산일
-        int maxCnt = settlementDAO.getMaxCntByProjectId(projectId); // 기존 최대 회차
-        int nextCnt = maxCnt + 1; // 이번 회차
-        LocalDate targetSettleDate = firstSettleDay.plusMonths(nextCnt - 1); // 최초정산일 + (회차-1)개월
+        int maxCnt = settlementDAO.getMaxCntByProjectId(projectId); // 현재까지 존재하는 최대 회차
+        int nextCnt = maxCnt + 1; // 기본은 다음 회차를 가정
+
+        // 🔥 현재 회차(maxCnt)의 미정산 인원이 남아있는지 체크
+        boolean isAllSettled = settlementDAO.isAllSettledInCnt(projectId, maxCnt);
+
+        if (!isAllSettled) {
+            // 아직 이전 회차 인원 정산이 덜 끝났으면 같은 회차에 추가 정산
+            nextCnt = maxCnt;
+        }
+
+        // 최초 정산일 + (회차-1)개월 로 실제 정산일자 계산
+        LocalDate targetSettleDate = firstSettleDay.plusMonths(nextCnt - 1);
         LocalDate today = LocalDate.now();
 
-        if (today.isBefore(targetSettleDate)) {
+        System.out.println("[디버그] 계산된 정산일: " + targetSettleDate);
+        System.out.println("[디버그] 현재 날짜: " + today);
+
+        // 정산일이 아직 미래라면 (단, 미정산 인원이 남아있는 경우는 허용)
+        if (today.isBefore(targetSettleDate) && isAllSettled) {
             System.out.println("정산일이 오늘보다 미래입니다. 정산을 진행할 수 없습니다.");
             return null;
         }
 
+        // 기존에 정산리스트가 있나 체크
         Settlelist existingList = settlementDAO.selectAnySettlelistByProjectIdAndDate(projectId, Date.valueOf(targetSettleDate));
         int cnt = nextCnt;
 
@@ -66,10 +81,11 @@ public class SettlementService implements ISettlementService {
         return settlelist;
     }
 
-    @Override
-    public void createSettlement(Settlelist settlelist, PrepareSettleJson[] item, Integer projectId) throws Exception {
-        AdminProjectDetail project = projectDAO.selectProjectDetail(projectId);
 
+    @Override
+    public Settlement createSettlement(Settlelist settlelist, PrepareSettleJson[] item, Integer projectId) throws Exception {
+        AdminProjectDetail project = projectDAO.selectProjectDetail(projectId);
+        Settlement settlement = null;
         for (PrepareSettleJson p : item) {
             AdminPrepareSettle aSettle = contractDAO.selectInfoForSettleById(p.getId());
 
@@ -81,7 +97,7 @@ public class SettlementService implements ISettlementService {
                 continue;
             }
 
-            Settlement settlement = new Settlement(
+            settlement = new Settlement(
                     settlelist.getSlistId(),
                     Integer.parseInt(aSettle.getPosition()),
                     aSettle.getClientId(),
@@ -97,6 +113,7 @@ public class SettlementService implements ISettlementService {
             );
             settlementDAO.insertSettlement(settlement);
         }
+        return settlement;
     }
 
 
@@ -115,7 +132,6 @@ public class SettlementService implements ISettlementService {
 
     @Override
     public List<AdminSettleHistory> getHistoryList(String keyword, String startDate, String endDate, int offset, int limit) throws Exception {
-
         return null;
     }
 

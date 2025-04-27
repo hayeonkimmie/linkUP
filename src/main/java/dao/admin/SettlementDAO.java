@@ -46,10 +46,11 @@ public class SettlementDAO implements ISettlementDAO {
 
     // 정산 대상자 가져오기
     @Override
-    public List<AdminSettleTarget> selectFreelancersForSettlement(Integer projectId, Integer cnt) throws SQLException {
-        Map<String, Integer> params = new HashMap<>();
+    public List<AdminSettleTarget> selectFreelancersForSettlement(Integer projectId, Date startDate, Date endDate) throws SQLException {
+        Map<String, Object> params = new HashMap<>();
         params.put("projectId", projectId);
-        params.put("cnt", cnt);
+        params.put("startDate", startDate);
+        params.put("endDate", endDate);
         return sqlSession.selectList("mapper.settlelist.selectFreelancersForSettlement", params);
     }
 
@@ -147,7 +148,6 @@ public class SettlementDAO implements ISettlementDAO {
             HashMap<Integer ,AdminSettleHistory> historyMap = new HashMap<>();
             List<AdminSettleHistory> list = session.selectList("mapper.settlement.selectSettlementHistoryDetail", projectId);
             for (AdminSettleHistory history : list) {
-                System.out.println("History : " + history);
                 historyMap.put(history.getSlistId(), history);
             }
             return historyMap;
@@ -170,5 +170,31 @@ public class SettlementDAO implements ISettlementDAO {
             return session.selectList("mapper.settlement.selectWaitingFreelancers", param);
         }
     }
+
+    public Map<String, Date> selectSettleStartandEnd(Integer projectId) throws Exception {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectOne("mapper.settlement.selectSettleStartandEnd", projectId);
+        }
+    }
+
+    @Override
+    public boolean isAllSettledInCnt(Integer projectId, Integer cnt) throws Exception {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("projectId", projectId);
+            param.put("cnt", cnt);
+            Integer waitingCount = session.selectOne("mapper.settlement.countWaitingFreelancersInCnt", param);
+            return waitingCount == 0;
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> selectAllSettlementMonthsByProjectId(Integer projectId) throws Exception {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectList("mapper.settlement.selectAllSettlementMonthsByProjectId", projectId);
+        }
+    }
+
+
 
 }

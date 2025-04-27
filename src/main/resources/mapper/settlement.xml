@@ -75,9 +75,10 @@
     </select>
 
     <select id="selectSettledFreelancers" parameterType="int" resultType="dto.SettledInfoDTO">
+    <![CDATA[
         SELECT
             s.name AS freelancerName,
-            s.position AS position,
+            p.category_name AS position, -- ✅ pay 테이블에서 category_name 가져오기
             DATEDIFF(s.end_date, s.start_date) DIV 30 + 1 AS duration,
             s.ammount AS settleAmount,
             s.status AS status,
@@ -86,34 +87,79 @@
             s.end_date AS endDate
         FROM settlement s
                  JOIN settlelist sl ON s.slist_id = sl.slist_id
+                 JOIN pay p ON s.position = p.project_pay_id -- ✅ s.position (프로젝트급여ID) 와 pay.project_pay_id 연결
         WHERE s.slist_id = #{slistId}
-    </select>
-
+        ]]>
+</select>
 
 
     <select id="selectWaitingFreelancers" parameterType="map" resultType="dto.SettledInfoDTO">
+    <![CDATA[
         SELECT
-            a.freelancer_id,
+            u.name AS freelancerName,  -- ✅ 참여자 이름
             a.sub_category_name AS position,
-            DATEDIFF(c.end_date, c.start_date) DIV 30 + 1 AS duration,
+            DATEDIFF(subquery.target_end, subquery.target_start) DIV 30 + 1 AS duration,
             c.pay AS settleAmount,
             '대기중' AS status,
             sl.cnt AS cnt,
-            NULL AS startDate,
-            NULL AS endDate
+            subquery.target_start AS startDate,
+            subquery.target_end AS endDate
         FROM contract c
                  JOIN apply a ON c.apply_id = a.apply_id
+                 JOIN freelancer f ON c.freelancer_id = f.freelancer_id
+                 JOIN user u ON f.freelancer_id = u.user_id
                  JOIN settlelist sl ON c.project_id = sl.project_id
+            -- 이번 회차의 예상 정산 대상 기간 계산
+                 JOIN (
+            SELECT
+                sl.project_id,
+                DATE_ADD(MIN(s.start_date), INTERVAL 1 MONTH) AS target_start,
+                LAST_DAY(DATE_ADD(MIN(s.start_date), INTERVAL 1 MONTH)) AS target_end
+            FROM settlement s
+                     JOIN settlelist sl ON s.slist_id = sl.slist_id
+            WHERE sl.slist_id = #{slistId}
+        ) subquery ON subquery.project_id = c.project_id
         WHERE c.project_id = #{projectId}
+          AND sl.slist_id = #{slistId}
           AND NOT EXISTS (
             SELECT 1
             FROM settlement s
             WHERE s.slist_id = #{slistId}
               AND s.category_id = c.project_pay_id
         )
+        ]]>
     </select>
 
+    <select id="selectSettleStartandEnd" parameterType="int" resultType="map">
+        SELECT MAX(start_date) as startDate, MAX(end_date) as endDate  FROM settlement
+        WHERE slist_id = (select MAX(slist_id) from settlelist where project_id = #{projectId})
+    </select>
 
+    <select id="countWaitingFreelancersInCnt" parameterType="map" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            contract c
+        WHERE
+            c.project_id = #{projectId}
+          AND NOT EXISTS (
+            SELECT 1
+            FROM settlement s
+                     JOIN settlelist sl ON s.slist_id = sl.slist_id
+            WHERE sl.project_id = c.project_id
+              AND sl.cnt = #{cnt}
+              AND s.name = (SELECT u.name FROM user u WHERE u.user_id = c.freelancer_id)
+        )
+    </select>
+
+    <select id="selectAllSettlementMonthsByProjectId" parameterType="int" resultType="map">
+        SELECT
+            cnt,
+            settle_date
+        FROM settlelist
+        WHERE project_id = #{projectId}
+        ORDER BY settle_date DESC
+    </select>
 
 
 </mapper>

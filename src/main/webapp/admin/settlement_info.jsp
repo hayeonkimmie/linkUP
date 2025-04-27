@@ -23,12 +23,17 @@
     <h2 class="page-title">프로젝트 정산 현황</h2>
 
     <div class="filter-bar">
-      <select>
-        <option selected>2024년 5월</option>
-        <option>2024년 4월</option>
-        <option>2024년 3월</option>
+      <select id="monthFilter">
+        <c:forEach var="monthInfo" items="${settlementMonths}">
+          <option value="${monthInfo.cnt}">
+            <fmt:formatDate value="${monthInfo.settle_date}" pattern="yyyy년 M월"/>
+          </option>
+        </c:forEach>
       </select>
     </div>
+
+
+
 
     <div class="card summary-box">
       <div class="summary-item">
@@ -73,7 +78,7 @@
               <tr>
                 <th>참여자명</th>
                 <th>구분</th>
-                <th>참여 기간</th>
+                <th>정산 기간</th>
                 <th>정산 회차</th>
                 <th>이번달 정산 금액</th>
                 <th>상태</th>
@@ -85,7 +90,7 @@
                   <td>${item.freelancerName}</td>
                   <td>${item.position}</td>
                   <td>${item.startDate} ~ ${item.endDate}</td>
-                  <td>${item.duration}개월</td>
+                  <td>${item.cnt}회차</td>
                   <td><fmt:formatNumber value="${item.settleAmount}" pattern="#,##0원"/></td>
                   <td><span class="status complete">${item.status}</span></td>
                 </tr>
@@ -110,7 +115,8 @@
               <tr>
                 <th>참여자명</th>
                 <th>구분</th>
-                <th>참여 기간</th>
+                <th>정산 기간</th>
+                <th>정산 회차</th>
                 <th>이번달 정산 금액</th>
                 <th>상태</th>
               </tr>
@@ -120,7 +126,8 @@
                 <tr>
                   <td><c:out value="${item.freelancerName != null ? item.freelancerName : '-'}"/></td>
                   <td>${item.position}</td>
-                  <td>${item.duration}개월</td>
+                  <td>${item.startDate} ~ ${item.endDate}</td>
+                  <td>${item.cnt}회차</td>
                   <td><fmt:formatNumber value="${item.settleAmount}" pattern="#,##0원"/></td>
                   <td><span class="status pending">${item.status}</span></td>
                 </tr>

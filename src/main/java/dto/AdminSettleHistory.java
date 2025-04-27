@@ -111,4 +111,22 @@ public class AdminSettleHistory {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "AdminSettleHistory{" +
+                "slistId=" + slistId +
+                ", projectId=" + projectId +
+                ", cnt=" + cnt +
+                ", projectName='" + projectName + '\'' +
+                ", freelancerName='" + freelancerName + '\'' +
+                ", position='" + position + '\'' +
+                ", amount=" + amount +
+                ", account='" + account + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", settleDate='" + settleDate + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

@@ -16,7 +16,7 @@ public interface ISettlementDAO {
 
     Integer selectNextSettlementCount(Integer projectId) throws SQLException;
 
-    List<AdminSettleTarget> selectFreelancersForSettlement(Integer projectId, Integer cnt) throws SQLException;
+    List<AdminSettleTarget> selectFreelancersForSettlement(Integer projectId, Date startDate, Date endDate) throws SQLException ;
 
     void createSettlelist(Settlelist settlelist) throws SQLException;
 
@@ -48,4 +48,10 @@ public interface ISettlementDAO {
     List<SettledInfoDTO> selectSettledFreelancers(Integer slistId) throws Exception;
 
     List<SettledInfoDTO> selectWaitingFreelancers(Integer projectId, Integer slistId) throws Exception;
+
+    Map<String, Date> selectSettleStartandEnd(Integer projectId) throws Exception;
+
+    boolean isAllSettledInCnt(Integer projectId, Integer cnt) throws Exception;
+
+    List<Map<String, Object>> selectAllSettlementMonthsByProjectId(Integer projectId) throws Exception;
 }

@@ -165,4 +165,22 @@ th, td {
   text-align: center;
   padding: 20px 0;
 }
+ .fixed-table-wrapper table {
+   width: 100%;
+   table-layout: fixed; /* ✅ 고정된 테이블 레이아웃 */
+   border-collapse: collapse;
+ }
+
+.fixed-table-wrapper th,
+.fixed-table-wrapper td {
+  text-align: center;
+  padding: 10px 5px;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+
+.fixed-table-wrapper th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
 
