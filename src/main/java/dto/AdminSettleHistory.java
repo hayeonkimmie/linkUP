@@ -2,6 +2,7 @@ package dto;
 
 public class AdminSettleHistory {
     private Integer slistId;             // 정산 리스트 ID
+    private Integer projectId;           // 프로젝트 ID
     private Integer cnt;                    // 정산 회차
     private String projectName;         // 프로젝트명
     private String freelancerName;      // 프리랜서 이름
@@ -21,6 +22,14 @@ public class AdminSettleHistory {
 
     public void setSlistId(Integer slistId) {
         this.slistId = slistId;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 
     public Integer getCnt() {
@@ -107,6 +116,7 @@ public class AdminSettleHistory {
     public String toString() {
         return "AdminSettleHistory{" +
                 "slistId=" + slistId +
+                ", projectId=" + projectId +
                 ", cnt=" + cnt +
                 ", projectName='" + projectName + '\'' +
                 ", freelancerName='" + freelancerName + '\'' +

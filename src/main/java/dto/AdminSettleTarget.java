@@ -12,6 +12,7 @@ public class AdminSettleTarget {
     private String fphone;           // 전화번호
     private String account;          // 계좌
     private int totalPay;            // 총 지급 금액
+    private int fee;
     private Integer settleDay;          // 정산일
 
     public AdminSettleTarget() {
@@ -47,6 +48,13 @@ public class AdminSettleTarget {
         this.freelancerName = freelancerName;
     }
 
+    public int getFee() {
+        return fee;
+    }
+
+    public void setFee(int fee) {
+        this.fee = fee;
+    }
 
     public Date getStartDate() {
         return startDate;

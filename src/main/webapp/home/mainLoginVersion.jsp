@@ -29,7 +29,7 @@
                 <div class="profile-icon"></div>
                 <button class="profile-toggle">&#9662;</button>
                 <ul class="profile-menu">
-                    <li><a href="#">마이페이지</a></li>
+                    <li><a href="${contextPath}/myPage">마이페이지</a></li>
                     <li><a href="${contextPath}/gogakCenter">고객센터</a></li>
                     <li>
                         <form action="${contextPath}/logout" method="get" style="margin: 0;">

@@ -116,6 +116,7 @@
                 <c:forEach var="h" items="${settlementList}">
                     <tr class="settlement-row"
                         data-slistid="${h.slistId}"
+                        data-projectid="${h.projectId}"
                         data-cnt="${h.cnt}"
                         data-projectname="${h.projectName}"
                         data-pay="${h.pay}"
@@ -128,7 +129,7 @@
                         <td>${h.projectName}</td>
                         <td><fmt:formatNumber value="${h.pay}" pattern="#,##0원"/></td>
                         <td><fmt:formatNumber value="${h.fee}" pattern="#,##0원"/></td>
-                        <td><fmt:formatNumber value="${h.totalAmount}" pattern="#,##0원"/></td>
+                        <td><fmt:formatNumber value="${h.pay + h.fee}" pattern="#,##0원"/></td>
                         <td>${h.settleDate}</td>
                         <td><span class="badge ${h.status}">${h.status}</span></td>
                     </tr>
@@ -164,8 +165,18 @@
 
         rows.forEach(row => {
             row.addEventListener("click", function () {
-                const data = {
-                    slistId: this.dataset.slistid,
+                const slistId = this.getAttribute('data-slistid'); // ✅ dataset 대신 getAttribute로 정확히 가져오기
+                const projectId = this.getAttribute('data-projectid'); // ✅ dataset 대신 getAttribute로 정확히 가져오기
+
+                if (!slistId) {
+                    console.error("❌ slistId가 비어 있습니다. 데이터 확인 필요.");
+                    return; // slistId 없으면 요청 안 보냄
+                }
+
+                console.log("✅ 가져온 slistId:", slistId);
+
+                const otherData = {
+                    projectId: projectId,
                     cnt: this.dataset.cnt,
                     projectName: this.dataset.projectname,
                     pay: this.dataset.pay,
@@ -175,22 +186,12 @@
                     status: this.dataset.status
                 };
 
-                // ✅ slistId는 쿼리스트링으로, 나머지는 JSON으로 전송
-                const query = new URLSearchParams({ slistid: data.slistId, format: 'json' }).toString();
+                const otherParams = new URLSearchParams(otherData).toString();
+                const url =  `/linkup/admin/settlement?slistid=\${encodeURIComponent(slistId)}&\${otherParams}&format=json`;
 
-                fetch(`/admin/settlement?${query}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                    .then(res => res.json())
-                    .then(result => {
-                        console.log("서버 응답:", result);
-                        // 필요하다면 이후 로직 추가
-                    })
-                    .catch(err => console.error("전송 오류:", err));
+                console.log("📡 최종 요청 URL:", url);
+
+                location.href = url;
             });
         });
     });

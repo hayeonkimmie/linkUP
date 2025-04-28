@@ -16,7 +16,7 @@ public interface ISettlementDAO {
 
     Integer selectNextSettlementCount(Integer projectId) throws SQLException;
 
-    List<AdminSettleTarget> selectFreelancersForSettlement(Integer projectId, Integer cnt) throws SQLException;
+    List<AdminSettleTarget> selectFreelancersForSettlement(Integer projectId, Date startDate, Date endDate) throws SQLException ;
 
     void createSettlelist(Settlelist settlelist) throws SQLException;
 
@@ -30,7 +30,7 @@ public interface ISettlementDAO {
 
     Settlelist selectSettlelistByProjectIdAndDate(int projectId, Date settleDate);
 
-    boolean existsSettlementBySlistIdAndsettleDate(String clientId, int slistId, Date settleDate) throws Exception;
+    public boolean existsSettlementBySlistIdAndStartEndDate(int slistId, String startDate, String endDate, String freelancerName) throws Exception;
 
     Settlelist selectAnySettlelistByProjectIdAndDate(int projectId, Date settleDate) throws Exception;
 
@@ -45,4 +45,13 @@ public interface ISettlementDAO {
 
     HashMap<Integer ,AdminSettleHistory> selectSettlementHistoryDetail(Integer projectId);
 
+    List<SettledInfoDTO> selectSettledFreelancers(Integer slistId) throws Exception;
+
+    List<SettledInfoDTO> selectWaitingFreelancers(Integer projectId, Integer slistId) throws Exception;
+
+    Map<String, Date> selectSettleStartandEnd(Integer projectId) throws Exception;
+
+    boolean isAllSettledInCnt(Integer projectId, Integer cnt) throws Exception;
+
+    List<Map<String, Object>> selectAllSettlementMonthsByProjectId(Integer projectId) throws Exception;
 }

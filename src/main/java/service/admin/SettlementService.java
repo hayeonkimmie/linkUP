@@ -29,22 +29,34 @@ public class SettlementService implements ISettlementService {
         AdminProjectDetail project = projectDAO.selectProjectDetail(projectId);
         AdminPrepareSettle prepareSettle = contractDAO.selectInfoForSettleById(item.getId());
 
-        LocalDate targetSettleDate = prepareSettle.getSettleDay().toLocalDate();
+        LocalDate firstSettleDay = prepareSettle.getSettleDay().toLocalDate(); // 최초 정산일
+        int maxCnt = settlementDAO.getMaxCntByProjectId(projectId); // 현재까지 존재하는 최대 회차
+        int nextCnt = maxCnt + 1; // 기본은 다음 회차를 가정
+
+        // 🔥 현재 회차(maxCnt)의 미정산 인원이 남아있는지 체크
+        boolean isAllSettled = settlementDAO.isAllSettledInCnt(projectId, maxCnt);
+
+        if (!isAllSettled) {
+            // 아직 이전 회차 인원 정산이 덜 끝났으면 같은 회차에 추가 정산
+            nextCnt = maxCnt;
+        }
+
+        // 최초 정산일 + (회차-1)개월 로 실제 정산일자 계산
+        LocalDate targetSettleDate = firstSettleDay.plusMonths(nextCnt - 1);
         LocalDate today = LocalDate.now();
 
-        if (today.isBefore(targetSettleDate)) {
+        System.out.println("[디버그] 계산된 정산일: " + targetSettleDate);
+        System.out.println("[디버그] 현재 날짜: " + today);
+
+        // 정산일이 아직 미래라면 (단, 미정산 인원이 남아있는 경우는 허용)
+        if (today.isBefore(targetSettleDate) && isAllSettled) {
+            System.out.println("정산일이 오늘보다 미래입니다. 정산을 진행할 수 없습니다.");
             return null;
         }
 
-        // ✅ 동일한 project_id + settle_date 정산리스트 존재 여부 확인
+        // 기존에 정산리스트가 있나 체크
         Settlelist existingList = settlementDAO.selectAnySettlelistByProjectIdAndDate(projectId, Date.valueOf(targetSettleDate));
-        int cnt;
-
-        if (existingList != null) {
-            cnt = existingList.getCnt();
-        } else {
-            cnt = settlementDAO.getMaxCntByProjectId(projectId) + 1;
-        }
+        int cnt = nextCnt;
 
         Settlelist settlelist = new Settlelist(
                 item.getId(),
@@ -57,37 +69,43 @@ public class SettlementService implements ISettlementService {
                 cnt
         );
 
-        // 정산리스트는 중복 없이 한 번만 insert
+        System.out.println("Settlelist 생성됨 → " + settlelist);
+
         if (existingList == null) {
             settlementDAO.createSettlelist(settlelist);
             System.out.println("✅ 정산 리스트 생성됨 → " + settlelist);
         } else {
-            settlelist.setSlistId(existingList.getSlistId()); // 이후 settlement 등록용 slistId 설정
+            settlelist.setSlistId(existingList.getSlistId());
         }
 
         return settlelist;
     }
 
+
     @Override
-    public void createSettlement(Settlelist settlelist, PrepareSettleJson[] item, Integer projectId) throws Exception {
+    public Settlement createSettlement(Settlelist settlelist, PrepareSettleJson[] item, Integer projectId) throws Exception {
         AdminProjectDetail project = projectDAO.selectProjectDetail(projectId);
+        Settlement settlement = null;
         for (PrepareSettleJson p : item) {
             AdminPrepareSettle aSettle = contractDAO.selectInfoForSettleById(p.getId());
-            boolean alreadySettled = settlementDAO.existsSettlementBySlistIdAndsettleDate(
-                   settlelist.getClientId(), settlelist.getSlistId(), aSettle.getSettleDay());
+
+            // ✅ 이 부분은 '이미 같은 slistId+freelancer+startDate' 조합으로 정산된 게 있는지 체크해야 함
+            boolean alreadySettled = settlementDAO.existsSettlementBySlistIdAndStartEndDate(
+                    settlelist.getSlistId(), p.getStart(), p.getEnd(), aSettle.getName());
+
             if (alreadySettled) {
                 continue;
             }
 
-            Settlement settlement = new Settlement(
+            settlement = new Settlement(
                     settlelist.getSlistId(),
                     Integer.parseInt(aSettle.getPosition()),
                     aSettle.getClientId(),
                     project.getProjectName(),
                     p.getAmount(),
-                    aSettle.getSettleDay(),
-                    aSettle.getStartDate(),
-                    aSettle.getEndDate(),
+                    Date.valueOf(p.getStart()), // ✅ 이번 회차 시작일
+                    Date.valueOf(p.getEnd()),   // ✅ 이번 회차 종료일
+                    settlelist.getSettleDate(), // ✅ 정산일은 settlelist의 settle_date 사용
                     aSettle.getPosition(),
                     aSettle.getName(),
                     "정산완료",
@@ -95,7 +113,9 @@ public class SettlementService implements ISettlementService {
             );
             settlementDAO.insertSettlement(settlement);
         }
+        return settlement;
     }
+
 
     @Override
     public HashMap<Integer, AdminSettleProject> filterProjectsWithUnsettled(HashMap<Integer, AdminSettleProject> fullList) {
@@ -112,7 +132,6 @@ public class SettlementService implements ISettlementService {
 
     @Override
     public List<AdminSettleHistory> getHistoryList(String keyword, String startDate, String endDate, int offset, int limit) throws Exception {
-
         return null;
     }
 

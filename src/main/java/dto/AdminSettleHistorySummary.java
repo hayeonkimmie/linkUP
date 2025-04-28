@@ -97,4 +97,19 @@ public class AdminSettleHistorySummary {
     public void setFee(Integer fee) {
         this.fee = fee;
     }
+
+    @Override
+    public String toString() {
+        return "AdminSettleHistorySummary{" +
+                "slistId=" + slistId +
+                ", projectId=" + projectId +
+                ", projectName='" + projectName + '\'' +
+                ", settleDate='" + settleDate + '\'' +
+                ", cnt=" + cnt +
+                ", totalAmount=" + totalAmount +
+                ", status='" + status + '\'' +
+                ", pay=" + pay +
+                ", fee=" + fee +
+                '}';
+    }
 }

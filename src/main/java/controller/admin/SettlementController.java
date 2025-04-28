@@ -16,9 +16,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.sql.Date;
+import java.util.*;
 
 @WebServlet("/admin/settlement")
 public class SettlementController extends HttpServlet {
@@ -35,30 +34,53 @@ public class SettlementController extends HttpServlet {
         ISettlementService settlementService = new SettlementService(null,null,settlementDAO);
         String contractIdParam = request.getParameter("contractid");
         String slistIdParam = request.getParameter("slistid");
-
+        String formatParam = request.getParameter("format"); // ✅ format=json 여부 확인
         try {
             HashMap<Integer, AdminSettleProject> projectList;
             if (slistIdParam != null) {
                 Integer slistId = Integer.parseInt(slistIdParam);
                 HashMap<Integer, AdminSettleHistory> projects = settlementDAO.selectSettlementHistoryDetail(slistId);
-                // JSON 응답 처리
-                response.setContentType("application/json; charset=UTF-8");
-                response.setCharacterEncoding("UTF-8");
-
-                Gson gson = new Gson();
-                String json = gson.toJson(projects);
-                response.getWriter().write(json);
-
-                request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
+                if ("json".equals(formatParam)) {
+                    response.setContentType("application/json; charset=UTF-8");
+                    response.setCharacterEncoding("UTF-8");
+                    Gson gson = new Gson();
+                    String json = gson.toJson(projects);
+                    Integer pay = Integer.parseInt(request.getParameter("pay"));
+                    AdminSettleHistory main = projects.values().stream().findFirst().orElse(null);
+                    if (main != null) {
+                        request.setAttribute("projectJson", new Gson().toJson(main));
+                    }
+                    List<SettledInfoDTO> doneList = settlementDAO.selectSettledFreelancers(slistId);
+                    List<SettledInfoDTO> waitList = settlementDAO.selectWaitingFreelancers(Integer.parseInt(request.getParameter("projectId")), slistId);
+                    for(SettledInfoDTO dto : doneList) {
+                        System.out.println("정산완료 : " +dto);
+                    }for(SettledInfoDTO dto : waitList) {
+                        System.out.println("정산대기 : " +dto);
+                    }
+                    // 월별 리스트 가져오기
+                    List<Map<String, Object>> settlementMonths = settlementDAO.selectAllSettlementMonthsByProjectId(39);
+                    for(Map<String, Object> settlementMonth : settlementMonths) {
+                        System.out.println("정산 월별 리스트 : " + settlementMonth);
+                    }
+                    request.setAttribute("settlementMonths", settlementMonths);
+                    request.setAttribute("doneList", doneList);
+                    request.setAttribute("totalAmount", pay);
+                    request.setAttribute("waitList", waitList);
+                    request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
+                }
             } else if (contractIdParam != null) {
                 // 👉 정산하기 페이지 (settlement_detail.jsp)
                 int projectId = Integer.parseInt(contractIdParam);
                 int cnt = 1;
                 int totalAmount = 0;
-                List<AdminSettleTarget> targetList = settlementDAO.selectFreelancersForSettlement(projectId, cnt);
+                int totalFee = 0;
+                Map<String, Date> settleStartandEnd = settlementDAO.selectSettleStartandEnd(projectId);
+                System.out.println("정산 시작일과 종료일 : " + settleStartandEnd);
+                List<AdminSettleTarget> targetList = settlementDAO.selectFreelancersForSettlement(projectId, settleStartandEnd.get("startDate"), settleStartandEnd.get("endDate"));
                 for (AdminSettleTarget t : targetList) {
                     System.out.println("Target : " + t);
                     totalAmount += t.getTotalPay();
+                    totalFee += t.getFee();
                 }
                 projectList = request.getSession().getAttribute("projectList") != null ?
                         (HashMap<Integer, AdminSettleProject>) request.getSession().getAttribute("projectList") : new HashMap<>();
@@ -67,6 +89,7 @@ public class SettlementController extends HttpServlet {
                 }
                 AdminSettleProject selected = projectList.get(projectId);
                 request.setAttribute("totalAmount", totalAmount);
+                request.setAttribute("totalFee", totalFee);
                 request.setAttribute("targetList", targetList);
                 request.setAttribute("project", selected);
                 request.getRequestDispatcher("/admin/settlement_detail.jsp").forward(request, response);
@@ -93,23 +116,53 @@ public class SettlementController extends HttpServlet {
         IContractDAO contractDAO = new ContractDAO();
         IProjectDAO projectDAO = new ProjectDAO();
         ISettlementDAO settlementDAO = new SettlementDAO();
-        SettlementService settlementService = new SettlementService(contractDAO, projectDAO, settlementDAO);
+        ISettlementService settlementService = new SettlementService(contractDAO, projectDAO, settlementDAO);
         Integer projectId = Integer.valueOf(request.getParameter("projectId"));
         String jsonData = request.getParameter("jsonData");
         Gson gson = new Gson();
         Settlelist settlelist = null;
+
         try {
             PrepareSettleJson[] item = gson.fromJson(jsonData, PrepareSettleJson[].class);
+            System.out.println("받은 JSON : \n"+item[0]);
             settlelist = settlementService.createSettleList(item[0], projectId);
             if (settlelist == null) {
                 System.out.println("정산 생성 조건 미충족으로 정산 중단됨");
                 response.sendRedirect("/admin/settlement");
                 return;
             }
+            // 1. settlement와 settlelist 등록
             settlementService.createSettlement(settlelist, item, projectId);
+            // 2. 완료 후, 바로 정산 내역을 조회해서 JSP로 forward
+            Integer slistId = settlelist.getSlistId();
+            HashMap<Integer, AdminSettleHistory> projects = settlementDAO.selectSettlementHistoryDetail(slistId);
+            AdminSettleHistory mainProject = projects.values().stream().findFirst().orElse(null);
+            if (mainProject != null) {
+                request.setAttribute("projectJson", new Gson().toJson(mainProject));
+            }
+            System.out.println("mainProject : \n" + mainProject);
+            List<SettledInfoDTO> doneList = settlementDAO.selectSettledFreelancers(slistId);
+            List<SettledInfoDTO> waitList = settlementDAO.selectWaitingFreelancers(projectId, slistId);
+            Integer totalAmount = 0;
+            for( SettledInfoDTO dto : doneList) {
+                System.out.println("정산 완료된 프리랜서 : " + dto);
+                totalAmount += dto.getSettleAmount();
+            }for( SettledInfoDTO dto : waitList) {
+                System.out.println("정산 대기 중인 프리랜서 : " + dto);
+                totalAmount += dto.getSettleAmount();
+            }
+            List<Map<String, Object>> settlementMonths = settlementDAO.selectAllSettlementMonthsByProjectId(projectId);
+            System.out.println("정산 월별 리스트 : " + settlementMonths);
+            request.setAttribute("settlementMonths", settlementMonths);
+            request.setAttribute("doneList", doneList);
+            request.setAttribute("waitList", waitList);
+            request.setAttribute("totalAmount",totalAmount);
+            request.getRequestDispatcher("/admin/settlement_info.jsp").forward(request, response);
+
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "정산 처리 중 오류 발생");
         }
-        response.sendRedirect("/admin/settlement_info?slist_id=" +  Objects.requireNonNull(settlelist).getSlistId());
     }
+
 }

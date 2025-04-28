@@ -11,7 +11,12 @@
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
-<div id="header-placeholder"></div>
+<div class="header">
+    <!-- 헤더 인클루드 영역 -->
+<%--    <jsp:include page="../home/header.jsp" />--%>
+    <div id="header-placeholder"></div>
+   <%-- <%@ include file="<c:url value='/common/header.jsp'/>" %>--%>
+</div>
 <div class="container">
     <jsp:include page="/freelancer/sidebar.jsp"/>
     <main class="content">
@@ -111,11 +116,13 @@
         </section>
     </main>
 </div>
+
 <script>
     const contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${contextPath}/js/catalog.js"></script>
 <script src="${contextPath}/js/header.js"></script>
 <script src="${contextPath}/js/headerLogin.js"></script>
+
 </body>
 </html>
