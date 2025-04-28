@@ -93,8 +93,8 @@ input {
 }
 .upload-placeholder {
     display: inline-block;          /* block or inline-block 추천 */
-    width: 150px;
-    height: 150px;
+    min-width: 150px;
+    min-height: 150px;
     background-color: #f4f4f4;
     background-size: cover;
     background-position: center;

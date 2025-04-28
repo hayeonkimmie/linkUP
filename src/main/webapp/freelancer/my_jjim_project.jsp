@@ -17,10 +17,8 @@
     <script src="${contextPath}/js/freelancer_my_page_like_proj.js"></script>
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="../home/header.jsp" />
-</div>
+
+<div id="header-placeholder"></div>
 <div class="container">
 <!-- 사이드바 -->
 <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -43,7 +41,7 @@
                     <div class="project-table">
                         <div class="project-table-header">
                             <h3>찜한 프로젝트 목록</h3>
-                            <p>${jjimProjCnt}</p>
+                            <p>총 ${jjimProjCnt} 건</p>
                         <form action="${contextPath}/my-page/project-jjim-list" method="post">
                             <div class="delete-button-wrapper">
                                 <button class="delete-button" type="submit">삭제</button>

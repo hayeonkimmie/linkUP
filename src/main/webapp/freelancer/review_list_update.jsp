@@ -15,10 +15,8 @@
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="../home/header.jsp" />
-</div>
+
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -159,7 +157,7 @@
                                             <button type="submit" class="btn light">수정</button>
                                         </div>
                                     </form>
-                                    <button type="button" class="btn delete-btn" data-id="${review.reviewId}">삭제
+                                    <%--<button type="button" class="btn delete-btn" data-id="${review.reviewId}">삭제--%>
                                     </button>
                                 </div>
                             </c:forEach>
@@ -201,6 +199,11 @@
         </div><!-- tab-content-container -->
     </div> <!-- content -->
 </div> <!-- container -->
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll("form").forEach(form => {

@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="career-row">
                 <input type="text" name="${base}[${index}].position" id="position_${index}" placeholder="직급/직책" />
                 <input type="text" name="${base}[${index}].jobTitle" id="jobTitle_${index}" placeholder="담당직무" />
-                <input type="number" name="${base}[${index}].salary" id="salary_${index}" placeholder="연봉" />
+                <input type="text" name="${base}[${index}].salary" id="salary_${index}" placeholder="연봉" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 <span>만 원</span>
             </div>
             <span>담당업무</span>

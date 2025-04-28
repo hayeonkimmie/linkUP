@@ -26,7 +26,9 @@
 <body>
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="../home/header.jsp" />
+<%--    <jsp:include page="../home/header.jsp" />--%>
+
+    <div id="header-placeholder"></div>
 </div>
 <div class="container">
     <script>console.log(${err})</script>
@@ -122,5 +124,10 @@
         </div>
     </main>
 </div>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

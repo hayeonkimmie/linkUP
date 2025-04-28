@@ -48,17 +48,20 @@ public class PortfolioDAO implements IPortfolioDAO {
 
     @Override
     public Integer writePortfolio(Portfolio portfolio) throws Exception {
+        Integer newPortfolioId = null;
         try {
-            if(portfolio.getIsTempSaved() == false) {
-                sqlSession.insert("mapper.portfolio.insertPortfolioComplete", portfolio);
-            } else {
-                sqlSession.insert("mapper.portfolio.insertPortfolioIncomplete", portfolio);
-            }
+//            if(portfolio.getIsTempSaved() == false) {
+//                sqlSession.insert("mapper.portfolio.insertPortfolioComplete", portfolio);
+//            } else {
+//                sqlSession.insert("mapper.portfolio.insertPortfolioIncomplete", portfolio);
+//            }
+            sqlSession.insert("mapper.portfolio.insertPortfolioComplete", portfolio);
             sqlSession.commit();
+            newPortfolioId = portfolio.getPortfolioId();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return portfolio.getPortfolioId();
+        return newPortfolioId;
     }
 
     @Override

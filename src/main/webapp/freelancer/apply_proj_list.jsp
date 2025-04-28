@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -14,23 +15,21 @@
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="../home/header.jsp" />
-</div>
+
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
     <main class="content">
         <section class="section">
-            <h3>내 프로젝트 지원 현황</h3>
+            <h3>내 프로젝트 지원 현황 총 ${ApplyProjCount} 건</h3>
             <p style="color: #888; font-size: 0.9rem; margin-bottom: 1rem;">지원한 프로젝트 목록을 확인하세요</p>
             <table id="apply-table">
                 <thead>
                 <tr>
                     <th>상태</th>
                     <th>지원일</th>
-                    <th colspan="2">프로젝트 정보</th>
+                    <th>프로젝트 정보</th>
                     <th colspan="2">분야</th>
                     <th>기간 | 예산</th>
                     <th>모집 마감일<br>D-Day</th>
@@ -67,11 +66,10 @@
                                             value='${apply.applyDate}' pattern='yyyy-MM-dd'/></span>
                                     </c:if>
                                 </td>
-                                <td></td>
                                 <td>
                                     <div class="project-info">
                                         <div class="project-text">
-                                                ${apply.advertisementTitle}<br>
+                                                <%--${apply.advertisementTitle}<br>--%>
                                                 ${apply.projectName}
                                         </div>
                                     </div>
@@ -86,8 +84,8 @@
                                         class="d-day">${apply.dDay}</span></td>
                                 <td style="font-weight: bold;">${apply.approved}</td>
                                 <td>
-                                    <c:if test="${apply.cancelDate eq null}">
-                                        <button type="button"
+                                    <c:if test="${empty apply.cancelDate and fn:trim(apply.approved) ne '승인거절'}">
+                                    <button type="button"
                                                 class="cancel-btn"
                                                 data-apply-id="${apply.applyId}"
                                                 data-context-path="${contextPath}">

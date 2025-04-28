@@ -17,7 +17,7 @@
         SELECT
             jp.jjim_id,
             p.project_id,                                -- 프로젝트 ID
-            CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+           subcat.sub_category_name AS category,
             p.advertisement_title,                       -- 공고 제목
             p.project_name,                              -- 프로젝트명
             CASE
@@ -33,7 +33,6 @@
             p.project_description,                       -- 프로젝트 설명
             p.job_details,                               -- 업무 상세
             p.working_environment,                       -- 근무 환경
-            p.working_hours,                             -- 근무 시간,
             CASE
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN
                     CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
@@ -45,7 +44,6 @@
         FROM project p
                  JOIN jjimProj jp ON p.project_id = jp.project_id
                  JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
-                 JOIN category cat ON subcat.category_id = cat.category_id
         WHERE jp.freelancer_id = #{freelancerId}
         ORDER BY
             CASE
@@ -67,7 +65,7 @@
         SELECT
             jp.jjim_id,
             p.project_id,                                -- 프로젝트 ID
-            CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+           subcat.sub_category_name AS category,
             p.advertisement_title,                       -- 공고 제목
             p.project_name,                              -- 프로젝트명
             CASE
@@ -93,7 +91,6 @@
                  JOIN client c ON p.client_id = c.client_id
                  JOIN jjimProj jp ON p.project_id = jp.project_id
                  LEFT JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
-                 LEFT JOIN category cat ON subcat.category_id = cat.category_id
         WHERE jp.freelancer_id = #{freelancerId}
         ORDER BY
             CASE
@@ -122,7 +119,7 @@
         SELECT
             jp.jjim_id,
             p.project_id,
-            CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+            subcat.sub_category_name AS category,
             p.advertisement_title,
             p.project_name,
         CASE
@@ -149,7 +146,6 @@
                  JOIN client c ON p.client_id = c.client_id
                  JOIN jjimProj jp ON p.project_id = jp.project_id
                  JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
-                 JOIN category cat ON subcat.category_id = cat.category_id
         WHERE jp.freelancer_id = #{freelancerId}
           AND DATEDIFF(p.deadline_date, CURDATE()) >= 0   -- 마감되지 않은 것만
         ORDER BY
@@ -163,7 +159,7 @@
         <![CDATA[
         SELECT
             p.project_id,
-            CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+            subcat.sub_category_name AS category,
             p.advertisement_title,
             p.project_name,
         CASE
@@ -189,7 +185,6 @@
                  JOIN client c ON p.client_id = c.client_id
                  JOIN jjimProj jp ON p.project_id = jp.project_id
                  JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
-                 JOIN category cat ON subcat.category_id = cat.category_id
         WHERE  DATEDIFF(p.deadline_date, CURDATE()) < 0
           and jp.freelancer_id = #{freelancerId}
         -- 마감된 것만

@@ -11,11 +11,7 @@
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="../home/header.jsp" />
-   <%-- <%@ include file="<c:url value='/common/header.jsp'/>" %>--%>
-</div>
+<div id="header-placeholder"></div>
 <div class="container">
     <jsp:include page="/freelancer/sidebar.jsp"/>
     <main class="content">
@@ -32,7 +28,7 @@
                         <th>프로젝트명</th>
                         <th>분야</th>
                         <th>기간</th>
-                        <th>근무 환경 | 근무 시간</th>
+                        <th>근무환경 | 근무방식</th>
                         <th>지원 자격</th>
                         <th colspan="2">모집 마감일</th>
                     </tr>
@@ -51,7 +47,7 @@
                                     <td>${jp.category}</td>
                                     <td>${jp.duration}</td>
                                     <td>${jp.workingEnvironment}
-                                        <c:if test="${jp.workingEnvironment ne '재택'}">(${jp.workingMethod})</c:if> | ${jp.workingHours}
+                                        <c:if test="${jp.workingEnvironment ne '재택'}" > | ${jp.workingMethod}</c:if>
                                     </td>
                                     <td>${jp.qualification}</td>
                                     <td>${jp.deadlineDate}</td>
@@ -79,7 +75,7 @@
                     <th>기간</th>
                     <th>예산</th>
                     <th>요구사항</th>
-                    <th>작업방식</th>
+                    <th>근무환경 | 근무방식</th>
                     <th colspan="2">마감일</th>
                 </tr>
                 </thead>
@@ -93,15 +89,15 @@
                         <c:otherwise>
                             <c:forEach var="project" items="${onGoingProjList}">
                                 <tr>
-                                    <td><a href="${project.projectId}">${project.projectName}</a><hr/>${project.clientName}</td>
+                                    <td><a href="${project.projectId}">${project.projectName}</a></td>
                                     <td>${project.categories}</td>
                                     <td>${project.projectDuration}</td>
                                     <td>${project.totalBudget}</td>
                                     <td>
-                                        <c:if test="${project.reqSkills ne null}">${project.reqSkills}, </c:if>
+                                        <c:if test="${project.reqSkills ne null}"> ${project.reqSkills}, </c:if>
                                             ${project.qualification}</td>
                                     <td>${project.workingEnvironment}
-                                        <c:if test="${project.workingEnvironment ne '재택'}">(${project.workingMethod})</c:if>| ${project.workingHours}
+                                        <c:if test="${project.workingEnvironment ne '재택'}"> | ${project.workingMethod}</c:if>
                                     </td>
                                     <td>${project.deadlineDate}</td>
                                     <td><span class="d-day">${project.dDay}</span></td>
@@ -115,5 +111,11 @@
         </section>
     </main>
 </div>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

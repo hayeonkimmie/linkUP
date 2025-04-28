@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
-@WebServlet("/portfolio-delete")
+@WebServlet("/my-page/portfolio-delete")
 public class PortfolioDelete extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -33,6 +33,7 @@ public class PortfolioDelete extends HttpServlet {
             request.setAttribute("result", "포트폴리오 삭제에 실패했습니다.");
             throw new RuntimeException(e);
         }
-        request.getRequestDispatcher("/freelancer/portfolio_list.jsp").forward(request, response);
+//        request.getRequestDispatcher("/freelancer/portfolio_list.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/my-page/portfolio-list");
     }
 }

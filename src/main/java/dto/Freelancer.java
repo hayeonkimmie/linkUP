@@ -23,7 +23,7 @@ public class Freelancer {
     private String subCategoryName;
     private int categoryId;
     private String categoryName;
-    private double avgStar; // ⭐ 평균 별점
+    private double avgStar; //  평균 별점
 
     // User Type 04.18 15:02 추가
     String type;

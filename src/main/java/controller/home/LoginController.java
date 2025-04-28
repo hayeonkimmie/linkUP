@@ -2,6 +2,7 @@ package controller.home;
 
 import dao.client.ClientDAOImpl;
 import dao.common.UserDAO;
+import dto.Freelancer;
 import dto.User;
 
 import javax.servlet.*;
@@ -36,15 +37,21 @@ public class LoginController extends HttpServlet {
         boolean isAuthenticated = false;
 
         if ("recruiter".equals(role)) {
-            isAuthenticated = authenticateRecruiter(id, password);
+//            isAuthenticated = authenticateRecruiter(id, password);
+            //Freelancer f= freelancerDAO.selectFreelancerByID(id);
+            //request.setAttribute("freelancer", f);
+            request.setAttribute("role", role);
+
         } else if ("jobseeker".equals(role)) {
             isAuthenticated = authenticateJobseeker(id, password);
+
         }
 
         if (isAuthenticated) {
             // 로그인 성공
             HttpSession session = request.getSession();
             session.setAttribute("userId", id);
+            session.setAttribute("password", password);
             session.setAttribute("role", role);
 
             response.sendRedirect(request.getContextPath() + "/mainPage");

@@ -14,15 +14,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const contextPath = "${pageContext.request.contextPath}";
+        const contextPath = '${pageContext.request.contextPath}';
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
-</div>
+
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -41,9 +39,9 @@
                         <label>전문 분야</label>
                         <select id="category_name" name="category">
                             <option value="">1차 카테고리</option>
-<%--                            <c:forEach items="${selectCategoryList}" var="category">
+                           <c:forEach items="${selectCategoryList}" var="category">
                                 <option value="${category.categoryId}">${category.categoryName}</option>
-                            </c:forEach>--%>
+                            </c:forEach>
                         </select>
                         <select id="subCategory" name="subCategory"></select>
                         <div class="specialization">
@@ -83,7 +81,7 @@
                                             <div class="label">학력구분 <span class="star">*</span></div>
                                             <select name="educationList[${status.index}].academicType" required class="academicType">
                                                 <option value="">학교 구분</option>
-                                                <c:forEach var="type" items="${fn:split('고등학교,대학교(2,3년),대학교(4년),대학원', ',')}">
+                                                <c:forEach var="type" items="${fn:split('고등학교,대학교(2/3년),대학교(4년),대학원', ',')}">
                                                     <option value="${type}" ${academic.academicType eq type ? 'selected' : ''}>${type}</option>
                                                 </c:forEach>
                                             </select>
@@ -173,7 +171,8 @@
                                                value="${career.position}" />
                                         <input type="text" name="careerList[${status.index}].jobTitle" placeholder="담당직무"
                                                value="${career.jobTitle}" />
-                                        <input type="number" name="careerList[${status.index}].salary" placeholder="연봉" value="${career.salary}" />
+                                        <input type="text" name="careerList[${status.index}].salary" placeholder="연봉"  value="${career.salary}"  oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
                                         <span>만 원</span>
                                     </div>
                                     <span>담당업무</span>
@@ -320,6 +319,37 @@
         </section>
     </main>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const categorySelect = document.getElementById("category_name");
+        const subCategorySelect = document.getElementById("subCategory");
+
+        categorySelect.addEventListener("change", function () {
+            const categoryId = this.value;
+            console.log(categoryId)
+            fetch(`${pageContext.request.contextPath}/getSubCategories?categoryId=` + categoryId)
+                .then(res => res.json())
+                .then(data => {
+                    subCategorySelect.innerHTML = "";
+                    if (data.length === 0) {
+                        subCategorySelect.innerHTML = "<option value=''>하위 카테고리 없음</option>";
+                    } else {
+                        data.forEach(item => {
+                            const option = document.createElement("option");
+                            option.value = item.subCategoryId;
+                            option.textContent = item.subCategoryName;
+                            subCategorySelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.error("하위 카테고리 로딩 실패", err);
+                });
+        });
+    });
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 <script>
     function changeFile(input) {
         if (input.files && input.files[0]) {

@@ -22,7 +22,7 @@
             p.project_id, -- 프로젝트 ID
 
             -- 카테고리명과 서브카테고리명을 JOIN으로 가져와서 표시
-            CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+            subcat.sub_category_name AS category,
 
             a.sub_category_name AS apply_category, -- 내가 지원한 분야
             p.advertisement_title, -- 공고 제목
@@ -33,7 +33,6 @@
                 WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
                 ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
                 END AS duration, -- 기간
-
             -- project_fee 서브쿼리
             IFNULL((
                        SELECT CONCAT(FORMAT(pay.project_fee, 0), '만원')
@@ -91,7 +90,12 @@
         WHERE apply_id = #{applyId}
     </update>
     <select id="selectApplyProjectCnt" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM apply
-        WHERE freelancer_id = #{freelancerId}
+        SELECT COUNT(*)
+        FROM apply a
+                 JOIN project p ON a.project_id = p.project_id
+                 JOIN client c ON p.client_id = c.client_id
+                 LEFT JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
+                 LEFT JOIN category cat ON subcat.category_id = cat.category_id
+        WHERE a.freelancer_id =  #{freelancerId}
     </select>
 </mapper>

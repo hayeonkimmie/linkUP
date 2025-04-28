@@ -4,11 +4,14 @@ body {
   font-family: 'Nanum Gothic', sans-serif;
   background-color: #f6f6f6;
   width: 100%;
+  display: inline-flex;
+  flex-direction: column;
 }
 
 .container {
   display: flex;
-  max-width: 1900px;
+/*  max-width: 1900px;*/
+  min-width: 1300px;
   margin: 0 auto;
   padding: 20px;
   flex-wrap : wrap;
@@ -109,6 +112,8 @@ tbody td {
   text-align: center;
   border-top: 1px solid #e0e0e0;
   color: #333;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 tbody tr td a {
@@ -118,7 +123,6 @@ tbody tr td a {
 
 .d-day {
   display: inline-flex;
-  margin-top: 4px;
   color: red;
   /* margin-top: 4px; */
   align-items: center;
@@ -136,6 +140,15 @@ tbody tr td a {
   color: #065f46;
 }
 
+.empty{
+  width: 100%;
+  min-height: 588px;
+  max-height: fit-content;
+  background: white;
+}
+.empty > p{
+  margin-left: 15px;
+}
 .pagination {
   display: inline-flex;
   justify-content: center;

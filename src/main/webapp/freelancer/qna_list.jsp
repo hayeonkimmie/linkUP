@@ -16,9 +16,7 @@
 
 </head>
 <body>
-<div class="header" id="header-placeholder">
-<%--    <jsp:include page="../home/header.jsp" /--%>>
-</div>
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -31,7 +29,7 @@
                 </div>
             </div>
             <c:choose>
-                <c:when test="${empty QnAList}">
+                <c:when test="${QnAList ne null}">
                     <div class="qna-empty empty">
                         <p>등록된 문의사항이 없습니다.</p>
                     </div>
@@ -89,30 +87,30 @@
                     <div class="pagination" id="paging">
                         <c:choose>
                             <c:when test="${pageInfo.curPage > 1}">
-                                <a href="?page=${pageInfo.curPage-1 }">&lt;</a>
+                                <a href="?page=${pageInfo.curPage - 1}">&lt;</a>
                             </c:when>
                             <c:otherwise>
                                 <a>&lt;</a>
                             </c:otherwise>
                         </c:choose>
 
-                        <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1" var="page">
+                        <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
                             <c:choose>
-                                <c:when test="${page eq pageInfo.curPage }">
-                                    <a href="?page=${page }" class="select">${page }</a>
+                                <c:when test="${page eq pageInfo.curPage}">
+                                    <a href="?page=${page}" class="select">${page}</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="?page=${page }" class="btn">${page }</a>
+                                    <a href="?page=${page}" class="btn">${page}</a>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
 
                         <c:choose>
-                            <c:when test="${pageInfo.curPage<pageInfo.allPage }">
-                                <a href="?page=${pageInfo.curPage+1 }">&gt;</a>
+                            <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+                                <a href="?page=${pageInfo.curPage + 1}">1&gt;</a>
                             </c:when>
                             <c:otherwise>
-                                <a>&lt;</a>
+                                <a>&gt;</a>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -147,4 +145,5 @@
     const contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </html>

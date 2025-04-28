@@ -57,7 +57,7 @@ public class FreelancerService implements IFreelancerService{
             freelancer.setProfileImg(curProfileImg);
         }
         ifreelancerDAO.updateUserProfile(freelancer);
-        System.out.println("FreelancerService.java 56 + updateFreelancer");
+        System.out.println("FreelancerService.java 56 + updateFreelancer 동작완료");
     }
 
     @Override

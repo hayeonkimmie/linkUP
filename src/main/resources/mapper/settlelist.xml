@@ -151,6 +151,10 @@
         GROUP BY sl.project_id, sl.settle_date, sl.cnt
         ) sub
     </select>
-
+    <select id="selectSettlelistByProjectId" parameterType="int" resultType="settlement">
+        SELECT *
+        FROM settlelist
+        WHERE project_id = #{projectId}
+    </select>
 
 </mapper>

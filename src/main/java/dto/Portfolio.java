@@ -260,7 +260,6 @@ public class Portfolio {
                 ", projectId=" + projectId +
                 ", attachment='" + attachment + '\'' +
                 ", externalUrl='" + externalUrl + '\'' +
-                ", created_date=" + createdDate +
                 ", isTempSaved=" + isTempSaved +
                 ", isUserDeleted=" + isUserDeleted +
                 ", isDeleted=" + isDeleted +
@@ -269,6 +268,7 @@ public class Portfolio {
                 ", projectName='" + projectName + '\'' +
                 ", attachmentList=" + Arrays.toString(attachmentList) +
                 ", externalUrlList=" + Arrays.toString(externalUrlList) +
+                ", projectInfoMap=" + projectInfoMap +
                 ", createdDate=" + createdDate +
                 '}';
     }

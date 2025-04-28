@@ -21,7 +21,7 @@ public class FreelancerApplyProjService implements IFreelancerApplyProjService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("JjimProjService.java 18 ApplyProjCount = " + ApplyProjCount);
+        System.out.println("FreelancerApplyProjService.java 18 ApplyProjCount = " + ApplyProjCount);
         Integer allPage = (int)Math.ceil((double)ApplyProjCount/10);
 
         Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
@@ -31,9 +31,9 @@ public class FreelancerApplyProjService implements IFreelancerApplyProjService {
         pageInfo.setAllPage(allPage);
         pageInfo.setStartPage(startPage);
         pageInfo.setEndPage(endPage);
-        Integer row = (pageInfo.getCurPage()-1)*10+1;
+        Integer row = (pageInfo.getCurPage()-1)*10;
         System.out.println("row= "+ row + "endPage =" +endPage);
-        List<Apply> applProjyList = iApplyProjDAO.getApplyProjList(row-1, freelancerId);
+        List<Apply> applProjyList = iApplyProjDAO.getApplyProjList(row, freelancerId);
         System.out.println("FreelancerApplyProjService.java 35 = " + applProjyList);
         return applProjyList;
     }

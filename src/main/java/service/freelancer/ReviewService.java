@@ -32,14 +32,14 @@ public class ReviewService implements IReviewService{
         }
         Integer allPage = (int)Math.ceil((double)receivedReviewsCnt/10);
         Integer startPage = (pageInfo.getCurPage()-1)/10*10+1;
-        Integer endPage = startPage+5-1; //10,20,30,40...
+        Integer endPage = startPage+10-1; //10,20,30,40...
         if(endPage>allPage) endPage=allPage;
 
         pageInfo.setAllPage(allPage);
         pageInfo.setStartPage(startPage);
         pageInfo.setEndPage(endPage);
 
-        Integer row = (pageInfo.getCurPage()-1)*5+1;
+        Integer row = (pageInfo.getCurPage()-1)*10+1;
         System.out.println("PortfolioService.java 38 row "+row);
         try {
             return iReviewDAO.getReceivedReviewListById(row, freelancerId);
