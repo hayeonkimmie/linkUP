@@ -67,7 +67,7 @@
                             </c:forEach>
                         </div><br />
 
-                        <div class="job-meta">${project.category} · 지원자 ${project.applyCount}명 · ${project.regDate} 등록</div><br />
+                        <div class="job-meta">${project.category} / 지원자 ${project.applyCount}명 / ${project.regDate} 등록</div><br />
                         <strong>프로젝트 기간</strong><br />
                             ${project.startDate} ~ ${project.endDate}
 

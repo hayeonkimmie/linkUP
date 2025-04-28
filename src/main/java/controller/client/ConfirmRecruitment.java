@@ -34,6 +34,7 @@ public class ConfirmRecruitment extends HttpServlet {
     // 데이터 전송하는 것이므로 doPost
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 모집확정 버튼 누르면 해당 projectId 받아오기
         String projectIdParam = request.getParameter("projectId"); // projectId검증
 
         if (projectIdParam == null) { // projectId 값이 없으면
@@ -43,16 +44,18 @@ public class ConfirmRecruitment extends HttpServlet {
 
         try {
             int projectId = Integer.parseInt(projectIdParam); // 문자열 → int 변환
-            Date today = new java.sql.Date(System.currentTimeMillis());
+            Date today = new java.sql.Date(System.currentTimeMillis()); // 오늘일자
 
-            // Map 구성 (오늘 날짜 + 프로젝트 ID 같이 넘김)
+            // Map 구성 (오늘 날짜 + 프로젝트 ID 같이 넘겨서 맵에 담아주기) => update에 사용하기 위함
             Map<String, Object> param = new HashMap<>();
             param.put("projectId", projectId);
             param.put("today", today);
 
+            // 서비스 호출해서 프로젝트 상태를 '구인완료' + '시작전 or 진행중' 으로 업데이트
             service.updateStatusToConfirmed(param); // 서비스 호출
 
-            // 확정 직후의 상태를 확인하기 위해 다시 해당 프로젝트 정보를 조회
+
+            // 확정 직후의 상태를 확인하기 위해 다시 해당 프로젝트 정보를 조회 (확정 후 해당 프로젝트가 시작전, 진행중, 종료됨인지 판단)
             Map<String, Object> checkParam = new HashMap<>();
             checkParam.put("clientId", (String) request.getSession().getAttribute("userId")); // 현재 로그인한 유저의 clientId
             checkParam.put("status", "구인완료"); // 확정된 프로젝트만 대상
