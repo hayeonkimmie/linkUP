@@ -6,6 +6,7 @@ import service.freelancer.InfoSerializer;
 import util.MybatisSqlSessionFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -24,21 +25,30 @@ public class FreelancerDAO implements IFreelancerDAO {
         } else {
             if(freelancer.getSkill() != null) {
                 freelancer.setSkillList(freelancer.getSkill().split(", "));
-            }
-            if(selectAllportfolioInfoMap(freelancerId) != null) {
-                freelancer.setPortfolioInfoMap(selectAllportfolioInfoMap(freelancerId));
+            } else {
+                freelancer.setSkillList(null);
             }
             if(freelancer.getLicense() != null) {
                 List<License> licenseList = infoSerializer.deserializeLicenseList(freelancer.getLicense());
                 freelancer.setLicenseList(licenseList);
+            } else {
+                freelancer.setLicenseList(null);
             }
             if (freelancer.getAcademic() != null) {
                 List<Academic> academicList = infoSerializer.deserializeAcademicList(freelancer.getAcademic());
                 freelancer.setAcademicList(academicList);
+            } else {
+                freelancer.setAcademicList(null);
             }
-            if (selectPortfolioInfoMapForProfile(freelancerId) != null) {
-                Map<Integer, String> portfolioInfoMap = selectPortfolioInfoMapForProfile(freelancerId);
-                freelancer.setPortfolioInfoMap(portfolioInfoMap);
+            if(freelancer.getExternalUrl() != null) {
+                freelancer.setExternalUrlList(Arrays.asList(freelancer.getExternalUrl().split("\\^")));
+            } else{
+                freelancer.setExternalUrlList(null);
+            }
+            if(freelancer.getAttachment() != null) {
+                freelancer.setAttachmentList(Arrays.asList(freelancer.getAttachment().split("\\^")));
+            } else{
+                freelancer.setAttachmentList(null);
             }
         }
         System.out.println("FreelancerDAO 47 + selectExpertFreelancerById "+freelancer);
@@ -46,10 +56,10 @@ public class FreelancerDAO implements IFreelancerDAO {
     }
 
     public Map<Integer, String> selectAllportfolioInfoMap(String freelancerId) throws Exception {
-        return sqlSession.selectMap("mapper.portfolio.selectAllPortfolioInfoForProfile", freelancerId, "project_id");
+        return sqlSession.selectMap("mapper.portfolio.selectAllPortfolioInfoForProfile", freelancerId, "portfolioId");
     }
-    public Map<Integer, String> selectPortfolioInfoMapForProfile(String freelancerId) throws Exception {
-        return sqlSession.selectMap("mapper.portfolio.selectPortfolioInfoMapForProfile", freelancerId, "project_id");
+    public List<Portfolio> selectedPortfolioListForProfile(String freelancerId) throws Exception {
+        return sqlSession.selectList("mapper.portfolio.selectedPortfolioInfoForProfile", freelancerId);
     }
 
     public List<Career> selectCareerById(String freelancerId) throws Exception{
@@ -63,9 +73,10 @@ public class FreelancerDAO implements IFreelancerDAO {
         }
         return careerList;
     }
-    public Map<Integer, Category> selectCategoriesAsMap() {
-        Map<Integer, Category> categoriesMap = sqlSession.selectMap("mapper.subCategory.selectCategoriesAsMap", "categoryId");
-        return categoriesMap;
+    public List<Category> selectCategoryList() {
+        List<Category> categoryList = sqlSession.selectList("mapper.subCategory.selectCategoryList");
+        System.out.println("DAO 37 + categoryList categoryList"+categoryList);
+        return categoryList;
     }
 
     @Override

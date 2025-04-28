@@ -4,26 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.categoryMenuMapper">
+    <resultMap id="CategoryWithSubMap" type="dto.Category">
+        <id property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <collection property="subCategories" ofType="dto.SubCategory">
+            <id property="subCategoryId" column="sub_category_id"/>
+            <result property="categoryId" column="s_category_id"/>
+            <result property="subCategoryName" column="sub_category_name"/>
+        </collection>
+    </resultMap>
 
-    <!-- 🟩 대분류 전체 조회 -->
-    <select id="selectAllCategories" resultType="dto.Category">
+<!--    헤더 카테고리 부분을 맡고있음-->
+    <select id="selectAllWithSub" resultMap="CategoryWithSubMap">
         SELECT
-            category_id AS categoryId,
-            category_name AS categoryName
-        FROM category
-        ORDER BY category_id ASC
+            c.category_id,
+            c.category_name,
+            s.sub_category_id,
+            s.sub_category_name,
+            s.category_id AS s_category_id
+        FROM category c
+                 LEFT JOIN subCategory s ON c.category_id = s.category_id
     </select>
 
-    <!-- 🟦 소분류 전체 조회 (category_name 포함) -->
-    <select id="selectAllSubCategories" resultType="dto.SubCategory">
-        SELECT
-            sc.sub_category_id AS subCategoryId,
-            sc.category_id      AS categoryId,
-            c.category_name     AS categoryName,
-            sc.sub_category_name AS subCategoryName
-        FROM sub_category sc
-                 JOIN category c ON sc.category_id = c.category_id
-        ORDER BY sc.category_id ASC, sc.sub_category_id ASC
-    </select>
 
 </mapper>

@@ -14,20 +14,24 @@
     <meta charset="UTF-8"/>
     <title>포트폴리오 조회</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
+<%--    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">--%>
 <%--   <link rel="stylesheet" href="${contextPath}/css/headerSt.css"/>--%>
 <%--   <link rel="stylesheet" href="${contextPath}/css/freelancer_my_page.css'/>">--%>
 <%--    <link rel="stylesheet" href="${contextPath}/css/freelancer_main_portfolio_detail.css'/>"/>--%>
    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_detail.css'/>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/home/header.jsp"/>
+<%--    <jsp:include page="../home/header.jsp" />--%>
+
+    <div id="header-placeholder"></div>
 </div>
 <div class="container">
+    <script>console.log(${err})</script>
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
     <!-- 메인 콘텐츠 -->
@@ -108,16 +112,22 @@
                 </tbody>
             </table>
         </section>
+        <script>console.log(${portfolio.portfolioId})</script>
         <div class="action-buttons">
             <button class="edit-btn" onclick="location.href='${contextPath}/my-page/portfolio-modify?id=${portfolio.portfolioId }'">
                 포트폴리오 수정
             </button>
             <button id="list-btn" type="button" class="list-btn" onclick="location.href='${contextPath}/my-page/portfolio-list'">목록</button>
-            <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId }'">
+            <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">
                 포트폴리오 삭제
             </button>
         </div>
     </main>
 </div>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

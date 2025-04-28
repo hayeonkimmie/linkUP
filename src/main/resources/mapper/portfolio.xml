@@ -32,11 +32,13 @@
         WHERE freelancer_id = #{freelancerId} and is_deleted = false and is_temp_saved = false
         ORDER BY portfolio_id DESC
     </select>
-    <select id="selectPortfolioInfoMapForProfile" resultType="Map" parameterType="String">
-        SELECT portfolio_id, title
+    <select id="selectedPortfolioInfoForProfile" resultType="portfolio" parameterType="String">
+        SELECT portfolio_id, title, priority
         FROM portfolio
         WHERE freelancer_id = #{freelancerId} and is_deleted = false and is_temp_saved = false and priority is not null
-        ORDER BY priority asc
+        ORDER BY
+            priority ASC,
+            portfolio_id DESC
     </select>
 
     <!--포츠폴리오 상세 조회-->
@@ -63,11 +65,11 @@
             is_temp_saved = #{isTempSaved}
         WHERE portfolio_id = #{portfolioId}
     </update>
-    <insert id="insertPortfolioComplete" parameterType="portfolio">
+    <insert id="insertPortfolioComplete" parameterType="portfolio" useGeneratedKeys="true" keyProperty="portfolioId">
         INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, port_proj_start, port_proj_end, team_role, skill_description, project_id, attachment, external_url, is_temp_saved)
         VALUES (#{freelancerId}, #{title}, #{thumbnail}, #{introduce}, #{portProjStart}, #{portProjEnd}, #{teamRole}, #{skillDescription}, #{projectId}, #{attachment}, #{externalUrl}, false);
     </insert>
-    <insert id="insertPortfolioIncomplete" parameterType="portfolio"> /*미완인 포폴*/
+    <insert id="insertPortfolioIncomplete" parameterType="portfolio" useGeneratedKeys="true" keyProperty="portfolioId">/*미완인 포폴*/
     INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, is_temp_saved)
     VALUES (#{freelancerId}, #{title}, #{thumbnail}, #{introduce}, #{skillDescription}, #{projectId}, #{attachment}, #{externalUrl}, true)
     </insert>

@@ -20,6 +20,8 @@ header {
   align-items: center;
   color: #940683;
   font-size: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .section-row {

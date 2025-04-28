@@ -3,7 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.subCategory">
-    <select id="selectSubCategoriesByCategoryId" resultType="subCategory" parameterType="Integer">
+    <select id="selectSubCategoriesByCategoryId" resultType="service.freelancer.SubCategory">
+        SELECT sub_category_id AS subCategoryId,
+               sub_category_name AS subCategoryName
+        FROM subCategory
+        WHERE category_id = #{categoryId}
+    </select>
+<!--    <select id="selectSubCategoriesByCategoryId" resultType="subCategory" parameterType="Integer">
     SELECT
         s.sub_category_id,
         c.category_id,
@@ -12,15 +18,16 @@
     FROM
     subCategory s join category c on s.category_id = c.category_id
     WHERE s.category_id = #{categoryId}
-    order by c.category_id asc, s.sub_category_id asc
-    </select>
-    <select id="selectCategoriesAsMap" resultType="category">
+    order by c.category_id, s.sub_category_id
+    </select>-->
+
+    <select id="selectCategoryList" resultType="category">
         SELECT
             category_id AS categoryId,
             category_name AS categoryName
         FROM
             category
-        order by category_id asc
+        order by category_id
     </select>
     <select id="selectCategoryNamesBySubIds" resultType="String">
         SELECT CONCAT(c.category_name, ' > ', s.sub_category_name)

@@ -2,6 +2,7 @@ package service.freelancer;
 import dto.Academic;
 import dto.License;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class InfoSerializer {
             String entry = String.join("^",
                     lc.getLicenseName(),    // 자격증명
                     lc.getLicenseAgency(),   // 발급기관
-                    lc.getLicenseDate(),    // 취득일 (yyyy-MM)
+                    lc.getLicenseDate().toString(),    // 취득일 (yyyy-MM)
                     lc.getLicenseGrade()
             );
             parts.add(entry); // 각 자격증 문자열을 리스트에 추가
@@ -85,9 +86,9 @@ public class InfoSerializer {
             if (fields.length == 4) { // 필드가 모두 있는 경우만 처리
                 License lc = new License();
                 lc.setLicenseName(fields[0]);
-                lc.setLicenseAgency(fields[1]);
-                lc.setLicenseDate(fields[2]);
-                lc.setLicenseGrade(fields[3]);
+                lc.setLicenseGrade(fields[1]);
+                lc.setLicenseAgency(fields[2]);
+                lc.setLicenseDate(Date.valueOf(fields[3]+"-01"));
                 list.add(lc);
             }
         }

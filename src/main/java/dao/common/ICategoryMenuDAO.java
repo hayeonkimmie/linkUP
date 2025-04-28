@@ -6,6 +6,5 @@ import dto.SubCategory;
 import java.util.List;
 
 public interface ICategoryMenuDAO {
-    List<Category> getAllCategories();
-    List<SubCategory> getAllSubCategories();
+    List<Category> selectAllCategoriesWithSub();
 }

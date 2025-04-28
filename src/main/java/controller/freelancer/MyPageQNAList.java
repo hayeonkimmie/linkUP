@@ -23,7 +23,6 @@ public class MyPageQNAList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String userId = (String) request.getAttribute("userId");
-        userId = "free002"; // 로그인 구현 이후 빼기
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
         Integer page = null;
@@ -44,7 +43,7 @@ public class MyPageQNAList extends HttpServlet {
                 request.setAttribute("pageInfo", pageInfo);
                 request.setAttribute("QnAList", QnAList);
             } else if (QnACnt == 0){
-                request.setAttribute("QnAList", 0);
+                request.setAttribute("QnAList", null);
             }
         } catch(Exception e) {
             e.printStackTrace();

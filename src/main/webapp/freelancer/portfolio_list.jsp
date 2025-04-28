@@ -29,10 +29,7 @@
 </head>
 
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
-</div>
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -55,7 +52,7 @@
             <!-- 등록된 포트폴리오가 없을 때-->
             <c:choose>
                 <c:when test="${portfolioList eq null}">
-                    <div class="portfolio-empty">
+                    <div class="portfolio-empty empty">
                         <p>등록된 포트폴리오가 없습니다.</p>
                         <p>포트폴리오를 등록해보세요.</p>
                         <button class="add-portfolio" onclick="location.href='${contextPath}/my-page/portfolio-write'">+ 포트폴리오 등록</button>
@@ -66,17 +63,27 @@
                     <c:forEach var="portfolio" items="${portfolioList }">
                         <div class="portfolio-card">
                             <div class="portfolio-content">
-                                <c:choose>
+                                <%--<c:choose>
                                     <c:when test="${portfolio.isTempSaved == true}">
                                         <span class="status writing">작성중</span>
                                     </c:when>
                                     <c:otherwise>
                                         <span class="status completed">작성완료</span>
                                     </c:otherwise>
-                                </c:choose>
+                                </c:choose>--%>
                                 <div class="portfolio-body">
-                                    <div class="thumbnail">
-                                        <img src="image?filename=${portfolio.thumbnail}" alt='프로필 이미지'/></div>
+                                    <div class="list-thumbnail">
+                                        <img
+                                        <c:choose>
+                                            <c:when test="${portfolio.thumbnail ne null}">
+                                            src="image?filename=${portfolio.thumbnail}"
+                                            </c:when>
+                                            <c:otherwise>--%>
+                                                src="../img/no_img.png"
+                                            </c:otherwise>
+                                        </c:choose>
+                                        alt='포트폴리오 썸네일 이미지'/>
+                                    </div>
                                     <div class="portfolio-info">
                                         <h3>
                                             <a href="${contextPath}/my-page/portfolio-detail?id=${portfolio.portfolioId}">${portfolio.title }</a>
@@ -93,7 +100,7 @@
                                     </div>
                                     <div class="actions">
                                         <button class="edit-btn" onclick="location.href='${contextPath}/my-page/portfolio-modify?id=${portfolio.portfolioId }'">수정</button>
-                                        <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId }'">삭제</button>
+                                        <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">삭제</button>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +116,8 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1" var="page">
+                        <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"
+                                   var="page">
                             <c:choose>
                                 <c:when test="${page eq pageInfo.curPage }">
                                     <a href="?page=${page }" class="select">${page }</a>
@@ -134,5 +142,10 @@
         </div>
     </main>
 </div>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,6 +11,7 @@
 </head>
 <body>
 
+<div id="header-placeholder"></div>
 <div class="container">
   <p>${keyword} 검색</p>
   <div class="tab-container">
@@ -22,7 +24,7 @@
           <a href="#">
             <div class="company-card">
               <div class="info">
-                <h2>● ${company.companyName} <span class="rating">⭐⭐⭐⭐⭐ 4.0 (125)</span></h2>
+                <h2>● ${company.companyName} <span class="rating">⭐ 4.0 (125)</span></h2>
                 <p>업종 : ${company.businessType}</p>
                 <p>회사소개 : ${company.companyDescription}</p>
                 <p>대표자명 : ${company.ceo} | 설립일자 : ${company.foundedDate}</p>
@@ -38,6 +40,13 @@
     </c:choose>
   </div>
 </div>
+
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 
 </body>
 </html>

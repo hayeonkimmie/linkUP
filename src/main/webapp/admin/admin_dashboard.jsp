@@ -14,6 +14,9 @@
 <%@ page import="dto.DashboardProject" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="dto.AdminProject" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,14 +33,9 @@
     <div class="cards">
       <div class="card">
         <div class="card-title">이번달 총 거래액</div>
-        <%
-          Integer totalPayment = (Integer) request.getAttribute("totalPayment");
-          Integer totalPaymentFee = (Integer) request.getAttribute("totalPaymentFee");
-          String formattedPayment = String.format("%,d", totalPayment);
-          String formattedPaymentFee = String.format("%,d", totalPaymentFee);
-        %>
-        <div class="card-value">₩ <%= formattedPayment %></div>
-<%--        <div class="card-sub">전월 대비 12% 증가</div>--%>
+<%--        <div class="card-value">₩ <%= formattedPayment %></div>--%>
+        <div class="card-value"><fmt:formatNumber value="${totalPayment}" pattern="#,##0원"/></div>
+<%--        <td><fmt:formatNumber value="${h.pay}" pattern="#,##0원"/></td>--%>
       </div>
       <div class="card">
         <div class="card-title">진행중인 프로젝트</div>
@@ -46,8 +44,8 @@
       </div>
       <div class="card">
         <div class="card-title">정산된 수수료</div>
-        <div class="card-value">₩ <%= formattedPaymentFee %></div>
-<%--        <div class="card-sub">전월 대비 15건 증가</div>--%>
+        <div class="card-value"><fmt:formatNumber value="${totalPaymentFee}" pattern="#,##0원"/></div>
+<%--        <div class="card-value">₩ <%= formattedPaymentFee %></div>--%>
       </div>
     </div>
 
@@ -70,23 +68,20 @@
         </tr>
         </thead>
         <tbody>
-        <%
-          List<AdminProject> list = (List<AdminProject>) request.getAttribute("ongoingProjects");
-          NumberFormat nf = NumberFormat.getInstance();
-          for (AdminProject p : list) {
-        %>
-        <tr>
-          <td><%= p.getProjectId() %></td>
-          <td><%= p.getProjectName() %></td>
-          <td>₩<%= nf.format(p.getTotalAmount()) %></td>
-          <td>₩<%= nf.format(p.getTotalFee()) %></td>
-          <td>₩<%= nf.format(p.getTotalSettlement()) %></td>
-          <td><span class="status 진행중"><%= p.getSettleStatus() %></span></td>
-          <td><%= p.getProjectManager() %></td>
-          <td><%= p.getProjectDuration() %></td>
-        </tr>
-        <% } %>
+        <c:forEach var="p" items="${ongoingProjects}">
+          <tr>
+            <td>${p.projectId}</td>
+            <td>${p.projectName}</td>
+            <td><fmt:formatNumber value="${p.totalAmount}" type="currency" pattern="#,##0원"/></td>
+            <td><fmt:formatNumber value="${p.totalFee}" type="currency" pattern="#,##0원"/></td>
+            <td><fmt:formatNumber value="${p.totalSettlement}" type="currency" pattern="#,##0원"/></td>
+            <td><span class="status 진행중">${p.settleStatus}</span></td>
+            <td>${p.projectManager}</td>
+            <td>${p.projectDuration}</td>
+          </tr>
+        </c:forEach>
         </tbody>
+
       </table>
     </div>
   </div>

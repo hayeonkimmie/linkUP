@@ -13,12 +13,10 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_project_review.css'/>">
     <script src="${contextPath}/js/freelancer_my_page_project_review_write.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
-</div>
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -124,5 +122,38 @@
 </div> <!-- tab-content-container -->
 </div> <!-- content -->
 </div> <!-- container -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll("form").forEach(form => {
+            const stars = form.querySelectorAll('.rating-select .star');
+            const starInput = form.querySelector('input[name="star"]');
+
+            stars.forEach(star => {
+                star.addEventListener('click', function () {
+                    const value = this.getAttribute('data-value');
+                    starInput.value = value;
+
+                    // 색칠: 선택된 값 이하 별은 강조 색상으로
+                    stars.forEach(s => {
+                        s.style.color = s.getAttribute('data-value') <= value ? '#d35fc5' : '#ccc';
+                    });
+                });
+
+                // 초기 렌더링 시 선택된 별 점수 색칠 처리
+                if (starInput.value) {
+                    const selectedValue = starInput.value;
+                    stars.forEach(s => {
+                        s.style.color = s.getAttribute('data-value') <= selectedValue ? '#d35fc5' : '#ccc';
+                    });
+                }
+            });
+        });
+    });
+</script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

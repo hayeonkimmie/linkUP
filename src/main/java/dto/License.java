@@ -1,5 +1,6 @@
 package dto;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,14 +8,14 @@ import java.util.stream.Collectors;
 public class License {
     private String licenseName;
     private String licenseAgency;
-    private String licenseDate;
+    private Date licenseDate;
     private String licenseGrade;
 
     public License() {
         super();
     }
 
-    public License(String licenseName, String licenseAgency, String licenseDate, String licenseGrade) {
+    public License(String licenseName, String licenseAgency, Date licenseDate, String licenseGrade) {
         super();
         this.licenseName = licenseName;
         this.licenseDate = licenseDate;
@@ -30,11 +31,11 @@ public class License {
         this.licenseName = licenseName;
     }
 
-    public String getLicenseDate() {
+    public Date getLicenseDate() {
         return licenseDate;
     }
 
-    public void setLicenseDate(String licenseDate) {
+    public void setLicenseDate(Date licenseDate) {
         this.licenseDate = licenseDate;
     }
 
@@ -52,5 +53,15 @@ public class License {
 
     public void setLicenseGrade(String licenseGrade) {
         this.licenseGrade = licenseGrade;
+    }
+
+    @Override
+    public String toString() {
+        return "License{" +
+                "licenseName='" + licenseName + '\'' +
+                ", licenseAgency='" + licenseAgency + '\'' +
+                ", licenseDate=" + licenseDate +
+                ", licenseGrade='" + licenseGrade + '\'' +
+                '}';
     }
 }

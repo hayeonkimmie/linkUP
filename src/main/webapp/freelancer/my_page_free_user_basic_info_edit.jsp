@@ -6,17 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
+    <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <link rel="stylesheet" href="${contextPath}/css/freelancer/freelancer_my_page.css"/>
     <link rel="stylesheet" href="${contextPath}/css/freelancer/freelancer_my_page_info_edit.css"/>
-    <script src="${contextPath}/js/freelancer_my_page_info_edit.js"></script>
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css"/>
 </head>
-
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
-</div>
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -40,12 +36,18 @@
                     <h3>기본 정보 설정</h3>
                 </div>
             </div>
-            <form action="${contextPath}/my-page/edit-info?type=basic" method="post" enctype="multipart/form-data">
+            <form action="${contextPath}/my-page/edit-basic-info" method="post" enctype="multipart/form-data">
                 <div class="img names">
                     <div class="form-row profile-upload">
                         <div class="profile-box ">
                             <label for="profileImg" class="upload-placeholder">
-                                <img id="preview" class="preview-img" src="/image?filename=${freelancer.profileImg}" alt="프로필 사진"/>
+                                <img id="preview" class="preview-img"
+                                <c:choose>
+                                    <c:when test="${freelancer.profileImg} ne null"> src="../img/${freelancer.profileImg}"</c:when>
+                                    <c:otherwise> src= "../img/basic_profile_img.png"</c:otherwise>
+                                </c:choose> alt="프로필 사진"/>
+                                <%--<img id="preview" class="preview-img" src="/image?filename=${freelancer.profileImg}"
+                                     alt="프로필 사진"/>--%>
                             </label>
                             <input type="file" name="profileImg" id="profileImg" accept="image/*"
                                    style="display:none" value="${freelancer.profileImg}" onchange="readURL(this)">
@@ -54,11 +56,15 @@
                     <div class="form-row profile-info">
                         <div>
                             <span>이름</span>
-                            <input type="text" placeholder="이름" value="${freelancer.name}" name="name" class="required" required/>
+                            <input type="text" placeholder="이름" value="${freelancer.name}" name="name" class="required"
+                                   required/>
                         </div>
                         <div>
                             <span>닉네임</span>
-                            <input type="text" placeholder="닉네임" value="${freelancer.nickname}" name="nickname" class="required" required/>
+                            <input type="text" placeholder="닉네임" value="${freelancer.nickname}" id="nickname"
+                                   name="nickname" class="required" required/>
+                            <%--<button type="button" id="checkNicknameBtn">중복 체크</button>--%>
+                            <span id="nicknameCheckResult"></span>
                         </div>
                         <div>
                             <span>아이디</span>
@@ -68,31 +74,45 @@
                 </div>
 
                 <div class="form-row">
-                    <input type="email" id="email" name="email" placeholder="이메일" value="${freelancer.email}" required class="required" disabled/>
+                    <input type="email" id="email" name="email" placeholder="이메일" value="${freelancer.email}" required
+                           class="required" readonly/>
                 </div>
 
                 <div class="form-row">
-                    <input type="text" name="phoneNum" id="phone" placeholder="휴대폰 번호" value="${freelancer.phoneNum}" required class="required" maxlength="13"/>
+                    <input type="text" name="phoneNum" id="phone" placeholder="휴대폰 번호" value="${freelancer.phoneNum}"
+                           required class="required" maxlength="13" readonly/>
                 </div>
 
                 <div class="form-row">
-                    <input type="text" name="address" placeholder="주소" value="${freelancer.address}" required class="required"/>
+                    <input type="text" id="address" name="address" placeholder="주소" onclick="execDaumPostcode()"
+                           required value="${freelancer.address}" readonly="readonly" class="required"/>
+
                 </div>
 
                 <h3>비밀번호</h3>
                 <div class="form-row">
                     <input type="password" placeholder="현재 비밀번호" id="currPassword" value=""/>
+                    <%--<button id="checkPasswordBtn" type="button">비밀번호 확인</button>--%>
+                    <div id="passwordCheckResult" style="margin-top: 5px; font-size: 0.9em;"></div>
+
                 </div>
                 <div class="form-row">
-                    <input type="password" name="newPassword" placeholder="새 비밀번호" value="" id="newPassword" oninput="checkPasswordMatch()" disabled/>
-                    <input type="password" placeholder="새 비밀번호 확인" value="" id="confirmNewPassword" oninput="checkPasswordMatch()" disabled/>
+                    <input type="password" name="newPassword" placeholder="새 비밀번호" value="" id="newPassword"
+                            disabled/>
+                    <input type="password" placeholder="새 비밀번호 확인" value="" id="confirmNewPassword"
+                          disabled/>
+                    <span id="passwordMatchResult"></span>
                 </div>
-                <div class="form-row" id="warning" style="display: none; font-size:small; font-weight: bolder; color:red;">비밀번호가 일치하지 않습니다.</div>
+<%--                <div class="form-row" id="warning"
+                     style="display: none; font-size:small; font-weight: bolder; color:red;">비밀번호가 일치하지 않습니다.
+                </div>--%>
                 <h3>계좌번호</h3>
                 <div class="form-row" id="CheckBank">
                     <label for="bank">은행</label>
-                    <input type="text" name="bank" id="bank" value="${freelancer.bank}" required disabled/>
-                    <input type="text" placeholder="현재 계좌번호" name="accountNum" id="accountNum" value="${freelancer.accountNum}" disabled required/>
+                    <input type="text" name="bank" id="bank" value="${freelancer.bank}" required readonly/>
+                    <input type="text" id="accountNumberDisplay" placeholder="계좌번호 입력" maxlength="20"
+                           value="${freelancer.accountNum}" disabled required/>
+                    <input type="hidden" id="accountNumberReal" name="accountNum" value="${freelancer.accountNum}"/>
                 </div>
                 <div id="errorMsg" style="color: red; margin-bottom: 10px;"></div>
                 <div class="form-row center">
@@ -102,132 +122,135 @@
         </section>
     </main>
 </div>
+
 <script>
-    const previewImg = document.getElementById('preview');
-    const profileInput = document.getElementById('profileImg');
-    const emailInput = document.getElementById('email');
-    const phoneInput = document.getElementById('phone');
-    const currPasswordInput = document.getElementById('currPassword');
-    const newPasswordInput = document.getElementById('newPassword');
-    const confirmNewPasswordInput = document.getElementById('confirmNewPassword');
-    const bankInput = document.getElementById('bank');
-    const accountNumInput = document.getElementById('accountNum');
-    const warning = document.getElementById('warning');
-    const errorMsg = document.getElementById('errorMsg');
-    const submitBtn = document.getElementById('submitBtn');
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                console.log(data);
 
-    let originalBank = '';
-    let originalAccountNum = '';
-    let hasInteractedWithPassword = false;
+                // 주소 변수
+                let addr = '';
 
-    // 프로필 이미지 미리보기
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                previewImg.src = e.target.result;
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
+                // 도로명 주소 선택 시
+                if (data.userSelectedType === 'R') {
+                    addr = data.roadAddress;
+                } else { // 지번 주소 선택 시
+                    addr = data.jibunAddress;
+                }
+
+                // 선택된 주소만 #address 필드에 입력
+                document.getElementById('address').value = addr;
+            }
+        }).open();
     }
+</script>
+<script src="${contextPath}/js/freelancer_my_page_info_edit_basic.js"></script>
+<%--<script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-    // 전화번호 하이픈 자동 포맷팅
-    function formatPhoneNumber(value) {
-        const digits = value.replace(/[^0-9]/g, '');
-        if (digits.length < 4) return digits;
-        if (digits.length < 8) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
-        return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`;
-    }
-
-    // 현재 비밀번호가 올바른지
-    function isValidCurrentPassword() {
-        if (!hasInteractedWithPassword) return false;
-        return currPasswordInput.value === `${freelancer.password}`;
-    }
-
-    // 새 비밀번호와 확인값이 일치하는지
-    function isNewPasswordConfirmed() {
-        return newPasswordInput.value === confirmNewPasswordInput.value;
-    }
-
-    //  새 비밀번호 일치 여부 경고 표시
-    function updatePasswordWarning() {
-        warning.style.display = isNewPasswordConfirmed() ? 'none' : 'block';
-    }
-
-    // 민감 필드 disabled 설정
-    function setSensitiveFieldsDisabled(disabled) {
-        newPasswordInput.disabled = disabled;
-        confirmNewPasswordInput.disabled = disabled;
-        bankInput.disabled = disabled;
-        accountNumInput.disabled = disabled;
-        emailInput.disabled = disabled;
-    }
-
-    // 전체 유효성 검사
-    function validateForm() {
-        const allRequiredFilled = Array.from(document.querySelectorAll('.required')).every(input => input.value.trim() !== '');
-        const passwordValid = isValidCurrentPassword();
-
-        if (!passwordValid) {
-            setSensitiveFieldsDisabled(true);
-            errorMsg.textContent = hasInteractedWithPassword ? '비밀번호를 정확히 입력해주세요.' : '';
-            submitBtn.disabled = true;
-            return;
-        }
-
-        setSensitiveFieldsDisabled(false);
-        errorMsg.textContent = '';
-
-        const passwordConfirmed = !newPasswordInput.value || isNewPasswordConfirmed();
-        const accountValid = !isAccountModified() || passwordValid;
-
-        submitBtn.disabled = !(allRequiredFilled && passwordConfirmed && accountValid);
-    }
-
-    // 계좌 변경 여부 확인
-    function isAccountModified() {
-        return bankInput.value !== originalBank || accountNumInput.value !== originalAccountNum;
-    }
-
-    // 이벤트 바인딩
-    function initEventListeners() {
-        profileInput.addEventListener('change', () => readURL(profileInput));
-
-        phoneInput.addEventListener('input', (e) => {
-            e.target.value = formatPhoneNumber(e.target.value);
-        });
-
-        currPasswordInput.addEventListener('focus', () => {
-            hasInteractedWithPassword = true;
-        });
-
-        currPasswordInput.addEventListener('input', () => {
-            hasInteractedWithPassword = true;
-            updatePasswordWarning();
-            validateForm();
-        });
-
-        [newPasswordInput, confirmNewPasswordInput, bankInput, accountNumInput].forEach(input => {
-            input.addEventListener('input', () => {
-                updatePasswordWarning();
-                validateForm();
+        // 닉네임 중복 확인
+        document.getElementById("checkNicknameBtn").addEventListener("click", function () {
+            const nickname = document.getElementById("nickname").value;
+            fetch(contextPath + "/check-nickname", {
+                method: "POST",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: "nickname=" + encodeURIComponent(nickname)
+            })
+            .then(res => res.text())
+            .then(data => {
+                console.log(data)
+                document.getElementById("nicknameCheckResult").textContent =
+                    data === "true" ? "사용 가능한 닉네임입니다." : "이미 사용 중인 닉네임입니다.";
             });
         });
 
-        document.querySelectorAll('.required').forEach(input => {
-            input.addEventListener('input', validateForm);
+        // 비밀번호 확인
+        document.getElementById("checkPasswordBtn").addEventListener("click", function () {
+            const password = document.getElementById("currPassword").value;
+            fetch(contextPath + "/check-password", {
+                method: "POST",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: "password=" + encodeURIComponent(password)
+            })
+            .then(res => res.text())
+            .then(data => {
+                const isPasswordCorrect = data === "true";
+                document.getElementById("passwordCheckResult").textContent =
+                    isPasswordCorrect ? "비밀번호가 일치합니다." : "비밀번호가 틀립니다.";
+                if (isPasswordCorrect) {
+                    document.getElementById("newPassword").disabled = false;
+                    document.getElementById("confirmNewPassword").disabled = false;
+                    document.getElementById("bank").disabled = false;
+                    document.getElementById("accountNumberDisplay").disabled = false;
+                }
+                /*else{
+                    document.getElementById("newPassword").disabled = true;
+                    document.getElementById("confirmNewPassword").disabled = true;
+                    document.getElementById("bank").disabled = true;
+                    document.getElementById("accountNumberDisplay").disabled = true;
+                }*/
+            });
         });
-    }
 
-    // 초기 설정
-    window.onload = () => {
-        originalBank = bankInput.value;
-        originalAccountNum = accountNumInput.value;
-        setSensitiveFieldsDisabled(true); // 최초에 모두 비활성화
-        initEventListeners();
-        validateForm();
-    };
-</script>
+        document.getElementById("accountNumberDisplay").addEventListener("input", function (e) {
+            const raw = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 추출
+            const realInput = document.getElementById("accountNumberReal");
+            // 실제 서버 전송용 값 설정
+            realInput.value = raw;
+            // 마스킹 처리
+            let masked = "";
+            if (raw.length <= 3) {
+                masked = raw;
+            } else if (raw.length <= 7) {
+                masked = raw.slice(0, 3) + "-" + "*".repeat(raw.length - 3);
+            } else if (raw.length <= 13) {
+                const visible = raw.slice(0, 3) + "-" + "*".repeat(4) + "-" + raw.slice(7);
+                masked = visible;
+            } else {
+                masked = raw; // 너무 길면 그냥 출력
+            }
+            e.target.value = masked;
+        });
+    });
+</script>--%>
+
+<%--<script>--%>
+<%--    document.querySelector(".settlement-save-btn").addEventListener("click", () => {--%>
+<%--        const updates = [];--%>
+<%--        document.querySelectorAll("tbody tr").forEach(row => {--%>
+<%--            const projectId = row.querySelector("[name='projectId']")?.value;--%>
+<%--            const status = row.querySelector(".settlement-status-select")?.value;--%>
+<%--            if (projectId && status) {--%>
+<%--                updates.push({ projectId, status });--%>
+<%--            }--%>
+<%--        });--%>
+<%--        fetch("/linkup/admin/update-client-status", {--%>
+<%--            method: "PUT",--%>
+<%--            headers: {--%>
+<%--                "Content-Type": "application/json"--%>
+<%--            },--%>
+<%--            body: JSON.stringify(updates)--%>
+<%--        })--%>
+<%--            .then(res => {--%>
+<%--                if (res.ok) {--%>
+<%--                    alert("결산 상태가 저장되었습니다.");--%>
+<%--                    location.reload();--%>
+<%--                } else {--%>
+<%--                    alert("❌ 저장 실패");--%>
+<%--                }--%>
+<%--            })--%>
+<%--            .catch(err => {--%>
+<%--                console.error("❌ 오류 발생:", err);--%>
+<%--            });--%>
+<%--    });--%>
+<%--</script>--%>
+
 </body>
 </html>

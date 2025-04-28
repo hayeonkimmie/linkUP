@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>구인 등록</title>
-  <link rel="stylesheet" href="../css/home/headerLoginSt.css" />
+  <link rel="stylesheet" href="../css/common/headerLoginSt.css" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="${contextPath}/css/home/makeProject.css">
   <script>
@@ -197,7 +197,7 @@
   </script>
 </head>
 <body>
-<div id="header-login-placeholder"></div>
+<div id="header-placeholder"></div>
 <div class="bg-gray-50 p-6">
 
   <br>
@@ -357,6 +357,11 @@
     </form>
   </div>
 </div>
-<script src="../js/headerLogin.js"></script>
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

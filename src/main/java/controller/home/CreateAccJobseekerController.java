@@ -51,7 +51,7 @@ public class CreateAccJobseekerController extends HttpServlet {
         int result = userDAO.insertUser(user);
 
         if (result > 0) {
-            response.sendRedirect(request.getContextPath() + "/home/main.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         } else {
             response.sendRedirect(request.getContextPath() + "/error/error.jsp");
         }

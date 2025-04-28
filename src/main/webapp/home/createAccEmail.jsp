@@ -18,7 +18,7 @@
 <body>
 <div class="container">
   <a href="${contextPath}/home/main.jsp" class="logo">
-    <img src="../img/링크업 로고.png" alt="Link up 로고">
+    <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
   </a>
   <p>링크업에서 어떤 서비스를<br>이용하고 싶으신가요?</p>
   <div class="subtitle">원하는 회원가입 유형을 선택하세요.</div>

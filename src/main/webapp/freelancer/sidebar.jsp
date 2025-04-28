@@ -15,25 +15,25 @@
         <%--            <img src="<c:url value='/img/${user.profile_img}' />" alt="${user.nickname }님의 프로필 이미지" />
                     <p>${user.nickname }</p>--%>
         <img src="${contextPath}/img/basic_profile_img.png" alt="프로필 이미지" />
-        <p>닉네임</p>
+        <p><%= session.getAttribute("userId") %>&nbsp;</p>
         <p>마이페이지</p>
     </div>
     <ul id="side-menu">
         <li class="profile-settings">
             <h3>프로필 설정</h3>
-            <a href="${contextPath}/my-page/edit-info?type=basic">기본 정보 설정</a>
-            <a href="${contextPath}/my-page/edit-info?type=expert">전문가 정보 설정</a>
+            <a href="${contextPath}/my-page/edit-basic-info">기본 정보 설정</a>
+            <a href="${contextPath}/my-page/edit-expert-info">전문가 정보 설정</a>
         </li>
         <li><a href="${contextPath}/my-page/portfolio-list"><h3>포트폴리오</h3></a></li>
         <li><h3><a href="${contextPath}/my-page/project-jjim-list">찜한 프로젝트</a></h3></li>
         <li><h3><a href="${contextPath}/my-page/apply-proj-list">지원한 프로젝트 내역</a></h3></li>
         <li><h3><a href="${contextPath}/my-page/project-status">진행중인 / 완료된 프로젝트</a></h3></li>
 
-        <li class="review-lists">
+        <%--<li class="review-lists">
             <h3>프로젝트 후기</h3>
             <a href="${contextPath}/my-page/project-review">리뷰 조회 및 수정</a>
             <a href="${contextPath}/my-page/project-review-write">리뷰 작성</a>
-        </li>
+        </li>--%>
         <li><h3><a href="${contextPath}/my-page/qna-list">문의내역</a></h3></li>
     </ul>
 </aside>
@@ -41,14 +41,14 @@
     window.addEventListener('DOMContentLoaded', function () {
         const currentPath = window.location.pathname;
         const pathList = [
-            '/edit-info?type=basic',
-            '/edit-info?type=expert',
+            '/edit-basic-info',
+            '/edit-expert-info',
             '/portfolio-list',
             '/apply-proj-list',
             '/project-jjim-list',
             '/project-status',
-            '/project-review',
-            '/project-review-write',
+/*            '/project-review',
+            '/project-review-write',*/
             '/qna-list'
         ];
 

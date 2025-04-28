@@ -93,7 +93,7 @@
 
 <aside>
   <!-- ✅ 타이틀 및 아이콘 -->
-  <div class="sidebar-title">
+  <div class="sidebar-title" >
     <span id="sidebarIcon" class="sidebar-icon">📊</span>
     <span id="sidebarTitleText">대시 보드</span>
   </div>
@@ -127,8 +127,9 @@
     <div class="submenu" id="settlementMenu">
       <a href="<c:url value='/admin/settlement?type=list'/>"
          onclick="setSidebar('정산 목록', '📄')" id="settleListLink">정산 대상</a>
-      <a href="<c:url value='/admin/settlement?type=detail'/>"
-         onclick="setSidebar('프로젝트 정산', '💰')" id="makeSettlementLink">정산 내역</a>
+      <a href="<c:url value='/admin/settlement-history'/>"
+         onclick="setSidebar('정산 내역', '💰')" id="makeSettlementLink">정산 내역</a>
+
     </div>
   </div>
 

@@ -19,6 +19,11 @@ public class Freelancer {
     Date registrationDate;
     Date withdrawalDate;
     boolean acceptConsent;
+    private int subCategoryId;
+    private String subCategoryName;
+    private int categoryId;
+    private String categoryName;
+    private double avgStar; //  평균 별점
 
     // User Type 04.18 15:02 추가
     String type;
@@ -39,13 +44,14 @@ public class Freelancer {
     String desiredLocation;
     String otherRequest;
     String attachment;
+    String externalUrl;
+    List<String> externalUrlList;
+    List<String> attachmentList;
 
-
-    Map<Integer, String> portfolioInfoMap;
+    List<Portfolio> portfolioInfoList;
     double averageScore; //평점
     int projectCount; //프로젝트 수
 
-    private double avgStar; // ⭐ 평균 별점
 
     public double getAvgStar() {
         return avgStar;
@@ -235,19 +241,19 @@ public class Freelancer {
         this.accountNum = accountNum;
     }
 
-    public boolean isNegotiable() {
+    public boolean getIsNegotiable() {
         return isNegotiable;
     }
 
-    public void setNegotiable(boolean negotiable) {
+    public void setIsNegotiable(boolean negotiable) {
         isNegotiable = negotiable;
     }
 
-    public boolean isResident() {
+    public boolean getIsResident() {
         return isResident;
     }
 
-    public void setResident(boolean resident) {
+    public void setIsResident(boolean resident) {
         isResident = resident;
     }
 
@@ -283,6 +289,30 @@ public class Freelancer {
         this.attachment = attachment;
     }
 
+    public String getExternalUrl() {
+        return externalUrl;
+    }
+
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
+    }
+
+    public List<String> getExternalUrlList() {
+        return externalUrlList;
+    }
+
+    public void setExternalUrlList(List<String> externalUrlList) {
+        this.externalUrlList = externalUrlList;
+    }
+
+    public List<String> getAttachmentList() {
+        return attachmentList;
+    }
+
+    public void setAttachmentList(List<String> attachmentList) {
+        this.attachmentList = attachmentList;
+    }
+
     public double getAverageScore() {
         return averageScore;
     }
@@ -298,11 +328,11 @@ public class Freelancer {
     public void setProjectCount(int projectCount) {
         this.projectCount = projectCount;
     }
-    public Map<Integer, String> getPortfolioInfoMap() {
-        return portfolioInfoMap;
+    public List<Portfolio> getPortfolioInfoList() {
+        return portfolioInfoList;
     }
-    public void setPortfolioInfoMap(Map<Integer, String> portfolioInfoMap) {
-        this.portfolioInfoMap = portfolioInfoMap;
+    public void setPortfolioInfoList(List<Portfolio> portfolioInfoList) {
+        this.portfolioInfoList = portfolioInfoList;
     }
 
 
@@ -320,6 +350,54 @@ public class Freelancer {
 
     public void setLicenseList(List<License> licenseList) {
         this.licenseList = licenseList;
+    }
+
+    public int getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(int subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public boolean isNegotiable() {
+        return isNegotiable;
+    }
+
+    public void setNegotiable(boolean negotiable) {
+        isNegotiable = negotiable;
+    }
+
+    public boolean isResident() {
+        return isResident;
+    }
+
+    public void setResident(boolean resident) {
+        isResident = resident;
     }
 
     @Override
@@ -355,7 +433,8 @@ public class Freelancer {
                 ", desiredLocation='" + desiredLocation + '\'' +
                 ", otherRequest='" + otherRequest + '\'' +
                 ", attachment='" + attachment + '\'' +
-                ", portfolioInfoMap=" + portfolioInfoMap +
+                ", externalUrl='" + externalUrl + '\'' +
+                ", portfolioInfoList=" + portfolioInfoList +
                 ", averageScore=" + averageScore +
                 ", projectCount=" + projectCount +
                 '}';

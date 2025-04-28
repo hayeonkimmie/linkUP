@@ -8,17 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>문의 내역 - Link up</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">
+<%--    <link rel="stylesheet" href="<c:url value='/css/headerSt.css'/>">--%>
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_qna_log.css'/>">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
-</div>
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -31,7 +29,7 @@
                 </div>
             </div>
             <c:choose>
-                <c:when test="${empty QnAList}">
+                <c:when test="${QnAList ne null}">
                     <div class="qna-empty empty">
                         <p>등록된 문의사항이 없습니다.</p>
                     </div>
@@ -89,30 +87,30 @@
                     <div class="pagination" id="paging">
                         <c:choose>
                             <c:when test="${pageInfo.curPage > 1}">
-                                <a href="?page=${pageInfo.curPage-1 }">&lt;</a>
+                                <a href="?page=${pageInfo.curPage - 1}">&lt;</a>
                             </c:when>
                             <c:otherwise>
                                 <a>&lt;</a>
                             </c:otherwise>
                         </c:choose>
 
-                        <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1" var="page">
+                        <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
                             <c:choose>
-                                <c:when test="${page eq pageInfo.curPage }">
-                                    <a href="?page=${page }" class="select">${page }</a>
+                                <c:when test="${page eq pageInfo.curPage}">
+                                    <a href="?page=${page}" class="select">${page}</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="?page=${page }" class="btn">${page }</a>
+                                    <a href="?page=${page}" class="btn">${page}</a>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
 
                         <c:choose>
-                            <c:when test="${pageInfo.curPage<pageInfo.allPage }">
-                                <a href="?page=${pageInfo.curPage+1 }">&gt;</a>
+                            <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+                                <a href="?page=${pageInfo.curPage + 1}">1&gt;</a>
                             </c:when>
                             <c:otherwise>
-                                <a>&lt;</a>
+                                <a>&gt;</a>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -143,4 +141,9 @@
         });
     });
 </script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </html>

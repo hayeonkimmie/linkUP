@@ -2,10 +2,7 @@ package service.freelancer;
 
 import dao.freelancer.FreelancerDAO;
 import dao.freelancer.IFreelancerDAO;
-import dto.Academic;
-import dto.Career;
-import dto.Freelancer;
-import dto.License;
+import dto.*;
 
 import java.util.List;
 import java.util.Map;
@@ -28,13 +25,19 @@ public class FreelancerService implements IFreelancerService{
     @Override
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception {
         Freelancer freelancer = ifreelancerDAO.selectExpertFreelancerById(freelancerId);
+        freelancer.setPortfolioInfoList(selectedPortfolioListForProfile(freelancerId));
         System.out.println("FreelancerService.java 31 freelancer "+freelancer);
         return freelancer;
     }
 
     @Override
-    public Map<Integer, String> selectAllportfolioInfoMap(String freelancerId) throws Exception {
+    public Map<Integer, String> selectAllPortfolioInfoMap(String freelancerId) throws Exception {
         return ifreelancerDAO.selectAllportfolioInfoMap(freelancerId);
+    }
+
+    @Override
+    public List<Portfolio> selectedPortfolioListForProfile(String freelancerId) throws Exception {
+        return ifreelancerDAO.selectedPortfolioListForProfile(freelancerId);
     }
 
 
@@ -54,7 +57,7 @@ public class FreelancerService implements IFreelancerService{
             freelancer.setProfileImg(curProfileImg);
         }
         ifreelancerDAO.updateUserProfile(freelancer);
-        System.out.println("FreelancerService.java 56 + updateFreelancer");
+        System.out.println("FreelancerService.java 56 + updateFreelancer 동작완료");
     }
 
     @Override

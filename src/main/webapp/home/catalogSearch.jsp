@@ -18,10 +18,7 @@
   <link rel="stylesheet" href="${contextPath}/css/home/catalog.css">
 </head>
 <body>
-
 <div id="header-placeholder"></div>
-
-
 <div class="container">
   <main class="main">
     <h1 class="breadcrumb"> KOSTA 검색결과</h1>

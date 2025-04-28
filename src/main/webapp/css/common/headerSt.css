@@ -9,6 +9,8 @@ body {
   border-bottom: 1px solid #eee;
   padding: 10px 20px;
   background-color: white;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .header-header-container {

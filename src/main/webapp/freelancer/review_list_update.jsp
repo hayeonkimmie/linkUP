@@ -12,15 +12,11 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_project_review.css'/>">
     <script src="${contextPath}/js/freelancer_my_page_project_review.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
-<!-- 헤더 include -->
-<!--#include file="header.html" -->
 
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="/common/header.jsp"/>
-</div>
+<div id="header-placeholder"></div>
 <div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -161,7 +157,7 @@
                                             <button type="submit" class="btn light">수정</button>
                                         </div>
                                     </form>
-                                    <button type="button" class="btn delete-btn" data-id="${review.reviewId}">삭제
+                                    <%--<button type="button" class="btn delete-btn" data-id="${review.reviewId}">삭제--%>
                                     </button>
                                 </div>
                             </c:forEach>
@@ -203,6 +199,11 @@
         </div><!-- tab-content-container -->
     </div> <!-- content -->
 </div> <!-- container -->
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll("form").forEach(form => {

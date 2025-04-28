@@ -18,6 +18,8 @@ header {
   align-items: center;
   color: #940683;
   font-size: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .logo-user-container {
@@ -341,4 +343,9 @@ a {
   object-fit: cover;
   background-color: black;
   border-radius: 20px;
+}
+
+.user-section .profile-wrapper .username {
+  color: #505050 !important;
+  font-size: 18px !important;
 }

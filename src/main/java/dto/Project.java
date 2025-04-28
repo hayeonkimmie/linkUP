@@ -5,7 +5,6 @@ import java.util.Date;
 public class Project {
     int projectId;
     String clientId;
-    String category;
     String advertisementTitle;
     String projectName;
     String thumbnail;
@@ -22,10 +21,38 @@ public class Project {
     Date settleDay;
     String manager;
     String mphone; // 이건 이미 카멜표기법에 맞음
-
+    private int subCategoryId;
+    private String subCategoryName;
+    private String categoryName;
 
     public Project() {
 
+    }
+
+    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String profileImg, double avgStar) {
+        this.projectId = projectId;
+        this.clientId = clientId;
+        this.advertisementTitle = advertisementTitle;
+        this.projectName = projectName;
+        this.thumbnail = thumbnail;
+        this.duration = duration;
+        this.createdDate = createdDate;
+        this.deadlineDate = deadlineDate;
+        this.projectDescription = projectDescription;
+        this.jobDetails = jobDetails;
+        this.workingMethod = workingMethod;
+        this.workingEnvironment = workingEnvironment;
+        this.workingHours = workingHours;
+        this.qualification = qualification;
+        this.preferentialConditions = preferentialConditions;
+        this.settleDay = settleDay;
+        this.manager = manager;
+        this.mphone = mphone;
+        this.subCategoryId = subCategoryId;
+        this.subCategoryName = subCategoryName;
+        this.categoryName = categoryName;
+        this.profileImg = profileImg;
+        this.avgStar = avgStar;
     }
 
     public Project(String mphone, String manager, Date settleDay, String preferentialConditions, String qualification, String workingHours, String workingEnvironment, String workingMethod, String jobDetails, String projectDescription, Date deadlineDate, Date createdDate, int duration, String thumbnail, String projectName, String advertisementTitle, String category, String clientId, int projectId) {
@@ -45,7 +72,6 @@ public class Project {
         this.thumbnail = thumbnail;
         this.projectName = projectName;
         this.advertisementTitle = advertisementTitle;
-        this.category = category;
         this.clientId = clientId;
         this.projectId = projectId;
     }
@@ -53,7 +79,6 @@ public class Project {
     public Project(int projectId, String clientId, String category, String advertisementTitle, String projectName, String thumbnail, int duration, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date deadlineDate) {
         this.projectId = projectId;
         this.clientId = clientId;
-        this.category = category;
         this.advertisementTitle = advertisementTitle;
         this.projectName = projectName;
         this.thumbnail = thumbnail;
@@ -66,6 +91,30 @@ public class Project {
         this.qualification = qualification;
         this.preferentialConditions = preferentialConditions;
         this.deadlineDate = deadlineDate;
+    }
+
+    public int getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(int subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     private String profileImg;
@@ -105,13 +154,6 @@ public class Project {
         this.clientId = clientId;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 
     public String getAdvertisementTitle() {
         return advertisementTitle;
@@ -246,7 +288,6 @@ public class Project {
         return "Project{" +
                 "projectId=" + projectId +
                 ", clientId='" + clientId + '\'' +
-                ", category='" + category + '\'' +
                 ", advertisementTitle='" + advertisementTitle + '\'' +
                 ", projectName='" + projectName + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
@@ -263,6 +304,10 @@ public class Project {
                 ", settleDay=" + settleDay +
                 ", manager='" + manager + '\'' +
                 ", mphone='" + mphone + '\'' +
+                ", subCategoryId=" + subCategoryId +
+                ", subCategoryName='" + subCategoryName + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", profileImg='" + profileImg + '\'' +
                 ", avgStar=" + avgStar +
                 '}';
     }

@@ -14,28 +14,32 @@ import java.util.List;
 public class MainController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private IProjectService projectService;
-
-    public MainController() {
-        super();
-        projectService = new ProjectService(); // 서비스 객체 생성
-    }
+    private final IProjectService projectService = new ProjectService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("MainController 들어옴!");
+        System.out.println("MainController 진입");
 
-        // 카테고리별 프로젝트 리스트 가져오기
+        // 세션에서 로그인 여부 확인
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+
+        // 공통 데이터 세팅 (카테고리별 프로젝트)
         List<Project> devProjects = projectService.MainProjectsByCategory("웹 제작");
         List<Project> designProjects = projectService.MainProjectsByCategory("웹 유지보수");
         List<Project> planProjects = projectService.MainProjectsByCategory("프로그램");
 
-        // 각각 따로 request에 담기
         request.setAttribute("devProjects", devProjects);
         request.setAttribute("designProjects", designProjects);
         request.setAttribute("planProjects", planProjects);
 
-        request.getRequestDispatcher("./home/main.jsp").forward(request, response);
+        // 로그인 여부에 따라 JSP 분기
+        String path = "/home/main.jsp";
+        if (userId != null) {
+            path = "/home/mainLoginVersion.jsp";
+        }
+
+        request.getRequestDispatcher(path).forward(request, response);
     }
 
     @Override

@@ -4,9 +4,13 @@ import dao.admin.IContractDAO;
 import dao.admin.IProjectDAO;
 import dao.admin.ISettlementDAO;
 import dto.*;
+import util.PageInfo;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SettlementService implements ISettlementService {
 
@@ -28,10 +32,7 @@ public class SettlementService implements ISettlementService {
         LocalDate targetSettleDate = prepareSettle.getSettleDay().toLocalDate();
         LocalDate today = LocalDate.now();
 
-        System.out.println("\uD83D\uDCC5 정산 대상일: " + targetSettleDate);
-
         if (today.isBefore(targetSettleDate)) {
-            System.out.println("⛔ 아직 정산일 도달 전");
             return null;
         }
 
@@ -40,11 +41,9 @@ public class SettlementService implements ISettlementService {
         int cnt;
 
         if (existingList != null) {
-            System.out.println("⚠️ 동일 정산일의 정산 리스트가 이미 존재함 → cnt: " + existingList.getCnt());
             cnt = existingList.getCnt();
         } else {
             cnt = settlementDAO.getMaxCntByProjectId(projectId) + 1;
-            System.out.println("✅ 새로운 정산일 → 회차 cnt 설정: " + cnt);
         }
 
         Settlelist settlelist = new Settlelist(
@@ -74,13 +73,9 @@ public class SettlementService implements ISettlementService {
         AdminProjectDetail project = projectDAO.selectProjectDetail(projectId);
         for (PrepareSettleJson p : item) {
             AdminPrepareSettle aSettle = contractDAO.selectInfoForSettleById(p.getId());
-
-            // 중복 정산 방지: slist_id + contract_id 기준 체크
             boolean alreadySettled = settlementDAO.existsSettlementBySlistIdAndsettleDate(
-                    settlelist.getSlistId(), aSettle.getSettleDay());
-
+                   settlelist.getClientId(), settlelist.getSlistId(), aSettle.getSettleDay());
             if (alreadySettled) {
-                System.out.println("⚠️ 이미 정산된 계약입니다 → contractId: " + aSettle.getId());
                 continue;
             }
 
@@ -98,8 +93,55 @@ public class SettlementService implements ISettlementService {
                     "정산완료",
                     p.getAccount()
             );
-            System.out.println(settlement);
             settlementDAO.insertSettlement(settlement);
         }
+    }
+
+    @Override
+    public HashMap<Integer, AdminSettleProject> filterProjectsWithUnsettled(HashMap<Integer, AdminSettleProject> fullList) {
+        HashMap<Integer, AdminSettleProject> filtered = new HashMap<>();
+        for (Integer key : fullList.keySet()) {
+            AdminSettleProject p = fullList.get(key);
+            if (p.getTotalContracts() > p.getSettledCount()) {
+                filtered.put(key, p);
+                System.out.println("필터링된 프로젝트 : " + p);
+            }
+        }
+        return filtered;
+    }
+
+    @Override
+    public List<AdminSettleHistory> getHistoryList(String keyword, String startDate, String endDate, int offset, int limit) throws Exception {
+
+        return null;
+    }
+
+    @Override
+    public int countHistory(String keyword, String startDate, String endDate) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("keyword", keyword);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        return settlementDAO.countHistory(param);
+    }
+
+    @Override
+    public List<AdminSettleHistorySummary> selectHistorySummaryList(String keyword, String startDate, String endDate, int offset, int limit) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("keyword", keyword);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        param.put("offset", offset);
+        param.put("limit", limit);
+        return settlementDAO.selectHistorySummaryList(param);
+    }
+
+    @Override
+    public int countHistorySummary(String keyword, String startDate, String endDate) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("keyword", keyword);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        return settlementDAO.countHistorySummary(param);
     }
 }

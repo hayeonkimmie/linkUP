@@ -47,7 +47,32 @@
         FROM settlement
         WHERE slist_id = #{slistId}
           AND settleday = #{settleDate}
+          AND client_id = #{clientId}
     </select>
+
+    <select id="selectSettlementHistoryDetail" parameterType="int" resultType="dto.AdminSettleHistory">
+        SELECT
+            s.slist_id,
+            sl.cnt,
+            p.project_name AS projectName,
+            u.name AS freelancerName,
+            pmanager AS position,
+            s.ammount AS amount,
+            c.account,
+            DATE_FORMAT(c.start_date, '%Y-%m-%d') AS startDate,
+            DATE_FORMAT(c.end_date, '%Y-%m-%d') AS endDate,
+            DATE_FORMAT(sl.settle_date, '%Y-%m-%d') AS settleDate,
+            s.status
+        FROM settlement s
+                 JOIN settlelist sl ON s.slist_id = sl.slist_id
+                 JOIN contract c ON sl.contract_id = c.id
+                 JOIN project p ON sl.project_id = p.project_id
+                 JOIN user u ON c.freelancer_id = u.user_id
+        WHERE sl.slist_id = #{slistId}
+
+        ORDER BY u.name
+    </select>
+
 
 
 </mapper>

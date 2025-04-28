@@ -23,6 +23,6 @@ public class LogoutController extends HttpServlet {
         }
 
         // 로그아웃 후 메인 페이지로 리다이렉트
-        response.sendRedirect(request.getContextPath() + "/home/main.jsp");
+        response.sendRedirect(request.getContextPath() + "/mainPage");
     }
 }
