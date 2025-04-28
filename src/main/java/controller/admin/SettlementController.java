@@ -52,16 +52,9 @@ public class SettlementController extends HttpServlet {
                     }
                     List<SettledInfoDTO> doneList = settlementDAO.selectSettledFreelancers(slistId);
                     List<SettledInfoDTO> waitList = settlementDAO.selectWaitingFreelancers(Integer.parseInt(request.getParameter("projectId")), slistId);
-                    for(SettledInfoDTO dto : doneList) {
-                        System.out.println("정산완료 : " +dto);
-                    }for(SettledInfoDTO dto : waitList) {
-                        System.out.println("정산대기 : " +dto);
-                    }
                     // 월별 리스트 가져오기
-                    List<Map<String, Object>> settlementMonths = settlementDAO.selectAllSettlementMonthsByProjectId(39);
-                    for(Map<String, Object> settlementMonth : settlementMonths) {
-                        System.out.println("정산 월별 리스트 : " + settlementMonth);
-                    }
+                    List<Map<String, Object>> settlementMonths = settlementDAO.selectAllSettlementMonthsByProjectId(Integer.parseInt(request.getParameter("projectId")));
+                    System.out.println("정산 월 데이터 : " +settlementMonths);
                     request.setAttribute("settlementMonths", settlementMonths);
                     request.setAttribute("doneList", doneList);
                     request.setAttribute("totalAmount", pay);

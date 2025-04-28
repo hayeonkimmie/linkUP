@@ -54,6 +54,7 @@
     <select id="selectSettlementHistoryDetail" parameterType="int" resultType="dto.AdminSettleHistory">
         SELECT
             s.slist_id,
+            sl.project_id,
             sl.cnt,
             p.project_name AS projectName,
             u.name AS freelancerName,
@@ -155,11 +156,55 @@
     <select id="selectAllSettlementMonthsByProjectId" parameterType="int" resultType="map">
         SELECT
             cnt,
-            settle_date
+            DATE_FORMAT(DATE_SUB(settle_date, INTERVAL 1 MONTH), '%Y-%m') AS settle_date
         FROM settlelist
         WHERE project_id = #{projectId}
         ORDER BY settle_date DESC
     </select>
 
+    <!-- 완료된 정산 데이터 가져오기 -->
+    <select id="selectSettledFreelancersByMonth" parameterType="map" resultType="dto.SettledInfoDTO">
+        SELECT
+            s.name AS freelancerName,
+            p.category_name AS position,
+            DATEDIFF(s.end_date, s.start_date) DIV 30 + 1 AS duration,
+            s.ammount AS settleAmount,
+            s.status AS status,
+            sl.cnt AS cnt,
+            s.start_date AS startDate,
+            s.end_date AS endDate
+        FROM settlement s
+                 JOIN settlelist sl ON s.slist_id = sl.slist_id
+                 JOIN pay p ON s.category_id = p.project_pay_id
+        WHERE sl.project_id = #{projectId}
+          AND sl.cnt = #{cnt}
+    </select>
+
+    <!-- 대기중인 정산 대상자 가져오기 -->
+    <select id="selectWaitingFreelancersByMonth" parameterType="map" resultType="dto.SettledInfoDTO">
+        SELECT
+            u.name AS freelancerName,
+            p.category_name AS position,
+            DATEDIFF(c.end_date, c.start_date) DIV 30 + 1 AS duration,
+            c.pay AS settleAmount,
+            '대기중' AS status,
+            sl.cnt AS cnt,
+            NULL AS startDate,
+            NULL AS endDate
+        FROM contract c
+                 JOIN apply a ON c.apply_id = a.apply_id
+                 JOIN freelancer f ON c.freelancer_id = f.freelancer_id
+                 JOIN user u ON f.freelancer_id = u.user_id
+                 JOIN pay p ON c.project_pay_id = p.project_pay_id
+                 JOIN settlelist sl ON c.project_id = sl.project_id
+        WHERE c.project_id = #{projectId}
+          AND sl.cnt = #{cnt}
+          AND NOT EXISTS (
+            SELECT 1
+            FROM settlement s
+            WHERE s.category_id = c.project_pay_id
+              AND s.slist_id = sl.slist_id
+        )
+    </select>
 
 </mapper>
