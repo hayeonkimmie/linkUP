@@ -68,21 +68,46 @@
             profile_img = #{profileImg}
         WHERE user_id = #{freelancerId}
     </update>
-    <update id="updateFreelancerProfile" parameterType="freelancer">
-        UPDATE freelancer
-        SET address = #{address},
-            bank = #{bank},
-            account_num = #{accountNum}
+    <delete id="deleteCareerByFreelancerId" parameterType="String">
+        delete from career
         WHERE freelancer_id = #{freelancerId}
-    </update>
-    <update id="updateFreelancerBankInfo" parameterType="freelancer">
+    </delete>
+    <update id="updateFreelancerBankInfo" parameterType="Map">
         UPDATE freelancer
         SET bank = #{bank}, account_num = #{accountNum}
         WHERE freelancer_id = #{freelancerId}
     </update>
+    <insert id="insertCareerList" parameterType="java.util.List">
+        INSERT INTO career (
+        freelancer_id,
+        company_name,
+        department_name,
+        position,
+        job_title,
+        salary,
+        job_description,
+        join_date,
+        resign_date
+        )
+        VALUES
+        <foreach collection="list" item="career" separator=",">
+            (
+            #{career.freelancerId},
+            #{career.companyName},
+            #{career.departmentName},
+            #{career.position},
+            #{career.jobTitle},
+            #{career.salary},
+            #{career.jobDescription},
+            #{career.joinDate},
+            #{career.resignDate}
+            )
+        </foreach>
+    </insert>
 
     <select id="selectExpertFreelancerById" parameterType="String" resultType="freelancer">
         SELECT  CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+                f.sub_category_id as subCategoryId,
                 f.skill,
                 f.academic,
                 f.introduction,
@@ -269,7 +294,7 @@
     </select>
     <select id="selectSettlementListForMyPage" resultType="dto.SettlementListForF" parameterType="Map">
         SELECT
-            s.cnt,
+            DISTINCT s.cnt,
             p.project_id,
             p.project_name,
             st.ammount,

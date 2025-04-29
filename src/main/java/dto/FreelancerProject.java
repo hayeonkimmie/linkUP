@@ -25,6 +25,7 @@ public class FreelancerProject { //구직자 기준 진행중/완료된 프로�
     public FreelancerProject() {
     }
 
+
     public Integer getProjectId() {
         return projectId;
     }

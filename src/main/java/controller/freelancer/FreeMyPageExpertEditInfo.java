@@ -6,11 +6,15 @@ import dao.freelancer.FreelancerDAO;
 import dto.*;
 import service.freelancer.FreelancerService;
 import service.freelancer.IFreelancerService;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.*;
 
@@ -27,14 +31,10 @@ public class FreeMyPageExpertEditInfo extends HttpServlet {
         try {
             request.setCharacterEncoding("UTF-8");
             String freelancerId = (String) request.getSession().getAttribute("userId");
-            /*if (freelancerId == null) {
-                response.sendRedirect("/login");
-            };*/
-            freelancerId = "free002";
+            if (freelancerId == null) {
+                response.sendRedirect("/linkup/login");
+            };
             IFreelancerService service = new FreelancerService();
-            /*if(freelancer == null) {
-                response.sendRedirect("/join");
-            }*/
             String type = request.getParameter("type");
             Freelancer freelancer = new Freelancer();
             // 전문가 정보 수정
@@ -51,7 +51,7 @@ public class FreeMyPageExpertEditInfo extends HttpServlet {
             System.out.println("FreeMyPageEditInfo 서블릿 59 : " + careerList);
             System.out.println("allPortfolioInfoMap 서블릿 60 : " + allPortfolioInfoMap);
             System.out.println("FreeMyPageEditInfo 서블릿 61 : " + freelancer);
-            request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit.jsp").forward(request, response);
+            request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit2.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,156 +61,256 @@ public class FreeMyPageExpertEditInfo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        try {
         String path = request.getServletContext().getRealPath("upload"); // 업로드 폴더의 물리적 경로 가져오기
         int size = 10 * 1024 * 1024;//10mb
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        freelancerId = "free002";
+        System.out.println("doPost 시작 freelancerId : " + freelancerId);
         Freelancer freelancer = new Freelancer();
-        freelancer.setFreelancerId(freelancerId);
         IFreelancerService service = new FreelancerService();
+        freelancer = service.selectBasicFreelancerById(freelancerId);
+        freelancer.setFreelancerId(freelancerId);
         MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy());
-        String type = multi.getParameter("type");
-        System.out.println(type + "일단 여기까지 오기는 옴");
-        try {
-            System.out.println("서블릿 84" + freelancerId);
-
-            // 전문가 정보 수정
-            // ----------------------------- 경력 -----------------------------
-            List<Career> careerList = new ArrayList<>();
-            int i = 0;
-            while (true) {
-                String base = "careerList[" + i + "]";
-                String companyName = request.getParameter(base + ".companyName");
-                if (companyName == null) break;
-
-                Career career = new Career();
-                career.setFreelancerId(freelancerId);
-                career.setCompanyName(companyName);
-                career.setDepartmentName(multi.getParameter(base + ".departmentName"));
-                career.setJoinDate(Date.valueOf(multi.getParameter(base + ".joinDate") + "-01"));
-                career.setResignDate(Date.valueOf(multi.getParameter(base + ".resignDate") + "-01"));
-                career.setPosition(multi.getParameter(base + ".position"));
-                career.setJobTitle(multi.getParameter(base + ".jobTitle"));
-                career.setSalary(Integer.valueOf(multi.getParameter(base + ".salary")));
-                career.setJobDescription(multi.getParameter(base + ".jobDescription"));
-
-                careerList.add(career);
-                i++;
-            }
-
-            // ----------------------------- 학력 -----------------------------
-            List<Academic> academicList = new ArrayList<>();
-            i = 0;
-            while (true) {
-                String base = "educationList[" + i + "]";
-                String academicType = multi.getParameter(base + ".academicType");
-                if (academicType == null) break;
-
-                Academic edu = new Academic();
-                edu.setAcademicType(academicType);
-                edu.setAcademicName(multi.getParameter(base + ".academicName"));
-                edu.setAcademicMajor(multi.getParameter(base + ".academicMajor"));
-                edu.setEntranceDate(multi.getParameter(base + ".enterDate"));
-                edu.setGraduateDate(multi.getParameter(base + ".graduateDate"));
-
-                academicList.add(edu);
-                i++;
-            }
+        JSONParser parser = new JSONParser();
+        /*// === 1. CareerList 가져오기 ===
+        List<Career> careerList = new ArrayList<>();
+        int idx = 0;
+        while (multi.getParameter("careerList[" + idx + "].companyName") != null) {
+            Career career = new Career();
+            career.setFreelancerId(freelancerId);
+            career.setCompanyName(multi.getParameter("careerList[" + idx + "].companyName"));
+            career.setDepartmentName(multi.getParameter("careerList[" + idx + "].departmentName"));
+            career.setJoinDate(Date.valueOf(multi.getParameter("careerList[" + idx + "].joinDate")+"01"));
+            career.setResignDate(Date.valueOf(multi.getParameter("careerList[" + idx + "].resignDate")+"01"));
+            career.setPosition(multi.getParameter("careerList[" + idx + "].position"));
+            career.setJobTitle(multi.getParameter("careerList[" + idx + "].jobTitle"));
+            career.setSalary(Integer.valueOf(multi.getParameter("careerList[" + idx + "].salary")));
+            career.setJobDescription(multi.getParameter("careerList[" + idx + "].jobDescription"));
+            careerList.add(career);
+            idx++;
+        }
+        System.out.println("careerList : " + careerList);
+// === 2. EducationList 가져오기 ===
+        List<Academic> academicList = new ArrayList<>();
+        idx = 0;
+        while (multi.getParameter("educationList[" + idx + "].academicType") != null) {
+            Academic academic = new Academic();
+            academic.setAcademicType(multi.getParameter("educationList[" + idx + "].academicType"));
+            academic.setAcademicName(multi.getParameter("educationList[" + idx + "].academicName"));
+            academic.setGraduateStatus(multi.getParameter("educationList[" + idx + "].graduateStatus"));
+            academic.setAcademicMajor(multi.getParameter("educationList[" + idx + "].academicMajor"));
+            academic.setEntranceDate(multi.getParameter("educationList[" + idx + "].enterDate"));
+            academic.setGraduateDate(multi.getParameter("educationList[" + idx + "].graduateDate"));
+            academicList.add(academic);
+            idx++;
+        }
             freelancer.setAcademicList(academicList);
-            // ----------------------------- 자격증 -----------------------------
+
+
+// === 3. LicenseList 가져오기 ===
+        List<License> licenseList = new ArrayList<>();
+        idx = 0;
+        while (multi.getParameter("licenseList[" + idx + "].name") != null) {
+            License license = new License();
+            license.setLicenseName(multi.getParameter("licenseList[" + idx + "].name"));
+            license.setLicenseGrade(multi.getParameter("licenseList[" + idx + "].licenseGrade"));
+            license.setLicenseAgency(multi.getParameter("licenseList[" + idx + "].licenseAgency"));
+            license.setLicenseDate(Date.valueOf(multi.getParameter("licenseList[" + idx + "].licenseDate")+"01"));
+            licenseList.add(license);
+            idx++;
+        }
+        freelancer.setLicenseList(licenseList);
+
+// === 4. Skill 가져오기 ===
+        String skillDescription = multi.getParameter("skillDescriptionHidden"); // "Java^Spring^MySQL"
+// === 5. ExternalUrlList 가져오기 ===
+        List<String> externalUrlList = new ArrayList<>();
+        idx = 0;
+        String externalUrl = "";
+        while (multi.getParameter("externalUrlList[" + idx + "]") != null) {
+            externalUrlList.add(multi.getParameter("externalUrlList[" + idx + "]"));
+            externalUrl += multi.getParameter("externalUrlList[" + idx + "]")+"^";
+            idx++;
+        }
+        System.out.println("externalUrl" + externalUrl);
+        freelancer.setExternalUrlList(externalUrlList);
+        if(externalUrlList.size() > 0){
+            freelancer.setExternalUrl(externalUrl);
+        }
+// === 6. 첨부파일 가져오기 ===
+        List<String> attachmentFileNames = new ArrayList<>();
+        idx = 0;
+        String attachment ="";
+        while (true) {
+            String fileFieldName = "attachmentList[" + idx + "]";
+            String fileName = multi.getFilesystemName(fileFieldName); // 업로드된 실제 파일명
+            if (fileName == null) break; // 더 이상 파일 없으면 종료
+            attachmentFileNames.add(fileName);
+            attachment += fileName+"^";
+            idx++;
+        }
+            freelancer.setAcademicList(academicList);
+            if(attachmentFileNames.size() > 0){
+                freelancer.setAttachment(attachment);
+            }*/
+// 1. CareerList
+            List<Career> careerList = new ArrayList<>();
+            String careerListJson = multi.getParameter("careerListJson");
+            if (careerListJson != null && !careerListJson.isEmpty()) {
+                JSONArray careerArray = (JSONArray) parser.parse(careerListJson);
+                for (Object obj : careerArray) {
+                    JSONObject careerObj = (JSONObject) obj;
+                    Career career = new Career();
+                    career.setFreelancerId(freelancerId);
+                    career.setCompanyName((String) careerObj.getOrDefault("companyName", ""));
+                    career.setDepartmentName((String) careerObj.getOrDefault("departmentName", ""));
+//                    career.setJoinDate(Date.valueOf(((String) careerObj.getOrDefault("joinDate", "")).replace("-", "") + "01"));
+//                    career.setResignDate(Date.valueOf(((String) careerObj.getOrDefault("resignDate", "")).replace("-", "") + "01"));
+
+                    // 입사일 세팅 (yyyy-MM → yyyy-MM-01로 변환)
+                    String joinDateStr = (String) careerObj.getOrDefault("joinDate", "");
+                    if (joinDateStr != null && !joinDateStr.isEmpty()) {
+                        joinDateStr = joinDateStr + "-01"; // "2025-05" → "2025-05-01"
+                        career.setJoinDate(Date.valueOf(joinDateStr));
+                    }
+
+                    // 퇴사일 세팅 (yyyy-MM → yyyy-MM-01로 변환)
+                    String resignDateStr = (String) careerObj.getOrDefault("resignDate", "");
+                    if (resignDateStr != null && !resignDateStr.isEmpty()) {
+                        resignDateStr = resignDateStr + "-01"; // "2025-05" → "2025-05-01"
+                        career.setResignDate(Date.valueOf(resignDateStr));
+                    }
+                    career.setPosition((String) careerObj.getOrDefault("position", ""));
+                    career.setJobTitle((String) careerObj.getOrDefault("jobTitle", ""));
+                    career.setSalary(Integer.parseInt(careerObj.getOrDefault("salary", "0").toString()));
+                    career.setJobDescription((String) careerObj.getOrDefault("jobDescription", ""));
+                    careerList.add(career);
+                }
+            }
+
+            // 2. EducationList
+            List<Academic> educationList = new ArrayList<>();
+            String educationListJson = multi.getParameter("educationListJson");
+            if (educationListJson != null && !educationListJson.isEmpty()) {
+                JSONArray educationArray = (JSONArray) parser.parse(educationListJson);
+                for (Object obj : educationArray) {
+                    JSONObject eduObj = (JSONObject) obj;
+                    Academic academic = new Academic();
+                    academic.setAcademicType((String) eduObj.getOrDefault("academicType", ""));
+                    academic.setAcademicName((String) eduObj.getOrDefault("academicName", ""));
+                    academic.setGraduateStatus((String) eduObj.getOrDefault("graduateStatus", ""));
+                    academic.setAcademicMajor((String) eduObj.getOrDefault("academicMajor", ""));
+                    // 입학일 (yyyy-MM → yyyy-MM-01 변환해서 Date.valueOf 가능하게)
+                    String enterDateStr = (String) eduObj.getOrDefault("enterDate", "");
+                    if (enterDateStr != null && !enterDateStr.isEmpty()) {
+                        enterDateStr = enterDateStr + "-01"; // "2025-05" → "2025-05-01"
+                        academic.setEntranceDate(enterDateStr);
+                    }
+
+                    // 졸업일
+                    String graduateDateStr = (String) eduObj.getOrDefault("graduateDate", "");
+                    if (graduateDateStr != null && !graduateDateStr.isEmpty()) {
+                        graduateDateStr = graduateDateStr + "-01";
+                        academic.setGraduateDate(graduateDateStr);
+                    }
+                    educationList.add(academic);
+                }
+                freelancer.setAcademicList(educationList);
+            }
+
+            // 3. LicenseList
             List<License> licenseList = new ArrayList<>();
-            i = 0;
-            while (true) {
-                String base = "licenseList[" + i + "]";
-                String name = multi.getParameter(base + ".name");
-                if (name == null || name.trim().isEmpty()) break;
-
-                License lic = new License();
-                lic.setLicenseName(name);
-                lic.setLicenseAgency(multi.getParameter(base + ".licenseAgency"));
-                lic.setLicenseDate(Date.valueOf(multi.getParameter(base + ".issueDate") + "-01"));
-                lic.setLicenseGrade(multi.getParameter(base + ".licenseGrade"));
-
-                licenseList.add(lic);
-                i++;
-            }
-            freelancer.setLicenseList(licenseList);
-
-            // ----------------------------- 스킬 -----------------------------
-            String skillDesc = multi.getParameter("skillDescription");
-/*                List<String> skillList = new ArrayList<>();
-                if (skillDesc != null && skillDesc.contains(",")) {
-                    skillList = Arrays.asList(skillDesc.split(","));
-                } else {
-                    skillList = new ArrayList<>();
-                }*/
-            freelancer.setSkillList(skillDesc.split(","));
-// ----------------------------- 외부 URL -----------------------------
-            Enumeration<String> paramNames = multi.getParameterNames();
-            List<String> urls = new ArrayList<>();
-            while (paramNames.hasMoreElements()) {
-                String name = paramNames.nextElement();
-                if (name.startsWith("file-url-")) {
-                    String url = multi.getParameter(name);
-                    if (url != null && !url.trim().isEmpty()) {
-                        urls.add(url.trim());
+            String licenseListJson = multi.getParameter("licenseListJson");
+            if (licenseListJson != null && !licenseListJson.isEmpty()) {
+                JSONArray licenseArray = (JSONArray) parser.parse(licenseListJson);
+                for (Object obj : licenseArray) {
+                    JSONObject licenseObj = (JSONObject) obj;
+                    License license = new License();
+                    license.setLicenseName((String) licenseObj.getOrDefault("name", ""));
+                    license.setLicenseGrade((String) licenseObj.getOrDefault("licenseGrade", ""));
+                    license.setLicenseAgency((String) licenseObj.getOrDefault("licenseAgency", ""));
+                    // 자격증 취득일
+                    String licenseDateStr = (String) licenseObj.getOrDefault("licenseDate", "");
+                    if (licenseDateStr != null && !licenseDateStr.isEmpty()) {
+                        licenseDateStr = licenseDateStr + "-01"; // "2025-05" → "2025-05-01"
+                        license.setLicenseDate(Date.valueOf(licenseDateStr));
                     }
+                    licenseList.add(license);
                 }
+                freelancer.setLicenseList(licenseList);
             }
-            freelancer.setExternalUrlList(urls);
-            String externalUrl = String.join("^", urls); // ^로 구분하여 저장
-// ----------------------------- 첨부파일 -----------------------------
+
+            // 4. ExternalUrlList
+            List<String> externalUrlList = new ArrayList<>();
+            String externalUrlListJson = multi.getParameter("externalUrlListJson");
+            if (externalUrlListJson != null && !externalUrlListJson.isEmpty()) {
+                JSONArray urlArray = (JSONArray) parser.parse(externalUrlListJson);
+                for (Object url : urlArray) {
+                    externalUrlList.add((String) url);
+                }
+                freelancer.setExternalUrlList(externalUrlList);
+                freelancer.setExternalUrl(String.join("^", externalUrlList));
+            }
+
+            // 5. AttachmentList
             List<String> attachmentList = new ArrayList<>();
-            Enumeration<?> fileFields = multi.getFileNames();
-            while (fileFields.hasMoreElements()) {
-                String field = (String) fileFields.nextElement();
-                if (field.startsWith("attachment-")) {
-                    String saved = multi.getFilesystemName(field);
-                    if (saved != null) {
-                        attachmentList.add(saved);
-                    }
+            String attachmentListJson = multi.getParameter("attachmentListJson");
+            if (attachmentListJson != null && !attachmentListJson.isEmpty()) {
+                JSONArray attachmentArray = (JSONArray) parser.parse(attachmentListJson);
+                for (Object fileName : attachmentArray) {
+                    attachmentList.add((String) fileName);
                 }
+                freelancer.setAttachment(String.join("^", attachmentList));
             }
-            freelancer.setAttachmentList(attachmentList);
-            String attachmentStr = String.join("^", attachmentList); // ^로 구분하여 저장
-            freelancer.setAttachment(attachmentStr);
-// ----------------------------- 포트폴리오 ID -----------------------------
-            List<Portfolio> portfolioIds = new ArrayList<>();
-            int index = 0;
-            while (true) {
-                String idStr = multi.getParameter("portfolioIds[" + index + "]");
-                if (idStr == null || idStr.trim().isEmpty()) break;
-                Integer id = Integer.valueOf(idStr);
-                Portfolio p = new Portfolio();
-                p.setPortfolioId(id);
-                p.setPriority(index + 1);
-                index++;
-                portfolioIds.add(p);
-            }
-            freelancer.setPortfolioInfoList(portfolioIds);
-// -----------------------------  ----------------------------
-            freelancer.setIntroduction(multi.getParameter("introduction"));
-            String onsitePossible = multi.getParameter("onsitePossible");
-            freelancer.setIsResident(onsitePossible.equals("Y"));
-            String negotiationable = multi.getParameter("negotiation");
-            if (negotiationable != null) {
-                freelancer.setIsNegotiable(negotiationable.equals("Y"));
-            } else {
-                freelancer.setIsNegotiable(false);
-            }
-            freelancer.setDesiredLocation(multi.getParameter("desiredLocation"));
-            freelancer.setDesiredSalary(Integer.parseInt(multi.getParameter("desiredSalary")));
-            freelancer.setOtherRequest(multi.getParameter("otherRequest"));
-            // 디버그 출력 (옵션)
-            System.out.println("서블릿 215 프리렌서: " + freelancer);
-            System.out.println("커리어: " + careerList);
+            // --- 단일 데이터 수신 ---
+// 보유 스킬
+            String skillDescription = multi.getParameter("skillDescription"); // "Java^Spring^MySQL"
+            System.out.println("skillDescription : "+skillDescription);
+// 카테고리 ID (subCategory)
+            String subCategoryId = multi.getParameter("subCategory");
+            System.out.println("subCategoryId : "+subCategoryId);
+// 희망 근무 조건
+            String onsitePossible = multi.getParameter("onsitePossible"); // 'Y' or 'N'
+            String negotiation = multi.getParameter("negotiation");       // 'Y' 체크 시 존재
+            String desiredSalary = multi.getParameter("desiredSalary");   // 숫자
+            String desiredLocation = multi.getParameter("desiredLocation"); // 텍스트
+            String otherRequest = multi.getParameter("otherRequest");     // 텍스트
 
-            response.sendRedirect(request.getContextPath() + "/my-page/edit-expert-info");
-            //request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit.jsp").forward(request, response);
+// --- freelancer 객체에 세팅 (예시) ---
+            freelancer.setSkill(skillDescription);
+            freelancer.setSubCategoryId(Integer.parseInt(subCategoryId));
+
+            freelancer.setIsResident("Y".equals(onsitePossible)); // Y이면 true
+            freelancer.setNegotiable("Y".equals(negotiation));  // 체크박스는 값이 넘어오면 true
+            if (desiredSalary != null && !desiredSalary.isEmpty()) {
+                freelancer.setDesiredSalary(Integer.parseInt(desiredSalary));
+            }
+            freelancer.setDesiredLocation(desiredLocation);
+            freelancer.setOtherRequest(otherRequest);
+
+            // 디버그 출력 (옵션)
+            System.out.println("서블릿 147 프리렌서: " + freelancer);
+            System.out.println("커리어: " + careerList);
+             service.updateFreelancer(freelancer);
+             service.updateCareer(careerList, freelancer.getFreelancerId());
+            // 8. 처리 결과를 응답
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("alert('전문가 정보가 성공적으로 저장되었습니다.');");
+            out.println("location.href='/linkup/my-page/edit-expert-info';");
+            out.println("</script>");
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("alert('프로필 정보 저장 중 오류가 발생했습니다. 다시 시도해주세요.');");
+            out.println("history.back();");
+            out.println("</script>");
         }
+           response.sendRedirect(request.getContextPath() + "/my-page/edit-expert-info");
+            //request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit.jsp").forward(request, response);
     }
 }

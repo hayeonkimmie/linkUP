@@ -10,7 +10,7 @@ body {
     margin: 0 auto;
     padding: 20px;
 }
-.sidebar {
+/*.sidebar {
     width: 30%;
     background-color: #6b3fa0;
     color: white;
@@ -33,7 +33,7 @@ body {
 .sidebar p {
     margin: 5px 0;
     font-size: 14px;
-}
+}*/
 .main-content {
     width: 70%;
 }

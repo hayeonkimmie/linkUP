@@ -23,11 +23,10 @@ public class JJimProjList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String freelancerId = request.getParameter("userId");
-            /*if (freelancerId == null) {
-                response.sendRedirect("/login");
-            };*/
-        freelancerId = "free002";
+        String freelancerId = (String) request.getSession().getAttribute("userId");
+        if (freelancerId == null) {
+            response.sendRedirect("/linkup/login");
+        };
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
         Integer page = null;

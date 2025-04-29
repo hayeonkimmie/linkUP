@@ -2,7 +2,6 @@ window.addEventListener('DOMContentLoaded', () => {
     initFileSection();
     initSkillTagsTextInput();
     initThumbnailUpload();
-    moveToList();
 });
 
 function initFileSection() {
@@ -22,7 +21,6 @@ function initFileSection() {
     function updateIndexes() {
         let urlIndex = 1;
         let attachmentIndex = 1;
-        let projectIndex = 1;
 
         const rows = tbody.querySelectorAll("tr");
 
@@ -30,18 +28,17 @@ function initFileSection() {
             if (tr.classList.contains("project-id-section")) {
                 const label = tr.querySelector("label");
                 const select = tr.querySelector("select");
-                label.setAttribute("for", `project-id-select-${projectIndex}`);
-                select.setAttribute("id", `project-id-select-${projectIndex}`);
-                select.setAttribute("name", `project-id-select`);
-                projectIndex++;
+                label.setAttribute("for", `project-id-`);
+                select.setAttribute("id", `project-id`);
+                select.setAttribute("name", `project-id`);
             }
 
             if (tr.classList.contains("url-section")) {
                 const label = tr.querySelector("label");
                 const input = tr.querySelector("input[type='url']");
-                label.setAttribute("for", `file-url-${urlIndex}`);
-                input.setAttribute("id", `file-url-${urlIndex}`);
-                input.setAttribute("name", `file-url-${urlIndex}`);
+                label.setAttribute("for", `url-${urlIndex}`);
+                input.setAttribute("id", `url-${urlIndex}`);
+                input.setAttribute("name", `url-${urlIndex}`);
                 urlIndex++;
             }
 
@@ -197,17 +194,6 @@ function initThumbnailUpload() {
                     `;
                 };
                 reader.readAsDataURL(this.files[0]);
-            }
-        });
-    }
-}
-
-function moveToList() {
-    const listBtn = document.getElementById('list-btn');
-    if (listBtn) {
-        listBtn.addEventListener('click', () => {
-            if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
-                window.location.href = `${contextPath}/my-page/portfolio-list`;
             }
         });
     }

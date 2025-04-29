@@ -23,7 +23,7 @@
 <!-- 사이드바 -->
 <jsp:include page="/freelancer/sidebar.jsp"/>
 <!-- 메인 콘텐츠 -->
-    <main class="content">
+    <main class="content" >
         <section class="section">
             <div class="content-header">
                 <div class="content-header-text">
@@ -34,7 +34,23 @@
             <c:choose>
                 <c:when test="${empty jjimProjList}">
                     <div class="qna-empty empty">
-                        <p>찜한 프로젝트 내역이 없습니다.</p>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id=""/></th>
+                                <th>프로젝트명</th>
+                                <th>분야</th>
+                                <th>기간</th>
+                                <th style="width:153px;">근무 환경 | 근무 방식</th>
+                                <th>클라이언트</th>
+                                <th>지원 자격</th>
+                                <th colspan="2">모집 마감일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr><td colspan="9">찜한 프로젝트 내역이 없습니다.</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -53,11 +69,10 @@
                                     <th>프로젝트명</th>
                                     <th>분야</th>
                                     <th>기간</th>
-                                    <th>근무 환경 | 근무 시간</th>
+                                    <th>근무 환경 | 근무 방식</th>
                                     <th>클라이언트</th>
                                     <th>지원 자격</th>
-                                    <th>모집 마감일</th>
-                                    <th>모집 마감 D-Day</th>
+                                    <th colspan="2">모집 마감일</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -68,7 +83,7 @@
                                         <td>${jp.category}</td>
                                         <td>${jp.duration}</td>
                                         <td>${jp.workingEnvironment}
-                                            <c:if test="${jp.workingEnvironment ne '재택'}">(${jp.workingMethod})</c:if>| ${jp.workingHours}
+                                            <c:if test="${jp.workingEnvironment ne '재택'}"> | ${jp.workingMethod}</c:if>
                                         </td>
                                         <td>${jp.companyName}</td>
                                         <td>${jp.qualification}</td>

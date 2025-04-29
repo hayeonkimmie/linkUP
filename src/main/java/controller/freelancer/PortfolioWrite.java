@@ -75,6 +75,12 @@ public class PortfolioWrite extends HttpServlet {
             portfolio.setSkillDescription(multi.getParameter("skillDescriptionHidden"));
             String monthStr = multi.getParameter("portProjStart");
             String monthEnd = multi.getParameter("portProjEnd");
+            if(multi.getParameter("project-id-select") != null) {
+                System.out.println("project-id : "+multi.getParameter("project-id-select"));
+                portfolio.setProjectId(Integer.parseInt(multi.getParameter("project-id-select")));
+            } else {
+                portfolio.setProjectId(null);
+            }
             Date startDate = null;
             Date endDate = null;
             if (monthStr != null && !monthStr.trim().isEmpty()) {
@@ -116,7 +122,7 @@ public class PortfolioWrite extends HttpServlet {
             if(urls != null) {
                 while (paramNames.hasMoreElements()) {
                     String name = paramNames.nextElement();
-                    if (name.startsWith("file-url-")) {
+                    if (name.startsWith("url-")) {
                         String url = multi.getParameter(name);
                         if (url != null && !url.trim().isEmpty()) {
                             urls.add(url);
@@ -138,6 +144,7 @@ public class PortfolioWrite extends HttpServlet {
                     String field = (String) fileFields.nextElement();
                     if (field.startsWith("attachment-")) {
                         String saved = multi.getFilesystemName(field);
+                        System.out.println("141 saved : "+saved);
                         if (saved != null) {
                             attachment.add(saved);
                         }
@@ -158,11 +165,6 @@ public class PortfolioWrite extends HttpServlet {
             } else {
                 portfolio.setTempSaved(false);
             }*/
-            if(multi.getParameter("projectId") != null) {
-                portfolio.setProjectId(Integer.parseInt(multi.getParameter("projectId")));
-            } else {
-                portfolio.setProjectId(null);
-            }
             System.out.println(portfolio);
             IPortfolioService service = new PortfolioService();
 

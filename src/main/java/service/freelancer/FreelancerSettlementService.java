@@ -4,6 +4,7 @@ import dto.SettlementListForF;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class FreelancerSettlementService {
             Map<String, Object> param = new HashMap<>();
             param.put("freelancerId",freelancerId);
             param.put("projectId",projectId);
-            settlementList = sqlSession.selectList("mapper.freelancer.selectSettlementListForMyPage",param);
+            settlementList = sqlSession.selectList("mapper.freelancer.selectSettlementListForMyPage", param);
         } catch (Exception e) {
             e.printStackTrace();
         }
