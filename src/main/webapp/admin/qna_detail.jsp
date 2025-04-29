@@ -46,7 +46,7 @@
 
       <!-- ✅ 답변 영역 -->
       <div class="answer-section">
-        <form method="post" action="<c:url value='/admin/qna/answer'/>">
+        <form method="post" action="<c:url value='/admin/qna-answer'/>">
           <input type="hidden" name="qnaId" value="${qna.qnaId}" />
           <label for="answer">답변 작성</label>
           <textarea id="answer" name="answerContent" placeholder="답변을 입력하세요..." rows="8">
