@@ -77,8 +77,8 @@ public class ClientFavoritesServiceImpl implements IClientFavoritesService {
 
             String skill = (String) map.get("skill");
             if (skill != null && !skill.trim().isEmpty()) {
-                view.setTags(Arrays.asList(skill.split(",")));
-                view.setJob(skill.split(",")[0]);
+                view.setTags(Arrays.asList(skill.split("\\^")));
+                view.setJob(skill.split("\\^")[0]);
             } else {
                 view.setTags(new ArrayList<>());
                 view.setJob("정보 없음");
