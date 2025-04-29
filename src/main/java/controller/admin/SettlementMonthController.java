@@ -50,7 +50,6 @@ public class SettlementMonthController extends HttpServlet {
             result.put("totalAmount", totalAmount);
 
             String json = new Gson().toJson(result);
-            System.out.println(json);
             response.getWriter().write(json);
 
         } catch (Exception e) {

@@ -19,13 +19,8 @@ public class SettlementDetailModalController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String freelancerName = request.getParameter("freelancerName"); // 🔥 수정
         int projectId = Integer.parseInt(request.getParameter("projectId"));
-        System.out.println("freelancerName: " + freelancerName + " projectId: " + projectId);
         try {
             List<SettlementDetailDTO> settlementList = settlementDAO.selectSettlementHistory(freelancerName, projectId);
-
-            for(SettlementDetailDTO settlement : settlementList) {
-                System.out.println("Settlement Detail: " + settlement);
-            }
             response.setContentType("application/json; charset=UTF-8");
             new Gson().toJson(settlementList, response.getWriter());
 

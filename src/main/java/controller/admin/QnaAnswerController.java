@@ -1,6 +1,8 @@
 package controller.admin;
 
 import dao.admin.QnaDAO;
+import service.admin.IQnaService;
+import service.admin.QnaService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -22,10 +24,10 @@ public class QnaAnswerController extends HttpServlet {
         int qnaId = Integer.parseInt(request.getParameter("qnaId"));
         String answerContent = request.getParameter("answerContent");
 
+        QnaDAO dao = new QnaDAO();
+        IQnaService qnaService = new QnaService(dao);
         try {
-            QnaDAO dao = new QnaDAO();
-            dao.updateAnswer(qnaId, answerContent);
-
+            qnaService.updateAnswer(qnaId, answerContent);
             response.sendRedirect(request.getContextPath() + "/admin/qna");  // 답변 저장 후 목록으로
         } catch (Exception e) {
             e.printStackTrace();

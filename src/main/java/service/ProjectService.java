@@ -15,6 +15,8 @@ public class ProjectService implements IProjectService {
 
     private final IDashboardProjectDAO dashboardProjectDAO = new DashboardProjectDAO();
     private final IProjectDAO projectDAO = new ProjectDAO();
+
+
     @Override
     public List<DashboardProject> getDashboardProjectList() {
         return dashboardProjectDAO.selectAllOngoingProjects();
