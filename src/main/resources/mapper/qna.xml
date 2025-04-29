@@ -87,4 +87,77 @@
                )
     </insert>
 
+    <select id="selectPagedQna" parameterType="map" resultType="qna">
+        SELECT
+        qna_id AS qnaId,
+        user_id AS userId,
+        question_title AS questionTitle,
+        question_content AS questionContent,
+        question_date AS questionDate,
+        answer_content AS answerContent,
+        answer_date AS answerDate
+        FROM qna
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (question_title LIKE CONCAT('%', #{keyword}, '%') OR user_id LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="category != null and category != ''">
+                AND (question_title LIKE CONCAT('%', #{category}, '%'))
+            </if>
+            <if test="answerStatus == '답변완료'">
+                AND (answer_content IS NOT NULL AND answer_content != '(답변대기 중)')
+            </if>
+            <if test="answerStatus == '미답변'">
+                AND (answer_content IS NULL OR answer_content = '(답변대기 중)')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND question_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND question_date &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY qna_id DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countQna" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM qna
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (question_title LIKE CONCAT('%', #{keyword}, '%') OR user_id LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="category != null and category != ''">
+                AND (question_title LIKE CONCAT('%', #{category}, '%'))
+            </if>
+            <if test="answerStatus == '답변완료'">
+                AND (answer_content IS NOT NULL AND answer_content != '(답변대기 중)')
+            </if>
+            <if test="answerStatus == '미답변'">
+                AND (answer_content IS NULL OR answer_content = '(답변대기 중)')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND question_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND question_date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteQna" parameterType="int">
+        DELETE FROM qna WHERE qna_id = #{qnaId}
+    </delete>
+
+    <select id="selectQnaById" parameterType="int" resultType="dto.QnA">
+        SELECT * FROM qna WHERE qna_id = #{qnaId}
+    </select>
+
+    <update id="updateAnswer" parameterType="map">
+        UPDATE qna
+        SET answer_content = #{answerContent},
+            answer_date = NOW()
+        WHERE qna_id = #{qnaId}
+    </update>
+
 </mapper>

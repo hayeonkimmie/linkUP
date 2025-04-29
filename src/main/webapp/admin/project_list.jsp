@@ -1,11 +1,3 @@
-<%--
-  Author: 이원영
-  Date: 25. 4. 14.
-  Time: 오후 2:10
-  Description: LinkUp에서 진행된 모든 프로젝트 목록 조회
-  Read Data : List<AdminProject> projectList // 프로젝트 데이터
-              Integer totalCount // 프로젝트 총 갯수
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -20,17 +12,17 @@
   <link rel="stylesheet" href="../css/admin/admin_project_list.css">
   <link rel="stylesheet" href="../css/table_common.css">
   <style>
-     table th:nth-child(3),
-     table td:nth-child(3) {
-       width: 90px !important;        /* 담당자 열 축소 */
-       white-space: nowrap !important;
-       overflow: hidden !important;
-       text-overflow: ellipsis !important;
-     }
+    table th:nth-child(3),
+    table td:nth-child(3) {
+      width: 90px !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
 
     table th:nth-child(4),
     table td:nth-child(4) {
-      width: 200px !important;       /* 기간 열 확대 */
+      width: 200px !important;
       white-space: nowrap !important;
     }
   </style>
@@ -46,38 +38,38 @@
       <h1>프로젝트 조회</h1>
       <h2>진행되었던 프로젝트 리스트입니다.</h2>
 
+      <!-- ✅ 검색/필터 영역 -->
       <div class="search-bar">
-        <form method="get" action="<c:url value='/admin/project'/>" class="search-form">
-          <input type="text" name="keyword" placeholder="🔍 프로젝트명, 회사명으로 검색" value="${param.keyword}" id="searchInput" class="search-input" style="width: 400px;">
+        <form method="get" action="<c:url value='/admin/project'/>" class="search-form" style="display: flex; align-items: center; max-width: 1600px;">
+          <input type="text" name="keyword" placeholder="🔍 프로젝트명, 회사명으로 검색"
+                 value="${param.keyword}" id="searchInput" class="search-input"
+                 style="width: 800px; height: 40px; padding: 0 10px; font-size: 16px;">
 
-          <button type="button" id="toggleFilterBtn" class="filter-toggle-btn">필터 ▾</button>
-          <button type="submit" class="search-btn">검색</button>
-
-          <!-- 필터 드롭다운 (form 안에 있지만 input은 hidden 아님) -->
-          <div id="filterDropdown" class="filter-dropdown">
-            <h4>프로젝트 필터</h4>
-            <div class="filter-item">
-              <label for="startDate">시작일:</label>
-              <input type="date" name="startDate" id="startDate" value="" />
+          <div style="display: flex; align-items: center; gap: 10px; margin-left: 30px;">
+            <div class="filter-item" style="display: flex; align-items: center;">
+              <label for="startDate" style="margin-right: 5px;">시작일:</label>
+              <input type="date" name="startDate" id="startDate" value="${param.startDate}" style="width: 160px; height: 32px;">
             </div>
-            <div class="filter-item">
-              <label for="endDate">종료일:</label>
-              <input type="date" name="endDate" id="endDate" value="" />
+            <div class="filter-item" style="display: flex; align-items: center;">
+              <label for="endDate" style="margin-right: 5px;">종료일:</label>
+              <input type="date" name="endDate" id="endDate" value="${param.endDate}" style="width: 160px; height: 32px;">
             </div>
-            <div class="filter-item">
-              <label for="settleStatus">상태:</label>
-              <select name="settleStatus" id="settleStatus">
+            <div class="filter-item" style="display: flex; align-items: center;">
+              <label for="settleStatus" style="margin-right: 5px;">상태:</label>
+              <select name="settleStatus" id="settleStatus" style="width: 120px; height: 36px;">
                 <option value="">전체</option>
-                <option value="진행중">진행중</option>
-                <option value="정산완료">정산완료</option>
+                <option value="진행중" ${param.settleStatus == '진행중' ? 'selected' : ''}>진행중</option>
+                <option value="정산완료" ${param.settleStatus == '정산완료' ? 'selected' : ''}>정산완료</option>
               </select>
             </div>
+            <button type="submit" class="search-btn" style="width: 80px; height: 40px;">검색</button>
           </div>
         </form>
       </div>
 
       <div class="total-count">총 <c:out value="${totalCount}" />개의 프로젝트</div>
 
+      <!-- ✅ 프로젝트 테이블 -->
       <table>
         <thead>
         <tr>
@@ -114,57 +106,56 @@
         </tbody>
       </table>
 
-      <div class="pagination">
-        <button <c:if test="${pageInfo.curPage == 1}">disabled</c:if> onclick="location.href='?page=${pageInfo.curPage - 1}'">이전</button>
-        <c:forEach var="i" begin="1" end="${pageInfo.allPage}">
+      <!-- ✅ 페이지네이션 (검색 조건 유지) -->
+      <div class="pagination" style="margin-top: 30px; text-align: center;">
+        <!-- 이전 버튼 -->
+        <c:if test="${pageInfo.curPage > 1}">
+          <c:url var="prevUrl" value="/admin/project">
+            <c:param name="page" value="${pageInfo.curPage - 1}"/>
+            <c:if test="${param.keyword != null}"><c:param name="keyword" value="${param.keyword}"/></c:if>
+            <c:if test="${param.startDate != null}"><c:param name="startDate" value="${param.startDate}"/></c:if>
+            <c:if test="${param.endDate != null}"><c:param name="endDate" value="${param.endDate}"/></c:if>
+            <c:if test="${param.settleStatus != null}"><c:param name="settleStatus" value="${param.settleStatus}"/></c:if>
+          </c:url>
+          <button onclick="location.href='${prevUrl}'">이전</button>
+        </c:if>
+
+        <!-- 페이지 번호 -->
+        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+          <c:url var="pageUrl" value="/admin/project">
+            <c:param name="page" value="${i}"/>
+            <c:if test="${param.keyword != null}"><c:param name="keyword" value="${param.keyword}"/></c:if>
+            <c:if test="${param.startDate != null}"><c:param name="startDate" value="${param.startDate}"/></c:if>
+            <c:if test="${param.endDate != null}"><c:param name="endDate" value="${param.endDate}"/></c:if>
+            <c:if test="${param.settleStatus != null}"><c:param name="settleStatus" value="${param.settleStatus}"/></c:if>
+          </c:url>
           <c:choose>
             <c:when test="${i == pageInfo.curPage}">
               <button class="page-button selected" disabled>${i}</button>
             </c:when>
             <c:otherwise>
-              <button class="page-button" onclick="location.href='?page=${i}'">${i}</button>
+              <button class="page-button" onclick="location.href='${pageUrl}'">${i}</button>
             </c:otherwise>
           </c:choose>
         </c:forEach>
-        <button <c:if test="${pageInfo.curPage == pageInfo.allPage}">disabled</c:if> onclick="location.href='?page=${pageInfo.curPage + 1}'">다음</button>
+
+        <!-- 다음 버튼 -->
+        <c:if test="${pageInfo.curPage < pageInfo.allPage}">
+          <c:url var="nextUrl" value="/admin/project">
+            <c:param name="page" value="${pageInfo.curPage + 1}"/>
+            <c:if test="${param.keyword != null}"><c:param name="keyword" value="${param.keyword}"/></c:if>
+            <c:if test="${param.startDate != null}"><c:param name="startDate" value="${param.startDate}"/></c:if>
+            <c:if test="${param.endDate != null}"><c:param name="endDate" value="${param.endDate}"/></c:if>
+            <c:if test="${param.settleStatus != null}"><c:param name="settleStatus" value="${param.settleStatus}"/></c:if>
+          </c:url>
+          <button onclick="location.href='${nextUrl}'">다음</button>
+        </c:if>
       </div>
+
     </div>
   </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggleBtn = document.getElementById("toggleFilterBtn");
-    const dropdown = document.getElementById("filterDropdown");
-
-    // 새로고침 시 필터 초기화
-    document.getElementById("startDate").value = "";
-    document.getElementById("endDate").value = "";
-    document.getElementById("settleStatus").selectedIndex = 0;
-
-    dropdown.style.display = "none";
-
-    toggleBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      const isVisible = dropdown.style.display === "block";
-      if (isVisible) {
-        dropdown.style.display = "none";
-      } else {
-        const rect = toggleBtn.getBoundingClientRect();
-        dropdown.style.position = "absolute";
-        dropdown.style.top = `${rect.bottom + window.scrollY + 60}px`;
-        dropdown.style.left = `${rect.left + window.scrollX + 1250}px`;
-        dropdown.style.display = "block";
-      }
-    });
-
-    document.addEventListener("click", function (e) {
-      if (!dropdown.contains(e.target) && !toggleBtn.contains(e.target)) {
-        dropdown.style.display = "none";
-      }
-    });
-  });
-</script>
 <script src="../js/include_common.js"></script>
 </body>
 </html>
