@@ -20,10 +20,9 @@
             <img src="${contextPath}/img/링크업 로고.png" alt="Link Up 로고" style="height: 40px;" />
         </div>
         <div class="user-section">
-            <a href="${contextPath}/makeProject" class="post-job-btn">구인등록</a>
-            <button class="notification-btn">
-                <img src="${contextPath}/img/알람벨.png" alt="알림" class="icon" />
-            </button>
+            <c:if test="${sessionScope.role ne 'jobseeker'}">
+                <a href="${contextPath}/makeProject" class="post-job-btn">구인등록</a>
+            </c:if>
             <div class="profile-wrapper">
                 <p class="username"> <%= session.getAttribute("userId") %>&nbsp;&nbsp;</p>
                 <div class="profile-icon"></div>

@@ -205,3 +205,17 @@ body {
   color: #505050 !important;
   font-size: 18px !important;
 }
+
+.profile-menu li a,
+.profile-menu-link {
+  display: block;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #444;
+  text-decoration: none;
+  background: none;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}

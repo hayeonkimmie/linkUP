@@ -36,23 +36,20 @@ public class LoginController extends HttpServlet {
 
         boolean isAuthenticated = false;
 
+        // role에 따라 인증 분기
         if ("recruiter".equals(role)) {
-//            isAuthenticated = authenticateRecruiter(id, password);
-            //Freelancer f= freelancerDAO.selectFreelancerByID(id);
-            //request.setAttribute("freelancer", f);
-            request.setAttribute("role", role);
-
+            isAuthenticated = authenticateRecruiter(id, password);
         } else if ("jobseeker".equals(role)) {
             isAuthenticated = authenticateJobseeker(id, password);
-
         }
 
         if (isAuthenticated) {
-            // 로그인 성공
+            // 로그인 성공 시 세션에 저장
             HttpSession session = request.getSession();
             session.setAttribute("userId", id);
-            session.setAttribute("password", password);
-            session.setAttribute("role", role);
+            session.setAttribute("role", role); // 여기서 role 저장
+            // password 저장은 제거
+            // session.setAttribute("password", password); <-- 이거 절대 저장하지 않기
 
             response.sendRedirect(request.getContextPath() + "/mainPage");
         } else {
