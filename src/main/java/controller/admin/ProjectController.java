@@ -30,11 +30,15 @@ public class ProjectController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         request.setAttribute("now", new java.util.Date());
-
         String keyword = request.getParameter("keyword");
+        keyword = (keyword != null && keyword.trim().isEmpty()) ? null : keyword;
         String settleStatus = request.getParameter("settleStatus");
+        settleStatus = (settleStatus != null && settleStatus.trim().isEmpty()) ? null : settleStatus;
         String startDate = request.getParameter("startDate");
+        startDate = (startDate != null && startDate.trim().isEmpty()) ? null : startDate;
         String endDate = request.getParameter("endDate");
+        endDate = (endDate != null && endDate.trim().isEmpty()) ? null : endDate;
+
 
         ProjectDAO projectDAO = new ProjectDAO();
         String idParam = request.getParameter("id");
@@ -49,16 +53,14 @@ public class ProjectController extends HttpServlet {
             if (idParam != null) {
                 // ✅ 프로젝트 상세 페이지 처리
                 int id = Integer.parseInt(idParam);
-                System.out.println("id : " + id);
                 AdminProjectDetail detail = projectDAO.selectProjectDetail(id);
-                System.out.println(detail);
                 request.setAttribute("project", detail);
                 request.getRequestDispatcher("/admin/project_detail.jsp").forward(request, response);
             // 프로젝트 전체 목록 페이지 : /admin/project_list.jsp
             // url: http://localhost:8085/linkup/admin/project
             } else {
                 List<AdminProject> projectList = projectDAO.selectPagedProjects(offset, perPage, keyword, settleStatus, startDate, endDate);
-                int totalCount = projectDAO.countAllProjects();
+                int totalCount = projectDAO.countProjects(keyword, settleStatus, startDate, endDate);
                 PageInfo pageInfo = new PageInfo(curPage);
                 int allPage = (int) Math.ceil((double) totalCount / perPage);
                 pageInfo.setAllPage(allPage);
@@ -66,9 +68,6 @@ public class ProjectController extends HttpServlet {
                 int endPage = Math.min(allPage, startPage + 4);
                 pageInfo.setStartPage(startPage);
                 pageInfo.setEndPage(endPage);
-                for(AdminProject project : projectList) {
-                    System.out.println(project);
-                }
                 request.setAttribute("totalCount", totalCount);
                 request.setAttribute("projectList", projectList);
                 request.setAttribute("pageInfo", pageInfo);
@@ -78,11 +77,6 @@ public class ProjectController extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "서버 내부 오류 발생");
         }
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }

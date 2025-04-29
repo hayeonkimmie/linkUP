@@ -196,17 +196,50 @@
                 AND ct.status = #{settleStatus}
             </if>
             <if test="startDate != null and startDate != ''">
+                AND p.created_date IS NOT NULL
                 AND p.created_date &gt;= #{startDate}
             </if>
             <if test="endDate != null and endDate != ''">
+                AND p.created_date IS NOT NULL
                 AND p.created_date &lt;= #{endDate}
             </if>
+            <!-- ✅ 여기 추가 -->
+            AND p.created_date IS NOT NULL
+            AND p.settle_day IS NOT NULL
         </where>
+
+
         GROUP BY p.project_id
         ORDER BY p.project_id DESC
         LIMIT #{offset}, #{limit}
     </select>
 
+    <select id="countProjects" parameterType="map" resultType="int">
+        SELECT COUNT(DISTINCT p.project_id)
+        FROM project p
+        LEFT JOIN client c ON p.client_id = c.client_id
+        LEFT JOIN apply a ON a.project_id = p.project_id AND a.is_approved = TRUE
+        LEFT JOIN contract ct ON ct.project_id = p.project_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (p.project_name LIKE CONCAT('%', #{keyword}, '%') OR c.company_name LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="settleStatus != null and settleStatus != ''">
+                AND ct.status = #{settleStatus}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND p.created_date IS NOT NULL
+                AND p.created_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND p.created_date IS NOT NULL
+                AND p.created_date &lt;= #{endDate}
+            </if>
+            <!-- ✅ 추가 -->
+            AND p.created_date IS NOT NULL
+            AND p.settle_day IS NOT NULL
+        </where>
+    </select>
 
     <!-- 복합 결과 매핑 -->
     <resultMap id="ProjectDetailMap" type="dto.AdminProjectDetail" >

@@ -39,5 +39,15 @@ public class ProjectDAO implements IProjectDAO {
         return sqlSession.selectOne("mapper.aproject.countAllProjects");
     }
 
+    // ProjectDAO.java
+    public int countProjects(String keyword, String settleStatus, String startDate, String endDate) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("keyword", keyword);
+        param.put("settleStatus", settleStatus);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+        return sqlSession.selectOne("mapper.aproject.countProjects", param);
+    }
+
 
 }
