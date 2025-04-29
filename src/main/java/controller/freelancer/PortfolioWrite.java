@@ -42,7 +42,7 @@ public class PortfolioWrite extends HttpServlet {
         IPortfolioService service = new PortfolioService();
         try {
             Map<Integer, String> projectInfoMap = service.projectInfoForPortfolio(freelancerId);
-            System.out.println(projectInfoMap.toString());
+            System.out.println("projectInfoMAp : \n " + projectInfoMap.toString());
             if (projectInfoMap != null) {
                 request.setAttribute("projectInfoMap", projectInfoMap);
             } else {

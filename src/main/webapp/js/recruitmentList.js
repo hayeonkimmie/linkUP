@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const contextPath = document.body.getAttribute('data-context-path');
+    // const contextPath = document.body.getAttribute('data-context-path');
+    // const contextPath = ${pageContext.request.contextPath};
+    const contextPath = window.contextPath
+    console.log(contextPath)
     const tabs = document.querySelectorAll('.filter-tab');
 
     // 탭 활성화 + 필터링 처리
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const projectCard = button.closest('.job-card');
                 const projectId = projectCard.getAttribute('data-project-id');
 
-                fetch(`${contextPath}/confirmRecruitment`, {
+                fetch(`/linkup/confirmRecruitment`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: `projectId=${projectId}`

@@ -18,10 +18,10 @@ public class MyPageController extends HttpServlet {
         HttpSession session = request.getSession();
         String role = session.getAttribute("role").toString();
         System.out.println(role);
-        if(role.equals("recruiter")){
+        if(role.equals("jobseeker")){
             request.getRequestDispatcher("./freelancer/my_page_main.jsp").forward(request,response);
 
-        } else if(role.equals("jobseeker")) {
+        } else if(role.equals("recruiter")) {
             request.getRequestDispatcher("./client/profileSetting.jsp").forward(request,response);
 
         } else {

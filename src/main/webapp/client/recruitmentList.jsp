@@ -124,6 +124,8 @@
 
 <!-- js 이벤트 바인딩 -->
 <script src="${contextPath}/js/recruitmentList.js"></script>
-
+<script>
+    window.contextPath = ${contextPath}
+</script>
 </body>
 </html>
