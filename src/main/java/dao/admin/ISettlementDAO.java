@@ -54,4 +54,9 @@ public interface ISettlementDAO {
     boolean isAllSettledInCnt(Integer projectId, Integer cnt) throws Exception;
 
     List<Map<String, Object>> selectAllSettlementMonthsByProjectId(Integer projectId) throws Exception;
+
+    List<SettledInfoDTO> selectSettledFreelancersByMonth(Map<String, Object> param) throws Exception;
+
+    List<SettledInfoDTO> selectWaitingFreelancersByMonth(Map<String, Object> param) throws Exception;
+
 }
