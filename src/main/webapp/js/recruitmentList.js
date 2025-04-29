@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     // const contextPath = document.body.getAttribute('data-context-path');
     // const contextPath = ${pageContext.request.contextPath};
-    const contextPath = window.contextPath
+    const contextPath = document.getElementById('contextPath')?.value || '';
+    console.log('contextPath', contextPath);
+    // const contextPath = window.contextPath
     console.log(contextPath)
     const tabs = document.querySelectorAll('.filter-tab');
 
@@ -61,8 +63,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
             });
         });
-    }
 
+        // 삭제하기 추가
+
+    }
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', () => {
+                const projectCard = button.closest('.job-card');
+                const projectId = projectCard.getAttribute('data-project-id');
+
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    fetch(`${contextPath}/deleteProject`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `projectId=${projectId}`
+                    })
+                        .then(res => res.text())
+                        .then(data => {
+                            if (data.trim() === 'success') {
+                                alert('프로젝트가 삭제되었습니다.');
+                                projectCard.remove(); // 성공하면 화면에서도 카드 제거
+                            } else {
+                                alert('삭제 실패!');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('삭제 중 에러 발생', error);
+                            alert('서버 오류로 삭제에 실패했습니다.');
+                        });
+                }
+            });
+        });
     // 탭 클릭 이벤트 바인딩
     tabs.forEach(tab => {
         tab.addEventListener('click', () => activateTab(tab));

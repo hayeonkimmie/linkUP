@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
-
 <!-- 여기 contextPath 변수만 JSP로 셋팅, js에서는 선언 안 함 -->
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -14,15 +12,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>구인 관리</title>
     <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
-    <link rel="stylesheet" href="${contextPath}/css/client/headerSt.css" />
+    <link rel="stylesheet" href="${contextPath}/css/client/headerSt.css"/>
+    <script>
+        window.contextPath = '${contextPath}';
+    </script>
 </head>
 
 <body>
-<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" />
-<jsp:include page="../home/header.jsp" />
+<input type="hidden" id="contextPath" value="${contextPath}" />
+<jsp:include page="../home/headerLogin.jsp" />
 
 <div class="layout">
+    <!-- 공통 사이드바 include -->
     <jsp:include page="../common/sidebar.jsp" />
+
 
     <main class="main">
         <h2 class="section-title">구인 관리</h2>
@@ -122,10 +125,7 @@
     </main>
 </div>
 
-<!-- js 이벤트 바인딩 -->
+<!--  recruitmentList.js 로딩 -->
 <script src="${contextPath}/js/recruitmentList.js"></script>
-<script>
-    window.contextPath = ${contextPath}
-</script>
 </body>
 </html>

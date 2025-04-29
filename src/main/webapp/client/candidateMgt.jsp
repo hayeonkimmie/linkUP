@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<jsp:include page="../home/headerLogin.jsp" />
+
 <!-- contextPath 숨김 input 추가 (JS에서 사용) -->
 <input type="hidden" id="contextPath" value="${contextPath}" />
 
@@ -64,23 +66,23 @@
         <tbody>
         <c:forEach var="applicant" items="${applicants}">
           <tr data-freelancer-id="${applicant.freelancerId}">
-<%--            경력 (년), 평점 다른 필드로 교체해야할 듯 --%>
-            <td><strong>${applicant.name}</strong></td>  <!-- 지원자 이름 -->
-            <td>${applicant.applyPosition}</td>           <!-- 지원한 레벨 (초급, 중급, 고급) -->
-            <td>${applicant.careerYear}</td>              <!-- 경력 (년) -->
-            <td>⭐ ${applicant.star}</td>                 <!-- 평점 -->
+              <%-- 경력 (년), 평점 다른 필드로 교체해야할 듯 --%>
+            <td><strong>${applicant.name}</strong></td> <%-- 지원자 이름 --%>
+            <td>${applicant.applyPosition}</td> <%-- 지원한 레벨 (초급, 중급, 고급) --%>
+            <td>${applicant.careerYear}</td> <%-- 경력 (년) --%>
+            <td>⭐ ${applicant.star}</td> <%-- 평점 --%>
             <td class="apply-status">
               <c:choose>
                 <c:when test="${applicant.applyStatus == 1}">합격</c:when>
                 <c:when test="${applicant.applyStatus == 0}">불합격</c:when>
-                <c:otherwise>-</c:otherwise> <!-- 수락/거절 둘 다 안한 경우 -->
+                <c:otherwise><%-- 수락/거절 둘 다 안한 경우 --%>-</c:otherwise>
               </c:choose>
             </td>
             <td class="action-buttons">
-              <!-- 상태가 아직 미정일 때만 버튼 보여주기 -->
+                <%-- 상태가 아직 미정일 때만 버튼 보여주기 --%>
               <c:if test="${applicant.applyStatus == null}">
-                <button class="action-btn accept-btn">수락</button> <!-- accept-btn 추가 -->
-                <button class="action-btn reject-btn">거절</button> <!-- reject-btn 추가 -->
+                <button class="action-btn accept-btn">수락</button> <%-- accept-btn 추가 --%>
+                <button class="action-btn reject-btn">거절</button> <%-- reject-btn 추가 --%>
               </c:if>
             </td>
           </tr>

@@ -13,7 +13,9 @@
 
 <body>
 <!-- 공통 헤더 include -->
-<jsp:include page="../home/header.jsp" />
+<body>
+<jsp:include page="../home/headerLogin.jsp" />
+
 
 <div class="layout">
     <!-- 공통 사이드바 include -->
