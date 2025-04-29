@@ -5,10 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import service.freelancer.InfoSerializer;
 import util.MybatisSqlSessionFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FreelancerDAO implements IFreelancerDAO {
     private SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -24,7 +21,7 @@ public class FreelancerDAO implements IFreelancerDAO {
             return null;
         } else {
             if(freelancer.getSkill() != null) {
-                freelancer.setSkillList(freelancer.getSkill().split(", "));
+                freelancer.setSkillList(freelancer.getSkill().split("\\^"));
             } else {
                 freelancer.setSkillList(null);
             }
@@ -78,11 +75,6 @@ public class FreelancerDAO implements IFreelancerDAO {
         System.out.println("DAO 37 + categoryList categoryList"+categoryList);
         return categoryList;
     }
-
-    @Override
-    public void insertFreelancer(Freelancer freelancer) throws Exception {
-
-    }
     @Override
     public String selectFreelancerProfileImg(String freelancerId) throws Exception {
         return sqlSession.selectOne("mapper.freelancer.selectProfileImgById", freelancerId);
@@ -92,20 +84,52 @@ public class FreelancerDAO implements IFreelancerDAO {
         System.out.println("DAO 47 + updateUserProfile"+freelancer);
         sqlSession.update("mapper.freelancer.updateUserProfile", freelancer);
         System.out.println("DAO 49 + updateUserProfile "+freelancer);
-        sqlSession.update("mapper.freelancer.updateFreelancerProfile", freelancer);
+        Map <String,Object> param =new HashMap<>();
+        param.put("bank",freelancer.getBank());
+        param.put("accountNum",freelancer.getAccountNum());
+        param.put("freelancerId",freelancer.getFreelancerId());
+        System.out.println("DAO 96 + param "+param);
+        sqlSession.update("mapper.freelancer.updateFreelancerBankInfo", param);
         sqlSession.commit();
     }
 
     @Override
-    public void insertCareer(Career career) throws Exception {
-        sqlSession.insert("mapper.freelancer.insertCareer", career);
+    public void updateCareer(List<Career> careerList, String freelancerId) throws Exception {
+        System.out.println("104 updateCareer freelancerId :"+freelancerId);
+        deleteCareer(freelancerId);
+        System.out.println("DAO 47 + updateCareer "+careerList);
+        insertCareer(careerList);
     }
-    @Override
-    public void updateCareer(Career career) throws Exception {
 
+    @Override
+    public void updateFreelancer(Freelancer freelancer) throws Exception {
+
+            if(freelancer.getLicenseList() != null) {
+                String license = infoSerializer.serializeLicenseList(freelancer.getLicenseList());
+                System.out.println("license : "+license);
+                freelancer.setLicense(license);
+            } else {
+                freelancer.setLicense(null);
+            }
+            if (freelancer.getAcademicList() != null) {
+                String academic = infoSerializer.serializeAcademicList(freelancer.getAcademicList());
+                System.out.println("license : "+academic);
+                freelancer.setAcademic(academic);
+            } else {
+                freelancer.setAcademic(null);
+            }
+            System.out.println("dao 121 "+freelancer);
+       // sqlSession.update("mapper.freelancer.updateFreelancer", freelancer);
+    }
+
+    @Override
+    public void insertCareer(List<Career> careerList) throws Exception {
+        sqlSession.insert("mapper.freelancer.insertCareer", careerList);
+        sqlSession.commit();
     }
     @Override
     public void deleteCareer(String freelancerId) throws Exception {
-
+        sqlSession.delete("mapper.freelancer.deleteCareerByFreelancerId", freelancerId);
+        sqlSession.commit();
     }
 }

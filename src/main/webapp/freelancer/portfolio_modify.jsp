@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <div class="header">
@@ -109,15 +111,15 @@
                                 <select class="project-id-select" id="portfolioId" name="projectId"
                                         style="width: 100%; height: 40px;">
                                     <%
-                                        java.util.Map<String, java.util.Map<String, String>> projectInfoMap =
-                                                (java.util.Map<String, java.util.Map<String, String>>) request.getAttribute("projectInfoMap");
+                                        java.util.Map<Integer, String> projectInfoMap =
+                                                (java.util.Map<Integer, String>) request.getAttribute("projectInfoMap");
                                         dto.Portfolio portfolio = (dto.Portfolio) request.getAttribute("portfolio");
 
-                                        for (java.util.Map.Entry<String, java.util.Map<String, String>> entry : projectInfoMap.entrySet()) {
-                                            String key = entry.getKey();
-                                            String projectName = entry.getValue().get("project_name");
+                                        for (java.util.Map.Entry<Integer, String> entry : projectInfoMap.entrySet()) {
+                                            Integer key = entry.getKey();
+                                            String projectName = entry.getValue();
                                             String selected = "";
-                                            if (key.equals(portfolio.getProjectId())) {
+                                            if (portfolio.getProjectId() != null && key.equals(portfolio.getProjectId())) {
                                                 selected = "selected";
                                             }
                                     %>
@@ -131,50 +133,6 @@
                             </td>
                         </tr>
                         <% } %>
-                        <%-- <c:if test="${portfolio.projectId ne null}">
-                             <tr class="project-id-section">
-                                 <td><label for="portfolioId">링크업을 통해 참여했던 프로젝트</label>
-                                 </td>
-                                 <td>
-                                     <c:if test="${not empty projectInfoMap}">
-                                         <select class="project-id-select" id="portfolioId" name="projectId"
-                                                 style="width: 100%; height: 40px;">
-                                             <c:forEach var="project" items="${projectInfoMap}">
-                                                 <option value="${project.key}"
-                                                         <c:if test="${project.key == portfolio.projectId}">selected</c:if>>
-                                                         ${project.value["project_name"]}
-                                                 </option>
-                                             </c:forEach>
-                                         </select>
-                                     </c:if>
-                                     <button type="button" class="delete-tr">X</button>
-                                 </td>
-                             </tr>
-                         </c:if>--%>
-                        <%--<c:if test="${portfolio.externalUrlList ne null}">
-                            <c:forEach var="externalUrl" items="${portfolio.externalUrlList}" varStatus="status">
-                                <tr>
-                                    <td><label>외부 링크</label></td>
-                                    <td>
-                                        <a href="${externalUrl}" target="_blank">${externalUrl}</a>
-                                        <input type="hidden" name="file-url-${status.index}" value="${externalUrl}"/>
-                                        <button type="button" class="delete-tr">X</button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
-                        <c:if test="${portfolio.attachmentList ne null}">
-                            <c:forEach var="attachment" items="${portfolio.attachmentList}" varStatus="status">
-                                <tr>
-                                    <td><label>첨부파일</label></td>
-                                    <td>
-                                        <a href="fileDown?filename=${attachment}">${attachment}</a>
-                                        <input type="hidden" name="attachment-${status.index}" value="${attachment}"/>
-                                        <button type="button" class="delete-tr">X</button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>--%>
                         <%
                             int urlIndex = 1;
                             int attachmentIndex = 1;
@@ -184,12 +142,12 @@
                                String[] externalUrlList = portfolio.getExternalUrlList();
                                 for (String externalUrl : externalUrlList) {
                         %>
-                        <tr name="file-url-<%= urlIndex %>" id="file-url-<%= urlIndex %>">
+                        <tr name="url-<%= urlIndex %>" id="url-<%= urlIndex %>">
                             <td><label>외부 링크</label></td>
                             <td>
-                                <a href="<%= externalUrl %>" target="_blank"><%= externalUrl %>
-                                </a>
-                                <input type="hidden" name="file-url-<%= urlIndex %>" value="<%= externalUrl %>"/>
+                                <%--<a href="<%= externalUrl %>" target="_blank"><%= externalUrl %>
+                                </a>--%>
+                                <input type="text" name="url-<%= urlIndex %>" value="<%= externalUrl %>"/>
                                 <button type="button" class="delete-tr">X</button>
                             </td>
                         </tr>
@@ -202,13 +160,11 @@
                                String[] attachmentList = portfolio.getAttachmentList();
                                 for (String attachment : attachmentList) {
                         %>
-                        <tr name="attachment-<%= urlIndex %>" id="attachment-<%= urlIndex %>">
+                        <tr name="attachment-<%= attachmentIndex %>" id="attachment-<%= attachmentIndex %>">
                             <td><label>첨부파일</label></td>
                             <td>
-                                <a href="fileDown?filename=<%= attachment %>"><%= attachment %>
-                                </a>
-                                <input type="hidden" name="attachment-<%= attachmentIndex %>"
-                                       value="<%= attachment %>"/>
+                                <a href="fileDown?filename=<%= attachment %>"><%= attachment %></a>
+                                <input type="hidden" name="attachment-<%= attachmentIndex %>" value="<%= attachment %>"/>
                                 <button type="button" class="delete-tr">X</button>
                             </td>
                         </tr>
@@ -222,14 +178,12 @@
                 </div>
                 <!-- 버튼 그룹 -->
                 <div class="button-group">
-                    <%--<span id="check" style="color:red; margin-left:10px;"></span><br/>
                     <!-- 임시저장 -->
                     <button id="temp-submit-btn" type="button">임시저장</button>--%>
                     <!-- 등록 검증 후 제출 -->
                     <button id="submit-btn" type="submit">포트폴리오 등록</button>
                     <!-- 목록 이동 -->
                     <button id="list-btn" type="button">목록</button>
-                    <%--                    <button id="temp-submit-btn" type="button">포트폴리오 임시저장</button>--%>
                     <button class="delete-btn"
                             onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">
                         포트폴리오 삭제
@@ -241,7 +195,6 @@
                 <input type="hidden" id="removedSkills" name="removedSkills">
                 <input type="hidden" id="addedUrls" name="addedUrls">
                 <input type="hidden" id="removedUrls" name="removedUrls">
-
                 <input type="hidden" id="addedAttachments" name="addedAttachments">
                 <input type="hidden" id="removedAttachments" name="removedAttachments">
 
@@ -253,7 +206,7 @@
                     <c:if test="${projectInfoMap ne null}">
                         <option value="">참여했던 프로젝트 명을 선택해주세요.</option>
                         <c:forEach var="project" items="${projectInfoMap }">
-                            <option value="${project.key}">${project.value.project_name}</option>
+                            <option value="${project.key}">${project.value}</option>
                         </c:forEach>
                     </c:if>
                     <c:if test="${projectInfoMap eq null}">
@@ -291,82 +244,15 @@
     }
 </script>
 <input type="hidden" id="skillDescriptionHidden" name="skillDescriptionHidden" value=""/>
-
-<%--<!-- 추가/삭제 히든 input들은 그대로 유지 -->
-<input type="hidden" id="addedUrls" name="addedUrls">
-<input type="hidden" id="removedUrls" name="removedUrls">
-<input type="hidden" id="addedAttachments" name="addedAttachments">
-<input type="hidden" id="removedAttachments" name="removedAttachments">
-<input type="hidden" id="addedProjectIds" name="addedProjectIds">
-<input type="hidden" id="removedProjectIds" name="removedProjectIds">
-
-<!-- 첨부파일/URL 기존 렌더링 부분 -->
-<table>
-    <tbody>
-    <c:if test="${portfolio.projectId ne null}">
-        <tr class="project-id-section">
-            <td><label for="portfolioId">링크업을 통해 참여했던 프로젝트</label>
-            </td>
-            <td>
-                <c:if test="${not empty projectInfoMap}">
-                    <select class="project-id-select" id="portfolioId" name="projectId"
-                            style="width: 100%; height: 40px;">
-                        <c:forEach var="project" items="${projectInfoMap}">
-                            <option value="${project.key}"
-                                    <c:if test="${project.key == portfolio.projectId}">selected</c:if>>
-                                    ${project.value["project_name"]}
-                            </option>
-                        </c:forEach>
-                    </select>
-                </c:if>
-                <button type="button" class="delete-tr">X</button>
-            </td>
-        </tr>
-    </c:if>
-
-    <c:if test="${portfolio.externalUrlList ne null}">
-        <c:forEach var="externalUrl" items="${portfolio.externalUrlList}" varStatus="status">
-            <tr class="url-section">
-                <td><label>외부 링크</label></td>
-                <td>
-                    <input type="url" class="file-url" name="file-url-${status.index + 1}"
-                           id="file-url-${status.index + 1}" value="${externalUrl}" readonly/>
-                    <button type="button" class="delete-tr">X</button>
-                </td>
-            </tr>
-        </c:forEach>
-    </c:if>
-
-    <c:if test="${portfolio.attachmentList ne null}">
-        <c:forEach var="attachment" items="${portfolio.attachmentList}" varStatus="status">
-            <tr class="file-section">
-                <td><label>첨부파일</label></td>
-                <td>
-                    <input type="hidden" name="attachment-${status.index + 1}"
-                           id="attachment-${status.index + 1}" value="${attachment}"/>
-                    <a href="fileDown?filename=${attachment}" target="_blank">${attachment}</a>
-                    <button type="button" class="delete-tr">X</button>
-                </td>
-            </tr>
-        </c:forEach>
-    </c:if>
-    </tbody>
-</table>
-</div>--%>
-
 </div>
 </form>
 <!-- 목록 이동 버튼 (contextPath 적용) -->
 <script>
-    const contextPath = '${pageContext.request.contextPath}';
-    /*
-
-                document.getElementById('list-btn').addEventListener('click', () => {
-                    if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
-                        location.href = `${contextPath}/my-page/portfolio-list`;
-                }
-            });
-*/
+    document.getElementById('list-btn').addEventListener('click', () => {
+        if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
+            location.href = `${contextPath}/my-page/portfolio-list`;
+        }
+    });
 
     // 포트폴리오 삭제 버튼
     document.getElementById('delete-btn').addEventListener('click', () => {
@@ -375,7 +261,7 @@
         }
     });
 </script>
-<script src="${contextPath}/js/freelancer_my_page_portfolio_write.js"></script>
+<script src="${contextPath}/js/freelancer_my_page_portfolio_modify.js"></script>
 </main>
 </div>
 </body>

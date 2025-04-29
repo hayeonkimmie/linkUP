@@ -415,10 +415,15 @@ public class Freelancer {
                 ", registrationDate=" + registrationDate +
                 ", withdrawalDate=" + withdrawalDate +
                 ", acceptConsent=" + acceptConsent +
+                ", subCategoryId=" + subCategoryId +
+                ", subCategoryName='" + subCategoryName + '\'' +
+                ", categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", avgStar=" + avgStar +
                 ", type='" + type + '\'' +
                 ", category='" + category + '\'' +
                 ", skill='" + skill + '\'' +
-                ", skillList=" + skillList +
+                ", skillList=" + Arrays.toString(skillList) +
                 ", address='" + address + '\'' +
                 ", academicList=" + academicList +
                 ", academic='" + academic + '\'' +
@@ -434,6 +439,8 @@ public class Freelancer {
                 ", otherRequest='" + otherRequest + '\'' +
                 ", attachment='" + attachment + '\'' +
                 ", externalUrl='" + externalUrl + '\'' +
+                ", externalUrlList=" + externalUrlList +
+                ", attachmentList=" + attachmentList +
                 ", portfolioInfoList=" + portfolioInfoList +
                 ", averageScore=" + averageScore +
                 ", projectCount=" + projectCount +

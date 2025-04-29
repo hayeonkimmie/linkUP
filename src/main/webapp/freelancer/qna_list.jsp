@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_qna_log.css'/>">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
@@ -26,10 +28,11 @@
             <div class="content-header">
                 <div class="content-header-text">
                     <h3>문의 내역</h3>
+                    <a href="${contextPath}/home/QnA.jsp" class="btn-submit">+ 문의하기</a>
                 </div>
             </div>
             <c:choose>
-                <c:when test="${QnAList ne null}">
+                <c:when test="${empty QnAList}">
                     <div class="qna-empty empty">
                         <p>등록된 문의사항이 없습니다.</p>
                     </div>

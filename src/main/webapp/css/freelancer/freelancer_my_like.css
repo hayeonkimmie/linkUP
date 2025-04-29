@@ -1,21 +1,11 @@
 .container {
-    display: flex;
     font-family: 'Noto Sans KR', sans-serif;
 }
-
-.sidebar {
-    width: 260px;
-    background-color: purple;
-    color: white;
-    padding: 30px 20px;
-    min-height: 100vh;
-}
-
 .profile-box {
     text-align: center;
     margin-bottom: 40px;
 }
-
+/*
 .profile-img {
     width: 100px;
     height: 100px;
@@ -57,7 +47,7 @@
     padding: 6px 10px;
     border-radius: 5px;
     font-weight: bold;
-}
+}*/
 
 .main-content {
     flex: 1;

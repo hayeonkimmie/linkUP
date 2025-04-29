@@ -75,39 +75,36 @@ public class PortfolioModify extends HttpServlet {
 
             String removedSkillsStr = multi.getParameter("removedSkills");
             String addedSkillsStr = multi.getParameter("addedSkills");
-            String removedUrlsStr = multi.getParameter("removedUrls");
-            String addedUrlsStr = multi.getParameter("addedUrls");
+/*            String removedUrlsStr = multi.getParameter("removedUrls");
+            String addedUrlsStr = multi.getParameter("addedUrls");*/
             String removedAttachmentsStr = multi.getParameter("removedAttachments");
             String addedAttachmentsStr = multi.getParameter("addedAttachments");
-            String removedProjectIdsStr = multi.getParameter("removedProjectIds");
-            String addedProjectIdsStr = multi.getParameter("addedProjectIds");
-            System.out.println("removedSkillsStr: " + removedSkillsStr + " addedSkillsStr: "+addedSkillsStr+" removedUrlsStr: "+removedUrlsStr
-                    +" addedUrlsStr: "+addedUrlsStr + " removedAttachmentsStr: "+removedAttachmentsStr + " addedAttachmentsStr : "+addedAttachmentsStr+" addedProjectIdsStr "+addedProjectIdsStr);
+/*            String removedProjectIdsStr = multi.getParameter("removedProjectIds");
+            String addedProjectIdsStr = multi.getParameter("addedProjectIds");*/
+            System.out.println("removedSkillsStr: " + removedSkillsStr + " addedSkillsStr: "+addedSkillsStr+/*" removedUrlsStr: "+removedUrlsStr*/
+                    /*+" addedUrlsStr: "+addedUrlsStr + */" removedAttachmentsStr: "+removedAttachmentsStr + " addedAttachmentsStr : "+addedAttachmentsStr/*+" addedProjectIdsStr "+addedProjectIdsStr*/);
 // 스킬 처리
             String originalSkills = portfolio.getSkillDescription();
             System.out.println("87 기존 스킬 originalSkills " +originalSkills);
             List<String> updatedSkillList = PortfolioDataUpdater.updateList(originalSkills, removedSkillsStr, addedSkillsStr);
             portfolio.setSkillDescription(updatedSkillList.isEmpty() ? null : String.join("^", updatedSkillList));
-
-// URL 처리
+/*// URL 처리
             String originalUrls = portfolio.getExternalUrl();
             System.out.println("93 기존 외부링크 originalUrls " +originalUrls);
             List<String> updatedUrlList = PortfolioDataUpdater.updateList(originalUrls, removedUrlsStr, addedUrlsStr);
             System.out.println("95 새로운 외부링크 updatedUrlList " +updatedUrlList);
-            portfolio.setExternalUrl(updatedUrlList.isEmpty() ? null : String.join("^", updatedUrlList));
-
+            portfolio.setExternalUrl(updatedUrlList.isEmpty() ? null : String.join("^", updatedUrlList));*/
 // 첨부파일 처리
             String originalAttachments = portfolio.getAttachment();
             System.out.println("100 기존 첨부파일 originalAttachments " +originalAttachments);
             List<String> updatedAttachmentList = PortfolioDataUpdater.updateList(originalAttachments, removedAttachmentsStr, addedAttachmentsStr);
             System.out.println("102 첨부파일 updatedAttachmentList " +updatedAttachmentList);
             portfolio.setAttachment(updatedAttachmentList.isEmpty() ? null : String.join("^", updatedAttachmentList));
-
-// 프로젝트 ID (항상 하나)
+/*// 프로젝트 ID (항상 하나)
             System.out.println("기존 프로젝트 아이디 getProjectId " +portfolio.getProjectId());
             String originalProjectIdStr = (portfolio.getProjectId() != null) ? String.valueOf(portfolio.getProjectId()) : null;
             Integer updatedProjectId = PortfolioDataUpdater.updateSingleProjectId(originalProjectIdStr, removedProjectIdsStr, addedProjectIdsStr);
-            portfolio.setProjectId(updatedProjectId);
+            portfolio.setProjectId(updatedProjectId);*/
 
             String monthStr = multi.getParameter("portProjStart");
             String monthEnd = multi.getParameter("portProjEnd");
@@ -135,7 +132,7 @@ public class PortfolioModify extends HttpServlet {
                 portfolio.setThumbnail(newThumbnail);
             }
 
-/*            // 1) 외부 URL 동적 수집
+           // 1) 외부 URL 동적 수집
             Enumeration<String> paramNames = multi.getParameterNames();
             List<String> urls = new ArrayList<>();
             if (urls != null) {
@@ -157,7 +154,7 @@ public class PortfolioModify extends HttpServlet {
                 portfolio.setExternalUrl(null);
             }
 
-            // 2) 첨부파일 동적 수집
+/*            // 2) 첨부파일 동적 수집
             List<String> attachment = new ArrayList<>();
             Enumeration<?> fileFields = multi.getFileNames();
             if (fileFields != null) {
@@ -181,17 +178,18 @@ public class PortfolioModify extends HttpServlet {
             } else {
                 portfolio.setAttachment(null);
             }
-
+*/
             if (multi.getParameter("projectId") == null) {
                 portfolio.setProjectId(null);
             } else {
+                System.out.println("185"+Integer.parseInt(multi.getParameter("projectId")));
                 portfolio.setProjectId(Integer.parseInt(multi.getParameter("projectId")));
-            }*/
-            if (multi.getParameter("tempSaved") != null && multi.getParameter("tempSaved").equals("true")) {
+            }
+/*            if (multi.getParameter("tempSaved") != null && multi.getParameter("tempSaved").equals("true")) {
                 portfolio.setTempSaved(true);
             } else {
                 portfolio.setTempSaved(false);
-            }
+            }*/
             System.out.println(portfolio);
             //service.modifyPortfolio(portfolio);
             service.selectPortfolioById(portfolio.getPortfolioId());

@@ -12,6 +12,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +58,14 @@ public class MyProjectStatus extends HttpServlet {
             Map<Integer, List<SettlementListForF>> onGoingProjSettlementMap = new HashMap<>();
             if (onGoingProjectList != null) {
                 for (FreelancerProject project : onGoingProjectList) {
+                    System.out.println(project.getProjectId() +" "+ project.getProjectName());
                     List<SettlementListForF> settlementList = settlementService.getSettlementList(freelancerId, project.getProjectId());
+                    if(settlementList == null || settlementList.isEmpty()){
+                        settlementList = new ArrayList<>();
+                        settlementList.add(new SettlementListForF(project.getProjectId(), project.getProjectName()));
+                        System.out.println("리스트 크기: " + settlementList.size());
+                        System.out.println("첫 번째 항목: " + settlementList.get(0));
+                    }
                     onGoingProjSettlementMap.put(project.getProjectId(), settlementList);
                 }
             }
@@ -66,6 +74,11 @@ public class MyProjectStatus extends HttpServlet {
             if (completedProjectList != null) {
                 for (FreelancerProject project : completedProjectList) {
                     List<SettlementListForF> settlementList = settlementService.getSettlementList(freelancerId, project.getProjectId());
+                    if(settlementList == null || settlementList.isEmpty()){
+                        settlementList = new ArrayList<>();
+                        settlementList.add(new SettlementListForF(project.getProjectId(), project.getProjectName()));
+                    }
+                    System.out.println(settlementList);
                     completedProjSettlementMap.put(project.getProjectId(), settlementList);
                 }
             }

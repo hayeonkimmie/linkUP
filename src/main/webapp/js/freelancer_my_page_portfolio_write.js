@@ -22,7 +22,6 @@ function initFileSection() {
     function updateIndexes() {
         let urlIndex = 1;
         let attachmentIndex = 1;
-        let projectIndex = 1;
 
         const rows = tbody.querySelectorAll("tr");
 
@@ -30,18 +29,17 @@ function initFileSection() {
             if (tr.classList.contains("project-id-section")) {
                 const label = tr.querySelector("label");
                 const select = tr.querySelector("select");
-                label.setAttribute("for", `project-id-select-${projectIndex}`);
-                select.setAttribute("id", `project-id-select-${projectIndex}`);
+                label.setAttribute("for", `project-id-select`);
+                select.setAttribute("id", `project-id-select`);
                 select.setAttribute("name", `project-id-select`);
-                projectIndex++;
             }
 
             if (tr.classList.contains("url-section")) {
                 const label = tr.querySelector("label");
                 const input = tr.querySelector("input[type='url']");
-                label.setAttribute("for", `file-url-${urlIndex}`);
-                input.setAttribute("id", `file-url-${urlIndex}`);
-                input.setAttribute("name", `file-url-${urlIndex}`);
+                label.setAttribute("for", `url-${urlIndex}`);
+                input.setAttribute("id", `url-${urlIndex}`);
+                input.setAttribute("name", `url-${urlIndex}`);
                 urlIndex++;
             }
 
@@ -202,6 +200,7 @@ function initThumbnailUpload() {
     }
 }
 
+/*
 function moveToList() {
     const listBtn = document.getElementById('list-btn');
     if (listBtn) {
@@ -212,3 +211,4 @@ function moveToList() {
         });
     }
 }
+*/

@@ -114,7 +114,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 </select>
                 </div>
                 <div class="input input-academicName input-with-icon">
+                    <div class="label">학교명</div>
                     <input type="text" name="${base}[${index}].academicName" id="academicName_${index}" placeholder="학교명" required />
+                </div>
+                 <div class="dropdown input-graduateStatus">
+                    <div class="label">졸업상태 <span class="star">*</span></div>
+                    <select name="academicgraduateStatus_${index}" required>
+                        <option value="">졸업 구분</option>
+                        <option value="졸업">졸업</option>
+                        <option value="재학중">재학중</option>
+                        <option value="중퇴">중퇴</option>
+                        <option value="휴학">휴학</option>
+                        <option value="기타">기타</option>
+                    </select>
                 </div>
                 <div class="input input-major input-with-icon">
                     <div class="label">전공명</div>
@@ -135,8 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getLicenseTemplate(index, base) {
         return `
+             <button type="button" class="buttonDeleteField">X</button>
             <div class="license-row">
-                 <button type="button" class="buttonDeleteField">X</button>
                 <div class="input input-certificate-name is-label" data-comp_type="">
                     <label>자격증 명 <span class="star">*</span></label>
                     <input type="text" name="${base}[${index}].name" id="licenseName_${index}" placeholder="자격증명" required maxlength="50"/>
@@ -326,9 +338,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if (tr.classList.contains("url-section")) {
-                    label.setAttribute("for", `file-url-${urlIndex}`);
-                    input.setAttribute("id", `file-url-${urlIndex}`);
-                    input.setAttribute("name", `file-url-${urlIndex}`);
+                    label.setAttribute("for", `url-${urlIndex}`);
+                    input.setAttribute("id", `url-${urlIndex}`);
+                    input.setAttribute("name", `url-${urlIndex}`);
                     urlIndex++;
                 }
 
@@ -368,7 +380,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tr.classList.add("url-section");
             tr.innerHTML = `
                 <td><label>외부 링크</label></td>
-                <td><input type="url" placeholder="https://example.com" /></td>
+                <td><input type="url" placeholder="https://example.com" class="new"/></td>
                 <td><button type="button">X</button></td>`;
             tbody.appendChild(tr);
             addDeleteEvent(tr.querySelector("button"));

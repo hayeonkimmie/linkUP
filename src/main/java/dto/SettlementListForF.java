@@ -8,6 +8,14 @@ public class SettlementListForF {
     private Integer projectId;   // 프로젝트 ID
     private String projectName;  // 프로젝트 이름
 
+    public SettlementListForF() {
+    }
+
+    public SettlementListForF(Integer projectId, String projectName) {
+        this.projectName = projectName;
+        this.projectId = projectId;
+    }
+
     // getter, setter
     public Integer getCnt() {
         return cnt;
@@ -50,7 +58,7 @@ public class SettlementListForF {
     public String toString() {
         return "SettlementListForF{" +
                 "cnt=" + cnt +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 ", ammount=" + ammount +
                 ", settleDate='" + settleDate + '\'' +
                 ", projectId=" + projectId +

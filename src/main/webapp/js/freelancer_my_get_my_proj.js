@@ -48,31 +48,10 @@ window.onload = function () {
             }
         });
     });
-
-    // ✅ 모달 열기
-    /*document.querySelectorAll('.settlement-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.getElementById('settlementModal').style.display = 'flex';
-            calculateCompletedSettlementTotal(); // 총합 계산
-        });
-    });
-
-    // ✅ 모달 닫기
-    const closeBtn = document.querySelector('.close-btn');
-    const confirmBtn = document.querySelector('.confirm-btn');
-    const modal = document.getElementById('settlementModal');
-
-    if (closeBtn && confirmBtn && modal) {
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-        confirmBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-    }*/
 };
 document.querySelectorAll('.settlement-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+        event.stopPropagation();
         const projectId = btn.dataset.projectId;
         let settlementList = null;
 
@@ -81,13 +60,7 @@ document.querySelectorAll('.settlement-btn').forEach(btn => {
         } else if (window.completedProjSettlementMap && window.completedProjSettlementMap[projectId]) {
             settlementList = window.completedProjSettlementMap[projectId];
         }
-
-        if (!settlementList) {
-            alert('해당 프로젝트의 정산 내역을 찾을 수 없습니다.');
-            return;
-        }
-
-        openSettlementModal(settlementList); // settlementList를 넘겨야 해 ✅
+        openSettlementModal(settlementList); // settlementList를
     });
 });
 /*document.querySelectorAll('.settlement-btn').forEach(btn => {
@@ -141,18 +114,10 @@ function openSettlementModal(projectId) {
     document.getElementById('settlementModal').style.display = 'flex';
 }*/
 
-function openSettlementModal(settlementList) {
+/*function openSettlementModal(settlementList) {
     const tbody = document.getElementById("settlementTableBody");
     const projectNameSpan = document.getElementById("modalProjectName");
-
     tbody.innerHTML = ""; // 테이블 초기화
-
-    if (settlementList.length > 0) {
-        projectNameSpan.textContent = settlementList[0].projectName || '프로젝트명 없음';
-    } else {
-        projectNameSpan.textContent = '프로젝트명 없음';
-    }
-
     settlementList.forEach(settle => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -163,13 +128,86 @@ function openSettlementModal(settlementList) {
         `;
         tbody.appendChild(tr);
     });
-
     // 총합 다시 계산
     calculateCompletedSettlementTotal();
+    document.getElementById("settlementModal").style.display = "block"; // 모달 열기
+}*/
+function openSettlementModal(settlementList) {
+    const tbody = document.getElementById("settlementTableBody");
+    const projectNameSpan = document.getElementById("modalProjectName");
+
+    tbody.innerHTML = ""; // 테이블 초기화
+
+    // 프로젝트 이름 세팅
+    if (projectNameSpan && settlementList[0]?.projectName) {
+        projectNameSpan.textContent = settlementList[0].projectName;
+    }
+    let hasCntValue = false;
+
+    // 테이블 데이터 렌더링
+    settlementList.forEach(settle => {
+        const tr = document.createElement("tr");
+        // 명시적으로 확인 - null 체크
+        if (settle.cnt == null) {
+            tr.innerHTML = `
+            <td colspan="4" style="text-align: center; width: 100%; height: auto">조회된 정산내역이 없습니다</td>
+            `;
+            tbody.appendChild(tr);
+        } else {
+            hasCntValue = true; // cnt 값이 있는 항목 발견
+            tr.innerHTML = `
+            <td>${settle.cnt}</td>
+            <td>₩${parseInt(settle.ammount, 10).toLocaleString()}</td>
+            <td class="status ${settle.status === '정산완료' ? 'complete' : ''}">${settle.status}</td>
+            <td>${settle.settleDate}</td>
+            `;
+            tbody.appendChild(tr);
+            calculateCompletedSettlementTotal();
+        }
+    });
+/*
+    // 유효한 cnt 값이 있을 때만 총합 계산
+    if (hasCntValue) {
+        calculateCompletedSettlementTotal();
+    }*/
 
     document.getElementById("settlementModal").style.display = "block"; // 모달 열기
 }
+/*function openSettlementModal(settlementList) {
+    const tbody = document.getElementById("settlementTableBody");
+    const projectNameSpan = document.getElementById("modalProjectName");
 
+    tbody.innerHTML = ""; // 테이블 초기화
+    // ✅ 프로젝트 이름 세팅
+    if (projectNameSpan && settlementList[0].projectName) {
+        projectNameSpan.textContent = settlementList[0].projectName;
+    }
+    // 테이블 데이터 렌더링
+    settlementList.forEach(settle => {
+        const hasValidData = settlementList.length > 0 && settlementList[0].cnt != null;
+        console.log(hasValidData);
+        const tr = document.createElement("tr");
+        if (!hasValidData) {
+        // if (settle.cnt == null) {
+            tr.innerHTML = `
+            <td colspan="4" style="text-align: center; width: 100%; height: auto">조회된 정산내역이 없습니다</td>
+        `;
+            tbody.appendChild(tr);
+        } else {
+            tr.innerHTML = `
+            <td>${settle.cnt}</td>
+            <td>₩${parseInt(settle.ammount, 10).toLocaleString()}</td>
+            <td class="status ${settle.status === '정산완료' ? 'complete' : ''}">${settle.status}</td>
+            <td>${settle.settleDate}</td>
+        `;
+            tbody.appendChild(tr);
+            calculateCompletedSettlementTotal();
+        }
+    }); //  유효한 데이터 있을 때만 총합 계산
+
+    // calculateCompletedSettlementTotal(); // 총합 계산
+    document.getElementById("settlementModal").style.display = "block"; // 모달 열기
+}*/
 function closeSettlementModal() {
     document.getElementById('settlementModal').style.display = 'none';
 }
@@ -182,6 +220,7 @@ function switchTab(tabId) {
 }
 
 // ✅ 정산 완료 금액만 합산
+/*
 function calculateCompletedSettlementTotal() {
     let total = 0;
     document.querySelectorAll('.settlement-table tbody tr').forEach(row => {
@@ -198,5 +237,33 @@ function calculateCompletedSettlementTotal() {
     const totalCell = document.querySelector('.settlement-table tfoot .total strong');
     if (totalCell) {
         totalCell.textContent = `₩${total.toLocaleString()}`;
+    }
+}*/
+function calculateCompletedSettlementTotal() {
+    let total = 0;
+    const rows = document.querySelectorAll('.settlement-table tbody tr');
+    let statusCellFound = false;
+
+    rows.forEach(row => {
+        const statusCell = row.querySelector('.status');
+        if (statusCell) {
+            statusCellFound = true;
+            const isCompleted = statusCell.classList.contains('complete');
+
+            if (isCompleted) {
+                const amountText = row.children[1]?.textContent?.replace(/[₩,]/g, '');
+                const amount = parseInt(amountText);
+                if (!isNaN(amount)) total += amount;
+            }
+        }
+    });
+
+    const totalCell = document.querySelector('.settlement-table tfoot .total strong');
+    if (totalCell) {
+        if (!statusCellFound) {
+            totalCell.textContent = '';
+        } else {
+            totalCell.textContent = `₩${total.toLocaleString()}`;
+        }
     }
 }
