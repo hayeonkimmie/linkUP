@@ -139,7 +139,7 @@
                             dto.Portfolio portfolio = (dto.Portfolio) request.getAttribute("portfolio");
 
                             if (portfolio != null && portfolio.getExternalUrlList() != null) {
-                               String[] externalUrlList = portfolio.getExternalUrlList();
+                                String[] externalUrlList = portfolio.getExternalUrlList();
                                 for (String externalUrl : externalUrlList) {
                         %>
                         <tr name="url-<%= urlIndex %>" id="url-<%= urlIndex %>">
@@ -157,14 +157,16 @@
                             }
 
                             if (portfolio != null && portfolio.getAttachmentList() != null) {
-                               String[] attachmentList = portfolio.getAttachmentList();
+                                String[] attachmentList = portfolio.getAttachmentList();
                                 for (String attachment : attachmentList) {
                         %>
                         <tr name="attachment-<%= attachmentIndex %>" id="attachment-<%= attachmentIndex %>">
                             <td><label>첨부파일</label></td>
                             <td>
-                                <a href="fileDown?filename=<%= attachment %>"><%= attachment %></a>
-                                <input type="hidden" name="attachment-<%= attachmentIndex %>" value="<%= attachment %>"/>
+                                <a href="fileDown?filename=<%= attachment %>"><%= attachment %>
+                                </a>
+                                <input type="hidden" name="attachment-<%= attachmentIndex %>"
+                                       value="<%= attachment %>"/>
                                 <button type="button" class="delete-tr">X</button>
                             </td>
                         </tr>
@@ -179,28 +181,17 @@
                 <!-- 버튼 그룹 -->
                 <div class="button-group">
                     <!-- 임시저장 -->
-                    <button id="temp-submit-btn" type="button">임시저장</button>--%>
+<%--                    <button id="temp-submit-btn" type="button">임시저장</button>--%>
                     <!-- 등록 검증 후 제출 -->
-                    <button id="submit-btn" type="submit">포트폴리오 등록</button>
+                    <button id="submit-btn" type="submit">포트폴리오 수정</button>
                     <!-- 목록 이동 -->
                     <button id="list-btn" type="button">목록</button>
-                    <button class="delete-btn"
+                    <button class="delete-btn" id="delete-btn"
                             onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">
                         포트폴리오 삭제
                     </button>
                 </div>
                 <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="display:none"/>
-
-                <input type="hidden" id="addedSkills" name="addedSkills">
-                <input type="hidden" id="removedSkills" name="removedSkills">
-                <input type="hidden" id="addedUrls" name="addedUrls">
-                <input type="hidden" id="removedUrls" name="removedUrls">
-                <input type="hidden" id="addedAttachments" name="addedAttachments">
-                <input type="hidden" id="removedAttachments" name="removedAttachments">
-
-                <input type="hidden" id="addedProjectIds" name="addedProjectIds">
-                <input type="hidden" id="removedProjectIds" name="removedProjectIds">
-
 
                 <div class="portfolioIdList" id="portfolioIdList" style="display:none; ">
                     <c:if test="${projectInfoMap ne null}">
@@ -215,54 +206,35 @@
                 </div>
                 <input type="hidden" id="tempSaved" name="tempSaved" value=""/>
             </div>
+        <input type="hidden" id="skillDescriptionHidden" name="skillDescriptionHidden" value=""/>
         </form>
     </main>
 </div>
-<script>
-    const contextPath = '${pageContext.request.contextPath}';
-</script>
-<script src="${contextPath}/js/header.js"></script>
-<script src="${contextPath}/js/headerLogin.js"></script>
-<script src="${contextPath}/js/freelancer_my_page_portfolio_write.js"></script>
-<script>
-    const listBtn = document.getElementById('list-btn');
-    // 목록: 확인창 후 이동
-    listBtn.addEventListener('click', () => {
-        if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
-            location.href = `${contextPath}/my-page/portfolio-list`;
-        }
-    });
-
-    function deletePortfolio() {
-        const listBtn = document.getElementById('delete-btn');
+    <script>
+        const contextPath = '${pageContext.request.contextPath}';
+    </script>
+    <script src="${contextPath}/js/header.js"></script>
+    <script src="${contextPath}/js/headerLogin.js"></script>
+    <script src="${contextPath}/js/freelancer_my_page_portfolio_write.js"></script>
+    <script>
+        const listBtn = document.getElementById('list-btn');
         // 목록: 확인창 후 이동
         listBtn.addEventListener('click', () => {
-            if (confirm('해당 포트폴리오를 삭제하시겠습니까?')) {
-                location.href = `${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}`;
+            if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
+                location.href = `${contextPath}/my-page/portfolio-list`;
             }
         });
-    }
-</script>
-<input type="hidden" id="skillDescriptionHidden" name="skillDescriptionHidden" value=""/>
-</div>
-</form>
-<!-- 목록 이동 버튼 (contextPath 적용) -->
-<script>
-    document.getElementById('list-btn').addEventListener('click', () => {
-        if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
-            location.href = `${contextPath}/my-page/portfolio-list`;
-        }
-    });
 
-    // 포트폴리오 삭제 버튼
-    document.getElementById('delete-btn').addEventListener('click', () => {
-        if (confirm('포트폴리오를 삭제하시겠습니까?')) {
-            location.href = `${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}`;
+        function deletePortfolio() {
+            const deleteBtn = document.getElementById('delete-btn');
+            // 목록: 확인창 후 이동
+            deleteBtn.addEventListener('click', () => {
+                if (confirm('해당 포트폴리오를 삭제하시겠습니까?')) {
+                    location.href = `${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}`;
+                }
+            });
         }
-    });
-</script>
+    </script>
 <script src="${contextPath}/js/freelancer_my_page_portfolio_modify.js"></script>
-</main>
-</div>
 </body>
 </html>

@@ -1,7 +1,10 @@
 .section{
     margin-bottom: 30px;
 }
-
+.container{
+    margin: 0 auto;
+    max-width: fit-content !important;
+}
 .portfolio-register-container {
     background: white;
     padding: 30px 40px;
@@ -238,7 +241,7 @@ table td:nth-child(2){
 #add-project-log,
 #add-attachment-file,
 #add-outer-url,
-#list-btn{
+#list-btn,delete-btn{
     padding: 10px 20px;
     border-radius: 6px;
     border: none;

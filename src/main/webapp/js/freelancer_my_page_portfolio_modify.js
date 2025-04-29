@@ -1,9 +1,119 @@
 window.addEventListener('DOMContentLoaded', () => {
     initFileSection();
+    setupDynamicInputListeners();
     initSkillTagsTextInput();
     initThumbnailUpload();
 });
 
+// function initFileSection() {
+//     const tbody = document.querySelector(".file-upload-section tbody");
+//
+//     const addProjectLogBtn = document.getElementById("add-project-log");
+//     const addOuterUrlBtn = document.getElementById("add-outer-url");
+//     const addAttachmentFileBtn = document.getElementById("add-attachment-file");
+//
+//     function addDeleteEvent(button) {
+//         button.addEventListener("click", function () {
+//             this.closest("tr").remove();
+//             updateIndexes();
+//         });
+//     }
+//
+//     function updateIndexes() {
+//         let urlIndex = 1;
+//         let attachmentIndex = 1;
+//
+//         const rows = tbody.querySelectorAll("tr");
+//
+//         rows.forEach((tr) => {
+//             if (tr.classList.contains("project-id-section")) {
+//                 const label = tr.querySelector("label");
+//                 const select = tr.querySelector("select");
+//                 label.setAttribute("for", `project-id-select`);
+//                 select.setAttribute("id", `project-id-select`);
+//                 select.setAttribute("name", `project-id-select`);
+//             }
+//
+//             if (tr.classList.contains("url-section")) {
+//                 const label = tr.querySelector("label");
+//                 const input = tr.querySelector("input[type='url']");
+//                 label.setAttribute("for", `url-${urlIndex}`);
+//                 input.setAttribute("id", `url-${urlIndex}`);
+//                 input.setAttribute("name", `url-${urlIndex}`);
+//                 urlIndex++;
+//             }
+//
+//             if (tr.classList.contains("file-section")) {
+//                 const label = tr.querySelector("label");
+//                 const input = tr.querySelector("input[type='file']");
+//                 label.setAttribute("for", `attachment-${attachmentIndex}`);
+//                 input.setAttribute("id", `attachment-${attachmentIndex}`);
+//                 input.setAttribute("name", `attachment-${attachmentIndex}`);
+//                 attachmentIndex++;
+//             }
+//         });
+//     }
+//
+//     addProjectLogBtn?.addEventListener("click", () => {
+//         if (document.querySelector(".project-id-section")) {
+//             alert("프로젝트는 하나만 등록할 수 있습니다.");
+//             return;
+//         }
+//         const tr = document.createElement("tr");
+//         tr.classList.add("project-id");
+//
+//         const optionList = document.getElementById("portfolioIdList");
+//         const options = optionList ? optionList.innerHTML : "";
+//
+//         tr.innerHTML = `
+//             <td><label for="portfolioId">프로젝트 상세페이지</label></td>
+//             <td>
+//                 <select class="project-id-select" style="width: 100%; height: 40px;">
+//                     ${options}
+//                 </select>
+//                 <button type="button" class="delete-tr">X</button>
+//             </td>
+//         `;
+//         tbody.appendChild(tr);
+//         addDeleteEvent(tr.querySelector("button"));
+//         updateIndexes();
+//     });
+//
+//     addOuterUrlBtn?.addEventListener("click", () => {
+//         const tr = document.createElement("tr");
+//         tr.classList.add("url-section");
+//         tr.innerHTML = `
+//             <td><label>외부 링크</label></td>
+//             <td>
+//                 <input type="url" placeholder="https://" class="file-url"/>
+//                 <button type="button" class="delete-tr">X</button>
+//             </td>
+//         `;
+//         tbody.appendChild(tr);
+//         addDeleteEvent(tr.querySelector("button"));
+//         updateIndexes();
+//     });
+//
+//     addAttachmentFileBtn?.addEventListener("click", () => {
+//         const tr = document.createElement("tr");
+//         tr.classList.add("file-section");
+//         tr.innerHTML = `
+//             <td><label>첨부파일</label></td>
+//             <td>
+//                 <input type="file" class="file-item"/>
+//                 <button type="button" class="delete-tr">X</button>
+//             </td>
+//         `;
+//         tbody.appendChild(tr);
+//         addDeleteEvent(tr.querySelector("button"));
+//         updateIndexes();
+//     });
+//
+//     // 초기 로딩 데이터도 삭제버튼 바인딩
+//     tbody.querySelectorAll(".delete-tr").forEach(button => {
+//         addDeleteEvent(button);
+//     });
+// }
 function initFileSection() {
     const tbody = document.querySelector(".file-upload-section tbody");
 
@@ -28,9 +138,9 @@ function initFileSection() {
             if (tr.classList.contains("project-id-section")) {
                 const label = tr.querySelector("label");
                 const select = tr.querySelector("select");
-                label.setAttribute("for", `project-id-`);
-                select.setAttribute("id", `project-id`);
-                select.setAttribute("name", `project-id`);
+                label.setAttribute("for", `project-id-select`);
+                select.setAttribute("id", `project-id-select`);
+                select.setAttribute("name", `project-id-select`);
             }
 
             if (tr.classList.contains("url-section")) {
@@ -91,6 +201,7 @@ function initFileSection() {
         tbody.appendChild(tr);
         addDeleteEvent(tr.querySelector("button"));
         updateIndexes();
+        setupDynamicInputListeners();
     });
 
     addAttachmentFileBtn?.addEventListener("click", () => {
@@ -106,11 +217,47 @@ function initFileSection() {
         tbody.appendChild(tr);
         addDeleteEvent(tr.querySelector("button"));
         updateIndexes();
+        setupDynamicInputListeners();
     });
 
     // 초기 로딩 데이터도 삭제버튼 바인딩
     tbody.querySelectorAll(".delete-tr").forEach(button => {
         addDeleteEvent(button);
+    });
+}
+function collectAndSetExternalUrls() {
+    const urlSet = new Set();
+    document.querySelectorAll('input[id^="url-"]').forEach(input => {
+        if (input.value.trim() !== '') {
+            urlSet.add(input.value.trim()); // Set에는 add()를 사용
+        }
+    });
+    const result = Array.from(urlSet).join('^'); // Set → Array 변환 후 join
+    console.log('External URLs:', result);
+    document.getElementById('external-url-hidden').value = result;
+}
+
+function collectAndSetAttachments() {
+    const attachmentSet = new Set(); // 이름도 명확히
+    document.querySelectorAll('input[id^="attachment-"]').forEach(input => {
+        if (input.files && input.files.length > 0) {
+            attachmentSet.add(input.files[0].name); // Set에는 add()
+        }
+    });
+    const result = Array.from(attachmentSet).join('^');
+    console.log('Attachments:', result);
+    document.getElementById('attachment-hidden').value = result;
+}
+function setupDynamicInputListeners() {
+    // 기존 input에 대해서도
+    document.querySelectorAll('input[id^="url-"], input[id^="attachment-"]').forEach(input => {
+        if (!input.dataset.listenerAdded) {
+            input.addEventListener('input', () => {
+                collectAndSetExternalUrls();
+                collectAndSetAttachments();
+            });
+            input.dataset.listenerAdded = "true"; // 중복 방지용 플래그
+        }
     });
 }
 
