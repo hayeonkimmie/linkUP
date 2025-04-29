@@ -104,27 +104,30 @@
 
                 <!-- 버튼 그룹 -->
                 <div class="button-group">
-                    <%--<span id="check" style="color:red; margin-left:10px;"></span><br/>
                     <!-- 임시저장 -->
-                    <button id="temp-submit-btn" type="button">임시저장</button>--%>
+                    <%--<button id="temp-submit-btn" type="button">임시저장</button>--%>
                     <!-- 등록 검증 후 제출 -->
                     <button id="submit-btn" type="submit">포트폴리오 등록</button>
                         <!-- 목록 이동 -->
                     <button id="list-btn" type="button" class="list-btn" >목록</button>
-<%--                    <button id="temp-submit-btn" type="button">포트폴리오 임시저장</button>--%>
                 </div>
                 <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="display:none"/>
-                <input type="hidden" id="skillDescriptionHidden" name="skillDescriptionHidden"/>
+                <input type="hidden" id="skill-description-hidden" name="skillDescriptionHidden"/>
+                <input type="hidden" id="external-url-hidden" name="externalUrlHidden"/>
+                <input type="hidden" id="attachment-hidden" name="attachmentHidden"/>
                 <div class="portfolioIdList" id="portfolioIdList" style="display:none; ">
-                    <c:if test="${projectInfoMap ne null}">
-                        <option value="">참여했던 프로젝트 명을 선택해주세요.</option>
-                        <c:forEach var="project" items="${projectInfoMap }">
-                            <option value="${project.key}">${project.value.project_name}</option>
-                        </c:forEach>
-                    </c:if>
-                    <c:if test="${projectInfoMap eq null}">
-                        <option value="">조회된 프로젝트가 없습니다.</option>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${empty projectInfoMap}">
+                            <option value="">조회된 프로젝트가 없습니다.</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="">참여했던 프로젝트 명을 선택해주세요.</option>
+                            <c:forEach var="project" items="${projectInfoMap }">
+<%--                                <option value="${project.key}">${project.value.projectName}</option>--%>
+                                <option value="${project.key}">${project.value}</option>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <input type="hidden" id="tempSaved" name="tempSaved" value=""/>
             </div>
@@ -167,7 +170,6 @@
     });
 
 </script>
-
 <script src="${contextPath}/js/freelancer_my_page_portfolio_write.js"></script>
 </body>
 </html>

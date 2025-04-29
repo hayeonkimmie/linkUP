@@ -1,8 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
     initFileSection();
+    setupDynamicInputListeners();
     initSkillTagsTextInput();
     initThumbnailUpload();
-    moveToList();
 });
 
 function initFileSection() {
@@ -92,6 +92,7 @@ function initFileSection() {
         tbody.appendChild(tr);
         addDeleteEvent(tr.querySelector("button"));
         updateIndexes();
+        setupDynamicInputListeners();
     });
 
     addAttachmentFileBtn?.addEventListener("click", () => {
@@ -107,6 +108,7 @@ function initFileSection() {
         tbody.appendChild(tr);
         addDeleteEvent(tr.querySelector("button"));
         updateIndexes();
+        setupDynamicInputListeners();
     });
 
     // 초기 로딩 데이터도 삭제버튼 바인딩
@@ -119,7 +121,7 @@ function initSkillTagsTextInput() {
     const input = document.getElementById('skills');
     const skillTagsContainer = document.querySelector('.skill-tags');
     const clearBtn = document.getElementById('clear-skills');
-    const hiddenInput = document.getElementById('skillDescriptionHidden');
+    const hiddenInput = document.getElementById('skill-description-hidden');
 
     if (!input || !skillTagsContainer || !clearBtn || !hiddenInput) return;
 
@@ -178,6 +180,44 @@ function initSkillTagsTextInput() {
         });
     });
 }
+function collectAndSetExternalUrls() {
+    const urlSet = new Set();
+    document.querySelectorAll('input[id^="url-"]').forEach(input => {
+        if (input.value.trim() !== '') {
+            urlSet.add(input.value.trim()); // Set에는 add()를 사용
+        }
+    });
+    const result = Array.from(urlSet).join('^'); // Set → Array 변환 후 join
+    console.log('External URLs:', result);
+    document.getElementById('external-url-hidden').value = result;
+}
+
+function collectAndSetAttachments() {
+    const attachmentSet = new Set(); // 이름도 명확히
+    document.querySelectorAll('input[id^="attachment-"]').forEach(input => {
+        if (input.files && input.files.length > 0) {
+            attachmentSet.add(input.files[0].name); // Set에는 add()
+        }
+    });
+    const result = Array.from(attachmentSet).join('^');
+    console.log('Attachments:', result);
+    document.getElementById('attachment-hidden').value = result;
+}
+
+
+// input 생성될 때마다 change 이벤트 등록
+function setupDynamicInputListeners() {
+    // 기존 input에 대해서도
+    document.querySelectorAll('input[id^="url-"], input[id^="attachment-"]').forEach(input => {
+        if (!input.dataset.listenerAdded) {
+            input.addEventListener('input', () => {
+                collectAndSetExternalUrls();
+                collectAndSetAttachments();
+            });
+            input.dataset.listenerAdded = "true"; // 중복 방지용 플래그
+        }
+    });
+}
 
 function initThumbnailUpload() {
     const uploadBtn = document.querySelector('.upload-placeholder');
@@ -199,16 +239,8 @@ function initThumbnailUpload() {
         });
     }
 }
-
-/*
-function moveToList() {
-    const listBtn = document.getElementById('list-btn');
-    if (listBtn) {
-        listBtn.addEventListener('click', () => {
-            if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
-                window.location.href = `${contextPath}/my-page/portfolio-list`;
-            }
-        });
-    }
-}
-*/
+document.getElementById('submit-btn').addEventListener('click', function(event) {
+    collectAndSetExternalUrls();
+    collectAndSetAttachments();
+    // 이 시점에서 hidden input 들이 채워짐
+});

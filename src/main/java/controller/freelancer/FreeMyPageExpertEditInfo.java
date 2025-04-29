@@ -51,7 +51,7 @@ public class FreeMyPageExpertEditInfo extends HttpServlet {
             System.out.println("FreeMyPageEditInfo 서블릿 59 : " + careerList);
             System.out.println("allPortfolioInfoMap 서블릿 60 : " + allPortfolioInfoMap);
             System.out.println("FreeMyPageEditInfo 서블릿 61 : " + freelancer);
-            request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit2.jsp").forward(request, response);
+            request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,87 +72,6 @@ public class FreeMyPageExpertEditInfo extends HttpServlet {
         freelancer.setFreelancerId(freelancerId);
         MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy());
         JSONParser parser = new JSONParser();
-        /*// === 1. CareerList 가져오기 ===
-        List<Career> careerList = new ArrayList<>();
-        int idx = 0;
-        while (multi.getParameter("careerList[" + idx + "].companyName") != null) {
-            Career career = new Career();
-            career.setFreelancerId(freelancerId);
-            career.setCompanyName(multi.getParameter("careerList[" + idx + "].companyName"));
-            career.setDepartmentName(multi.getParameter("careerList[" + idx + "].departmentName"));
-            career.setJoinDate(Date.valueOf(multi.getParameter("careerList[" + idx + "].joinDate")+"01"));
-            career.setResignDate(Date.valueOf(multi.getParameter("careerList[" + idx + "].resignDate")+"01"));
-            career.setPosition(multi.getParameter("careerList[" + idx + "].position"));
-            career.setJobTitle(multi.getParameter("careerList[" + idx + "].jobTitle"));
-            career.setSalary(Integer.valueOf(multi.getParameter("careerList[" + idx + "].salary")));
-            career.setJobDescription(multi.getParameter("careerList[" + idx + "].jobDescription"));
-            careerList.add(career);
-            idx++;
-        }
-        System.out.println("careerList : " + careerList);
-// === 2. EducationList 가져오기 ===
-        List<Academic> academicList = new ArrayList<>();
-        idx = 0;
-        while (multi.getParameter("educationList[" + idx + "].academicType") != null) {
-            Academic academic = new Academic();
-            academic.setAcademicType(multi.getParameter("educationList[" + idx + "].academicType"));
-            academic.setAcademicName(multi.getParameter("educationList[" + idx + "].academicName"));
-            academic.setGraduateStatus(multi.getParameter("educationList[" + idx + "].graduateStatus"));
-            academic.setAcademicMajor(multi.getParameter("educationList[" + idx + "].academicMajor"));
-            academic.setEntranceDate(multi.getParameter("educationList[" + idx + "].enterDate"));
-            academic.setGraduateDate(multi.getParameter("educationList[" + idx + "].graduateDate"));
-            academicList.add(academic);
-            idx++;
-        }
-            freelancer.setAcademicList(academicList);
-
-
-// === 3. LicenseList 가져오기 ===
-        List<License> licenseList = new ArrayList<>();
-        idx = 0;
-        while (multi.getParameter("licenseList[" + idx + "].name") != null) {
-            License license = new License();
-            license.setLicenseName(multi.getParameter("licenseList[" + idx + "].name"));
-            license.setLicenseGrade(multi.getParameter("licenseList[" + idx + "].licenseGrade"));
-            license.setLicenseAgency(multi.getParameter("licenseList[" + idx + "].licenseAgency"));
-            license.setLicenseDate(Date.valueOf(multi.getParameter("licenseList[" + idx + "].licenseDate")+"01"));
-            licenseList.add(license);
-            idx++;
-        }
-        freelancer.setLicenseList(licenseList);
-
-// === 4. Skill 가져오기 ===
-        String skillDescription = multi.getParameter("skillDescriptionHidden"); // "Java^Spring^MySQL"
-// === 5. ExternalUrlList 가져오기 ===
-        List<String> externalUrlList = new ArrayList<>();
-        idx = 0;
-        String externalUrl = "";
-        while (multi.getParameter("externalUrlList[" + idx + "]") != null) {
-            externalUrlList.add(multi.getParameter("externalUrlList[" + idx + "]"));
-            externalUrl += multi.getParameter("externalUrlList[" + idx + "]")+"^";
-            idx++;
-        }
-        System.out.println("externalUrl" + externalUrl);
-        freelancer.setExternalUrlList(externalUrlList);
-        if(externalUrlList.size() > 0){
-            freelancer.setExternalUrl(externalUrl);
-        }
-// === 6. 첨부파일 가져오기 ===
-        List<String> attachmentFileNames = new ArrayList<>();
-        idx = 0;
-        String attachment ="";
-        while (true) {
-            String fileFieldName = "attachmentList[" + idx + "]";
-            String fileName = multi.getFilesystemName(fileFieldName); // 업로드된 실제 파일명
-            if (fileName == null) break; // 더 이상 파일 없으면 종료
-            attachmentFileNames.add(fileName);
-            attachment += fileName+"^";
-            idx++;
-        }
-            freelancer.setAcademicList(academicList);
-            if(attachmentFileNames.size() > 0){
-                freelancer.setAttachment(attachment);
-            }*/
 // 1. CareerList
             List<Career> careerList = new ArrayList<>();
             String careerListJson = multi.getParameter("careerListJson");
@@ -311,6 +230,5 @@ public class FreeMyPageExpertEditInfo extends HttpServlet {
             out.println("</script>");
         }
            response.sendRedirect(request.getContextPath() + "/my-page/edit-expert-info");
-            //request.getRequestDispatcher("/freelancer/my_page_free_user_expert_info_edit.jsp").forward(request, response);
     }
 }

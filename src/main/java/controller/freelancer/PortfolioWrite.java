@@ -57,7 +57,6 @@ public class PortfolioWrite extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        freelancerId = "free002"; //로그인 기능이 구현된 이후에는 빼기
         String path = request.getServletContext().getRealPath("upload"); // 업로드 폴더의 물리적 경로 가져오기
         File uploadDir = new File(path);
         if (!uploadDir.exists()) {
@@ -115,50 +114,8 @@ public class PortfolioWrite extends HttpServlet {
                 portfolio.setThumbnail("default.png");
             }
             portfolio.setTeamRole(multi.getParameter("teamRole"));
-
-            // 1) 외부 URL 동적 수집
-            Enumeration<String> paramNames = multi.getParameterNames();
-            List<String> urls = new ArrayList<>();
-            if(urls != null) {
-                while (paramNames.hasMoreElements()) {
-                    String name = paramNames.nextElement();
-                    if (name.startsWith("url-")) {
-                        String url = multi.getParameter(name);
-                        if (url != null && !url.trim().isEmpty()) {
-                            urls.add(url);
-                        }
-                    }
-                }
-            }
-            if (urls.isEmpty()) {
-                portfolio.setExternalUrl(null);
-            } else {
-                portfolio.setExternalUrl(String.join("^", urls));
-            }
-
-            // 2) 첨부파일 동적 수집
-            List<String> attachment = new ArrayList<>();
-            Enumeration<?> fileFields = multi.getFileNames();
-            if(fileFields != null) {
-                while (fileFields.hasMoreElements()) {
-                    String field = (String) fileFields.nextElement();
-                    if (field.startsWith("attachment-")) {
-                        String saved = multi.getFilesystemName(field);
-                        System.out.println("141 saved : "+saved);
-                        if (saved != null) {
-                            attachment.add(saved);
-                        }
-                    } else {
-                        continue;
-                    }
-                }
-            }
-
-            if (attachment.isEmpty()) {
-                portfolio.setAttachment(null);
-            } else {
-                portfolio.setAttachment(String.join("^", attachment));
-            }
+            portfolio.setExternalUrl(multi.getParameter("externalUrlHidden"));
+            portfolio.setAttachment(multi.getParameter("attachmentHidden"));
             portfolio.setTempSaved(true);
 /*            if(multi.getParameter("tempSaved") != null && multi.getParameter("tempSaved").equals("true")) {
                 portfolio.setTempSaved(true);
