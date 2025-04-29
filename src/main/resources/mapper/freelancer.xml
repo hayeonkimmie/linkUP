@@ -68,21 +68,46 @@
             profile_img = #{profileImg}
         WHERE user_id = #{freelancerId}
     </update>
-    <update id="updateFreelancerProfile" parameterType="freelancer">
-        UPDATE freelancer
-        SET address = #{address},
-            bank = #{bank},
-            account_num = #{accountNum}
+    <delete id="deleteCareerByFreelancerId" parameterType="String">
+        delete from career
         WHERE freelancer_id = #{freelancerId}
-    </update>
-    <update id="updateFreelancerBankInfo" parameterType="freelancer">
+    </delete>
+    <update id="updateFreelancerBankInfo" parameterType="Map">
         UPDATE freelancer
         SET bank = #{bank}, account_num = #{accountNum}
         WHERE freelancer_id = #{freelancerId}
     </update>
+    <insert id="insertCareerList" parameterType="java.util.List">
+        INSERT INTO career (
+        freelancer_id,
+        company_name,
+        department_name,
+        position,
+        job_title,
+        salary,
+        job_description,
+        join_date,
+        resign_date
+        )
+        VALUES
+        <foreach collection="list" item="career" separator=",">
+            (
+            #{career.freelancerId},
+            #{career.companyName},
+            #{career.departmentName},
+            #{career.position},
+            #{career.jobTitle},
+            #{career.salary},
+            #{career.jobDescription},
+            #{career.joinDate},
+            #{career.resignDate}
+            )
+        </foreach>
+    </insert>
 
     <select id="selectExpertFreelancerById" parameterType="String" resultType="freelancer">
         SELECT  CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
+                f.sub_category_id as subCategoryId,
                 f.skill,
                 f.academic,
                 f.introduction,
@@ -155,7 +180,7 @@
         p.working_hours AS workingHours,
         p.manager AS projectManager,
         p.mphone AS managerPhone,
-        CONCAT(FORMAT(c.total_pay, 0), '만 원') AS totalBudget,
+        CONCAT(FORMAT(c.total_pay, 0), ' 원') AS totalBudget,
         p.deadline_date,
         CASE
         WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
@@ -177,12 +202,11 @@
                 JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
                 JOIN category ca ON ca.category_id = sc.category_id
             ), '') AS categories -- 카테고리 끝*/
-        CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category
+        subcat.sub_category_name AS category
         FROM project p
         JOIN contract c ON c.project_id = p.project_id
         JOIN client cl ON p.client_id = cl.client_id
         JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
-        JOIN category cat ON subcat.category_id = cat.category_id
 
         WHERE c.freelancer_id = #{freelancerId}
         AND c.end_date > CURDATE()
@@ -194,7 +218,6 @@
         <![CDATA[
         SELECT
         p.project_id AS projectId,
-        cl.company_name AS clientName,
         p.project_name AS projectName,
         CONCAT(DATE_FORMAT(p.start_date, '%Y.%m.%d'), ' ~ ', DATE_FORMAT(p.end_date, '%Y.%m.%d')) AS projectDuration,
         c.end_date as deadlineDate,
@@ -207,19 +230,17 @@
         p.working_hours AS workingHours,
         p.manager AS projectManager,
         p.mphone AS managerPhone,
-        CONCAT(FORMAT(c.total_pay, 0), '만 원') AS totalBudget,
+        CONCAT(FORMAT(c.total_pay, 0), ' 원') AS totalBudget,
         p.deadline_date,
         CASE
         WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
         WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
         ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
         END AS d_day,
-        CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS categories
+        s.sub_category_name AS categories
         FROM project p
         JOIN contract c ON c.project_id = p.project_id
-        JOIN client cl ON p.client_id = cl.client_id
-        JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
-        JOIN category cat ON subcat.category_id = cat.category_id
+        JOIN subCategory s ON p.sub_category_id = s.sub_category_id
         WHERE c.freelancer_id = #{freelancerId}
         AND c.end_date > CURDATE()
         ORDER BY c.end_date ASC
@@ -240,52 +261,57 @@
     <select id="selectCompletedProjectsByFreelancerId" resultType="dto.FreelancerProject" parameterType="Map">
         <![CDATA[
         SELECT
-        p.project_id AS projectId,
-        cl.company_name AS clientName,
-        p.project_name AS projectName,
-        CONCAT(DATE_FORMAT(c.start_date, '%Y.%m.%d'), ' ~ ', DATE_FORMAT(c.end_date, '%Y.%m.%d')) AS projectDuration,
-        p.req_skills AS reqSkills,
-        p.qualification AS qualification,
-        p.project_description AS projectDescription,
-        p.job_details AS jobDetails,
-        p.working_method AS workingMethod,
-        p.working_environment AS workingEnvironment,
-        p.working_hours AS workingHours,
-        p.manager AS projectManager,
-        p.mphone AS managerPhone,
-        CONCAT(FORMAT(c.total_pay, 0), '만 원') AS totalBudget,
-        p.deadline_date,
-        CASE
-        WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
-        WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
-        ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
-        END AS d_day,
-/*        IFNULL((
-        SELECT
-        GROUP_CONCAT(CONCAT(ca.category_name, ' > ', sc.sub_category_name)
-        ORDER BY sc.sub_category_id SEPARATOR ', ')
-        FROM (
-        SELECT
-        CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p.category, ',', numbers.n), ',', -1) AS UNSIGNED) AS sub_category_id
-        FROM (
-        SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
-        ) AS numbers
-        WHERE numbers.n <= 1 + LENGTH(p.category) - LENGTH(REPLACE(p.category, ',', ''))
-        ) AS parsed
-        JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
-        JOIN category ca ON ca.category_id = sc.category_id
-        ), '') AS categories*/
-        CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS categories
+            p.project_id AS projectId,
+            cl.company_name AS clientName,
+            p.project_name AS projectName,
+            CONCAT(DATE_FORMAT(c.start_date, '%Y.%m.%d'), ' ~ ', DATE_FORMAT(c.end_date, '%Y.%m.%d')) AS projectDuration,
+            p.req_skills AS reqSkills,
+            p.qualification AS qualification,
+            p.project_description AS projectDescription,
+            p.job_details AS jobDetails,
+            p.working_method AS workingMethod,
+            p.working_environment AS workingEnvironment,
+            p.working_hours AS workingHours,
+            p.manager AS projectManager,
+            p.mphone AS managerPhone,
+            CONCAT(FORMAT(c.total_pay, 0), '원') AS totalBudget,
+            subcat.sub_category_name as categories,
+            p.deadline_date,
+            CASE
+                WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
+                WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
+                ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
+                END AS d_day
         FROM contract c
-        JOIN project p ON c.project_id = p.project_id
-        JOIN client cl ON p.client_id = cl.client_id
-        JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
-        JOIN category cat ON subcat.category_id = cat.category_id
+                 JOIN project p ON c.project_id = p.project_id
+                 JOIN client cl ON p.client_id = cl.client_id
+                 JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
         WHERE c.freelancer_id = #{freelancerId}
-        AND c.end_date <= CURDATE()
+          AND c.end_date <= CURDATE()
         ORDER BY c.end_date ASC
         LIMIT #{row}, 10
         ]]>
+    </select>
+    <select id="selectSettlementListForMyPage" resultType="dto.SettlementListForF" parameterType="Map">
+        SELECT
+            DISTINCT s.cnt,
+            p.project_id,
+            p.project_name,
+            st.ammount,
+            st.status,
+            s.settle_date
+        FROM contract ct
+                 INNER JOIN freelancer f
+                            ON ct.freelancer_id = f.freelancer_id
+                 INNER JOIN settlelist s
+                            ON ct.id = s.contract_id
+                 INNER JOIN settlement st
+                            ON ct.project_pay_id = st.category_id
+                 INNER JOIN project p
+                            ON ct.project_id = p.project_id
+        WHERE ct.freelancer_id = #{freelancerId}
+          AND ct.project_id = #{projectId}
+        ORDER BY ct.end_date, s.cnt
     </select>
 
     <select id="catalogFreelancersByCategory" parameterType="int" resultType="dto.Freelancer">

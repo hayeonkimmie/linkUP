@@ -4,6 +4,10 @@
   margin-bottom: 25px;
   width: 100%;
 }
+img{
+  max-width: 100%; height: auto;
+  overflow: hidden;
+}
 
 .content-header-text{
   width: inherit;
@@ -216,12 +220,13 @@
 }
 
 /* 썸네일 */
-.thumbnail {
+.list-thumbnail {
   width: 25%;
-  height: 90px;
-  background-color: #dcdcdc;
+  height: 172px;
   border-radius: 8px;
   flex-shrink: 0;
+  display: inline-flex;
+  justify-content: center;
 }
 
 /* 텍스트 정보 */

@@ -16,4 +16,5 @@ public interface IProjectMgtDAO {
     void updateProgressToEnd(Map<String, Object> param) throws Exception;
 
 
+    ProjectMgt selectProjectById(int projectId) throws Exception;
 }

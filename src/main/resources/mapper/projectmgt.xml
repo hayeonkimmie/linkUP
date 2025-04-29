@@ -9,7 +9,7 @@
     <resultMap id="projectMgtMap" type="dto.ProjectMgt">
         <id property="projectId" column="project_id" /> <!-- 프로젝트 id -->
         <result property="title" column="advertisement_title"/> <!-- 공고 제목 -->
-        <result property="category" column="category"/> <!-- 카테고리 -->
+        <result property="category" column="sub_category_name"/> <!-- 카테고리 -->
         <result property="skills" column="req_skills"/> <!-- 요구기술 -->
         <result property="projectProgress" column="project_progress"/> <!-- 프로젝트 진행 상태 -->
         <result property="status" column="status"/> <!-- 구인상태 -->
@@ -36,7 +36,7 @@
         SELECT
         pj.project_id,
         pj.advertisement_title,
-        pj.category,
+        sc.sub_category_name,
         pj.req_skills,
         pj.status,
         pj.created_date,
@@ -56,13 +56,14 @@
         JOIN user u ON c.client_id = u.user_id
         LEFT JOIN pay p ON pj.project_id = p.project_id
         LEFT JOIN lv l ON p.lv_id = l.Lv_id
+        LEFT JOIN subCategory sc ON pj.sub_category_id =  sc.sub_category_id
         WHERE pj.client_id = #{clientId} AND pj.is_deleted = FALSE
         AND pj.status IS NOT NULL
         <if test="status != null and status != 'all'">
             AND pj.status = #{status}
         </if>
         GROUP BY
-        pj.project_id, pj.advertisement_title, pj.category, pj.req_skills, pj.status,
+        pj.project_id, pj.advertisement_title, sc.sub_category_name, pj.req_skills, pj.status,
         pj.created_date, pj.start_date, pj.end_date, pj.project_progress,  pj.duration,
         l.Lv_id, l.Lv, p.project_fee;
     </select>
@@ -120,4 +121,23 @@
           AND end_date <= DATE(#{today})
         ]]>
 </update>
+
+    <select id="selectProjectById" parameterType="int" resultType="dto.ProjectMgt">
+        SELECT
+            project_id,
+            advertisement_title,
+            sub_category_name,
+            req_skills,
+            status,
+            created_date,
+            deadline_date,
+            duration,
+            start_date,
+            end_date,
+            project_progress
+        FROM project pj
+         LEFT JOIN subCategory sc ON pj.sub_category_id =  sc.sub_category_id
+        WHERE project_id = #{projectId}
+    </select>
+
 </mapper>

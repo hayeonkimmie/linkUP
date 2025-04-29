@@ -15,29 +15,14 @@
 </head>
 <%--// JS에서 해당 값을 읽어와서 AJAX 경로로 사용 가능 --%>
 <body data-context-path="${contextPath}">
+<jsp:include page="../home/headerLogin.jsp" />
 
-<jsp:include page="../home/header.jsp" />
 
 <div class="layout">
-    <!-- 사이드바 -->
-    <aside class="sidebar">
-        <div class="profile">
-            <img src="https://via.placeholder.com/80" alt="프로필 이미지" />
-            <p>${nickname}</p>
-            <p><a href="${contextPath}/profileSetting.jsp">마이페이지</a></p>
-        </div>
-        <h3>프로필 설정</h3>
-        <h3>프로젝트</h3>
-        <ul>
-            <li><a href="${contextPath}/recruit/register.jsp">내 프로젝트 조회</a></li>
-            <li><a href="${contextPath}/applicant/manage.jsp">지원자 관리</a></li>
-        </ul>
-        <h3><a href="${contextPath}/bookmark.jsp">찜한 구인자</a></h3>
-        <h3><a href="${contextPath}/review/history.jsp">리뷰 내역</a></h3>
-        <h3><a href="${contextPath}/clientQnA" class="active">문의 내역</a></h3>
-        <h3><a href="${contextPath}/alarm/setting.jsp">알림 설정</a></h3>
-    </aside>
+    <!-- 공통 사이드바 include -->
+    <jsp:include page="../common/sidebar.jsp" />
 
+    <!-- 본문 -->
     <main class="main">
         <h2 class="section-title">찜한 프리랜서</h2>
 

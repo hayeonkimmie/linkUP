@@ -12,16 +12,15 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
-<%--    <script src="../js/freelancer_my_page_portfolio_write_and_modify.js"></script>--%>
-    <%--<script src="<c:url value='/js/freelancer_my_page_portfolio_write_and_modify.js'/>"></script>--%>
-    <script src="${contextPath}/js/freelancer_my_page_portfolio_write_and_modify.js"></script>
+<%--    <script src="../js/freelancer_my_page_portfolio_write.js"></script>--%>
+    <%--<script src="<c:url value='/js/freelancer_my_page_portfolio_write.js'/>"></script>--%>
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="../home/header.jsp" />
-</div>
+
+<div id="header-placeholder"></div>
 
 <div class="container">
     <jsp:include page="/freelancer/sidebar.jsp"/>
@@ -44,8 +43,7 @@
                     <div class="thumbnail-upload-section">
                         <div class="thumbnail-upload-box">
                             <label class="upload-placeholder">
-                                <img src="${contextPath}/img/upload.png"  alt="이미지선택" id="preview" width="100px"
-                                     onclick="document.getElementById('thumbnail').click();"/>
+                                <img src="${contextPath}/img/default_upload.png" alt="이미지선택" id="preview"  style="width: 100%; height: auto; border-radius: 8px;" onclick="document.getElementById('thumbnail').click();"/>
                             </label>
                         </div>
                     </div>
@@ -54,7 +52,7 @@
                         <!-- 프로젝트 기간 -->
                         <div class="project-period">
                             <span>프로젝트 기간</span>
-                            <input id="portProjStart" name="portProjStart" type="month" required value=""/>
+                            <input id="portProjStart" name="portProjStart" type="month" value=""/>
                             ~
                             <input id="portProjEnd" name="portProjEnd" type="month" value=""/>
                         </div>
@@ -106,27 +104,30 @@
 
                 <!-- 버튼 그룹 -->
                 <div class="button-group">
-                    <%--<span id="check" style="color:red; margin-left:10px;"></span><br/>
                     <!-- 임시저장 -->
-                    <button id="temp-submit-btn" type="button">임시저장</button>--%>
+                    <%--<button id="temp-submit-btn" type="button">임시저장</button>--%>
                     <!-- 등록 검증 후 제출 -->
                     <button id="submit-btn" type="submit">포트폴리오 등록</button>
                         <!-- 목록 이동 -->
-                    <button id="list-btn" type="button">목록</button>
-                    <button id="temp-submit-btn" type="button">포트폴리오 임시저장</button>
+                    <button id="list-btn" type="button" class="list-btn" >목록</button>
                 </div>
                 <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="display:none"/>
-                <input type="hidden" name="skillDescription" id="skillDescriptionHidden" value="" />
+                <input type="hidden" id="skill-description-hidden" name="skillDescriptionHidden"/>
+                <input type="hidden" id="external-url-hidden" name="externalUrlHidden"/>
+                <input type="hidden" id="attachment-hidden" name="attachmentHidden"/>
                 <div class="portfolioIdList" id="portfolioIdList" style="display:none; ">
-                    <c:if test="${projectInfoMap ne null}">
-                        <option value="">참여했던 프로젝트 명을 선택해주세요.</option>
-                        <c:forEach var="project" items="${projectInfoMap }">
-                            <option value="${project.key}">${project.value.project_name}</option>
-                        </c:forEach>
-                    </c:if>
-                    <c:if test="${projectInfoMap eq null}">
-                        <option value="">조회된 프로젝트가 없습니다.</option>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${empty projectInfoMap}">
+                            <option value="">조회된 프로젝트가 없습니다.</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="">참여했던 프로젝트 명을 선택해주세요.</option>
+                            <c:forEach var="project" items="${projectInfoMap }">
+<%--                                <option value="${project.key}">${project.value.projectName}</option>--%>
+                                <option value="${project.key}">${project.value}</option>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <input type="hidden" id="tempSaved" name="tempSaved" value=""/>
             </div>
@@ -134,20 +135,41 @@
     </main>
 </div>
 <script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
+<script>
     function readURL(input) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = e => document.getElementById("preview").src = e.target.result;
+        if(input.files && input.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                document.getElementById("preview").src = e.target.result;
+            }
             reader.readAsDataURL(input.files[0]);
         }
     }
-    const listBtn = document.getElementById('list-btn');
-    // 목록: 확인창 후 이동
-    listBtn.addEventListener('click', () => {
-        if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
-            location.href = '${contextPath}/portfolio-list';
+    // 파일 선택(change) 시 실행할 이벤트 핸들러 등록
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('thumbnail');
+        if (input) {
+            input.addEventListener('change', function() {
+                console.log("선택된 파일:", input.files[0]);
+                readURL(input);
+            });
         }
     });
+
+    const listBtn = document.getElementById('list-btn');
+    // 목록: 확인창 후 이동
+
+    listBtn.addEventListener('click', () => {
+        if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
+            location.href = '${contextPath}/my-page/portfolio-list';
+        }
+    });
+
 </script>
+<script src="${contextPath}/js/freelancer_my_page_portfolio_write.js"></script>
 </body>
 </html>

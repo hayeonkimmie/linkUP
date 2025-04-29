@@ -1,7 +1,10 @@
 package controller.freelancer;
 
+import com.google.gson.Gson;
 import dto.FreelancerProject;
+import dto.SettlementListForF;
 import service.freelancer.FreelancerProjectService;
+import service.freelancer.FreelancerSettlementService;
 import service.freelancer.IFreelancerProjectService;
 import util.PageInfo;
 
@@ -9,7 +12,10 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/my-page/project-status")
 public class MyProjectStatus extends HttpServlet {
@@ -22,53 +28,82 @@ public class MyProjectStatus extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+
         String freelancerId = (String) request.getSession().getAttribute("userId");
-            /*if (freelancerId == null) {
-                response.sendRedirect("/login");
-            };*/
-        freelancerId = "free002";
-        String pageStr = request.getParameter("page");
-        System.out.println("page = " + pageStr);
-        Integer page = null;
-        if(pageStr == null) {
-            page = 1;
-        } else {
-            page = Integer.parseInt(pageStr);
+        if (freelancerId == null) {
+            response.sendRedirect("/login");
+            return;
         }
-        System.out.println("36 page = " + page);
-        System.out.println("project-status 서블릿 33 page = " + page);
+
+        String pageStr = request.getParameter("page");
+        int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
+
         PageInfo pageInfo = new PageInfo(page);
-        IFreelancerProjectService service = new FreelancerProjectService();
-        List<FreelancerProject> onGoingProjectList = null;
-        List<FreelancerProject> completedProjectList = null;
-        Integer goingProjCnt = 0, completedProjCnt = 0;
+        IFreelancerProjectService projectService = new FreelancerProjectService();
+        FreelancerSettlementService settlementService = new FreelancerSettlementService();
+
         try {
-            goingProjCnt = service.cntOngoingProjects(freelancerId);
-            completedProjCnt = service.cntCompletedProjects(freelancerId);
-            //진행중인 프로잭트
-            request.setAttribute("goingProjCnt",goingProjCnt);
-            request.setAttribute("completedProjCnt",completedProjCnt);
-            if (goingProjCnt > 0) {
-                onGoingProjectList = service.selectOngoingProject(pageInfo, freelancerId);
-                System.out.println("MyProjectStatus 서블릿 53 goingProjCnt = " + goingProjCnt);
-                System.out.println("MyProjectStatus 서블릿 53 projectList = " + onGoingProjectList);
-                request.setAttribute("onGoingProjectList", onGoingProjectList);
-            } else if (goingProjCnt == 0) {
-                request.setAttribute("onGoingProjectList", null);
+            int goingProjCnt = projectService.cntOngoingProjects(freelancerId);
+            int completedProjCnt = projectService.cntCompletedProjects(freelancerId);
+
+            List<FreelancerProject> onGoingProjectList = (goingProjCnt > 0)
+                    ? projectService.selectOngoingProject(pageInfo, freelancerId)
+                    : null;
+
+            List<FreelancerProject> completedProjectList = (completedProjCnt > 0)
+                    ? projectService.selectCompletedProject(pageInfo, freelancerId)
+                    : null;
+
+            // 정산 리스트 맵 생성
+            Map<Integer, List<SettlementListForF>> onGoingProjSettlementMap = new HashMap<>();
+            if (onGoingProjectList != null) {
+                for (FreelancerProject project : onGoingProjectList) {
+                    System.out.println(project.getProjectId() +" "+ project.getProjectName());
+                    List<SettlementListForF> settlementList = settlementService.getSettlementList(freelancerId, project.getProjectId());
+                    if(settlementList == null || settlementList.isEmpty()){
+                        settlementList = new ArrayList<>();
+                        settlementList.add(new SettlementListForF(project.getProjectId(), project.getProjectName()));
+                        System.out.println("리스트 크기: " + settlementList.size());
+                        System.out.println("첫 번째 항목: " + settlementList.get(0));
+                    }
+                    onGoingProjSettlementMap.put(project.getProjectId(), settlementList);
+                }
             }
 
-            //완료된 프로잭트
-            if (completedProjCnt > 0) {
-                completedProjectList = service.selectCompletedProject(pageInfo, freelancerId);
-                System.out.println("MyProjectStatus 서블릿 59 projectList = " + completedProjectList);
-                request.setAttribute("completedProjectList", completedProjectList);
-            } else if (completedProjCnt == 0) {
-                request.setAttribute("completedProjectList", null);
+            Map<Integer, List<SettlementListForF>> completedProjSettlementMap = new HashMap<>();
+            if (completedProjectList != null) {
+                for (FreelancerProject project : completedProjectList) {
+                    List<SettlementListForF> settlementList = settlementService.getSettlementList(freelancerId, project.getProjectId());
+                    if(settlementList == null || settlementList.isEmpty()){
+                        settlementList = new ArrayList<>();
+                        settlementList.add(new SettlementListForF(project.getProjectId(), project.getProjectName()));
+                    }
+                    System.out.println(settlementList);
+                    completedProjSettlementMap.put(project.getProjectId(), settlementList);
+                }
             }
+            // JSON 변환
+            Gson gson = new Gson();
+            String onGoingProjSettlementMapJson = gson.toJson(onGoingProjSettlementMap);
+            String completedProjSettlementMapJson = gson.toJson(completedProjSettlementMap);
+            System.out.println("onGoingProjSettlementMap"+onGoingProjSettlementMap);
+            System.out.println("completedProjSettlementMap"+completedProjSettlementMap);
+            System.out.println("onGoingProjectList"+onGoingProjectList);
+            System.out.println("completedProjectList"+completedProjectList);
+
+            // Attribute 설정
+            request.setAttribute("goingProjCnt", goingProjCnt);
+            request.setAttribute("completedProjCnt", completedProjCnt);
+            request.setAttribute("onGoingProjectList", onGoingProjectList);
+            request.setAttribute("completedProjectList", completedProjectList);
+            request.setAttribute("onGoingProjSettlementMapJson", onGoingProjSettlementMapJson);
+            request.setAttribute("completedProjSettlementMapJson", completedProjSettlementMapJson);
             request.setAttribute("pageInfo", pageInfo);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         request.getRequestDispatcher("/freelancer/my_project_status.jsp").forward(request, response);
     }
 }

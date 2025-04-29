@@ -6,6 +6,7 @@ import dto.Portfolio;
 import service.freelancer.IPortfolioService;
 import service.freelancer.PortfolioService;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -34,15 +35,14 @@ public class PortfolioWrite extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        freelancerId = "free002"; //로그인 기능이 구현된 이후에는 빼기
         if(freelancerId == null) {
             request.setAttribute("err", "로그인 후 이용해주세요.");
-            request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
+            response.sendRedirect("/linkup/login");
         }
         IPortfolioService service = new PortfolioService();
         try {
             Map<Integer, String> projectInfoMap = service.projectInfoForPortfolio(freelancerId);
-            System.out.println(projectInfoMap.toString());
+            System.out.println("projectInfoMAp : \n " + projectInfoMap.toString());
             if (projectInfoMap != null) {
                 request.setAttribute("projectInfoMap", projectInfoMap);
             } else {
@@ -51,14 +51,17 @@ public class PortfolioWrite extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        request.getRequestDispatcher("/freelancer/my_page_portfolio_write.jsp").forward(request, response);
+        request.getRequestDispatcher("/freelancer/portfolio_write.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        freelancerId = "free002"; //로그인 기능이 구현된 이후에는 빼기
         String path = request.getServletContext().getRealPath("upload"); // 업로드 폴더의 물리적 경로 가져오기
+        File uploadDir = new File(path);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
         System.out.println("파일 저장경로: = " + path);
         int size = 10*1024*1024;//10mb
         try {
@@ -71,6 +74,12 @@ public class PortfolioWrite extends HttpServlet {
             portfolio.setSkillDescription(multi.getParameter("skillDescriptionHidden"));
             String monthStr = multi.getParameter("portProjStart");
             String monthEnd = multi.getParameter("portProjEnd");
+            if(multi.getParameter("project-id-select") != null) {
+                System.out.println("project-id : "+multi.getParameter("project-id-select"));
+                portfolio.setProjectId(Integer.parseInt(multi.getParameter("project-id-select")));
+            } else {
+                portfolio.setProjectId(null);
+            }
             Date startDate = null;
             Date endDate = null;
             if (monthStr != null && !monthStr.trim().isEmpty()) {
@@ -97,6 +106,7 @@ public class PortfolioWrite extends HttpServlet {
             portfolio.setPortProjEnd(endDate);
 
             String skillDesc = multi.getParameter("skillDescriptionHidden");
+            System.out.println("105 skillDesc = " + skillDesc);
             portfolio.setSkillDescription((skillDesc));
 
             portfolio.setThumbnail(multi.getFilesystemName("thumbnail"));
@@ -104,66 +114,24 @@ public class PortfolioWrite extends HttpServlet {
                 portfolio.setThumbnail("default.png");
             }
             portfolio.setTeamRole(multi.getParameter("teamRole"));
-
-            // 1) 외부 URL 동적 수집
-            Enumeration<String> paramNames = multi.getParameterNames();
-            List<String> urls = new ArrayList<>();
-            if(urls != null) {
-                while (paramNames.hasMoreElements()) {
-                    String name = paramNames.nextElement();
-                    if (name.startsWith("file-url-")) {
-                        String url = multi.getParameter(name);
-                        if (url != null && !url.trim().isEmpty()) {
-                            urls.add(url);
-                        }
-                    }
-                }
-            }else{
-                portfolio.setExternalUrl(null);
-            }
-            portfolio.setExternalUrl(String.join("^", urls));
-
-            // 2) 첨부파일 동적 수집
-            List<String> attachment = new ArrayList<>();
-            Enumeration<?> fileFields = multi.getFileNames();
-            if(fileFields != null) {
-                while (fileFields.hasMoreElements()) {
-                    String field = (String) fileFields.nextElement();
-                    if (field.startsWith("attachment-")) {
-                        String saved = multi.getFilesystemName(field);
-                        if (saved != null) {
-                            attachment.add(saved);
-                        }
-                    } else {
-                        continue;
-                    }
-                    portfolio.setAttachment(String.join("^", attachment));
-                }
-            } else {
-                portfolio.setAttachment(null);
-            }
-
-            if(multi.getParameter("tempSaved") != null && multi.getParameter("tempSaved").equals("true")) {
+            portfolio.setExternalUrl(multi.getParameter("externalUrlHidden"));
+            portfolio.setAttachment(multi.getParameter("attachmentHidden"));
+            portfolio.setTempSaved(true);
+/*            if(multi.getParameter("tempSaved") != null && multi.getParameter("tempSaved").equals("true")) {
                 portfolio.setTempSaved(true);
             } else {
                 portfolio.setTempSaved(false);
-            }
-            if(multi.getParameter("portfolioId") != null) {
-                portfolio.setPortfolioId(Integer.parseInt(multi.getParameter("portfolioId")));
-            } else {
-                portfolio.setPortfolioId(null);
-            }
+            }*/
             System.out.println(portfolio);
             IPortfolioService service = new PortfolioService();
 
             Integer newPortfolioId = service.writePortfolio(portfolio);
-            /*response.sendRedirect(request.getContextPath() + "/portfolio-portfolio-detail?id=" + newPortfolioId);*/
-            request.setAttribute("portfolio", portfolio);
-            request.getRequestDispatcher("/freelancer/my_page_portfolio_detail.jsp").forward(request, response);
+            System.out.println(newPortfolioId);
+            response.sendRedirect(request.getContextPath() + "/my-page/portfolio-detail?id=" + newPortfolioId);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("err", "포트폴리오 등록 중 오류 발생했습니다.");
-            request.getRequestDispatcher("/freelancer/my_page_portfolio_write.jsp").forward(request, response);
+            request.getRequestDispatcher("/freelancer/portfolio_write.jsp").forward(request, response);
         }
     }
 }

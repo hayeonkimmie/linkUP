@@ -20,14 +20,6 @@ input, textarea, select {
 /* ==============================
    헤더
 ============================== */
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    background: white;
-    border-bottom: 1px solid #ddd;
-}
 
 .logo {
     font-size: 1.8rem;
@@ -59,7 +51,7 @@ header {
 .container {
     display: flex;
 }
-
+/*
 .content {
     flex: 1;
     background: white;
@@ -67,7 +59,7 @@ header {
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0,0,0,0.05);
-}
+}*/
 
 h2, h3 {
     margin-top: 0;
@@ -282,7 +274,6 @@ input[type="text"] {
 /*    border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
-    margin-bottom: 16px;
     background-color: #fff;*/
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -293,20 +284,16 @@ input[type="text"] {
     background-color: #fff;
     position: relative;
 }
-/* 라벨 및 인풋 기본 스타일 */
+.item-box{
+    margin-bottom: 16px;
+
+}
+    /* 라벨 및 인풋 기본 스타일 */
 .dropdown, .input {
     display: flex;
     flex-direction: column;
     min-width: 160px;
-}
-.education-box, .career-box {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 24px;
-    background-color: #fff;
+    flex: 1 1 200px;
 }
 
 /* 입력 라인 정렬 */
@@ -318,10 +305,9 @@ input[type="text"] {
     margin-bottom: 12px;
 }
 
-.input, .dropdown {
+.input-month-group{
     display: flex;
-    flex-direction: column;
-    flex: 1 1 200px;
+    flex-direction: row;
 }
 
 .input input,
@@ -453,7 +439,7 @@ input[type="month"] {
 /* ============================
    경력 영역
 ============================ */
-#career-container .career-box, #license-container  {
+#career-container .career-box, #license-container, .license-box {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
@@ -633,9 +619,10 @@ button:hover,
 }
 
 .file-upload-buttons {
-    display: flex;
+    display: inline-flex;
     gap: 12px;
     margin-bottom: 20px;
+    flex-direction: row-reverse;
 }
 
 .file-upload-buttons button {
@@ -778,4 +765,10 @@ th, td {
 
 .save-btn:hover {
     background-color: #74007a;
+}
+td > input{
+    width: 100%;
+}
+td > a, td> span{
+    font-size: medium;
 }

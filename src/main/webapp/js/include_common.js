@@ -10,7 +10,8 @@ function includeHTML(id, file, callback) {
       });
 }
 
-function setSidebarByPath(pathname) {
+function set
+SidebarByPath(pathname) {
   if (pathname.includes("/admin/users")) {
     localStorage.setItem("sidebarTitle", "사용자 관리");
     localStorage.setItem("sidebarIcon", "👥");

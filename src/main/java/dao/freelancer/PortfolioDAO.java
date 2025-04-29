@@ -40,25 +40,40 @@ public class PortfolioDAO implements IPortfolioDAO {
         }
     }
 
-    public Map<Integer, String> projectInfoForPortfolio(String userId) {
-        System.out.println( sqlSession.selectMap("mapper.portfolio.projectInfoForPortfolio", userId, "project_id"));
+    public Map<Integer, String> projectInfoForPortfolio(String freelancerId) {
+        Map<Integer, Map<String, Object>> rawResult = sqlSession.selectMap("mapper.portfolio.projectInfoForPortfolio", freelancerId, "project_id");
+        Map<Integer, String> result = new HashMap<>();
 
-        return sqlSession.selectMap("mapper.portfolio.projectInfoForPortfolio", userId, "project_id");
+        for (Map.Entry<Integer, Map<String, Object>> entry : rawResult.entrySet()) {
+            Integer projectId = entry.getKey();
+            Map<String, Object> projectData = entry.getValue();
+            String projectName = (String) projectData.get("project_name");  // 이 부분 중요!!
+
+            result.put(projectId, projectName);
+        }
+        System.out.println("projectInfoForPortfolio 54 "+result);
+        return result;
+//        System.out.println( sqlSession.selectMap("mapper.portfolio.projectInfoForPortfolio", userId, "project_id"));
+//        return sqlSession.selectMap("mapper.portfolio.projectInfoForPortfolio", userId, "project_id");
+
     }
 
     @Override
     public Integer writePortfolio(Portfolio portfolio) throws Exception {
+        Integer newPortfolioId = null;
         try {
-            if(portfolio.getIsTempSaved() == false) {
-                sqlSession.insert("mapper.portfolio.insertPortfolioComplete", portfolio);
-            } else {
-                sqlSession.insert("mapper.portfolio.insertPortfolioIncomplete", portfolio);
-            }
+//            if(portfolio.getIsTempSaved() == false) {
+//                sqlSession.insert("mapper.portfolio.insertPortfolioComplete", portfolio);
+//            } else {
+//                sqlSession.insert("mapper.portfolio.insertPortfolioIncomplete", portfolio);
+//            }
+            sqlSession.insert("mapper.portfolio.insertPortfolioComplete", portfolio);
             sqlSession.commit();
+            newPortfolioId = portfolio.getPortfolioId();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return portfolio.getPortfolioId();
+        return newPortfolioId;
     }
 
     @Override

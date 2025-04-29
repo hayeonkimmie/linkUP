@@ -22,8 +22,8 @@ public class MyPageQNAList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String userId = (String) request.getAttribute("userId");
-        userId = "free002"; // 로그인 구현 이후 빼기
+        String userId = (String) request.getSession().getAttribute("userId");
+        System.out.println("userId = "+userId);
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
         Integer page = null;
@@ -32,19 +32,20 @@ public class MyPageQNAList extends HttpServlet {
         } else {
             page = Integer.parseInt(pageStr);
         }
-        System.out.println("page = " + pageStr);
+        System.out.println("page = " + page);
         PageInfo pageInfo = new PageInfo(page);
         IQnAService service = new QnAService();
         List<QnA> QnAList;
         try {
             Integer QnACnt = service.selectQnACnt(userId);
+            System.out.println("QnACnt = " + QnACnt);
             if (QnACnt > 0) {
                 QnAList = service.selectQnAListByPage(pageInfo, userId);
                 System.out.println("MyPageQNAList 43 QnAList = " + QnAList);
                 request.setAttribute("pageInfo", pageInfo);
                 request.setAttribute("QnAList", QnAList);
             } else if (QnACnt == 0){
-                request.setAttribute("QnAList", 0);
+                request.setAttribute("QnAList", null);
             }
         } catch(Exception e) {
             e.printStackTrace();

@@ -34,6 +34,11 @@ public class ProjectMgtDAOImpl implements IProjectMgtDAO {
         }
     }
 
+    @Override
+    public ProjectMgt selectProjectById(int projectId) throws Exception {
+        return sqlSession.selectOne("mapper.projectmgt.selectProjectById", projectId);
+    }
+
     // 구인 중인 프로젝트 '삭제하기' 기능
 
     @Override

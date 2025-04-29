@@ -11,6 +11,9 @@ public interface IProjectMgtService {
     void updateStatusToConfirmed(Map<String, Object> param) throws Exception; //구인상태 확정 버튼 (구인 중 -> 시작 전)
     void deleteProject(int projectId) throws Exception; // 현재 구인 중인 프로젝트 삭제
 
+    //프로젝트 검사
+    ProjectMgt getProjectById(int projectId) throws Exception;
+
     //프로젝트 진행상태 변경 (시작전 -> 진행중)
     void updateProgressToOngoing(Map<String, Object> param) throws Exception;
 

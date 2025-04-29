@@ -4,6 +4,8 @@ import dto.User;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
 
+import java.sql.SQLException;
+
 public class UserDAO implements IUserDAO {
     private SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
     @Override

@@ -12,10 +12,12 @@ public interface IFreelancerDAO {
     public Map<Integer, String> selectAllportfolioInfoMap(String freelancerId) throws Exception;
     public List<Career> selectCareerById(String freelancerId) throws Exception;
     public List<Portfolio> selectedPortfolioListForProfile(String freelancerId) throws Exception;
-    public void insertFreelancer(Freelancer freelancer) throws Exception;
-    public void insertCareer(Career career) throws Exception;
-    public void updateCareer(Career career) throws Exception;
+//    public void insertCareer(Career career) throws Exception;
+    void insertCareer(List<Career> careerList) throws Exception;
     public void deleteCareer(String freelancerId) throws Exception;
     public void updateUserProfile(Freelancer freelancer) throws Exception;
     public String selectFreelancerProfileImg(String freelancerId) throws Exception;
+    void updateCareer(List<Career> careerList, String freelancerId) throws Exception;
+    void updateFreelancer(Freelancer freelancer) throws Exception;
+
 }

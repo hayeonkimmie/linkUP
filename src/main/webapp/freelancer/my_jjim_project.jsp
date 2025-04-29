@@ -17,15 +17,13 @@
     <script src="${contextPath}/js/freelancer_my_page_like_proj.js"></script>
 </head>
 <body>
-<div class="header">
-    <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="../home/header.jsp" />
-</div>
+
+<div id="header-placeholder"></div>
 <div class="container">
 <!-- 사이드바 -->
 <jsp:include page="/freelancer/sidebar.jsp"/>
 <!-- 메인 콘텐츠 -->
-    <main class="content">
+    <main class="content" >
         <section class="section">
             <div class="content-header">
                 <div class="content-header-text">
@@ -36,14 +34,30 @@
             <c:choose>
                 <c:when test="${empty jjimProjList}">
                     <div class="qna-empty empty">
-                        <p>찜한 프로젝트 내역이 없습니다.</p>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id=""/></th>
+                                <th>프로젝트명</th>
+                                <th>분야</th>
+                                <th>기간</th>
+                                <th style="width:153px;">근무 환경 | 근무 방식</th>
+                                <th>클라이언트</th>
+                                <th>지원 자격</th>
+                                <th colspan="2">모집 마감일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr><td colspan="9">찜한 프로젝트 내역이 없습니다.</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div class="project-table">
                         <div class="project-table-header">
                             <h3>찜한 프로젝트 목록</h3>
-                            <p>${jjimProjCnt}</p>
+                            <p>총 ${jjimProjCnt} 건</p>
                         <form action="${contextPath}/my-page/project-jjim-list" method="post">
                             <div class="delete-button-wrapper">
                                 <button class="delete-button" type="submit">삭제</button>
@@ -55,11 +69,10 @@
                                     <th>프로젝트명</th>
                                     <th>분야</th>
                                     <th>기간</th>
-                                    <th>근무 환경 | 근무 시간</th>
+                                    <th>근무 환경 | 근무 방식</th>
                                     <th>클라이언트</th>
                                     <th>지원 자격</th>
-                                    <th>모집 마감일</th>
-                                    <th>모집 마감 D-Day</th>
+                                    <th colspan="2">모집 마감일</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -70,7 +83,7 @@
                                         <td>${jp.category}</td>
                                         <td>${jp.duration}</td>
                                         <td>${jp.workingEnvironment}
-                                            <c:if test="${jp.workingEnvironment ne '재택'}">(${jp.workingMethod})</c:if>| ${jp.workingHours}
+                                            <c:if test="${jp.workingEnvironment ne '재택'}"> | ${jp.workingMethod}</c:if>
                                         </td>
                                         <td>${jp.companyName}</td>
                                         <td>${jp.qualification}</td>

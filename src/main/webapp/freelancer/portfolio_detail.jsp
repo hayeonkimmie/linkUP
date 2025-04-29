@@ -20,13 +20,17 @@
 <%--    <link rel="stylesheet" href="${contextPath}/css/freelancer_main_portfolio_detail.css'/>"/>--%>
    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_detail.css'/>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
 <div class="header">
     <!-- 헤더 인클루드 영역 -->
-    <jsp:include page="../home/header.jsp" />
+<%--    <jsp:include page="../home/header.jsp" />--%>
+
+    <div id="header-placeholder"></div>
 </div>
 <div class="container">
     <script>console.log(${err})</script>
@@ -122,5 +126,10 @@
         </div>
     </main>
 </div>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

@@ -24,7 +24,7 @@
             join client c on c.client_id = u.user_id
         where r_user_id = #{freelancerId} and comment is not null
         order by create_date desc, review_id desc
-        limit #{row}, 5
+        limit #{row}, 10
     </select>
     <select id="selectWrittenReviewByFreelancerId" parameterType="Map" resultType="review">
         SELECT
@@ -38,7 +38,7 @@
                  JOIN client c ON c.client_id = u.user_id
         WHERE r.w_user_id = #{freelancerId} and comment is not null
         ORDER BY r.create_date DESC, r.review_id DESC
-        limit #{row}, 5
+        limit #{row}, 10
     </select>
     <select id="selectUnWrittenReviewByFreelancerId" parameterType="Map" resultType="review">
         select r.*, CONCAT('(',u.name, ') ', c.company_name) as rUserInfo, u.profile_img as rUserProfileImg, p.project_name
@@ -48,7 +48,7 @@
                  join client c on c.client_id = u.user_id
         where w_user_id = #{freelancerId} and comment is null
         order by review_id desc
-        limit #{row}, 5
+        limit #{row}, 10
     </select>
     <select id="selectUnWrittenReviewsCnt" parameterType="String" resultType="Integer">
         select count(*)

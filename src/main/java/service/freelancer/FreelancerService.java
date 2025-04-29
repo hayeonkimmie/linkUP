@@ -40,11 +40,6 @@ public class FreelancerService implements IFreelancerService{
         return ifreelancerDAO.selectedPortfolioListForProfile(freelancerId);
     }
 
-
-    @Override
-    public void insertCareer(Career career) throws Exception {
-        ifreelancerDAO.insertCareer(career);
-    }
     public List<Career> selectCareerListById(String freelancerId) throws Exception {
         return ifreelancerDAO.selectCareerById(freelancerId);
     }
@@ -57,16 +52,13 @@ public class FreelancerService implements IFreelancerService{
             freelancer.setProfileImg(curProfileImg);
         }
         ifreelancerDAO.updateUserProfile(freelancer);
-        System.out.println("FreelancerService.java 56 + updateFreelancer");
+        ifreelancerDAO.updateFreelancer(freelancer);
+        System.out.println("FreelancerService.java 56 + updateFreelancer 동작완료");
     }
-
     @Override
-    public void updateCareer(Career career) throws Exception {
-
-    }
-
-    @Override
-    public void deleteCareer(String userId) throws Exception {
-
+    public void updateCareer(List<Career> careerList, String freelancerId) throws Exception {
+        System.out.println("FreelancerService.java 56 updateCareer "+careerList);
+        ifreelancerDAO.deleteCareer(freelancerId);
+        ifreelancerDAO.insertCareer(careerList);
     }
 }

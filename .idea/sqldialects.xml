@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/alarm.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/ammount.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/apply.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/candidatemgt.xml" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/category.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/client.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/contract.xml" dialect="MySQL" />
@@ -23,5 +24,6 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/settlement.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/subCategory.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/user.xml" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>
