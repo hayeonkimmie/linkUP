@@ -8,7 +8,9 @@ import util.SingleTonSession;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -171,11 +173,70 @@ public class SettlementDAO implements ISettlementDAO {
         }
     }
 
+
+
+
     public Map<String, Date> selectSettleStartandEnd(Integer projectId) throws Exception {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            return session.selectOne("mapper.settlement.selectSettleStartandEnd", projectId);
+            Map<String, Object> settleStartandEndRaw = session.selectOne("mapper.settlement.selectSettleStartandEnd", projectId);
+
+            if (settleStartandEndRaw == null || settleStartandEndRaw.get("startDate") == null || settleStartandEndRaw.get("endDate") == null) {
+                Map<String, Object> maxDatesRaw = session.selectOne("mapper.settlement.selectMaxStartEndDateByProject", projectId);
+
+                if (maxDatesRaw != null && maxDatesRaw.get("startDate") != null && maxDatesRaw.get("endDate") != null) {
+                    Date startDate = parseSqlDate(maxDatesRaw.get("startDate"));
+                    Date endDate = parseSqlDate(maxDatesRaw.get("endDate"));
+
+                    Calendar calStart = Calendar.getInstance();
+                    calStart.setTime(startDate);
+                    calStart.add(Calendar.MONTH, 1);
+
+                    Calendar calEnd = Calendar.getInstance();
+                    calEnd.setTime(endDate);
+                    calEnd.add(Calendar.MONTH, 1);
+
+                    Map<String, Date> result = new HashMap<>();
+                    result.put("startDate", new Date(calStart.getTimeInMillis()));
+                    result.put("endDate", new Date(calEnd.getTimeInMillis()));
+                    return result;
+                } else {
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.DAY_OF_MONTH, 1);
+
+                    Map<String, Date> result = new HashMap<>();
+                    result.put("settleDate", new Date(cal.getTimeInMillis()));
+                    return result;
+                }
+            }
+
+            // 👉 정상적으로 가져온 경우
+            Date startDate = parseSqlDate(settleStartandEndRaw.get("startDate"));
+            Date endDate = parseSqlDate(settleStartandEndRaw.get("endDate"));
+
+            Map<String, Date> result = new HashMap<>();
+            result.put("startDate", startDate);
+            result.put("endDate", endDate);
+            return result;
         }
     }
+
+    private Date parseSqlDate(Object obj) throws Exception {
+        if (obj instanceof Date) {
+            return (Date) obj;
+        } else if (obj instanceof java.util.Date) {
+            return new Date(((java.util.Date) obj).getTime());
+        } else if (obj instanceof String) {
+            // String을 Date로 변환
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date utilDate = sdf.parse((String) obj);
+            return new Date(utilDate.getTime());
+        } else {
+            throw new IllegalArgumentException("Unknown date type: " + obj);
+        }
+    }
+
+
+
 
     @Override
     public boolean isAllSettledInCnt(Integer projectId, Integer cnt) throws Exception {
@@ -208,6 +269,16 @@ public class SettlementDAO implements ISettlementDAO {
             return session.selectList("mapper.settlement.selectWaitingFreelancersByMonth", param);
         }
     }
+    @Override
+    public List<SettlementDetailDTO> selectSettlementHistory(String freelancerName, int projectId) throws Exception {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("freelancerName", freelancerName);
+            param.put("projectId", projectId);
+            return session.selectList("mapper.settlement.selectSettlementHistory", param);
+        }
+    }
+
 
 
 }

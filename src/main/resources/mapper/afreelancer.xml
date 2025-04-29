@@ -34,7 +34,7 @@
             u.registration_date,
             u.withdrawal_date,
             u.accept_consent,
-            f.category,
+            f.sub_category_id,
             f.skill,
             f.address,
             f.academic,

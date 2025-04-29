@@ -40,48 +40,57 @@
       </div>
 
       <div class="table-section">
-        <table>
-          <thead>
-          <tr>
-            <th class="col-id">아이디</th>
-            <th class="col-name">회원명</th>
-            <th class="col-email">이메일</th>
-            <th class="col-date">가입일</th>
-            <th class="col-phone">연락처</th>
-            <th class="col-type">구분</th>
-          </tr>
-          </thead>
-          <tbody>
-          <!-- 구직자 출력 -->
-          <c:forEach var="f" items="${freelancerList}">
-            <tr data-type="구직자">
-              <td>${f.freelancerId}</td>
-              <td>
-                <a href="<c:url value='/admin/freelancer'/>?freelancerid=${f.freelancerId}" class="project-link">${f.name}</a>
-              </td>
-              <td>${f.email}</td>
-              <td>${f.registrationDate}</td>
-              <td>${f.phoneNum}</td>
-              <td><span class="badge 구직자">${f.type}</span></td>
-            </tr>
-          </c:forEach>
 
-          <!-- 구인자 출력 -->
-          <c:forEach var="c" items="${clientList}">
-            <tr data-type="구인자">
-              <td>${c.userId}</td>
-              <td>
-                <a href="<c:url value='/admin/client'/>?clientid=${c.userId}" class="project-link">${c.name}</a>
-              </td>
-              <td>${c.email}</td>
-              <td>${c.registrationDate}</td>
-              <td>${c.phoneNumber}</td>
-              <td><span class="badge 구인자">${c.type}</span></td>
+        <!-- ✅ 유저가 없을 때 보여줄 안내문 -->
+        <c:if test="${empty freelancerList and empty clientList}">
+          <div class="no-data-message">
+            찾으실 유저를 검색하세요.
+          </div>
+        </c:if>
+
+        <!-- ✅ 유저가 있을 때만 테이블 보여주기 -->
+        <c:if test="${not empty freelancerList or not empty clientList}">
+          <table>
+            <thead>
+            <tr>
+              <th class="col-id">아이디</th>
+              <th class="col-name">회원명</th>
+              <th class="col-email">이메일</th>
+              <th class="col-date">가입일</th>
+              <th class="col-phone">연락처</th>
+              <th class="col-type">구분</th>
             </tr>
-          </c:forEach>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            <!-- 구직자 출력 -->
+            <c:forEach var="f" items="${freelancerList}">
+              <tr data-type="구직자">
+                <td>${f.freelancerId}</td>
+                <td><a href="<c:url value='/admin/freelancer'/>?freelancerid=${f.freelancerId}" class="project-link">${f.name}</a></td>
+                <td>${f.email}</td>
+                <td>${f.registrationDate}</td>
+                <td>${f.phoneNum}</td>
+                <td><span class="badge 구직자">${f.type}</span></td>
+              </tr>
+            </c:forEach>
+
+            <!-- 구인자 출력 -->
+            <c:forEach var="c" items="${clientList}">
+              <tr data-type="구인자">
+                <td>${c.userId}</td>
+                <td><a href="<c:url value='/admin/client'/>?clientid=${c.userId}" class="project-link">${c.name}</a></td>
+                <td>${c.email}</td>
+                <td>${c.registrationDate}</td>
+                <td>${c.phoneNumber}</td>
+                <td><span class="badge 구인자">${c.type}</span></td>
+              </tr>
+            </c:forEach>
+            </tbody>
+          </table>
+        </c:if>
+
       </div>
+
 
     </div>
 
@@ -110,8 +119,15 @@
         // 테이블 필터링
         rows.forEach(row => {
           const rowType = row.dataset.type;
-          row.classList.toggle("hidden-row", rowType !== selectedType);
+
+          if (rowType) {
+            row.classList.toggle("hidden-row", rowType !== selectedType);
+          } else {
+            // 👉 안내문(tr)은 숨기지 않는다
+            row.classList.remove("hidden-row");
+          }
         });
+
       });
     });
 

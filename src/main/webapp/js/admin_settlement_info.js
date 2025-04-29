@@ -61,3 +61,41 @@ function renderSettlementTable(json) {
 function formatNumber(num) {
     return new Intl.NumberFormat('ko-KR').format(num) + '원';
 }
+
+function openSettlementModal(freelancerName, projectId) {
+    document.getElementById('settlementModal').style.display = 'block';
+    document.getElementById('modalProjectName').textContent = freelancerName + " 님 정산 내역";
+
+    fetch(`${contextPath}/admin/settlement-detail?freelancerName=${encodeURIComponent(freelancerName)}&projectId=${projectId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('네트워크 오류: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const tbody = document.getElementById('settlementTableBody');
+            tbody.innerHTML = "";
+
+            let total = 0;
+            data.forEach(item => {
+                const row = `<tr>
+                    <td>${item.cnt}회차</td>
+<!--                    <td>${formatNumber(item.settleAmmount)}</td>-->
+                    <td>${item.settleAmmount}</td>
+                    <td>${item.status}</td>
+                    <td>${item.settleDate}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+                total += item.settleAmmount;
+            });
+
+            document.querySelector(".total strong").textContent = `₩${total.toLocaleString()}`;
+        })
+        .catch(error => console.error("Error:", error));
+}
+
+
+function closeSettlementModal() {
+    document.getElementById('settlementModal').style.display = 'none';
+}

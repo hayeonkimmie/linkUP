@@ -160,4 +160,12 @@
         WHERE qna_id = #{qnaId}
     </update>
 
+    <select id="countAnsweredQna" resultType="int">
+        SELECT COUNT(*)
+        FROM qna
+        WHERE answer_content IS NOT NULL
+          AND answer_content != '(답변대기 중)'
+    </select>
+
+
 </mapper>

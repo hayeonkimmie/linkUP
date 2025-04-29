@@ -40,6 +40,10 @@ body {
   padding-right: 24px;
   padding-top: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  /* ✅ 추가 */
+  min-height: 800px;  /* 최소 높이 (데이터 없어도 높이 유지) */
+  max-height: 800px;  /* 최대 높이 고정 */
+  overflow-y: auto;   /* 데이터 많으면 내부 스크롤 */
 }
 .card h2 {
   font-size: 18px;
@@ -150,9 +154,16 @@ th.col-type, td.col-type { width: 10%; }
   display: none;
 }
 
-.table-section{
+.table-section {
   padding: 10px;
+  min-height: 100%; /* ✅ 카드 전체를 채우게 */
 }
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
 
 .page-description {
   padding: 16px 0 8px 0;
@@ -203,4 +214,11 @@ th.col-type, td.col-type { width: 10%; }
 
 .search-btn:hover {
   background-color: #333;
+}
+
+.no-data-message {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 100px; /* 카드 상단에서 좀 내려오게 */
 }

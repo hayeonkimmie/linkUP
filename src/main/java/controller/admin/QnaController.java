@@ -42,6 +42,8 @@ public class QnaController extends HttpServlet {
             QnaDAO qnaDAO = new QnaDAO();
             List<QnA> qnaList = qnaDAO.selectPagedQna(offset, perPage, keyword, category, answerStatus, startDate, endDate);
             int totalCount = qnaDAO.countQna(keyword, category, answerStatus, startDate, endDate);
+            int answeredTotalCount = qnaDAO.countAnsweredQna();  // ✅ 추가!
+
             PageInfo pageInfo = new PageInfo(curPage);
             int allPage = (int) Math.ceil((double) totalCount / perPage);
             pageInfo.setAllPage(allPage);
@@ -50,12 +52,9 @@ public class QnaController extends HttpServlet {
             pageInfo.setStartPage(startPage);
             pageInfo.setEndPage(endPage);
 
-            for(QnA qna : qnaList){
-                System.out.println(qna);
-            }
-
             request.setAttribute("qnaList", qnaList);
             request.setAttribute("totalCount", totalCount);
+            request.setAttribute("answeredTotalCount", answeredTotalCount); // ✅ 추가!
             request.setAttribute("pageInfo", pageInfo);
 
             request.getRequestDispatcher("/admin/qna_manage.jsp").forward(request, response);
@@ -63,25 +62,6 @@ public class QnaController extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "서버 내부 오류 발생");
         }
+
     }
-//    @Override
-//    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        request.setCharacterEncoding("UTF-8");
-//
-//        String[] selectedIds = request.getParameterValues("qnaIds");
-//
-//        if (selectedIds != null) {
-//            QnaDAO qnaDAO = new QnaDAO();
-//            try {
-//                for (String idStr : selectedIds) {
-//                    int id = Integer.parseInt(idStr);
-//                    qnaDAO.deleteQna(id);
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        response.sendRedirect(request.getContextPath() + "/admin/qna"); // 삭제 후 다시 목록으로
-//    }
 }
