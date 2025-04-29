@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
+
 <body>
 <!-- 공통 헤더 include -->
 <jsp:include page="../home/header.jsp" />

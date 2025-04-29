@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.candidatemgt">
+
+    <resultMap id="candidateMgtMap" type="dto.ClientCandidateMgt">
+        <id property="projectId" column="project_id" /> <!-- 프로젝트 id -->
+        <result property="title" column="project_name"/> <!-- 공고 제목 -->
+        <result property="projectDescription" column="project_description"/> <!-- 프로젝트 내용 -->
+        <result property="regDate" column="created_date"/> <!-- 프로젝트 등록일 -->
+        <result property="deadlineDate" column="deadline_date"/> <!-- 프로젝트 지원 마감일 -->
+        <result property="startDate" column="start_date"/> <!-- 프로젝트 시작일 -->
+        <result property="endDate" column="end_date"/> <!-- 프로젝트 종료일 -->
+        <result property="duration" column="duration"/> <!-- 프로젝트 개월 수 -->
+        <result property="status" column="status"/> <!-- 구인상태 -->
+        <result property="totalAmount" column="total_amount"/> <!-- 총 단가 -->
+        <result property="applyCount" column="apply_count"/> <!-- 지원자 수 -->
+        <result property="skills" column="req_skills"/> <!-- 요구기술 -->
+        <result property="applyPosition" column="Lv"/> <!-- 지원 레벨 -->
+        <result property="name" column="name"/> <!-- 지원자 이름 -->
+        <result property="careerYear" column="career_year"/> <!-- 경력 (년) -->
+        <result property="projectProgress" column="projectProgress" /> <!-- 진행상황 -->
+        <result property="joinDate" column="joinDate" /> <!-- 가입일 -->
+        <result property="resignDate" column="resignDate" /> <!-- 퇴사일 -->
+        <result property="star" column="star"/> <!-- 평점 -->
+        <result property="applyStatus" column="is_approved"/> <!-- 지원 결과 -->
+        <result property="applyDate" column="apply_date"/> <!-- 지원일자 -->
+        <result property="freelancerId" column="freelancer_id"/>
+
+    </resultMap>
+
+    <!-- 프로젝트 상세 정보 -->
+    <select id="selectProjectInfoById" resultMap="candidateMgtMap" parameterType="int">
+        SELECT
+            pj.project_id,
+            pj.project_name,
+            pj.project_description,
+            pj.created_date,
+            pj.deadline_date,
+            pj.start_date,
+            pj.end_date,
+            pj.duration,
+            pj.status,
+            "" AS projectProgress, -- 계산 보류
+            pj.req_skills,
+            (SELECT SUM(p2.project_fee) FROM pay p2 WHERE p2.project_id = pj.project_id) AS totalAmount,
+            (SELECT COUNT(*) FROM apply a2 WHERE a2.project_id = pj.project_id) AS applyCount,
+--             지원자 없을 수 있으므로 NULL로 지정해두기
+            NULL AS applyStatus,
+            NULL AS applyDate,
+            NULL AS applyPosition,
+            NULL AS name,
+            NULL AS joinDate,
+            NULL AS resignDate,
+            0 AS careerYear,
+            0 AS star
+        FROM project pj
+        WHERE pj.project_id = #{projectId}
+          AND pj.is_deleted = FALSE
+    </select>
+
+
+
+
+
+    <!-- 지원자 리스트 조회 -->
+    <select id="selectCandidateMgtByStatus" resultMap="candidateMgtMap" parameterType="map">
+        SELECT
+            pj.project_id,
+            pj.project_name,
+            pj.project_description,
+            pj.created_date,
+            pj.deadline_date,
+            pj.start_date,
+            pj.end_date,
+            pj.duration,
+            pj.status,
+            "" AS projectProgress, -- 아직 쿼리로 계산 안하니까 일단 NULL
+            pj.req_skills,
+            (SELECT SUM(p2.project_fee) FROM pay p2 WHERE p2.project_id = pj.project_id) AS totalAmount,
+            (SELECT COUNT(*) FROM apply a2 WHERE a2.project_id = pj.project_id) AS applyCount,
+            a.is_approved AS applyStatus,
+            a.freelancer_id,
+            a.apply_date AS applyDate,
+            l.Lv AS applyPosition,
+            u.name,
+            MIN(ca.join_date) AS joinDate,   -- career에서 join_date (최초 입사일)
+            MAX(ca.resign_date) AS resignDate, -- career에서 resign_date (최종 퇴사일)
+            IFNULL(SUM(TIMESTAMPDIFF(YEAR, ca.join_date, ca.resign_date)), 0) AS careerYear,
+            (SELECT ROUND(AVG(r.star), 1) FROM review r WHERE r.r_user_id = a.freelancer_id) AS star
+        FROM project pj
+                 LEFT JOIN apply a ON pj.project_id = a.project_id
+                 LEFT JOIN freelancer f ON a.freelancer_id = f.freelancer_id
+                 LEFT JOIN user u ON f.freelancer_id = u.user_id
+                 LEFT JOIN pay p ON pj.project_id = p.project_id
+                 LEFT JOIN lv l ON p.lv_id = l.Lv_id
+                 LEFT JOIN career ca ON f.freelancer_id = ca.freelancer_id
+        WHERE pj.client_id = #{clientId} AND pj.project_id = #{projectId}
+          AND pj.is_deleted = FALSE
+          AND pj.status IS NOT NULL
+        GROUP BY
+            pj.project_id, pj.project_name, pj.project_description, pj.created_date,
+            pj.deadline_date, pj.start_date, pj.end_date, pj.duration, pj.status,
+            pj.req_skills,
+            a.is_approved, a.apply_date, l.Lv, u.name
+
+    </select>
+
+
+    <update id="updateApplyStatus" parameterType="map">
+        UPDATE apply
+        SET is_approved = #{applyStatus}
+        WHERE project_id = #{projectId} AND freelancer_id = #{freelancerId}
+
+    </update>
+
+
+</mapper>

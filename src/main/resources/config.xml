@@ -18,6 +18,7 @@
         <typeAlias type="dto.ClientProfile" alias="clientProfile" />
         <typeAlias type="dto.ProjectMgt" alias="projectMgt" />
         <typeAlias type="dto.ProjectPay" alias="projectPay" />
+        <typeAlias type="dto.ClientCandidateMgt" alias="clientCandidateMgt" />
 
 
         <typeAlias type="dto.Contract" alias="contract"/>
@@ -74,6 +75,7 @@
         <mapper resource="mapper/dashboardproject.xml"/>
         <mapper resource="mapper/qna.xml"/>
         <mapper resource="mapper/review.xml"/>
+        <mapper resource="mapper/candidatemgt.xml"/>
         <mapper resource="mapper/settlelist.xml"/>
         <mapper resource="mapper/settlement.xml"/>
         <mapper resource="mapper/subCategory.xml"/>

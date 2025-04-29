@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const contextPath = document.body.getAttribute('data-context-path');
     const tabs = document.querySelectorAll('.filter-tab');
 
     // 탭 활성화 + 필터링 처리
@@ -28,10 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.success) {
+                        console.log('서버 응답:', data); // 디버깅용
+
+                        if (data.success === true) {
                             alert('모집이 확정되었습니다!');
 
-                            // data-status 변경 → 필터링으로 탭 이동처럼 보이게 처리
                             if (data.projectProgress === '시작전') {
                                 projectCard.setAttribute('data-status', 'done-start');
                                 activateTab(document.querySelector('.filter-tab[data-status="done-start"]'));
@@ -42,35 +44,18 @@ document.addEventListener('DOMContentLoaded', () => {
                                 location.reload();
                             }
                         } else {
-                            alert('모집 확정 실패!');
+                            // 서버가 보내준 message를 그대로 출력
+                            if (data.message) {
+                                alert(data.message);
+                            } else {
+                                alert('모집 확정 실패!');
+                            }
                         }
                     })
-                    .catch(() => alert('서버 오류 발생'));
-            });
-        });
-
-        // 삭제
-        document.querySelectorAll('.btn-delete').forEach(button => {
-            button.addEventListener('click', () => {
-                const projectCard = button.closest('.job-card');
-                const projectId = projectCard.getAttribute('data-project-id');
-
-                if (confirm("정말 삭제하시겠습니까?")) {
-                    fetch(`${contextPath}/deleteProject`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: `projectId=${projectId}`
-                    })
-                        .then(response => response.text())
-                        .then(result => {
-                            if (result === "success") {
-                                alert("삭제되었습니다.");
-                                projectCard.remove();
-                            } else {
-                                alert("삭제 실패!");
-                            }
-                        });
-                }
+                    .catch((error) => {
+                        console.error('서버 통신 실패', error);
+                        alert('서버 오류 발생');
+                    });
             });
         });
     }

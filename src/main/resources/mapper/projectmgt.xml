@@ -121,4 +121,23 @@
           AND end_date <= DATE(#{today})
         ]]>
 </update>
+
+    <select id="selectProjectById" parameterType="int" resultType="dto.ProjectMgt">
+        SELECT
+            project_id,
+            advertisement_title,
+            sub_category_name,
+            req_skills,
+            status,
+            created_date,
+            deadline_date,
+            duration,
+            start_date,
+            end_date,
+            project_progress
+        FROM project pj
+         LEFT JOIN subCategory sc ON pj.sub_category_id =  sc.sub_category_id
+        WHERE project_id = #{projectId}
+    </select>
+
 </mapper>

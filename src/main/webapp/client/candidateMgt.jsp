@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -10,12 +11,11 @@
   <title>지원자 관리</title>
   <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
   <link rel="stylesheet" href="${contextPath}/css/client/candidateMgt.css" />
-  <style>
-    /* 그대로 복붙해도 되지만, 가독성을 위해 style은 필요 시 따로 분리 권장 */
-    /* ... 기존 CSS는 그대로 유지 ... */
-  </style>
 </head>
 <body>
+
+<!-- contextPath 숨김 input 추가 (JS에서 사용) -->
+<input type="hidden" id="contextPath" value="${contextPath}" />
 
 <div class="layout">
 
@@ -30,16 +30,19 @@
       <h2>${project.title}
         <span class="status-badge">${project.status}</span>
       </h2>
-      <p>등록일: ${project.createdAt}</p>
-      <p>${project.description}</p>
+      <p>등록일: ${project.regDate}</p>
+      <p>${project.projectDescription}</p>
       <p>
-        <strong>예산:</strong> ${project.budget} |
-        <strong>기간:</strong> ${project.duration} |
-        <strong>지원자:</strong> ${project.applicantCount}명 |
-        <strong>마감일:</strong> ${project.deadline}
+        <strong>프로젝트 금액:</strong> ${project.totalAmount} |
+        <strong>기간:</strong> ${project.duration}개월 |
+        <strong>지원자:</strong> ${project.applyCount}명 |
+        <strong>마감일:</strong> ${project.deadlineDate}
+      </p>
+      <p>
+        <strong>프로젝트 기간:</strong> ${project.startDate} ~ ${project.endDate}
       </p>
       <div class="tags">
-        <c:forEach var="tag" items="${project.tags}">
+        <c:forEach var="tag" items="${fn:split(project.skills, ',')}">
           <span class="tag">${tag}</span>
         </c:forEach>
       </div>
@@ -49,40 +52,46 @@
     <div class="table-wrapper">
       <table>
         <thead>
-          <tr>
-            <th>지원자</th>
-            <th>직무</th>
-            <th>경력</th>
-            <th>평점</th>
-            <th>상태</th>
-            <th>액션</th>
-          </tr>
+        <tr>
+          <th>지원자</th>
+          <th>지원 레벨</th>
+          <th>경력(년)</th>
+          <th>평점</th>
+          <th>상태</th>
+          <th>액션</th>
+        </tr>
         </thead>
         <tbody>
-          <c:forEach var="applicant" items="${applicants}">
-            <tr>
-              <td><strong>${applicant.name}</strong><br>${applicant.position}</td>
-              <td>${applicant.career}</td>
-              <td>⭐ ${applicant.rating}</td>
-              <td>
-                <span class="status status-${applicant.status}">
-                  ${applicant.status}
-                </span>
-              </td>
-              <td>
-                <button class="action-btn">메시지</button>
-                <button class="action-btn">수락</button>
-                <button class="action-btn">보류</button>
-                <button class="action-btn">거절</button>
-              </td>
-            </tr>
-          </c:forEach>
+        <c:forEach var="applicant" items="${applicants}">
+          <tr data-freelancer-id="${applicant.freelancerId}">
+<%--            경력 (년), 평점 다른 필드로 교체해야할 듯 --%>
+            <td><strong>${applicant.name}</strong></td>  <!-- 지원자 이름 -->
+            <td>${applicant.applyPosition}</td>           <!-- 지원한 레벨 (초급, 중급, 고급) -->
+            <td>${applicant.careerYear}</td>              <!-- 경력 (년) -->
+            <td>⭐ ${applicant.star}</td>                 <!-- 평점 -->
+            <td class="apply-status">
+              <c:choose>
+                <c:when test="${applicant.applyStatus == 1}">합격</c:when>
+                <c:when test="${applicant.applyStatus == 0}">불합격</c:when>
+                <c:otherwise>-</c:otherwise> <!-- 수락/거절 둘 다 안한 경우 -->
+              </c:choose>
+            </td>
+            <td class="action-buttons">
+              <!-- 상태가 아직 미정일 때만 버튼 보여주기 -->
+              <c:if test="${applicant.applyStatus == null}">
+                <button class="action-btn accept-btn">수락</button> <!-- accept-btn 추가 -->
+                <button class="action-btn reject-btn">거절</button> <!-- reject-btn 추가 -->
+              </c:if>
+            </td>
+          </tr>
+        </c:forEach>
         </tbody>
       </table>
     </div>
-
   </main>
 </div>
 
+<!-- js 파일 분리 -->
+<script src="${contextPath}/js/candidateMgt.js"></script>
 </body>
 </html>

@@ -33,6 +33,11 @@ public class ProjectMgtServiceImpl implements IProjectMgtService {
     }
 
     @Override
+    public ProjectMgt getProjectById(int projectId) throws Exception {
+        return projectMgtDAO.selectProjectById(projectId);
+    }
+
+    @Override
     public void updateProgressToOngoing(Map<String, Object> param) throws Exception {
         projectMgtDAO.updateProgressToOngoing(param);
     }
