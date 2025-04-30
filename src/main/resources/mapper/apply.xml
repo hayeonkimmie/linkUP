@@ -27,11 +27,12 @@
             a.sub_category_name AS apply_category, -- 내가 지원한 분야
             p.advertisement_title, -- 공고 제목
             p.project_name, -- 프로젝트명
-
             CASE
-                WHEN duration < 12 THEN CONCAT(duration, '개월')
-                WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
-                ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
+                WHEN duration < 30 THEN CONCAT(duration, '일')
+                WHEN duration < 365 THEN CONCAT(duration DIV 30, '개월')
+                WHEN MOD(duration, 365) = 0 THEN CONCAT(duration DIV 365, '년')
+                WHEN ((duration MOD 365) DIV 30) = 0 THEN CONCAT(duration DIV 365, '년')
+                ELSE CONCAT(duration DIV 365, '년 ', (duration MOD 365) DIV 30, '개월')
                 END AS duration, -- 기간
             -- project_fee 서브쿼리
             IFNULL((
@@ -51,7 +52,6 @@
                          AND pay.project_id = a.project_id
                        LIMIT 1
                    ), '') AS projectfee,
-
             p.project_description, -- 프로젝트 설명
             p.job_details, -- 업무 상세 설명
             c.company_name, -- 회사명

@@ -128,53 +128,43 @@
                                     </option>
                                     <% } %>
                                 </select>
-                                <% } %>
+                                <% } %> </td>
+                            <td>
                                 <button type="button" class="delete-tr">X</button>
                             </td>
                         </tr>
                         <% } %>
-                        <%
-                            int urlIndex = 1;
-                            int attachmentIndex = 1;
-                            dto.Portfolio portfolio = (dto.Portfolio) request.getAttribute("portfolio");
-
-                            if (portfolio != null && portfolio.getExternalUrlList() != null) {
-                                String[] externalUrlList = portfolio.getExternalUrlList();
-                                for (String externalUrl : externalUrlList) {
-                        %>
-                        <tr name="url-<%= urlIndex %>" id="url-<%= urlIndex %>">
-                            <td><label>외부 링크</label></td>
-                            <td>
-                                <%--<a href="<%= externalUrl %>" target="_blank"><%= externalUrl %>
-                                </a>--%>
-                                <input type="text" name="url-<%= urlIndex %>" value="<%= externalUrl %>"/>
-                                <button type="button" class="delete-tr">X</button>
-                            </td>
-                        </tr>
-                        <%
-                                    urlIndex++;
-                                }
-                            }
-
-                            if (portfolio != null && portfolio.getAttachmentList() != null) {
-                                String[] attachmentList = portfolio.getAttachmentList();
-                                for (String attachment : attachmentList) {
-                        %>
-                        <tr name="attachment-<%= attachmentIndex %>" id="attachment-<%= attachmentIndex %>">
-                            <td><label>첨부파일</label></td>
-                            <td>
-                                <a href="fileDown?filename=<%= attachment %>"><%= attachment %>
-                                </a>
-                                <input type="hidden" name="attachment-<%= attachmentIndex %>"
-                                       value="<%= attachment %>"/>
-                                <button type="button" class="delete-tr">X</button>
-                            </td>
-                        </tr>
-                        <%
-                                    attachmentIndex++;
-                                }
-                            }
-                        %>
+                        <c:if test="${portfolio.externalUrlList ne null}">
+                            <c:forEach var="externalUrl" items="${portfolio.externalUrlList}" varStatus="status">
+                                <tr class="url-section">
+                                    <td><label for="url-${status.index}">외부 링크</label></td>
+                                    <td>
+                                        <input type="text" value="${externalUrl}" name="url-${status.index}"
+                                               id="url-${status.index}" placeholder="https://example.com"/>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="delete-tr">X</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${portfolio.attachmentList ne null}">
+                            <c:forEach var="attachment" items="${portfolio.attachmentList}" varStatus="status">
+                                <tr class="file-section">
+                                    <td><label for="attachment-${status.index}">첨부파일</label></td>
+                                    <td>
+                                        <a>${attachment}</a>
+                                        <span onclick="document.getElementById('attachment-${status.index}').click();">파일 변경</span>
+                                        <input style="display: none" type="file" name="attachment-${status.index}"
+                                               id="attachment-${status.index}"
+                                               accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx"/>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="delete-tr">X</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
                         </tbody>
                     </table>
                 </div>
@@ -183,11 +173,12 @@
                     <!-- 임시저장 -->
 <%--                    <button id="temp-submit-btn" type="button">임시저장</button>--%>
                     <!-- 등록 검증 후 제출 -->
-                    <button id="submit-btn" type="submit">포트폴리오 수정</button>
+                    <button id="submit-btn" type="submit" class="save-btn">포트폴리오 수정</button>
                     <!-- 목록 이동 -->
                     <button id="list-btn" type="button">목록</button>
                     <button class="delete-btn" id="delete-btn"
-                            onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">
+                           <%-- onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'--%>
+                    ">
                         포트폴리오 삭제
                     </button>
                 </div>
@@ -205,8 +196,11 @@
                     </c:if>
                 </div>
                 <input type="hidden" id="tempSaved" name="tempSaved" value=""/>
+                <input type="hidden" name="skillDescription" id="skillDescriptionHidden"
+                 value="<c:forEach items='${portfolio.skillList}' var='skill' varStatus='status'>${skill}<c:if test='${!status.last}'>,</c:if></c:forEach>"/>
+                <input type="hidden" id="externalUrlListHidden" name="externalUrlListJson" value=""/>
+                <input type="hidden" id="attachmentListHidden" name="attachmentListJson" value=""/>
             </div>
-        <input type="hidden" id="skillDescriptionHidden" name="skillDescriptionHidden" value=""/>
         </form>
     </main>
 </div>
@@ -215,7 +209,7 @@
     </script>
     <script src="${contextPath}/js/header.js"></script>
     <script src="${contextPath}/js/headerLogin.js"></script>
-    <script src="${contextPath}/js/freelancer_my_page_portfolio_write.js"></script>
+<%--    <script src="${contextPath}/js/freelancer_my_page_portfolio_modify.js"></script>--%>
     <script>
         const listBtn = document.getElementById('list-btn');
         // 목록: 확인창 후 이동
@@ -227,7 +221,6 @@
 
         function deletePortfolio() {
             const deleteBtn = document.getElementById('delete-btn');
-            // 목록: 확인창 후 이동
             deleteBtn.addEventListener('click', () => {
                 if (confirm('해당 포트폴리오를 삭제하시겠습니까?')) {
                     location.href = `${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}`;
