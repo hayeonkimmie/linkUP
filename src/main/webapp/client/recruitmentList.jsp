@@ -25,7 +25,7 @@
 
 <body>
 <input type="hidden" id="contextPath" value="${contextPath}"/>
-<jsp:include page="../home/headerLogin.jsp"/>
+<div id="header-placeholder"></div>
 
 <div class="layout">
     <!-- 구인자 공통 사이드바 include -->
@@ -150,37 +150,43 @@
 </main>
 </div>
 
-<!-- 페이징 -->
-<div class="pagination">
-    <c:choose>
-        <c:when test="${pageInfo.curPage > 1}">
-            <a href="${contextPath}/clientRecruitMgt?page=${pageInfo.curPage - 1}&sort=${param.sort}">&lt;</a>
-        </c:when>
-        <c:otherwise><a>&lt;</a></c:otherwise>
-    </c:choose>
+<%--<!-- 페이징 -->--%>
+<%--<div class="pagination">--%>
+<%--    <c:choose>--%>
+<%--        <c:when test="${pageInfo.curPage > 1}">--%>
+<%--            <a href="${contextPath}/clientRecruitMgt?page=${pageInfo.curPage - 1}&sort=${param.sort}">&lt;</a>--%>
+<%--        </c:when>--%>
+<%--        <c:otherwise><a>&lt;</a></c:otherwise>--%>
+<%--    </c:choose>--%>
 
-    <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
-        <c:choose>
-            <c:when test="${page eq pageInfo.curPage}">
-                <a href="${contextPath}/clientRecruitMgt?page=${page}&sort=${param.sort}" class="select">${page}</a>
-            </c:when>
-            <c:otherwise>
-                <a href="${contextPath}/clientRecruitMgt?page=${page}&sort=${param.sort}" class="btn">${page}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
+<%--    <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${page eq pageInfo.curPage}">--%>
+<%--                <a href="${contextPath}/clientRecruitMgt?page=${page}&sort=${param.sort}" class="select">${page}</a>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <a href="${contextPath}/clientRecruitMgt?page=${page}&sort=${param.sort}" class="btn">${page}</a>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+<%--    </c:forEach>--%>
 
-    <c:choose>
-        <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-            <a href="${contextPath}/clientRecruitMgt?page=${pageInfo.curPage + 1}&sort=${param.sort}">&gt;</a>
-        </c:when>
-        <c:otherwise><a>&gt</a></c:otherwise>
-    </c:choose>
-</div>
+<%--    <c:choose>--%>
+<%--        <c:when test="${pageInfo.curPage < pageInfo.allPage}">--%>
+<%--            <a href="${contextPath}/clientRecruitMgt?page=${pageInfo.curPage + 1}&sort=${param.sort}">&gt;</a>--%>
+<%--        </c:when>--%>
+<%--        <c:otherwise><a>&gt</a></c:otherwise>--%>
+<%--    </c:choose>--%>
+<%--</div>--%>
 
 
 <!--  recruitmentList.js 로딩 -->
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
 <script src="${contextPath}/js/headerLogin.js"></script>
 <script src="${contextPath}/js/recruitmentList.js"></script>
+
 </body>
 </html>

@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<jsp:include page="../home/headerLogin.jsp" />
+<div id="header-placeholder"></div>
 
 <div class="layout">
   <!-- 공통 사이드바 include -->
@@ -116,7 +116,11 @@
     </div>
   </main>
 </div>
-
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
 <script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

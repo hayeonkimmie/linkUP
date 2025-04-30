@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css" />
 </head>
 
-<body data-context-path="${contextPath}">
-<jsp:include page="../home/headerLogin.jsp" />
+<body>
+<%--<body data-context-path="${contextPath}">--%>
+<div id="header-placeholder"></div>
+
 
 <div class="layout">
     <!-- 공통 사이드바 include -->
@@ -99,8 +101,12 @@
 
     </main>
 </div>
-
-<script src="${contextPath}/js/toggleFavorite.js"></script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
 <script src="${contextPath}/js/headerLogin.js"></script>
+<script src="${contextPath}/js/toggleFavorite.js"></script>
 </body>
 </html>

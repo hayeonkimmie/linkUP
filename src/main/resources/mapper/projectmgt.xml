@@ -71,6 +71,11 @@
         <if test="status != null and status != 'all'">
             AND pj.status = #{status}
         </if>
+        <if test="projectProgress != null">
+            AND pj.project_progress = #{projectProgress}
+        </if>
+
+
         GROUP BY
         pj.project_id, pj.advertisement_title, sc.sub_category_name, pj.req_skills, pj.status,
         pj.created_date, pj.start_date, pj.end_date, pj.project_progress,  pj.duration,

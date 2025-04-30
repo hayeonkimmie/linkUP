@@ -16,8 +16,8 @@
   <link rel="stylesheet" href="${contextPath}/css/client/candidateMgt.css" />
 </head>
 <body>
-
-<jsp:include page="../home/headerLogin.jsp" />
+<!-- 공통 헤더 include -->
+<div id="header-placeholder"></div>
 
 <!-- contextPath 숨김 input 추가 (JS에서 사용) -->
 <input type="hidden" id="contextPath" value="${contextPath}" />
@@ -97,6 +97,12 @@
 </div>
 
 <!-- js 파일 분리 -->
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 <script src="${contextPath}/js/candidateMgt.js"></script>
 </body>
 </html>

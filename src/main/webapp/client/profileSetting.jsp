@@ -16,7 +16,7 @@
 
 <body>
 <!-- 공통 헤더 include -->
-<jsp:include page="../home/headerLogin.jsp" />
+<div id="header-placeholder"></div>
 
 
 <div class="layout">
@@ -123,5 +123,14 @@
         </form>
     </main>
 </div>
+
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/catalog.js"></script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
+
+
 </body>
 </html>
