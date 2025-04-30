@@ -12,4 +12,5 @@ public interface IProjectDAO {
     List<Project> searchProjectsByCategoryAndKeyword(Map<String, String> param);
     List<Project> catalogProjectByConditions(Map<String, String> param);
     ProjectDetail selectProjectById(Integer projectId) throws Exception;
+    void insertProject(Project project); // ✅ 등록만
 }

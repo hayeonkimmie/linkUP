@@ -27,6 +27,10 @@ public class Project {
     private String profileImg;
     private String email;
 
+    private String jobPosition;
+    private String reqSkills;
+    private String wantedSkills;
+    private String memail;
     public Project() {
     }
 

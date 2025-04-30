@@ -82,7 +82,7 @@
             <h3>첨부파일</h3>
             <table>
                 <tbody>
-                <c:if test="${portfolio.projectId ne null}">
+                <c:if test="${not empty portfolio.projectId}">
                     <tr>
                         <td><label>링크업을 통해 참여했던 프로젝트</label>
                         </td>
@@ -91,7 +91,7 @@
                         </td>
                     </tr>
                 </c:if>
-                <c:if test="${portfolio.externalUrlList ne null}">
+                <c:if test="${not empty portfolio.externalUrlList}">
                     <c:forEach var="externalUrl" items="${portfolio.externalUrlList }">
                         <tr>
                             <td><label>외부 링크</label></td>
@@ -101,7 +101,7 @@
                         </tr>
                     </c:forEach>
                 </c:if>
-                <c:if test="${portfolio.attachmentList ne null}">
+                <c:if test="${not empty portfolio.attachmentList}">
                     <c:forEach var="attachment" items="${portfolio.attachmentList }">
                         <tr>
                             <td><label>첨부파일</label></td>

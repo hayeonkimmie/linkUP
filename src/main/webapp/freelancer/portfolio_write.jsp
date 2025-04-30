@@ -89,13 +89,6 @@
                         <button id="add-attachment-file" type="button">내 PC에서 파일 첨부</button>
                     </div>
                     <table>
-                        <thead>
-                        <tr>
-                            <th>항목</th>
-                            <th>내용</th>
-                        </tr>
-                        </thead>
-                        <tbody>
                         <tbody>
 
                         </tbody>
@@ -113,8 +106,8 @@
                 </div>
                 <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="display:none"/>
                 <input type="hidden" id="skill-description-hidden" name="skillDescriptionHidden"/>
-                <input type="hidden" id="external-url-hidden" name="externalUrlHidden"/>
-                <input type="hidden" id="attachment-hidden" name="attachmentHidden"/>
+                <input type="hidden" id="external-url-hidden" name="externalUrlListHidden"/>
+                <input type="hidden" id="attachment-hidden" name="attachmentListHidden"/>
                 <div class="portfolioIdList" id="portfolioIdList" style="display:none; ">
                     <c:choose>
                         <c:when test="${empty projectInfoMap}">
@@ -170,6 +163,7 @@
     });
 
 </script>
+<%--<script src="${contextPath}/js/freelancer_my_page_portfolio_modify.js"></script>--%>
 <script src="${contextPath}/js/freelancer_my_page_portfolio_write.js"></script>
 </body>
 </html>
