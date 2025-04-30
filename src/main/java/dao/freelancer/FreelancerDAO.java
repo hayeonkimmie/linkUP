@@ -72,7 +72,7 @@ public class FreelancerDAO implements IFreelancerDAO {
     }
     public List<Category> selectCategoryList() {
         List<Category> categoryList = sqlSession.selectList("mapper.subCategory.selectCategoryList");
-        System.out.println("DAO 37 + categoryList categoryList"+categoryList);
+        System.out.println("DAO 75 + categoryList categoryList"+categoryList);
         return categoryList;
     }
     @Override
@@ -81,16 +81,26 @@ public class FreelancerDAO implements IFreelancerDAO {
     }
     @Override
     public void updateUserProfile(Freelancer freelancer) throws Exception {
-        System.out.println("DAO 47 + updateUserProfile"+freelancer);
-        sqlSession.update("mapper.freelancer.updateUserProfile", freelancer);
-        System.out.println("DAO 49 + updateUserProfile "+freelancer);
+        System.out.println("DAO 84 + updateUserProfile"+freelancer);
+        try {
+            sqlSession.update("mapper.freelancer.updateUserProfile", freelancer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        System.out.println("DAO 86 + updateUserProfile "+freelancer);
         Map <String,Object> param =new HashMap<>();
         param.put("bank",freelancer.getBank());
         param.put("accountNum",freelancer.getAccountNum());
-        param.put("freelancerId",freelancer.getFreelancerId());
         param.put("address",freelancer.getAddress());
+        param.put("freelancerId",freelancer.getFreelancerId());
         System.out.println("DAO 96 + param "+param);
-        sqlSession.update("mapper.freelancer.updateFreelancerInfo", param);
+        try {
+            sqlSession.update("mapper.freelancer.updateFreelancerInfo", param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         sqlSession.commit();
     }
 
@@ -104,7 +114,6 @@ public class FreelancerDAO implements IFreelancerDAO {
 
     @Override
     public void updateFreelancer(Freelancer freelancer) throws Exception {
-
             if(freelancer.getLicenseList() != null) {
                 String license = infoSerializer.serializeLicenseList(freelancer.getLicenseList());
                 System.out.println("FreelancerDAO 109 license : "+license);
@@ -120,21 +129,37 @@ public class FreelancerDAO implements IFreelancerDAO {
                 freelancer.setAcademic(null);
             }
             System.out.println("FreelancerDAO 121 "+freelancer);
-       sqlSession.update("mapper.freelancer.updateFreelancer", freelancer);
+        try {
+            sqlSession.update("mapper.freelancer.updateFreelancer", freelancer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         sqlSession.commit();
     }
 
     @Override
     public void insertCareer(List<Career> careerList) throws Exception {
-        for (Career c : careerList) {
-            sqlSession.insert("mapper.freelancer.insertCareer", c);
+
+        try {
+            for (Career c : careerList) {
+                sqlSession.insert("mapper.freelancer.insertCareer", c);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-//        sqlSession.insert("mapper.freelancer.insertCareer", careerList);
         sqlSession.commit();
     }
     @Override
     public void deleteCareer(String freelancerId) throws Exception {
-        sqlSession.delete("mapper.freelancer.deleteCareerByFreelancerId", freelancerId);
+
+        try {
+            sqlSession.delete("mapper.freelancer.deleteCareerByFreelancerId", freelancerId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         sqlSession.commit();
     }
 }

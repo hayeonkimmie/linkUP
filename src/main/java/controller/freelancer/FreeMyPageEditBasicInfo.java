@@ -49,13 +49,11 @@ public class FreeMyPageEditBasicInfo extends HttpServlet {
         String path = request.getServletContext().getRealPath("upload"); // 업로드 폴더의 물리적 경로 가져오기
         int size = 10 * 1024 * 1024;//10mb
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        Freelancer freelancer = new Freelancer();
-        freelancer.setFreelancerId(freelancerId);
+        System.out.println("서블릿 52" + freelancerId);
         IFreelancerService service = new FreelancerService();
         MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy());
-
         try {
-            System.out.println("서블릿 84" + freelancerId);
+            Freelancer freelancer = service.selectBasicFreelancerById(freelancerId);
             freelancer.setFreelancerId(freelancerId);
             freelancer.setPhoneNum(multi.getParameter("phoneNum"));
             freelancer.setName(multi.getParameter("name"));
@@ -76,15 +74,13 @@ public class FreeMyPageEditBasicInfo extends HttpServlet {
             String newPassword = multi.getParameter("newPassword");
             if (newPassword != null && !newPassword.trim().isEmpty()) {
                 freelancer.setPassword(newPassword);
-            } else {
-                freelancer.setPassword((String) request.getSession().getAttribute("password"));
             }
-            freelancer.setBank(multi.getParameter("bank"));
-            if(multi.getParameter("bank") == null || multi.getParameter("bank").equals("")) {
-                freelancer.setBank("은행 없음");
+            if(multi.getParameter("bank") != null || !(multi.getParameter("bank").equals(""))) {
+                freelancer.setBank(multi.getParameter("bank"));
             }
-            freelancer.setAccountNum(multi.getParameter("accountNum"));
-            freelancer.setFreelancerId(freelancerId);
+            if(multi.getParameter("accountNum") != null || !(multi.getParameter("accountNum").equals(""))) {
+                freelancer.setAccountNum(multi.getParameter("accountNum"));
+            }
             System.out.println("FreeMyPageEditInfo 서블릿 90 : " + freelancer);
             service.updateFreelancer(freelancer);
             // 수정 결과 확인

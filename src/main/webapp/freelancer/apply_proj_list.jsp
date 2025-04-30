@@ -22,7 +22,7 @@
     <jsp:include page="/freelancer/sidebar.jsp"/>
     <main class="content">
         <section class="section">
-            <h3>내 프로젝트 지원 현황 총 ${ApplyProjCount} 건</h3>
+            <h3>내 프로젝트 지원 현황 총 ${applyProjCount} 건</h3>
             <p style="color: #888; font-size: 0.9rem; margin-bottom: 1rem;">지원한 프로젝트 목록을 확인하세요</p>
             <table id="apply-table">
                 <thead>

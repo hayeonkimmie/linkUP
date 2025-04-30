@@ -211,6 +211,8 @@ public class FreeMyPageExpertEditInfo extends HttpServlet {
                 throw new Exception();
             }
             // --- 단일 데이터 수신 ---
+            String introduction = multi.getParameter("introduction"); // "Java^Spring^MySQL"
+            freelancer.setIntroduction(introduction);
 // 보유 스킬
             String skillDescription = multi.getParameter("skillDescription"); // "Java^Spring^MySQL"
             System.out.println("7차 skillDescription : " + skillDescription);

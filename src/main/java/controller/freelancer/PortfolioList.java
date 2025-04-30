@@ -23,6 +23,7 @@ public class PortfolioList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
+        IPortfolioService service = new PortfolioService();
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
             response.sendRedirect("/linkup/login");
@@ -38,7 +39,6 @@ public class PortfolioList extends HttpServlet {
         }
         PageInfo pageInfo = new PageInfo(page);
 
-        IPortfolioService service = new PortfolioService();
         List<Portfolio> portfolioList;
         try {
             Integer portfolioCnt = service.selectPortfolioCnt(freelancerId);

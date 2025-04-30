@@ -44,6 +44,7 @@ public class MyPageApplyList extends HttpServlet {
                 ApplyProjList = service.getApplProjyList(freelancerId, pageInfo);
                 request.setAttribute("pageInfo", pageInfo);
                 request.setAttribute("freelancerId", freelancerId);
+                request.setAttribute("applyProjCount", applyProjCount);
                 request.setAttribute("page", page);
                 System.out.println("43 ApplyProjList = " + ApplyProjList);
                 request.setAttribute("ApplyProjList", ApplyProjList);

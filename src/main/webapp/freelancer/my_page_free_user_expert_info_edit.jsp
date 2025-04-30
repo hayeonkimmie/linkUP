@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link up Profile</title>
+    <title>Link up 전문가 정보 설정</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page_expert_info_edit.css'/>">
@@ -114,14 +114,30 @@
                                         </c:if>
                                         <div class="input input-month-group">
                                             <div class="input-education-date">
-                                                <label>입학연월<span class="star">*</span></label>
-                                                <input name="educationList[${status.index}].enterDate" type="month"
-                                                       value="<fmt:formatDate value='${academic.entranceDate}' pattern='yyyy-MM'/>" required/>
-                                            </div>
-                                            <div class="input-education-date">
-                                                <label>졸업연월</label>
-                                                <input type="month" name="educationList[${status.index}].graduateDate"
-                                                       value="<fmt:formatDate value='${academic.graduateDate}' pattern='yyyy-MM'/>" required/>
+                                                <%
+                                                    Object academicObj = pageContext.findAttribute("academic");
+
+                                                    java.lang.reflect.Method getEntranceDate = academicObj.getClass().getMethod("getEntranceDate");
+                                                    String entranceDateStr = (String) getEntranceDate.invoke(academicObj);
+
+                                                    // graduateDate 값 가져오기
+                                                    java.lang.reflect.Method getGraduateDate = academicObj.getClass().getMethod("getGraduateDate");
+                                                    String graduateDateStr = (String) getGraduateDate.invoke(academicObj);
+
+                                                    // yyyy-MM 형식으로 substring
+                                                    String entranceMonth = (entranceDateStr != null && entranceDateStr.length() >= 7) ? entranceDateStr.substring(0, 7) : "";
+                                                    String graduateMonth = (graduateDateStr != null && graduateDateStr.length() >= 7) ? graduateDateStr.substring(0, 7) : "";
+                                                %>
+                                                <div class="input-education-date">
+                                                    <label>입학연월<span class="star">*</span></label>
+                                                    <input name="educationList[${status.index}].enterDate" type="month"
+                                                           value="<%= entranceMonth %>" required/>
+                                                </div>
+                                                <div class="input-education-date">
+                                                    <label>졸업연월</label>
+                                                    <input name="educationList[${status.index}].graduateDate" type="month"
+                                                           value="<%= graduateMonth %>"/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -164,12 +180,12 @@
                                         <div class="input input-month-group">
                                             <div class="input-education-date">
                                                 <label>입학연월 </label>
-                                                <input type="month" name="educationList[0].enterDate"
+                                                <input type="month" name="educationList[0].enterDate" id="enterDate_0"
                                                        value=""/>
                                             </div>
                                             <div class="input-education-date">
                                                 <label>졸업연월 </label>
-                                                <input type="month" name="educationList[0].graduateDate"
+                                                <input type="month" name="educationList[0].graduateDate" id="graduateDate_0"
                                                        value=""/>
                                             </div>
                                         </div>
@@ -252,7 +268,7 @@
                     <label>자격증</label>
                     <div id="license-container">
                         <c:choose>
-                            <c:when test="${freelancer.licenseList ne null}">
+                            <c:when test="${not empty freelancer.licenseList}">
                                 <c:forEach items="${freelancer.licenseList}" var="license" varStatus="status">
                                     <div class="license-box item-box">
                                         <div class="license-row">

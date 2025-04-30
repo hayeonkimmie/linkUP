@@ -23,13 +23,15 @@ public class PortfolioDelete extends HttpServlet {
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
             response.sendRedirect("/linkup/login");
-        };
+        }
         Integer portfolioId = Integer.parseInt(request.getParameter("id"));
-        Portfolio portfolio = new Portfolio();
-        portfolio.setPortfolioId(portfolioId);
         IPortfolioService service = new PortfolioService();
-        System.out.println("portfolioId: " + portfolioId);
         try {
+            if (!service.isPortfolioOwner(freelancerId, portfolioId)) {
+                request.setAttribute("err", "본인이 작성하지 않은 포트폴리오를 수정할 수 없습니다.");
+                response.sendRedirect(request.getContextPath() + "/my-page/portfolio-list");
+            }
+            System.out.println("portfolioId: " + portfolioId);
             service.deletePortfolio(portfolioId);
             request.setAttribute("result", "포트폴리오 삭제 성공");
 
@@ -37,7 +39,6 @@ public class PortfolioDelete extends HttpServlet {
             request.setAttribute("result", "포트폴리오 삭제에 실패했습니다.");
             throw new RuntimeException(e);
         }
-//        request.getRequestDispatcher("/freelancer/portfolio_list.jsp").forward(request, response);
         response.sendRedirect(request.getContextPath() + "/my-page/portfolio-list");
     }
 }

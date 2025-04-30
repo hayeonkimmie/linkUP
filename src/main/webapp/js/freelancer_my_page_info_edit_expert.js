@@ -102,12 +102,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
+/*
     // 폼 제출 이벤트에 연결
     document.getElementById('expertInfoForm').addEventListener('submit', function(e) {
         prepareFormDataForSubmission();
         // 유효성 검사 추가 가능
-    });
+    });*/
 
     // 모든 섹션의 데이터를 콘솔에 로깅하는 함수
     function logAllSectionsData() {
@@ -119,8 +119,6 @@ document.addEventListener("DOMContentLoaded", function () {
         logLinkData();
         logCategoryData();
     }
-
-
     function logCategoryData() {
         const categorySelect = document.getElementById('category_name');
         const subCategorySelect = document.getElementById('subCategory');

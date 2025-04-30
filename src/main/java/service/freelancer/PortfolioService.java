@@ -118,13 +118,6 @@ public class PortfolioService implements IPortfolioService{
         if(portfolio.getAttachment()!= null && !portfolio.getAttachment().equals(p.getAttachment())) {
             portfolio.setAttachment(p.getAttachment());
         }
-        if(portfolio.getSkillDescription()!= null && !portfolio.getSkillDescription().equals(p.getSkillDescription())) {
-            portfolio.setSkillDescription(p.getSkillDescription());
-        } else if(portfolio.getSkillDescription() == null) {
-            portfolio.setSkillDescription(null);
-        } else {
-            portfolio.setSkillDescription(p.getSkillDescription());
-        }
         if(portfolio.getThumbnail()!= null && !portfolio.getThumbnail().equals(p.getThumbnail())) {
             portfolio.setThumbnail(p.getThumbnail());
         } else if(portfolio.getThumbnail() == null) {

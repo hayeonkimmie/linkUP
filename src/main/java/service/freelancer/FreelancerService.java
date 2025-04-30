@@ -51,14 +51,22 @@ public class FreelancerService implements IFreelancerService{
         if(freelancer.getProfileImg() == null || freelancer.getProfileImg().equals(curProfileImg)) {
             freelancer.setProfileImg(curProfileImg);
         }
-        ifreelancerDAO.updateUserProfile(freelancer);
-        ifreelancerDAO.updateFreelancer(freelancer);
+        try {
+            ifreelancerDAO.updateUserProfile(freelancer);
+            ifreelancerDAO.updateFreelancer(freelancer);
+        }catch (Exception e) {
+            throw new Exception();
+        }
         System.out.println("FreelancerService.java 56 + updateFreelancer 동작완료");
     }
     @Override
     public void updateCareer(List<Career> careerList, String freelancerId) throws Exception {
         System.out.println("FreelancerService.java 56 updateCareer "+careerList);
-        ifreelancerDAO.deleteCareer(freelancerId);
-        ifreelancerDAO.insertCareer(careerList);
+        try {
+            ifreelancerDAO.deleteCareer(freelancerId);
+            ifreelancerDAO.insertCareer(careerList);
+        }catch (Exception e){
+            throw new Exception();
+        }
     }
 }
