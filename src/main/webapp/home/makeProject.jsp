@@ -27,9 +27,67 @@
       const positionContainer = document.getElementById('position-container');
       const submitButton = document.getElementById('submit-button');
       const jobForm = document.getElementById('job-form');
+      const recruitFieldInput = document.getElementById('recruit-field-input');
+      const recruitFieldTags = document.getElementById('recruit-field-tags');
       let skipValidationOnce = false;
+      const recruitFields = [];
 
-      // 산업 데이터 (공통)
+      // ✨ 모집 분야 입력 후 태그 생성
+      recruitFieldInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          const value = recruitFieldInput.value.trim().replace(',', '');
+          if (value && !recruitFields.includes(value)) {
+            recruitFields.push(value);
+            addRecruitFieldTag(value);
+            recruitFieldInput.value = '';
+          } else {
+            recruitFieldInput.value = '';
+          }
+        }
+      });
+
+      // ✨ 태그 추가 함수 (태그+삭제버튼)
+      function addRecruitFieldTag(text) {
+        const tag = document.createElement('div');
+        tag.className = 'flex items-center bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm';
+
+        const span = document.createElement('span');
+        span.textContent = text;
+
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'ml-2 text-purple-500 hover:text-purple-700 remove-tag';
+        button.innerHTML = '&times;';
+
+        tag.appendChild(span);
+        tag.appendChild(button);
+        recruitFieldTags.appendChild(tag);
+
+        button.addEventListener('click', () => {
+          recruitFields.splice(recruitFields.indexOf(text), 1);
+          tag.remove();
+          updatePositionTaskOptions();
+        });
+
+        updatePositionTaskOptions();
+      }
+
+      // ✨ 포지션 담당업무 옵션 업데이트 함수
+      function updatePositionTaskOptions() {
+        const taskSelects = document.querySelectorAll('.position-task-select');
+        taskSelects.forEach(select => {
+          select.innerHTML = '<option value="">담당업무를 선택하세요</option>';
+          recruitFields.forEach(field => {
+            const option = document.createElement('option');
+            option.value = field;
+            option.textContent = field;
+            select.appendChild(option);
+          });
+        });
+      }
+
+      // ✨ 산업 데이터
       const industryData = {
         "웹 제작": ["홈페이지 신규 제작", "쇼핑몰 신규 제작", "랜딩페이지"],
         "웹 유지보수": ["홈페이지 수정·유지보수", "쇼핑몰 수정·유지보수", "퍼블리싱", "검색최적화·SEO", "애널리틱스"],
@@ -41,7 +99,7 @@
         "직무직군": ["UI·UX 기획", "프론트엔드", "백엔드", "풀스택", "데브옵스·인프라", "데이터·ML·DL"]
       };
 
-      // 근무 방식 선택
+      // ✨ 근무 방식 버튼 설정
       workTypeButtons.forEach(btn => {
         btn.addEventListener('click', () => {
           workTypeButtons.forEach(b => b.classList.remove('btn-selected'));
@@ -51,7 +109,7 @@
         });
       });
 
-      // 산업 메인 셀렉트 (기본 정보 영역)
+      // ✨ 산업 select 초기화
       const primarySelect = document.getElementById('industry-primary');
       const secondarySelect = document.getElementById('industry-secondary');
 
@@ -76,7 +134,7 @@
         }
       });
 
-      // ✅ 포지션 산업 셀렉트 초기화 함수
+      // ✨ 포지션 산업 셀렉트 초기화
       function initializePositionIndustrySelect(block) {
         const primary = block.querySelector('.position-industry-primary');
         const secondary = block.querySelector('.position-industry-secondary');
@@ -105,11 +163,12 @@
         });
       }
 
-      // ✅ 초기 포지션 셀렉트도 설정
+      // ✨ 최초 포지션 셀렉트 설정
       const firstPosition = document.querySelector('.position-block');
       initializePositionIndustrySelect(firstPosition);
+      updatePositionTaskOptions();
 
-      // 포지션 추가
+      // ✨ 포지션 추가 버튼
       addPositionBtn.addEventListener('click', () => {
         const positionTemplate = document.querySelector('.position-block');
         const clone = positionTemplate.cloneNode(true);
@@ -125,10 +184,11 @@
         }
 
         positionContainer.appendChild(clone);
-        initializePositionIndustrySelect(clone); // ⭐ 새 포지션에도 셀렉트 초기화
+        initializePositionIndustrySelect(clone);
+        updatePositionTaskOptions(); // ⭐ 포지션 추가할 때도 담당업무 옵션 업데이트
       });
 
-      // 포지션 삭제
+      // ✨ 포지션 삭제
       document.addEventListener('click', function (e) {
         if (e.target.classList.contains('remove-position')) {
           const positions = document.querySelectorAll('.position-block');
@@ -141,7 +201,7 @@
         }
       });
 
-      // 모달 닫기
+      // ✨ 모달 닫기
       modalClose.addEventListener('click', () => {
         modal.style.display = 'none';
       });
@@ -152,7 +212,7 @@
         }
       });
 
-      // 유효성 검사
+      // ✨ 유효성 검사
       jobForm?.addEventListener('input', () => {
         if (skipValidationOnce) {
           skipValidationOnce = false;
@@ -169,7 +229,7 @@
         submitButton.disabled = !allFilled;
       });
 
-      // 제출 버튼 클릭 시 검사 후 전송
+      // ✨ 제출 버튼 클릭 시 검사
       submitButton?.addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -192,9 +252,9 @@
         }
       });
     });
-
-
   </script>
+
+
 </head>
 <body>
 <div id="header-placeholder"></div>
@@ -204,18 +264,25 @@
   <br>
   <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
     <h1 class="text-2xl font-bold mb-4">구인 등록</h1>
-    <form id="job-form" class="space-y-6">
+    <form id="job-form" action="${contextPath}/makeProject" method="post" class="space-y-6">
+      <!-- ✨ form에 action, method 추가 -->
+
       <!-- 기본 정보 -->
       <section>
         <label class="block font-medium">공고 제목 <span class="text-red-500">*</span>
-          <input type="text" class="mt-1 w-full border p-2 rounded" required>
+          <input name="advertisementTitle" type="text" class="mt-1 w-full border p-2 rounded" required>
         </label>
+
         <label class="block font-medium mt-4">프로젝트명 <span class="text-red-500">*</span>
-          <input type="text" class="mt-1 w-full border p-2 rounded" required>
+          <input name="projectName" type="text" class="mt-1 w-full border p-2 rounded" required>
         </label>
+
         <label class="block font-medium mt-4">모집 분야 <span class="text-red-500">*</span>
-          <input type="text" class="mt-1 w-full border p-2 rounded" required>
+          <input id="recruit-field-input" name="jobPosition" type="text" class="mt-1 w-full border p-2 rounded" required>
         </label>
+
+        <!-- 모집분야 태그 영역은 그대로 유지 -->
+        <div id="recruit-field-tags" class="flex flex-wrap gap-2 mt-2"></div>
 
         <div class="mt-4">
           <span class="font-medium">근무 방식</span> <span class="text-red-500">*</span>
@@ -226,20 +293,20 @@
           </div>
           <div id="work-time-toggle" class="mt-2 hidden">
             <label class="block mt-2 font-medium">근무 시간
-              <input type="text" class="mt-1 w-full border p-2 rounded" placeholder="00:00 - 00:00">
+              <input name="workingHours" type="text" class="mt-1 w-full border p-2 rounded" placeholder="00:00 - 00:00">
             </label>
           </div>
         </div>
 
         <label class="block font-medium mt-4">근무 기간 <span class="text-red-500">*</span>
-          <input type="text" class="mt-1 w-full border p-2 rounded">
+          <input name="duration" type="text" class="mt-1 w-full border p-2 rounded" required>
         </label>
+
         <label class="block font-medium mt-4">근무 지역 <span class="text-red-500">*</span>
-          <input type="text" class="mt-1 w-full border p-2 rounded">
+          <input name="workingEnvironment" type="text" class="mt-1 w-full border p-2 rounded" required>
         </label>
-        <label class="block font-medium mt-4">프로젝트 비용 <span class="text-red-500">*</span>
-          <input type="text" class="mt-1 w-full border p-2 rounded" required>
-        </label>
+
+        <!-- 프로젝트 비용은 삭제 예정이라 무시 -->
 
         <div class="mt-4">
           <span class="font-medium">산업</span>
@@ -252,7 +319,7 @@
             </div>
             <div>
               <label class="block font-medium mb-1">세부 분야</label>
-              <select id="industry-secondary" class="w-full border p-2 rounded">
+              <select id="industry-secondary" name="subCategoryId" class="w-full border p-2 rounded">
                 <option value="">세부 분야</option>
               </select>
             </div>
@@ -267,97 +334,96 @@
         <div id="position-container" class="space-y-4">
           <div class="position-block border p-4 rounded relative">
             <button type="button" class="remove-position absolute top-2 right-2 text-red-500 hidden">삭제</button>
-            <label class="block mt-2 font-medium">직군</label>
-            <div class="mt-4">
-              <label class="block font-medium mb-1">산업 분야</label>
-              <select class="position-industry-primary w-full border p-2 rounded">
-                <option value="">산업 분야</option>
-              </select>
-            </div>
-            <div class="mt-4">
-              <label class="block font-medium mb-1">세부 분야</label>
-              <select class="position-industry-secondary w-full border p-2 rounded">
-                <option value="">세부 분야</option>
-              </select>
-            </div>
+
             <label class="block mt-2 font-medium">레벨</label>
-            <select class="mt-1 w-full border p-2 rounded">
+            <select name="lvId" class="mt-1 w-full border p-2 rounded">
               <option value="">선택해주세요</option>
-              <option value="junior">초급</option>
-              <option value="mid">중급</option>
-              <option value="senior">고급</option>
+              <option value="1">초급</option>  <!-- ✨ 실제 lvId 매칭 필요 -->
+              <option value="2">중급</option>
+              <option value="3">고급</option>
             </select>
+
             <label class="block mt-2 font-medium">구인 인원 <span class="text-red-500">*</span></label>
-            <input type="number" class="mt-1 w-full border p-2 rounded" required>
+            <input name="people" type="number" class="mt-1 w-full border p-2 rounded" required>
+
             <label class="block mt-2 font-medium">급여 / 페이</label>
-            <input type="text" class="mt-1 w-full border p-2 rounded">
+            <input name="projectFee" type="text" class="mt-1 w-full border p-2 rounded">
+
             <label class="block mt-2 font-medium">담당업무</label>
-            <input type="text" class="mt-1 w-full border p-2 rounded">
+            <select name="work" class="position-task-select mt-1 w-full border p-2 rounded">
+              <option value="">담당업무를 선택하세요</option>
+            </select>
           </div>
         </div>
         <button type="button" id="add-position" class="mt-2 px-4 py-2 border rounded text-blue-500">+ 포지션 추가</button>
       </section>
 
-      <!-- 모달 -->
-      <div id="position-modal" class="modal">
-        <div class="modal-content">
-          <p class="mb-4">최소 하나의 포지션 정보는 남겨두어야 합니다.</p>
-          <button id="modal-close" class="bg-blue-500 text-white px-4 py-2 rounded">닫기</button>
-        </div>
-      </div>
-
       <!-- 기술 스택 -->
       <section>
         <h2 class="text-lg font-semibold">필요 기술 스택</h2>
+
         <label class="block font-medium mt-2">원하는 기술
-          <input type="text" class="mt-1 w-full border p-2 rounded">
+          <input name="reqSkills" type="text" class="mt-1 w-full border p-2 rounded">
         </label>
+
         <label class="block font-medium mt-2">우대 기술
-          <input type="text" class="mt-1 w-full border p-2 rounded">
+          <input name="wantedSkills" type="text" class="mt-1 w-full border p-2 rounded">
         </label>
       </section>
 
       <!-- 업무 내용 -->
       <section>
         <h2 class="text-lg font-semibold">업무 내용</h2>
+
         <label class="block font-medium mt-2">프로젝트 개요
-          <input type="text" class="mt-1 w-full border p-2 rounded textin">
+          <input name="projectDescription" type="text" class="mt-1 w-full border p-2 rounded textin">
         </label>
+
         <label class="block font-medium mt-2">상세 업무 내용
-          <input type="text" class="mt-1 w-full border p-2 rounded textin">
+          <input name="jobDetails" type="text" class="mt-1 w-full border p-2 rounded textin">
         </label>
       </section>
 
       <!-- 지원자격 -->
       <section>
         <h2 class="text-lg font-semibold">지원자격</h2>
+
         <label class="block font-medium mt-2">필수 경험
-          <input type="text" class="mt-1 w-full border p-2 rounded ">
+          <input name="qualification" type="text" class="mt-1 w-full border p-2 rounded">
         </label>
+
         <label class="block font-medium mt-2">우대 사항
-          <input type="text" class="mt-1 w-full border p-2 rounded">
+          <input name="preferentialConditions" type="text" class="mt-1 w-full border p-2 rounded">
         </label>
+
         <label class="block font-medium mt-2">모집 마감 기한 <span class="text-red-500">*</span>
-          <input type="date" class="mt-1 w-full border p-2 rounded" required>
+          <input name="deadlineDate" type="date" class="mt-1 w-full border p-2 rounded" required>
         </label>
       </section>
 
       <!-- 연락처 -->
       <section>
         <h2 class="text-lg font-semibold">연락처 설정</h2>
-        <label class="block font-medium mt-2">담당자 이메일 <span class="text-red-500">*</span>
-          <input type="email" class="mt-1 w-full border p-2 rounded" required>
+
+        <label class="block font-medium mt-2">담당자 이름 <span class="text-red-500">*</span>
+          <input name="manager" type="text" class="mt-1 w-full border p-2 rounded" required>
         </label>
+
+        <label class="block font-medium mt-2">담당자 이메일 <span class="text-red-500">*</span>
+          <input name="memail" type="email" class="mt-1 w-full border p-2 rounded" required>
+        </label>
+
         <label class="block font-medium mt-2">담당자 전화번호 <span class="text-red-500">*</span>
-          <input type="tel" class="mt-1 w-full border p-2 rounded" required>
+          <input name="mphone" type="tel" class="mt-1 w-full border p-2 rounded" required>
         </label>
       </section>
 
-      <button id="submit-button" type="submit" class="w-full bg-blue-500 text-white py-3 rounded disabled:opacity-50">프로젝트 등록하기</button>
+      <button id="submit-button" type="submit" class="w-full bg-blue-500 text-white py-3 rounded disabled:opacity-50">
+        프로젝트 등록하기
+      </button>
     </form>
-  </div>
-</div>
-<script>
+
+    <script>
   const contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${contextPath}/js/catalog.js"></script>

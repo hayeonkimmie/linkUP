@@ -9,7 +9,8 @@ public class Pay {
     private int projectFee;
     private Integer pay; // 금액 4/18 추가
     private int fee; // 수수료 금액의 0.3% 추가
-
+    private String work;  // 담당 업무
+    private int people;   // 모집 인원
     public Pay() {
     }
 
@@ -21,6 +22,35 @@ public class Pay {
         this.projectFee = projectFee;
         this.pay = pay;
         this.fee = fee;
+    }
+
+    public Pay(int projectFeeId, int projectId, int lvId, Integer subCategoryId, String categoryName, int projectFee, Integer pay, int fee, String work, int people) {
+        this.projectFeeId = projectFeeId;
+        this.projectId = projectId;
+        this.lvId = lvId;
+        this.subCategoryId = subCategoryId;
+        this.categoryName = categoryName;
+        this.projectFee = projectFee;
+        this.pay = pay;
+        this.fee = fee;
+        this.work = work;
+        this.people = people;
+    }
+
+    public String getWork() {
+        return work;
+    }
+
+    public void setWork(String work) {
+        this.work = work;
+    }
+
+    public int getPeople() {
+        return people;
+    }
+
+    public void setPeople(int people) {
+        this.people = people;
     }
 
     public int getProjectFeeId() {
