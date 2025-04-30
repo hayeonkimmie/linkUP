@@ -118,7 +118,7 @@
                     <div class="job-card">
                         <div class="job-image"></div>
                         <h3>${p.advertisementTitle}</h3>
-                        <p>${p.duration}일 / ★ <fmt:formatNumber value="${p.avgStar}" type="number" maxFractionDigits="1" /> </p>
+                        <p>${p.duration}일</p>
                         <div class="profile">
                             <div class="avatar"></div>
                             <span>${p.manager}</span>
@@ -145,7 +145,6 @@
                         <div class="job-image"></div>
                         <h3>${f.introduction}</h3>
                         <p>희망 급여: ${f.desiredSalary}원/월</p>
-                        <p>★ <fmt:formatNumber value="${f.avgStar}" type="number" maxFractionDigits="1"/> / 5.0</p>
                         <div class="profile">
                             <div class="avatar"></div>
                             <span>${f.nickname}</span>

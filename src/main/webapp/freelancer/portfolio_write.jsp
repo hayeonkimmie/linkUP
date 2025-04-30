@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up Profile Write</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-<%--    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">--%>
-<%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
+    <%--    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">--%>
+    <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
 
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
-<%--    <script src="../js/freelancer_my_page_portfolio_write.js"></script>--%>
+    <%--    <script src="../js/freelancer_my_page_portfolio_write.js"></script>--%>
     <%--<script src="<c:url value='/js/freelancer_my_page_portfolio_write.js'/>"></script>--%>
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -101,7 +101,7 @@
                     <%--<button id="temp-submit-btn" type="button">임시저장</button>--%>
                     <!-- 등록 검증 후 제출 -->
                     <button id="submit-btn" type="submit">포트폴리오 등록</button>
-                        <!-- 목록 이동 -->
+                    <!-- 목록 이동 -->
                     <button id="list-btn" type="button" class="list-btn" >목록</button>
                 </div>
                 <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="display:none"/>
@@ -116,7 +116,7 @@
                         <c:otherwise>
                             <option value="">참여했던 프로젝트 명을 선택해주세요.</option>
                             <c:forEach var="project" items="${projectInfoMap }">
-<%--                                <option value="${project.key}">${project.value.projectName}</option>--%>
+                                <%--                                <option value="${project.key}">${project.value.projectName}</option>--%>
                                 <option value="${project.key}">${project.value}</option>
                             </c:forEach>
                         </c:otherwise>
