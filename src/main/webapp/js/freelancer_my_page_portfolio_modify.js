@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.updateSkillsHiddenField = updateSkillsHiddenField;
     }
     function prepareFormDataForSubmission() {
-       // 🔹 스킬 리스트 준비
+        // 🔹 스킬 리스트 준비
         const skillTags = Array.from(document.querySelectorAll('.skill-tag'))
             .map(tag => tag.getAttribute('data-skill'));
         document.getElementById('skillDescriptionHidden').value = skillTags.join('^');
@@ -245,23 +245,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-/*    function updateFileAndUrlIndexes() {
-        document.querySelectorAll('tr.url-section').forEach((row, idx) => {
-            const input = row.querySelector('input[type="text"]');
-            if (input) {
-                input.name = `externalUrlList[${idx}]`;
-                input.id = `url-${idx}`;
-            }
-        });
+    /*    function updateFileAndUrlIndexes() {
+            document.querySelectorAll('tr.url-section').forEach((row, idx) => {
+                const input = row.querySelector('input[type="text"]');
+                if (input) {
+                    input.name = `externalUrlList[${idx}]`;
+                    input.id = `url-${idx}`;
+                }
+            });
 
-        document.querySelectorAll('tr.file-section').forEach((row, idx) => {
-            const input = row.querySelector('input[type="file"]');
-            if (input) {
-                input.name = `attachmentList[${idx}]`;
-                input.id = `attachment-${idx}`;
-            }
-        });
-    }*/
+            document.querySelectorAll('tr.file-section').forEach((row, idx) => {
+                const input = row.querySelector('input[type="file"]');
+                if (input) {
+                    input.name = `attachmentList[${idx}]`;
+                    input.id = `attachment-${idx}`;
+                }
+            });
+        }*/
 
     // 모든 섹션의 데이터를 콘솔에 로깅하는 함수
     function logAllSectionsData() {

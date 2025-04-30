@@ -87,7 +87,7 @@
                         <td><label>링크업을 통해 참여했던 프로젝트</label>
                         </td>
                         <td>
-                            <a href="/projectDetail?id=${portfolio.projectId }">${portfolio.projectName }</a>
+                            <a href="${contextPath}/project?projectid=${portfolio.projectId }">${portfolio.projectName }</a>
                         </td>
                     </tr>
                 </c:if>

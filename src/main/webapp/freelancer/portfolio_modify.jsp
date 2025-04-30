@@ -171,15 +171,15 @@
                 <!-- 버튼 그룹 -->
                 <div class="button-group">
                     <!-- 임시저장 -->
-<%--                    <button id="temp-submit-btn" type="button">임시저장</button>--%>
+                    <%--                    <button id="temp-submit-btn" type="button">임시저장</button>--%>
                     <!-- 등록 검증 후 제출 -->
                     <button id="submit-btn" type="submit" class="save-btn">포트폴리오 수정</button>
                     <!-- 목록 이동 -->
                     <button id="list-btn" type="button">목록</button>
                     <button class="delete-btn" id="delete-btn"
-                           <%-- onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'--%>
+                    <%-- onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'--%>
                     ">
-                        포트폴리오 삭제
+                    포트폴리오 삭제
                     </button>
                 </div>
                 <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="display:none"/>
@@ -197,37 +197,37 @@
                 </div>
                 <input type="hidden" id="tempSaved" name="tempSaved" value=""/>
                 <input type="hidden" name="skillDescription" id="skillDescriptionHidden"
-                 value="<c:forEach items='${portfolio.skillList}' var='skill' varStatus='status'>${skill}<c:if test='${!status.last}'>,</c:if></c:forEach>"/>
+                       value="<c:forEach items='${portfolio.skillList}' var='skill' varStatus='status'>${skill}<c:if test='${!status.last}'>,</c:if></c:forEach>"/>
                 <input type="hidden" id="externalUrlListHidden" name="externalUrlListHidden" value=""/>
                 <input type="hidden" id="attachmentListHidden" name="attachmentHidden" value=""/>
             </div>
         </form>
     </main>
 </div>
-    <script>
-        const contextPath = '${pageContext.request.contextPath}';
-    </script>
-    <script src="${contextPath}/js/header.js"></script>
-    <script src="${contextPath}/js/headerLogin.js"></script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 <%--    <script src="${contextPath}/js/freelancer_my_page_portfolio_modify.js"></script>--%>
-    <script>
-        const listBtn = document.getElementById('list-btn');
-        // 목록: 확인창 후 이동
-        listBtn.addEventListener('click', () => {
-            if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
-                location.href = `${contextPath}/my-page/portfolio-list`;
+<script>
+    const listBtn = document.getElementById('list-btn');
+    // 목록: 확인창 후 이동
+    listBtn.addEventListener('click', () => {
+        if (confirm('입력한 내용이 저장되지 않습니다. 목록으로 이동하시겠습니까?')) {
+            location.href = `${contextPath}/my-page/portfolio-list`;
+        }
+    });
+
+    function deletePortfolio() {
+        const deleteBtn = document.getElementById('delete-btn');
+        deleteBtn.addEventListener('click', () => {
+            if (confirm('해당 포트폴리오를 삭제하시겠습니까?')) {
+                location.href = `${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}`;
             }
         });
-
-        function deletePortfolio() {
-            const deleteBtn = document.getElementById('delete-btn');
-            deleteBtn.addEventListener('click', () => {
-                if (confirm('해당 포트폴리오를 삭제하시겠습니까?')) {
-                    location.href = `${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}`;
-                }
-            });
-        }
-    </script>
+    }
+</script>
 <script src="${contextPath}/js/freelancer_my_page_portfolio_modify.js"></script>
 </body>
 </html>
