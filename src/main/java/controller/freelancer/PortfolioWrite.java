@@ -3,6 +3,8 @@ package controller.freelancer;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dto.Portfolio;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
 import service.freelancer.IPortfolioService;
 import service.freelancer.PortfolioService;
 
@@ -53,7 +55,6 @@ public class PortfolioWrite extends HttpServlet {
         }
         request.getRequestDispatcher("/freelancer/portfolio_write.jsp").forward(request, response);
     }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
@@ -67,15 +68,15 @@ public class PortfolioWrite extends HttpServlet {
         try {
             MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy());//파일이 저장되는 시점
             Portfolio portfolio = new Portfolio();
+            JSONParser parser = new JSONParser();
             portfolio.setFreelancerId(freelancerId);
             portfolio.setTitle(multi.getParameter("title"));
             portfolio.setIntroduce(multi.getParameter("introduction"));
             portfolio.setTeamRole(multi.getParameter("teamRole"));
-            portfolio.setSkillDescription(multi.getParameter("skillDescriptionHidden"));
             String monthStr = multi.getParameter("portProjStart");
             String monthEnd = multi.getParameter("portProjEnd");
             if(multi.getParameter("project-id-select") != null) {
-                System.out.println("project-id : "+multi.getParameter("project-id-select"));
+                System.out.println("projectId : "+multi.getParameter("project-id-select"));
                 portfolio.setProjectId(Integer.parseInt(multi.getParameter("project-id-select")));
             } else {
                 portfolio.setProjectId(null);
@@ -105,17 +106,41 @@ public class PortfolioWrite extends HttpServlet {
             }
             portfolio.setPortProjEnd(endDate);
 
-            String skillDesc = multi.getParameter("skillDescriptionHidden");
-            System.out.println("105 skillDesc = " + skillDesc);
-            portfolio.setSkillDescription((skillDesc));
-
             portfolio.setThumbnail(multi.getFilesystemName("thumbnail"));
             if(portfolio.getThumbnail() == null) {
                 portfolio.setThumbnail("default.png");
             }
             portfolio.setTeamRole(multi.getParameter("teamRole"));
-            portfolio.setExternalUrl(multi.getParameter("externalUrlHidden"));
-            portfolio.setAttachment(multi.getParameter("attachmentHidden"));
+            System.out.println("externalUrlListHidden" +multi.getParameter("externalUrlListHidden"));
+            System.out.println("attachmentListHidden" +multi.getParameter("attachmentListHidden"));
+            portfolio.setExternalUrl(multi.getParameter("externalUrlListHidden"));
+            portfolio.setAttachment(multi.getParameter("attachmentListHidden"));
+            /*// . ExternalUrlList
+            List<String> externalUrlList = new ArrayList<>();
+            String externalUrlListJson = multi.getParameter("externalUrlListJson");
+            if (externalUrlListJson != null && !externalUrlListJson.isEmpty()) {
+                JSONArray urlArray = (JSONArray) parser.parse(externalUrlListJson);
+                for (Object url : urlArray) {
+                    externalUrlList.add((String) url);
+                }
+                System.out.println("1차 체크포인트 externalUrlList :" + externalUrlList);
+                portfolio.setExternalUrl(String.join("^", externalUrlList));
+            }
+
+            // 5. AttachmentList
+            List<String> attachmentList = new ArrayList<>();
+            String attachmentListJson = multi.getParameter("attachmentListJson");
+            if (attachmentListJson != null && !attachmentListJson.isEmpty()) {
+                JSONArray attachmentArray = (JSONArray) parser.parse(attachmentListJson);
+                for (Object fileName : attachmentArray) {
+                    attachmentList.add((String) fileName);
+                }
+                System.out.println("2차 체크포인트 attachmentList :" + attachmentList);
+                portfolio.setAttachment(String.join("^", attachmentList));
+            }*/
+            String skillDescription = multi.getParameter("skillDescriptionHidden"); // "Java^Spring^MySQL"
+            System.out.println("3차 체크포인트 skillDescription : " + skillDescription);
+            portfolio.setSkillDescription(skillDescription);
             portfolio.setTempSaved(true);
 /*            if(multi.getParameter("tempSaved") != null && multi.getParameter("tempSaved").equals("true")) {
                 portfolio.setTempSaved(true);

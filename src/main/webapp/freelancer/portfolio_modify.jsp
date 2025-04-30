@@ -198,8 +198,8 @@
                 <input type="hidden" id="tempSaved" name="tempSaved" value=""/>
                 <input type="hidden" name="skillDescription" id="skillDescriptionHidden"
                  value="<c:forEach items='${portfolio.skillList}' var='skill' varStatus='status'>${skill}<c:if test='${!status.last}'>,</c:if></c:forEach>"/>
-                <input type="hidden" id="externalUrlListHidden" name="externalUrlListJson" value=""/>
-                <input type="hidden" id="attachmentListHidden" name="attachmentListJson" value=""/>
+                <input type="hidden" id="externalUrlListHidden" name="externalUrlListHidden" value=""/>
+                <input type="hidden" id="attachmentListHidden" name="attachmentHidden" value=""/>
             </div>
         </form>
     </main>
