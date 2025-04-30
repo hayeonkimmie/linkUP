@@ -6,6 +6,7 @@
     border-left: 1px solid #ddd;
 }
 
+
 .sidebar {
     width: 180px;
     background-color: #940683;
@@ -35,6 +36,7 @@
     padding: 2rem;
     background-color: white;
 }
+
 /* ===== 섹션 헤더 ===== */
 .section-header {
     display: flex;
@@ -65,6 +67,7 @@ h3 {
     align-items: center;
     margin-bottom: 30px;
 }
+
 .top-bar h2 {
     margin: 0;
     font-size: 24px;

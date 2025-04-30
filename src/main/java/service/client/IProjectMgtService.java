@@ -11,6 +11,7 @@ public interface IProjectMgtService {
     void updateStatusToConfirmed(Map<String, Object> param) throws Exception; //구인상태 확정 버튼 (구인 중 -> 시작 전)
     void deleteProject(int projectId) throws Exception; // 현재 구인 중인 프로젝트 삭제
 
+
     //프로젝트 검사
     ProjectMgt getProjectById(int projectId) throws Exception;
 
@@ -19,4 +20,7 @@ public interface IProjectMgtService {
 
     //프로젝트 진행상태 변경 (진행중 -> 종료됨)
     void updateProgressToEnd(Map<String, Object> param) throws Exception;
+
+    //프로젝트 총 개수 가져오기
+    int getProjectCountByStatus(Map<String, Object> param) throws Exception;
 }

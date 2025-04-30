@@ -14,14 +14,13 @@
   <link rel="stylesheet" href="${contextPath}/css/client/inquiryHistory.css" />
   <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css" />
 </head>
+
 <body>
 <jsp:include page="../home/headerLogin.jsp" />
 
 <div class="layout">
   <!-- 공통 사이드바 include -->
   <jsp:include page="../common/sidebar.jsp" />
-
-
 
   <!-- 본문 -->
   <main class="main">

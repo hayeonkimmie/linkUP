@@ -17,4 +17,6 @@ public interface IProjectMgtDAO {
 
 
     ProjectMgt selectProjectById(int projectId) throws Exception;
+
+    int selectProjectCountByStatus(Map<String, Object> param) throws Exception;
 }

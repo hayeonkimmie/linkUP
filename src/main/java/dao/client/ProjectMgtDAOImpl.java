@@ -66,5 +66,11 @@ public class ProjectMgtDAOImpl implements IProjectMgtDAO {
             session.commit();
         }
     }
+
+    // 상태별 프로젝트 총 개수 조회
+    @Override
+    public int selectProjectCountByStatus(Map<String, Object> param) throws Exception {
+        return sqlSession.selectOne("mapper.projectmgt.selectProjectCountByStatus", param);
+    }
 }
 

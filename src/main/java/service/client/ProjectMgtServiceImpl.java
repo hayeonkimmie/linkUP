@@ -46,5 +46,11 @@ public class ProjectMgtServiceImpl implements IProjectMgtService {
     public void updateProgressToEnd(Map<String, Object> param) throws Exception {
         projectMgtDAO.updateProgressToEnd(param);
     }
+
+    // 상태별 프로젝트 총 개수 조회
+    @Override
+    public int getProjectCountByStatus(Map<String, Object> param) throws Exception {
+        return projectMgtDAO.selectProjectCountByStatus(param);
+    }
 }
 

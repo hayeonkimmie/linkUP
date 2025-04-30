@@ -1,17 +1,11 @@
-/* ============================= */
-/*     recruitmentList.css      */
-/* ============================= */
 
-/* 전체 레이아웃 */
 .layout {
     display: flex;
     max-width: 1200px;
     margin: 0 auto;
     border-left: 1px solid #ddd;
-    min-height: 100vh;
 }
 
-/* 사이드바 (공통) */
 .sidebar {
     width: 180px;
     background-color: #940683;
@@ -35,12 +29,21 @@
     background-color: #7a066a;
 }
 
-/* 메인 컨텐츠 */
+
 .main {
     flex-grow: 1;
     padding: 2rem;
     background-color: white;
 }
+
+/* ===== 섹션 헤더 ===== */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
 
 .section-title {
     font-size: 28px;
@@ -199,7 +202,30 @@ strong {
     border: 1px solid #ff9800;
 }
 
-/* 반응형 */
+/*페이징*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 0.5rem;
+}
+
+.pagination a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.pagination a.select {
+    background-color: #940683;
+    color: white;
+}
+
+
+/* ===== 반응형 ===== */
 @media (max-width: 768px) {
     .layout {
         flex-direction: column;
@@ -220,5 +246,10 @@ strong {
     .buttons {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    /* (선택) 모바일 전용 페이징 조정도 가능 */
+    .pagination a {
+        font-size: 0.9rem;
     }
 }

@@ -23,7 +23,6 @@
 
     <!-- 본문 -->
     <main class="main">
-
         <!-- 제목 + 필터 드롭다운 한 줄 -->
         <div class="section-header">
             <h2 class="section-title">찜한 구인자</h2>

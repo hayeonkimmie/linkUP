@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- 숫자 포맷팅 -->
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -37,9 +38,9 @@
       <p>등록일: ${project.regDate}</p>
       <p>${project.projectDescription}</p>
       <p>
-        <strong>프로젝트 금액:</strong> ${project.totalAmount} |
+        <strong>프로젝트 금액:</strong><fmt:formatNumber value="${project.totalAmount}" type="number" groupingUsed="true" />원 |
         <strong>기간:</strong> ${project.duration}개월 |
-        <strong>지원자:</strong> ${project.applyCount}명 |
+        <strong>지원자:</strong><fmt:formatNumber value="${project.applyCount}" type="number" groupingUsed="true" />명 |
         <strong>마감일:</strong> ${project.deadlineDate}
       </p>
       <p>

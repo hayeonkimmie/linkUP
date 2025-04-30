@@ -66,7 +66,7 @@ public class ClientFavoritesController extends HttpServlet {
 
         String sort = request.getParameter("sort");
         if (sort == null || sort.trim().isEmpty()) {
-            sort = "recent"; // ✅ 기본 정렬 강제 설정
+            sort = "recent"; //  기본 정렬 강제 설정
         }
 
         // JSP에서 selected 처리 가능하게 값 넘겨줌
