@@ -50,6 +50,10 @@ public class LoginController extends HttpServlet {
             session.setAttribute("role", role); // 여기서 role 저장
             // password 저장은 제거
             // session.setAttribute("password", password); <-- 이거 절대 저장하지 않기
+            if ("recruiter".equals(role)) {
+                session.setAttribute("client_id", id);
+            }
+
 
             response.sendRedirect(request.getContextPath() + "/mainPage");
         } else {

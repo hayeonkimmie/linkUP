@@ -63,7 +63,7 @@
         <mapper resource="mapper/client.xml"/>
         <mapper resource="mapper/project.xml"/>
         <mapper resource="mapper/category.xml"/>
-
+        <mapper resource="mapper/pay.xml"/>
         <!--        <mapper resource="mapper/ammount.xml"/>-->
        <mapper resource="mapper/apply.xml"/>
         <mapper resource="mapper/adminclient.xml"/>

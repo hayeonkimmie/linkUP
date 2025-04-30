@@ -14,247 +14,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>구인 등록</title>
-  <link rel="stylesheet" href="../css/common/headerLoginSt.css" />
+  <link rel="stylesheet" href="${contextPath}/css/common/headerLoginSt.css" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="${contextPath}/css/home/makeProject.css">
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const workTypeButtons = document.querySelectorAll('[data-work-type]');
-      const workTimeToggle = document.getElementById('work-time-toggle');
-      const modal = document.getElementById('position-modal');
-      const modalClose = document.getElementById('modal-close');
-      const addPositionBtn = document.getElementById('add-position');
-      const positionContainer = document.getElementById('position-container');
-      const submitButton = document.getElementById('submit-button');
-      const jobForm = document.getElementById('job-form');
-      const recruitFieldInput = document.getElementById('recruit-field-input');
-      const recruitFieldTags = document.getElementById('recruit-field-tags');
-      let skipValidationOnce = false;
-      const recruitFields = [];
-
-      // ✨ 모집 분야 입력 후 태그 생성
-      recruitFieldInput.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ',') {
-          e.preventDefault();
-          const value = recruitFieldInput.value.trim().replace(',', '');
-          if (value && !recruitFields.includes(value)) {
-            recruitFields.push(value);
-            addRecruitFieldTag(value);
-            recruitFieldInput.value = '';
-          } else {
-            recruitFieldInput.value = '';
-          }
-        }
-      });
-
-      // ✨ 태그 추가 함수 (태그+삭제버튼)
-      function addRecruitFieldTag(text) {
-        const tag = document.createElement('div');
-        tag.className = 'flex items-center bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm';
-
-        const span = document.createElement('span');
-        span.textContent = text;
-
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'ml-2 text-purple-500 hover:text-purple-700 remove-tag';
-        button.innerHTML = '&times;';
-
-        tag.appendChild(span);
-        tag.appendChild(button);
-        recruitFieldTags.appendChild(tag);
-
-        button.addEventListener('click', () => {
-          recruitFields.splice(recruitFields.indexOf(text), 1);
-          tag.remove();
-          updatePositionTaskOptions();
-        });
-
-        updatePositionTaskOptions();
-      }
-
-      // ✨ 포지션 담당업무 옵션 업데이트 함수
-      function updatePositionTaskOptions() {
-        const taskSelects = document.querySelectorAll('.position-task-select');
-        taskSelects.forEach(select => {
-          select.innerHTML = '<option value="">담당업무를 선택하세요</option>';
-          recruitFields.forEach(field => {
-            const option = document.createElement('option');
-            option.value = field;
-            option.textContent = field;
-            select.appendChild(option);
-          });
-        });
-      }
-
-      // ✨ 산업 데이터
-      const industryData = {
-        "웹 제작": ["홈페이지 신규 제작", "쇼핑몰 신규 제작", "랜딩페이지"],
-        "웹 유지보수": ["홈페이지 수정·유지보수", "쇼핑몰 수정·유지보수", "퍼블리싱", "검색최적화·SEO", "애널리틱스"],
-        "프로그램": ["프로그램 스토어", "수익 자동화", "업무 자동화", "크롤링·스크래핑", "일반 프로그램", "프로그램 수정·유지보수", "서버·클라우드", "엑셀·스프레드시트", "봇·챗봇"],
-        "모바일": ["앱", "앱 패키징", "앱 수정·유지보수"],
-        "AI": ["AI·GPT 서비스 개발", "AI·GPT 챗봇", "AI·GPT 자동화 프로그램", "프롬프트 엔지니어링", "머신러닝·딥러닝", "컴퓨터 비전·자연어 처리"],
-        "데이터": ["데이터 구매·구축", "데이터 라벨링", "데이터 전처리·분석·시각화", "데이터베이스"],
-        "트렌드": ["게임∙AR∙VR", "메타버스", "블록체인·NFT"],
-        "직무직군": ["UI·UX 기획", "프론트엔드", "백엔드", "풀스택", "데브옵스·인프라", "데이터·ML·DL"]
-      };
-
-      // ✨ 근무 방식 버튼 설정
-      workTypeButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          workTypeButtons.forEach(b => b.classList.remove('btn-selected'));
-          btn.classList.add('btn-selected');
-          const type = btn.dataset.workType;
-          workTimeToggle.style.display = (type === 'onsite' || type === 'hybrid') ? 'block' : 'none';
-        });
-      });
-
-      // ✨ 산업 select 초기화
-      const primarySelect = document.getElementById('industry-primary');
-      const secondarySelect = document.getElementById('industry-secondary');
-
-      primarySelect.innerHTML = '<option value="">산업 분야</option>';
-      Object.keys(industryData).forEach(primary => {
-        const option = document.createElement('option');
-        option.value = primary;
-        option.textContent = primary;
-        primarySelect.appendChild(option);
-      });
-
-      primarySelect.addEventListener('change', function () {
-        const selected = this.value;
-        secondarySelect.innerHTML = '<option value="">세부 분야</option>';
-        if (industryData[selected]) {
-          industryData[selected].forEach(sub => {
-            const option = document.createElement('option');
-            option.value = sub;
-            option.textContent = sub;
-            secondarySelect.appendChild(option);
-          });
-        }
-      });
-
-      // ✨ 포지션 산업 셀렉트 초기화
-      function initializePositionIndustrySelect(block) {
-        const primary = block.querySelector('.position-industry-primary');
-        const secondary = block.querySelector('.position-industry-secondary');
-
-        if (!primary || !secondary) return;
-
-        primary.innerHTML = '<option value="">산업 분야</option>';
-        Object.keys(industryData).forEach(key => {
-          const option = document.createElement('option');
-          option.value = key;
-          option.textContent = key;
-          primary.appendChild(option);
-        });
-
-        primary.addEventListener('change', function () {
-          const selected = this.value;
-          secondary.innerHTML = '<option value="">세부 분야</option>';
-          if (industryData[selected]) {
-            industryData[selected].forEach(sub => {
-              const option = document.createElement('option');
-              option.value = sub;
-              option.textContent = sub;
-              secondary.appendChild(option);
-            });
-          }
-        });
-      }
-
-      // ✨ 최초 포지션 셀렉트 설정
-      const firstPosition = document.querySelector('.position-block');
-      initializePositionIndustrySelect(firstPosition);
-      updatePositionTaskOptions();
-
-      // ✨ 포지션 추가 버튼
-      addPositionBtn.addEventListener('click', () => {
-        const positionTemplate = document.querySelector('.position-block');
-        const clone = positionTemplate.cloneNode(true);
-        clone.querySelectorAll('input').forEach(input => {
-          input.value = '';
-          input.removeAttribute('required');
-        });
-        clone.style.display = 'block';
-
-        const removeBtn = clone.querySelector('.remove-position');
-        if (removeBtn) {
-          removeBtn.classList.remove('hidden');
-        }
-
-        positionContainer.appendChild(clone);
-        initializePositionIndustrySelect(clone);
-        updatePositionTaskOptions(); // ⭐ 포지션 추가할 때도 담당업무 옵션 업데이트
-      });
-
-      // ✨ 포지션 삭제
-      document.addEventListener('click', function (e) {
-        if (e.target.classList.contains('remove-position')) {
-          const positions = document.querySelectorAll('.position-block');
-          if (positions.length > 1) {
-            skipValidationOnce = true;
-            e.target.closest('.position-block').remove();
-          } else {
-            modal.style.display = 'block';
-          }
-        }
-      });
-
-      // ✨ 모달 닫기
-      modalClose.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-
-      window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-          modal.style.display = 'none';
-        }
-      });
-
-      // ✨ 유효성 검사
-      jobForm?.addEventListener('input', () => {
-        if (skipValidationOnce) {
-          skipValidationOnce = false;
-          return;
-        }
-
-        const requiredFields = jobForm.querySelectorAll('[required]');
-        let allFilled = true;
-        requiredFields.forEach(field => {
-          if (!field.value.trim()) {
-            allFilled = false;
-          }
-        });
-        submitButton.disabled = !allFilled;
-      });
-
-      // ✨ 제출 버튼 클릭 시 검사
-      submitButton?.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const requiredFields = jobForm.querySelectorAll('[required]');
-        let allFilled = true;
-
-        requiredFields.forEach(field => {
-          if (!field.value.trim()) {
-            allFilled = false;
-            field.classList.add('border-red-500');
-          } else {
-            field.classList.remove('border-red-500');
-          }
-        });
-
-        if (!allFilled) {
-          alert('필수 입력 항목을 모두 작성해주세요.');
-        } else {
-          jobForm.submit();
-        }
-      });
-    });
-  </script>
-
-
 </head>
 <body>
 <div id="header-placeholder"></div>
@@ -277,8 +39,8 @@
           <input name="projectName" type="text" class="mt-1 w-full border p-2 rounded" required>
         </label>
 
-        <label class="block font-medium mt-4">모집 분야 <span class="text-red-500">*</span>
-          <input id="recruit-field-input" name="jobPosition" type="text" class="mt-1 w-full border p-2 rounded" required>
+        <label class="block font-medium mt-4">모집 분야
+          <input id="recruit-field-input" type="text" class="mt-1 w-full border p-2 rounded" placeholder="엔터나 쉼표로 태그를 적어주세요">
         </label>
 
         <!-- 모집분야 태그 영역은 그대로 유지 -->
@@ -312,13 +74,13 @@
           <span class="font-medium">산업</span>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
             <div>
-              <label class="block font-medium mb-1">산업 분야</label>
+              <label class="block font-medium mb-1">산업 분야</label><span class="text-red-500">*</span>
               <select id="industry-primary" class="w-full border p-2 rounded">
                 <option value="">산업 분야</option>
               </select>
             </div>
             <div>
-              <label class="block font-medium mb-1">세부 분야</label>
+              <label class="block font-medium mb-1">세부 분야</label><span class="text-red-500">*</span>
               <select id="industry-secondary" name="subCategoryId" class="w-full border p-2 rounded">
                 <option value="">세부 분야</option>
               </select>
@@ -335,7 +97,7 @@
           <div class="position-block border p-4 rounded relative">
             <button type="button" class="remove-position absolute top-2 right-2 text-red-500 hidden">삭제</button>
 
-            <label class="block mt-2 font-medium">레벨</label>
+            <label class="block mt-2 font-medium">레벨</label><span class="text-red-500">*</span>
             <select name="lvId" class="mt-1 w-full border p-2 rounded">
               <option value="">선택해주세요</option>
               <option value="1">초급</option>  <!-- ✨ 실제 lvId 매칭 필요 -->
@@ -346,11 +108,11 @@
             <label class="block mt-2 font-medium">구인 인원 <span class="text-red-500">*</span></label>
             <input name="people" type="number" class="mt-1 w-full border p-2 rounded" required>
 
-            <label class="block mt-2 font-medium">급여 / 페이</label>
-            <input name="projectFee" type="text" class="mt-1 w-full border p-2 rounded">
+            <label class="block mt-2 font-medium">급여 / 페이</label><span class="text-red-500">*</span>
+            <input name="projectFee" type="text" class="mt-1 w-full border p-2 rounded" required>
 
-            <label class="block mt-2 font-medium">담당업무</label>
-            <select name="work" class="position-task-select mt-1 w-full border p-2 rounded">
+            <label class="block mt-2 font-medium">담당업무</label><span class="text-red-500">*</span>
+            <select name="work" class="position-task-select mt-1 w-full border p-2 rounded" required>
               <option value="">담당업무를 선택하세요</option>
             </select>
           </div>
@@ -362,12 +124,12 @@
       <section>
         <h2 class="text-lg font-semibold">필요 기술 스택</h2>
 
-        <label class="block font-medium mt-2">원하는 기술
-          <input name="reqSkills" type="text" class="mt-1 w-full border p-2 rounded">
+        <label class="block font-medium mt-2">원하는 기술<span class="text-red-500">*</span>
+          <input name="reqSkills" type="text" class="mt-1 w-full border p-2 rounded"required>
         </label>
 
-        <label class="block font-medium mt-2">우대 기술
-          <input name="wantedSkills" type="text" class="mt-1 w-full border p-2 rounded">
+        <label class="block font-medium mt-2">우대 기술<span class="text-red-500">*</span>
+          <input name="wantedSkills" type="text" class="mt-1 w-full border p-2 rounded"required>
         </label>
       </section>
 
@@ -375,12 +137,12 @@
       <section>
         <h2 class="text-lg font-semibold">업무 내용</h2>
 
-        <label class="block font-medium mt-2">프로젝트 개요
-          <input name="projectDescription" type="text" class="mt-1 w-full border p-2 rounded textin">
+        <label class="block font-medium mt-2">프로젝트 개요<span class="text-red-500">*</span>
+          <input name="projectDescription" type="text" class="mt-1 w-full border p-2 rounded textin"required>
         </label>
 
-        <label class="block font-medium mt-2">상세 업무 내용
-          <input name="jobDetails" type="text" class="mt-1 w-full border p-2 rounded textin">
+        <label class="block font-medium mt-2">상세 업무 내용<span class="text-red-500">*</span>
+          <input name="jobDetails" type="text" class="mt-1 w-full border p-2 rounded textin"required>
         </label>
       </section>
 
@@ -388,12 +150,12 @@
       <section>
         <h2 class="text-lg font-semibold">지원자격</h2>
 
-        <label class="block font-medium mt-2">필수 경험
-          <input name="qualification" type="text" class="mt-1 w-full border p-2 rounded">
+        <label class="block font-medium mt-2">필수 경험<span class="text-red-500">*</span>
+          <input name="qualification" type="text" class="mt-1 w-full border p-2 rounded"required>
         </label>
 
-        <label class="block font-medium mt-2">우대 사항
-          <input name="preferentialConditions" type="text" class="mt-1 w-full border p-2 rounded">
+        <label class="block font-medium mt-2">우대 사항<span class="text-red-500">*</span>
+          <input name="preferentialConditions" type="text" class="mt-1 w-full border p-2 rounded"required>
         </label>
 
         <label class="block font-medium mt-2">모집 마감 기한 <span class="text-red-500">*</span>
@@ -418,16 +180,264 @@
         </label>
       </section>
 
-      <button id="submit-button" type="submit" class="w-full bg-blue-500 text-white py-3 rounded disabled:opacity-50">
+      <button id="submit-button" type="button" class="w-full bg-blue-500 text-white py-3 rounded disabled:opacity-50">
         프로젝트 등록하기
       </button>
     </form>
+  </div> <!-- max-w-4xl ... -->
+</div>   <!-- bg-gray-50 p-6 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const jobForm = document.getElementById('job-form');
+    const workTypeButtons = document.querySelectorAll('[data-work-type]');
+    const workTimeToggle = document.getElementById('work-time-toggle');
+    const recruitFieldInput = document.getElementById('recruit-field-input');
+    const recruitFieldTags = document.getElementById('recruit-field-tags');
+    const addPositionBtn = document.getElementById('add-position');
+    const positionContainer = document.getElementById('position-container');
+    const categoryList = JSON.parse('<c:out value="${categoryListJSON}" escapeXml="false"/>');
+    const recruitFields = [];
+
+    // 근무 방식 처리
+    workTypeButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        workTypeButtons.forEach(btn => btn.classList.remove('bg-blue-500', 'text-white'));
+        this.classList.add('bg-blue-500', 'text-white');
+
+        document.querySelector('input[name="workType"]')?.remove();
+
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'workingMethod';
+        hiddenInput.value = this.getAttribute('data-work-type');
+        jobForm.appendChild(hiddenInput);
+
+        workTimeToggle.classList.toggle('hidden', !['onsite', 'hybrid'].includes(hiddenInput.value));
+        validateForm();
+      });
+    });
+
+    // 모집 분야 태그 처리
+    recruitFieldInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        const value = recruitFieldInput.value.trim().replace(',', '');
+        if (value && !recruitFields.includes(value)) {
+          recruitFields.push(value);
+          addRecruitFieldTag(value);
+          recruitFieldInput.value = '';
+        } else {
+          recruitFieldInput.value = '';
+        }
+      }
+    });
+
+    function addRecruitFieldTag(text) {
+      const tag = document.createElement('div');
+      tag.className = 'flex items-center bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm';
+
+      const span = document.createElement('span');
+      span.textContent = text;
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'ml-2 text-purple-500 hover:text-purple-700 remove-tag';
+      button.innerHTML = '&times;';
+
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'jobPosition';
+      hiddenInput.value = text;
+
+      tag.append(span, button, hiddenInput);
+      recruitFieldTags.appendChild(tag);
+
+      button.addEventListener('click', () => {
+        recruitFields.splice(recruitFields.indexOf(text), 1);
+        tag.remove();
+        updatePositionTaskOptions();
+        validateForm();
+      });
+
+      updatePositionTaskOptions();
+      validateForm();
+    }
+
+    function updatePositionTaskOptions() {
+      const taskSelects = document.querySelectorAll('.position-task-select');
+      taskSelects.forEach(select => {
+        select.innerHTML = '<option value="">담당업무를 선택하세요</option>';
+        recruitFields.forEach(field => {
+          const option = document.createElement('option');
+          option.value = field;
+          option.textContent = field;
+          select.appendChild(option);
+        });
+      });
+    }
+
+    // 산업 카테고리
+    const primarySelect = document.getElementById('industry-primary');
+    const secondarySelect = document.getElementById('industry-secondary');
+    categoryList.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat.categoryId;
+      option.textContent = cat.categoryName;
+      primarySelect.appendChild(option);
+    });
+
+    primarySelect.addEventListener('change', function () {
+      const selectedCategory = categoryList.find(c => c.categoryId === parseInt(this.value));
+      secondarySelect.innerHTML = '<option value="">세부 분야</option>';
+      if (selectedCategory?.subCategories) {
+        selectedCategory.subCategories.forEach(sub => {
+          const option = document.createElement('option');
+          option.value = sub.subCategoryId;
+          option.textContent = sub.subCategoryName;
+          secondarySelect.appendChild(option);
+        });
+      }
+      validateForm();
+    });
+
+    secondarySelect.addEventListener('change', validateForm);
+
+    // 포지션 추가
+    addPositionBtn.addEventListener('click', () => {
+      const positionTemplate = document.querySelector('.position-block');
+      const clone = positionTemplate.cloneNode(true);
+      clone.querySelectorAll('input, select').forEach(el => {
+        el.value = '';
+        el.setAttribute('required', 'required');
+      });
+      clone.querySelector('.remove-position')?.classList.remove('hidden');
+      positionContainer.appendChild(clone);
+      updatePositionTaskOptions();
+      validateForm();
+    });
+
+    // 버튼 클릭 시 validateAndSubmit 실행
+    jobForm.addEventListener('click', function (e) {
+      if (e.target && e.target.id === 'submit-button') {
+        e.preventDefault();
+        validateAndSubmit();
+      }
+    });
+
+    jobForm.addEventListener('input', validateForm);
+
+    // 버튼 항상 활성화
+    function validateForm() {
+      const submitButton = document.getElementById('submit-button');
+      submitButton.disabled = false;
+    }
+
+    // 실제 유효성 검사
+    function validateAndSubmit() {
+      let allFilled = true;
+      let errorFields = [];
+
+      const requiredFields = jobForm.querySelectorAll('[required]');
+      requiredFields.forEach(field => {
+        const value = field.value.trim();
+        if (!value) {
+          allFilled = false;
+          field.classList.add('border-red-500');
+          const label = field.closest('label')?.textContent?.trim() || field.name;
+          errorFields.push(`- ${label.replace('*', '').trim()} 입력 필요`);
+        } else {
+          field.classList.remove('border-red-500');
+        }
+      });
+
+      const hiddenTags = jobForm.querySelectorAll('input[name="jobPosition"]');
+      if (hiddenTags.length === 0) {
+        allFilled = false;   
+        recruitFieldInput.classList.add('border-red-500');
+        errorFields.push('- 모집 분야를 1개 이상 입력해주세요.');
+      } else {
+        recruitFieldInput.classList.remove('border-red-500');
+      }
+
+      const workTypeInput = jobForm.querySelector('input[name="workingMethod"]');
+      if (!workTypeInput) {
+        allFilled = false;
+        errorFields.push('- 근무 방식을 선택해주세요.');
+      }
+
+      const primarySelect = document.getElementById('industry-primary');
+      const secondarySelect = document.getElementById('industry-secondary');
+      if (!primarySelect.value) {
+        allFilled = false;
+        errorFields.push('- 산업 분야를 선택해주세요.');
+        primarySelect.classList.add('border-red-500');
+      } else {
+        primarySelect.classList.remove('border-red-500');
+      }
+      if (!secondarySelect.value) {
+        allFilled = false;
+        errorFields.push('- 세부 분야를 선택해주세요.');
+        secondarySelect.classList.add('border-red-500');
+      } else {
+        secondarySelect.classList.remove('border-red-500');
+      }
+
+      const positionBlocks = jobForm.querySelectorAll('.position-block');
+      positionBlocks.forEach((block, index) => {
+        const lv = block.querySelector('select[name="lvId"]');
+        const ppl = block.querySelector('input[name="people"]');
+        const fee = block.querySelector('input[name="projectFee"]');
+        const work = block.querySelector('select[name="work"]');
+
+        if (!lv.value) {
+          allFilled = false;
+          errorFields.push(`- ${index + 1}번째 포지션의 레벨 선택 필요`);
+          lv.classList.add('border-red-500');
+        } else {
+          lv.classList.remove('border-red-500');
+        }
+        if (!ppl.value) {
+          allFilled = false;
+          errorFields.push(`- ${index + 1}번째 포지션의 인원 수 입력 필요`);
+          ppl.classList.add('border-red-500');
+        } else {
+          ppl.classList.remove('border-red-500');
+        }
+        if (!fee.value) {
+          allFilled = false;
+          errorFields.push(`- ${index + 1}번째 포지션의 페이 입력 필요`);
+          fee.classList.add('border-red-500');
+        } else {
+          fee.classList.remove('border-red-500');
+        }
+        if (!work.value) {
+          allFilled = false;
+          errorFields.push(`- ${index + 1}번째 포지션의 담당업무 선택 필요`);
+          work.classList.add('border-red-500');
+        } else {
+          work.classList.remove('border-red-500');
+        }
+      });
+
+      if (!allFilled) {
+        alert("다음 항목을 확인해주세요:\n\n" + errorFields.join('\n'));
+        return;
+      }
+
+      jobForm.submit();
+    }
+
+    // 최초 실행
+    validateForm();
+  });
+</script>
+
 
     <script>
   const contextPath = '${pageContext.request.contextPath}';
 </script>
-<script src="${contextPath}/js/catalog.js"></script>
 <script src="${contextPath}/js/header.js"></script>
 <script src="${contextPath}/js/headerLogin.js"></script>
+
 </body>
 </html>
