@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--property = 변수명 -->
+<!--        property: DTO 필드명-->
+<!--        column: DB에서 가져온 컬럼명-->
 <mapper namespace="mapper.projectmgt">
     <!--resultMap : ProjectMgtDTO + 내부 PayList 리스트 - DTO랑 DB컬럼 맵핑-->
     <resultMap id="projectMgtMap" type="dto.ProjectMgt">
@@ -23,21 +26,9 @@
             <result property="level" column="Lv"/>  <!-- 초급/중급/고급 -->
             <result property="fee" column="project_fee"/> <!-- 레벨 별 1인 당 월급  -->
             <result property="count" column="recruit_count"/> <!-- 인원 수 -->
+
         </collection>
     </resultMap>
-
-    <!-- 사용자가 등록한 프로젝트 개수 -->
-    <select id="selectProjectMgtByUserId" parameterType="String" resultType="Integer">
-        SELECT COUNT(*) FROM project WHERE client_id = #{clientId}
-    </select>
-
-    <!-- 사용자 별 프로젝트별 목록 (페이지 처리 포함) -->
-    <select id="selectProjectListByPage" parameterType="Map" resultType="projectMgt">
-        SELECT * FROM project
-        WHERE client_id = #{clientId}
-        ORDER BY created_date DESC
-        LIMIT #{row}, 3
-    </select>
 
     <!--        프로젝트 상태별로 리스트 조회-->
     <!--    status, clientId 두개 받으므로 parameterTyper = "map"-->
@@ -71,44 +62,10 @@
         <if test="status != null and status != 'all'">
             AND pj.status = #{status}
         </if>
-        <if test="projectProgress != null">
-            AND pj.project_progress = #{projectProgress}
-        </if>
-
-
         GROUP BY
         pj.project_id, pj.advertisement_title, sc.sub_category_name, pj.req_skills, pj.status,
         pj.created_date, pj.start_date, pj.end_date, pj.project_progress,  pj.duration,
-        l.Lv_id, l.Lv, p.project_fee
-        ORDER BY pj.created_date DESC
-        <!-- 페이징처리 (MyBatis는 LIMIT없이 전체 데이터를 가져올 수 있어서, 페이징 필요시에만 LIMIT 넣음) -->
-        <if test="startRow != null and rowCount != null">
-            LIMIT #{startRow}, #{rowCount}
-        </if>
-    </select>
-
-
-    <!-- 상태별 총 프로젝트 개수 -->
-    <select id="selectProjectCountByStatus" parameterType="map" resultType="int">
-        SELECT COUNT(DISTINCT pj.project_id)
-        FROM project pj
-        JOIN client c ON pj.client_id = c.client_id
-        JOIN user u ON c.client_id = u.user_id
-        LEFT JOIN pay p ON pj.project_id = p.project_id
-        LEFT JOIN lv l ON p.lv_id = l.Lv_id
-        LEFT JOIN subCategory sc ON pj.sub_category_id =  sc.sub_category_id
-        WHERE pj.client_id = #{clientId} AND pj.is_deleted = FALSE
-        AND pj.status IS NOT NULL
-        <if test="status != null and status != 'all'">
-            AND pj.status = #{status}
-        </if>
-    </select>
-
-
-
-    <!-- 페이징 처리 없이 ALL Select (토글 기능) -->
-    <select id="selectAllFavoritesByClientId" parameterType="String" resultType="dto.ClientFavorites">
-        SELECT * FROM jjimFree WHERE client_id = #{clientId} order by jjim_id;
+        l.Lv_id, l.Lv, p.project_fee;
     </select>
 
     <!--    구인확정하기 기능 (구인중 => 시작전) -->
@@ -119,13 +76,15 @@
             project_progress =
                 CASE
                     WHEN start_date IS NULL THEN '시작전' -- 날짜 없으면 무조건 시작전
+#                 날짜비교
                     WHEN start_date > DATE(#{today}) THEN '시작전'
                     WHEN start_date <= DATE(#{today}) THEN '진행중'
                     ELSE NULL
                     END
         WHERE project_id = #{projectId}
         ]]>
-    </update>
+</update>
+
 
     <!--    나의 프로젝트 삭제 (is_deleted) 물리삭제가 아닌 논리삭제 -->
     <update id="deleteProject" parameterType="int">
@@ -137,7 +96,7 @@
 
     <!--    프로젝트 시작 전 -> 진행 중 로직 (프로젝트 시작일 되는 순간 시작전 => 진행중으로 변경 됨) -->
     <update id="updateProgressToOngoing" parameterType="map">
-    <![CDATA[
+        <![CDATA[
         UPDATE project
         SET project_progress = '진행중'
         WHERE project_progress = '시작전'
@@ -145,6 +104,12 @@
           AND start_date <= DATE(#{today})
         ]]>
     </update>
+
+    <!--   구인중 : 수정하기, 삭제하기, 모집 확정하기-->
+    <!--    구인완료 : 시작전 (모집확정했고, 프로젝트 시작은 안된 상태) - 수정하기 가능-->
+    <!--    구인완료 : 진행중 (모집확정했고, 프로젝트 시작한 상태) - 수정하기 가능-->
+    <!--    구인완료 : 완료 (모집확정했고, 프로젝트가 완료된 상태) - 정산하기, 리뷰달기 -->
+
 
     <!--    프로젝트 진행 중 -> 프로젝트 완료 로직 (프로직트 endDate 되면, 진행 중 -> 완료로 변경 됨 ) -->
     <update id="updateProgressToEnd" parameterType="map">
@@ -155,7 +120,7 @@
           AND start_date IS NOT NULL AND end_date IS NOT NULL
           AND end_date <= DATE(#{today})
         ]]>
-    </update>
+</update>
 
     <select id="selectProjectById" parameterType="int" resultType="dto.ProjectMgt">
         SELECT
@@ -174,4 +139,5 @@
                  LEFT JOIN subCategory sc ON pj.sub_category_id =  sc.sub_category_id
         WHERE project_id = #{projectId}
     </select>
+
 </mapper>

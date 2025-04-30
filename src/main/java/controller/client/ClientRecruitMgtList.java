@@ -3,7 +3,6 @@ package controller.client;
 import dto.ProjectMgt;
 import service.client.IProjectMgtService;
 import service.client.ProjectMgtServiceImpl;
-import util.PageInfo;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -42,89 +41,48 @@ public class ClientRecruitMgtList extends HttpServlet {
                 clientId = "client001"; // 테스트용 기본값
             }
 
-            // 페이징 처리
-            String pageStr = request.getParameter("page");
-            Integer page = (pageStr == null) ? 1: Integer.parseInt(pageStr);
-
-            // 페이징 정보 설정 - 수정: rowCount를 6으로 증가시켜 페이지당 프로젝트 수 늘림
-            int rowCount = 3; // 한 페이지당 표시할 항목 수 (3개로 유지)
-            int startRow = (page - 1) * rowCount; // 시작 행 계산
-
-            PageInfo pageInfo = new PageInfo(page);
-
             // 파라미터로 status받기 (전체보기, 구인중, 시작전, 진행중, 종료됨)
             String status = request.getParameter("status");
             if (status == null || status.isEmpty()) {
                 status = "all"; // 기본값: 전체보기
             }
 
-            // 상태값을 XML 매핑을 위해 변환
-            String statusValue = null; // 전체를 위해 null로 시작
-
-             //프로젝트 상태변수
-            String projectProgress = null;
-
-            // 상태별 필터링 처리
-            if ("open".equals(status)) {
-                statusValue = "구인중";
-            } else if ("done-start".equals(status)) {
-                statusValue = "구인완료";
-                projectProgress = "시작전";
-            } else if ("done-progress".equals(status)) {
-                statusValue = "구인완료";
-                projectProgress = "진행중";
-            } else if ("done-end".equals(status)) {
-                statusValue = "구인완료";
-                projectProgress = "종료됨";
-            } else if (!"all".equals(status)) {
-                status = "all"; // 잘못된 값이면 전체보기 처리
-            }
-
             // param 구성 및 DB조회
             Map<String, Object> param = new HashMap<>();
             param.put("clientId", clientId);
-            param.put("startRow", startRow);
-            param.put("rowCount", rowCount);
+            param.put("status", status);
 
-            if (statusValue != null) {
-                param.put("status", statusValue);
-            }
-            if (projectProgress != null) {
-                param.put("projectProgress", projectProgress); // 구인완료 하위 필터일 때만 추가
-            }
-
-            // 전체 프로젝트 수 조회 (페이징을 위해)
-            int totalProjects = service.getProjectCountByStatus(param);
-
-            // 페이징 정보 업데이트
-            pageInfo.setAllPage((int) Math.ceil((double) totalProjects / rowCount));
-            pageInfo.setStartPage(((page - 1) / 5) * 5 + 1);
-            pageInfo.setEndPage(Math.min(pageInfo.getStartPage() + 4, pageInfo.getAllPage()));
-            request.setAttribute("pageInfo", pageInfo);
-
-            // 서비스 호출해서 프로젝트 목록 불러오기
+            // 서비스 호출
             List<ProjectMgt> projectList = service.getProjectByStatus(param);
 
-            // 리스트 처리 개선: 빈 리스트 확인
-            if (projectList.isEmpty()) {
-                System.out.println("조회된 프로젝트가 없습니다: status=" + status);
+            // DB project의 컬럼 project_progress는 오직 구인완료 상태에만 의미 있음
+            for (ProjectMgt project : projectList) {
+                if (!"구인완료".equals(project.getStatus())) {
+                    project.setProjectProgress(""); // 구인완료 상태가 아니면 값 비우기
+                }
             }
 
             // 결과 저장해서 JSP로 전달
-            request.setAttribute("projectList", projectList);
-            request.setAttribute("status", status);
+            request.setAttribute("projectList", projectList); // 서비스 호출해서 list 받아오기
+            request.setAttribute("status", status); // 상태 값 받아오기
+            System.out.println("projectList.size() = " + projectList.size()); // 테스트 출력
 
-            System.out.println("projectList.size() = " + projectList.size());
+            // 출력 테스트 코드
+            for (ProjectMgt projectMgt : projectList) {
+                System.out.println("startDate = " + projectMgt.getStartDate());
+                System.out.println("endDate = " + projectMgt.getEndDate());
+                System.out.println("status = " + projectMgt.getStatus());
+                System.out.println("progress = " + projectMgt.getProjectProgress());
+            }
 
             // JSP로 이동
             request.getRequestDispatcher("./client/recruitmentList.jsp").forward(request, response);
 
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "데이터 조회 중 오류 발생: " + e.getMessage());
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "데이터 조회 중 오류 발생");
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
