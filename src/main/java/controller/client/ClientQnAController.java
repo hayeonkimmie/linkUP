@@ -23,8 +23,18 @@ public class ClientQnAController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        // 로그인한 사용자 아이디 가져오기
+    // 로그인한 사용자 아이디 가져오기
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId"); // 세션에서 userId를 가져옴
 
+    // 로그인 확인
+        if (userId == null || userId.isEmpty()) {
+    // 로그인되지 않은 경우, 로그인 페이지로 리다이렉트
+    response.sendRedirect("login.jsp"); // 실제 로그인 페이지 경로로 수정
+    return;
+}
+
+        System.out.println("로그인한 사용자 ID: " + userId); // 디버깅용 로그
 
         // 검색 바 키워드 검색
         String keyword = request.getParameter("keyword");
@@ -40,7 +50,7 @@ public class ClientQnAController extends HttpServlet {
         IQnAService service = new QnAServiceImpl();
 
         try{
-            List<QnA> qnaList = service.getQnAListWithFilter(pageInfo, status, sort, keyword);
+            List<QnA> qnaList = service.getQnAListWithFilter(userId, pageInfo, status, sort, keyword);
 
             // 검색 처리
             request.setAttribute("keyword", keyword);

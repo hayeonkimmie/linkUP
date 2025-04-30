@@ -16,10 +16,17 @@ public class QnAServiceImpl implements IQnAService {
         clientQnADAO = new ClientQnADAOImpl();
     }
 
-    // 기존 전체 QnA 리스트
+
+
+//    사용자 ID가 있는 QnA 목록 조회
+
     @Override
-    public List<QnA> getQnAList(PageInfo pageInfo) throws Exception {
-        Integer allCount = clientQnADAO.selectQnACount();
+    public List<QnA> getQnAList(String userId, PageInfo pageInfo) throws Exception {
+        // 사용자 ID로 QnA 개수 조회
+        Map<String, Object> countParam = new HashMap<>();
+        countParam.put("userId", userId);
+        Integer allCount = clientQnADAO.selectQnACountWithFilter(countParam);
+
         Integer allPage = (int) Math.ceil((double) allCount / 10);
         Integer startPage = (pageInfo.getCurPage() - 1) / 10 * 10 + 1;
         Integer endPage = Math.min(startPage + 9, allPage);
@@ -29,19 +36,32 @@ public class QnAServiceImpl implements IQnAService {
         pageInfo.setEndPage(endPage);
 
         Integer row = (pageInfo.getCurPage() - 1) * 3;
-        return clientQnADAO.selectQnAList(row);
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", userId);
+        param.put("row", row);
+
+        return clientQnADAO.selectQnAListWithFilter(param);
     }
 
-    // 필터 및 정렬 기능 추가된 QnA 리스트
+//  사용자 ID와 필터가 적용된 QnA 목록 조회
+
     @Override
-    public List<QnA> getQnAListWithFilter(PageInfo pageInfo, String status, String sort, String keyword) throws Exception {
+    public List<QnA> getQnAListWithFilter(String userId, PageInfo pageInfo, String status, String sort, String keyword) throws Exception {
         final int pageSize = 3;
 
         int curPage = Math.max(1, pageInfo.getCurPage());
 
         Map<String, Object> param = new HashMap<>();
+        param.put("userId", userId);
         param.put("status", status);
         param.put("keyword", keyword);
+        param.put("sort", sort);  // 정렬 파라미터 추가
+
+        // 디버깅을 위한 로그 출력
+        System.out.println("정렬 파라미터: " + sort);
+        System.out.println("필터 매개변수: " + param);
+
         Integer allCount = clientQnADAO.selectQnACountWithFilter(param);
         Integer allPage = (int) Math.ceil((double) allCount / pageSize);
         Integer startPage = (curPage - 1) / 10 * 10 + 1;
@@ -55,9 +75,6 @@ public class QnAServiceImpl implements IQnAService {
         Integer row = (curPage - 1) * pageSize;
 
         param.put("row", row);
-        param.put("status", status);
-        param.put("sort", sort);
-        param.put("keyword", keyword);
 
         return clientQnADAO.selectQnAListWithFilter(param);
     }

@@ -26,7 +26,6 @@
             <result property="level" column="Lv"/>  <!-- 초급/중급/고급 -->
             <result property="fee" column="project_fee"/> <!-- 레벨 별 1인 당 월급  -->
             <result property="count" column="recruit_count"/> <!-- 인원 수 -->
-
         </collection>
     </resultMap>
 
@@ -139,5 +138,4 @@
                  LEFT JOIN subCategory sc ON pj.sub_category_id =  sc.sub_category_id
         WHERE project_id = #{projectId}
     </select>
-
 </mapper>

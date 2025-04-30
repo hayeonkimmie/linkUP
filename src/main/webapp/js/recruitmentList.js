@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const projectCard = button.closest('.job-card');
                 const projectId = projectCard.getAttribute('data-project-id');
 
-                fetch(`/linkup/confirmRecruitment`, {
+                fetch(`${contextPath}/confirmRecruitment`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: `projectId=${projectId}`

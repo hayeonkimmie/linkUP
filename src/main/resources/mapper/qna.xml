@@ -20,6 +20,7 @@
     <!-- 전체 QnA 목록 (페이지 처리 포함) -->
     <select id="selectQnAList" parameterType="Integer" resultType="qna">
         SELECT * FROM qna
+        WHERE user_id = #{userId}
         ORDER BY answer_date DESC
         LIMIT #{row}, 3
     </select>
@@ -27,12 +28,14 @@
     <!-- 전체 QnA 개수 -->
     <select id="selectQnACount" resultType="Integer">
         SELECT COUNT(*) FROM qna
+        WHERE user_id = #{userId}
     </select>
 
     <!--  필터를 적용한 QnA 개수 -->
     <select id="selectQnACountWithFilter" parameterType="map" resultType="int">
         SELECT COUNT(*) FROM qna
         <where>
+            user_id = #{userId}
             <if test="status != null and status != ''">
                 <choose>
                     <when test="status == 'waiting'">
@@ -54,6 +57,7 @@
     <select id="selectQnAListWithFilter" parameterType="map" resultType="qna">
         SELECT * FROM qna
         <where>
+            user_id = #{userId}
             <if test="status != null and status != ''">
                 <choose>
                     <when test="status == 'waiting'">
@@ -71,8 +75,8 @@
         </where>
         ORDER BY question_date
         <choose>
-            <when test="sort != null and sort == 'asc'">ASC</when>
-            <otherwise>DESC</otherwise>
+            <when test="sort != null and sort == 'asc'">DESC</when>
+            <otherwise>ASC</otherwise>
         </choose>
         LIMIT #{row}, 3
     </select>
@@ -98,6 +102,7 @@
         answer_date AS answerDate
         FROM qna
         <where>
+            user_id = #{userId}
             <if test="keyword != null and keyword != ''">
                 (question_title LIKE CONCAT('%', #{keyword}, '%') OR user_id LIKE CONCAT('%', #{keyword}, '%'))
             </if>
@@ -105,10 +110,10 @@
                 AND (question_title LIKE CONCAT('%', #{category}, '%'))
             </if>
             <if test="answerStatus == '답변완료'">
-                AND (answer_content IS NOT NULL AND answer_content != '(답변대기 중)')
+                AND (answer_content IS NOT NULL)
             </if>
             <if test="answerStatus == '미답변'">
-                AND (answer_content IS NULL OR answer_content = '(답변대기 중)')
+                AND (answer_content IS NULL)
             </if>
             <if test="startDate != null and startDate != ''">
                 AND question_date &gt;= #{startDate}
@@ -124,6 +129,7 @@
     <select id="countQna" parameterType="map" resultType="int">
         SELECT COUNT(*) FROM qna
         <where>
+            user_id = #{userId}
             <if test="keyword != null and keyword != ''">
                 (question_title LIKE CONCAT('%', #{keyword}, '%') OR user_id LIKE CONCAT('%', #{keyword}, '%'))
             </if>
@@ -131,10 +137,10 @@
                 AND (question_title LIKE CONCAT('%', #{category}, '%'))
             </if>
             <if test="answerStatus == '답변완료'">
-                AND (answer_content IS NOT NULL AND answer_content != '(답변대기 중)')
+                AND (answer_content IS NOT NULL)
             </if>
             <if test="answerStatus == '미답변'">
-                AND (answer_content IS NULL OR answer_content = '(답변대기 중)')
+                AND (answer_content IS NULL)
             </if>
             <if test="startDate != null and startDate != ''">
                 AND question_date &gt;= #{startDate}
@@ -146,25 +152,25 @@
     </select>
 
     <delete id="deleteQna" parameterType="int">
-        DELETE FROM qna WHERE qna_id = #{qnaId}
+        DELETE FROM qna WHERE qna_id = #{qnaId} AND user_id = #{userId}
     </delete>
 
     <select id="selectQnaById" parameterType="int" resultType="dto.QnA">
-        SELECT * FROM qna WHERE qna_id = #{qnaId}
+        SELECT * FROM qna WHERE qna_id = #{qnaId} AND user_id = #{userId}
     </select>
 
     <update id="updateAnswer" parameterType="map">
         UPDATE qna
         SET answer_content = #{answerContent},
             answer_date = NOW()
-        WHERE qna_id = #{qnaId}
+        WHERE qna_id = #{qnaId} AND user_id = #{userId}
     </update>
 
     <select id="countAnsweredQna" resultType="int">
         SELECT COUNT(*)
         FROM qna
         WHERE answer_content IS NOT NULL
-          AND answer_content != '(답변대기 중)'
+        AND  user_id = #{userId}
     </select>
 
 

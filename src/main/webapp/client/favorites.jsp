@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css" />
 </head>
 
-<body>
-<%--<body data-context-path="${contextPath}">--%>
+
+<body data-context-path="${contextPath}">
 <div id="header-placeholder"></div>
 
 
@@ -44,7 +44,9 @@
                     <!-- 이름 + 하트 같은 줄 -->
                     <div class="name-heart">
                         <span class="name">👤 ${freelancer.name}</span>
-                        <span class="heart" data-freelancer-id="${freelancer.freelancerId}" onclick="toggleFavorite(this)">❤️</span>
+                        <span class="heart" data-freelancer-id="${freelancer.freelancerId}">❤️</span>
+
+
                     </div>
 
                     <!-- 직무, 지역 -->
@@ -66,7 +68,7 @@
                         </c:forEach>
                     </div>
 
-                    <a href="${contextPath}/freelancer/profile?id=${freelancer.freelancerId}" class="profile-button">프로필 보기</a>
+                    <a href="linkup/freelancer/profile?id=${freelancer.freelancerId}" class="profile-button">프로필 보기</a>
                 </div>
             </c:forEach>
         </div>
