@@ -25,9 +25,8 @@ public class ProjectDetailController extends HttpServlet {
         ProjectDetail selectedProject = null;
         IProjectService projectService = new ProjectService();
         try {
-//            Project selectedProject = projectService.selectProjectById(Integer.parseInt(projectId));
-            selectedProject = projectService.selectProjectById(39);
-            System.out.println(selectedProject);
+            selectedProject = projectService.selectProjectById(Integer.parseInt(projectId));
+//            selectedProject = projectService.selectProjectById(39);
         } catch (Exception e) {
             e.printStackTrace();
         }
