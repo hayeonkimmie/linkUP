@@ -79,13 +79,13 @@ public class PortfolioService implements IPortfolioService{
             System.out.println("PortfolioService.java 83 포트폴리오가 없습니다.");
             return null;
         } else {
-            if(portfolio.getSkillDescription() != null && portfolio.getSkillDescription().contains("^")) {
+            if(portfolio.getSkillDescription() != null) {
                 portfolio.setSkillList(portfolio.getSkillDescription().split("\\^"));
             }
-            if(portfolio.getAttachment() != null && portfolio.getAttachment().contains("^")) {
+            if(portfolio.getAttachment() != null) {
                 portfolio.setAttachmentList(portfolio.getAttachment().split("\\^"));
             }
-            if(portfolio.getExternalUrl() != null && portfolio.getExternalUrl().contains("^")) {
+            if(portfolio.getExternalUrl() != null) {
                 portfolio.setExternalUrlList(portfolio.getExternalUrl().split("\\^"));
             }
             System.out.println(portfolio.toString());

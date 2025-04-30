@@ -15,7 +15,7 @@ public class FreelancerDAO implements IFreelancerDAO {
         return sqlSession.selectOne("mapper.freelancer.selectBasicFreelancerById", freelancerId);
     }
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception {
-        System.out.println("FreelancerDAO 20 + selectExpertFreelancerById "+freelancerId);
+        System.out.println("FreelancerDAO 18 + selectExpertFreelancerById "+freelancerId);
         Freelancer freelancer = sqlSession.selectOne("mapper.freelancer.selectExpertFreelancerById", freelancerId);
         if (freelancer == null) {
             return null;
@@ -88,16 +88,17 @@ public class FreelancerDAO implements IFreelancerDAO {
         param.put("bank",freelancer.getBank());
         param.put("accountNum",freelancer.getAccountNum());
         param.put("freelancerId",freelancer.getFreelancerId());
+        param.put("address",freelancer.getAddress());
         System.out.println("DAO 96 + param "+param);
-        sqlSession.update("mapper.freelancer.updateFreelancerBankInfo", param);
+        sqlSession.update("mapper.freelancer.updateFreelancerInfo", param);
         sqlSession.commit();
     }
 
     @Override
     public void updateCareer(List<Career> careerList, String freelancerId) throws Exception {
-        System.out.println("104 updateCareer freelancerId :"+freelancerId);
+        System.out.println("FreelancerDAO 98 updateCareer freelancerId :"+freelancerId);
         deleteCareer(freelancerId);
-        System.out.println("DAO 47 + updateCareer "+careerList);
+        System.out.println("FreelancerDAO 100 updateCareer "+careerList);
         insertCareer(careerList);
     }
 
@@ -106,25 +107,29 @@ public class FreelancerDAO implements IFreelancerDAO {
 
             if(freelancer.getLicenseList() != null) {
                 String license = infoSerializer.serializeLicenseList(freelancer.getLicenseList());
-                System.out.println("license : "+license);
+                System.out.println("FreelancerDAO 109 license : "+license);
                 freelancer.setLicense(license);
             } else {
                 freelancer.setLicense(null);
             }
             if (freelancer.getAcademicList() != null) {
                 String academic = infoSerializer.serializeAcademicList(freelancer.getAcademicList());
-                System.out.println("license : "+academic);
+                System.out.println("FreelancerDAO 116 academic : "+academic);
                 freelancer.setAcademic(academic);
             } else {
                 freelancer.setAcademic(null);
             }
-            System.out.println("dao 121 "+freelancer);
-       // sqlSession.update("mapper.freelancer.updateFreelancer", freelancer);
+            System.out.println("FreelancerDAO 121 "+freelancer);
+       sqlSession.update("mapper.freelancer.updateFreelancer", freelancer);
+        sqlSession.commit();
     }
 
     @Override
     public void insertCareer(List<Career> careerList) throws Exception {
-        sqlSession.insert("mapper.freelancer.insertCareer", careerList);
+        for (Career c : careerList) {
+            sqlSession.insert("mapper.freelancer.insertCareer", c);
+        }
+//        sqlSession.insert("mapper.freelancer.insertCareer", careerList);
         sqlSession.commit();
     }
     @Override

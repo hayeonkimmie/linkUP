@@ -24,7 +24,6 @@ public class PortfolioList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
-//        freelancerId = "free002"; // 로그인 구현 이후 빼기
         if (freelancerId == null) {
             response.sendRedirect("/linkup/login");
             return;

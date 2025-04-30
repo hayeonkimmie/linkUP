@@ -19,11 +19,11 @@ public class MyPageController extends HttpServlet {
         String role = session.getAttribute("role").toString();
         System.out.println(role);
         if(role.equals("jobseeker")){
-            request.getRequestDispatcher("./freelancer/my_page_main.jsp").forward(request,response);
-
+            /*request.getRequestDispatcher("./freelancer/my_page_main.jsp").forward(request,response);*/
+            response.sendRedirect("/linkup/my-page");
         } else if(role.equals("recruiter")) {
-            request.getRequestDispatcher("./client/profileSetting.jsp").forward(request,response);
-
+//            request.getRequestDispatcher("./client/profileSetting.jsp").forward(request,response);
+            response.sendRedirect("/linkup/clientProfile");
         } else {
             request.getRequestDispatcher("./error.jsp").forward(request,response);
         }

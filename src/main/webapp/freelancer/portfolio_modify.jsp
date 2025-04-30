@@ -77,13 +77,13 @@
                 <div class="skills-section">
                     <span>스킬</span>
                     <input type="text" id="skills" placeholder="스킬을 입력하고 쉼표(,) 또는 Enter 키로 구분해주세요"/>
+                    <a id="clear-skills">초기화</a>
                     <div class="skill-tags" style="margin-top: 10px;">
                         <c:forEach var="skill" items="${portfolio.skillList }">
                             <span class="skill-tag" data-skill="${skill}">${skill}
                                 <button class="delete-skill-btn">X</button></span>
                         </c:forEach>
                     </div>
-                    <a id="clear-skills">초기화</a>
                 </div>
                 <!-- 포트폴리오 소개 -->
                 <div class="portfolio-description">

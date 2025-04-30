@@ -23,11 +23,10 @@ public class MyPageReview extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
-/*        if (freelancerId == null) {
+        if (freelancerId == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
-        }*/
-        freelancerId = "free002"; // 로그인 구현 이후 빼기
+        }
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
         Integer page = null;

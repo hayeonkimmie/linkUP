@@ -20,7 +20,9 @@ public class MyPageApplyCancel extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        freelancerId = "free002";
+        if (freelancerId == null) {
+            response.sendRedirect("/linkup/login");
+        };
         String applyIdStr = request.getParameter("applyId");
         System.out.println("MyPageApplyCancel applyIdStr = " + applyIdStr);
         Integer applyId = null;

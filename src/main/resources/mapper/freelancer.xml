@@ -46,7 +46,6 @@
         UPDATE freelancer
             SET sub_category_id = #{subCategoryId},
             skill = #{skill},
-            address = #{address},
             academic = #{academic},
             introduction = #{introduction},
             license = #{license},
@@ -55,7 +54,8 @@
             desired_salary = #{desiredSalary},
             desired_location = #{desiredLocation},
             other_requests = #{otherRequest},
-            attachment = #{attachment}
+            attachment = #{attachment},
+            external_url =#{externalUrl}
         WHERE freelancer_id = #{freelancerId}
     </update>
     <update id="updateUserProfile" parameterType="freelancer">
@@ -72,38 +72,11 @@
         delete from career
         WHERE freelancer_id = #{freelancerId}
     </delete>
-    <update id="updateFreelancerBankInfo" parameterType="Map">
+    <update id="updateFreelancerInfo" parameterType="Map">
         UPDATE freelancer
-        SET bank = #{bank}, account_num = #{accountNum}
+        SET bank = #{bank}, account_num = #{accountNum}, address = #{address}
         WHERE freelancer_id = #{freelancerId}
     </update>
-    <insert id="insertCareerList" parameterType="java.util.List">
-        INSERT INTO career (
-        freelancer_id,
-        company_name,
-        department_name,
-        position,
-        job_title,
-        salary,
-        job_description,
-        join_date,
-        resign_date
-        )
-        VALUES
-        <foreach collection="list" item="career" separator=",">
-            (
-            #{career.freelancerId},
-            #{career.companyName},
-            #{career.departmentName},
-            #{career.position},
-            #{career.jobTitle},
-            #{career.salary},
-            #{career.jobDescription},
-            #{career.joinDate},
-            #{career.resignDate}
-            )
-        </foreach>
-    </insert>
 
     <select id="selectExpertFreelancerById" parameterType="String" resultType="freelancer">
         SELECT  CONCAT(cat.category_name, ' > ', subcat.sub_category_name) AS category,
@@ -115,7 +88,8 @@
                 f.is_resident,
                 f.desired_salary,
                 f.desired_location,
-                f.other_requests,
+                f.external_url,
+                f.other_requests as otherRequest,
                 f.is_negotiable,
                 f.attachment,
                f.is_resident
@@ -158,9 +132,9 @@
         <![CDATA[
         SELECT COUNT(*)
         FROM contract c
-                -- JOIN project p ON c.project_id = p.project_id
+        join project p on c.project_id = p.project_id
         WHERE c.freelancer_id = #{freelancerId}
-          AND c.end_date > CURDATE()
+          AND p.end_date > CURDATE()
         ]]>
     </select>
     <select id="selectOngoingProjectsByFreelancerId" resultType="dto.FreelancerProject" parameterType="Map">
@@ -187,21 +161,6 @@
         WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
         ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
         END AS d_day,
-/*            IFNULL(( -- 카테고리
-                SELECT
-                    GROUP_CONCAT(CONCAT(ca.category_name, ' > ', sc.sub_category_name)
-                ORDER BY sc.sub_category_id SEPARATOR ', ')
-                FROM (
-                    SELECT
-                        CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p.category, ',', numbers.n), ',', -1) AS UNSIGNED) AS sub_category_id
-                    FROM (
-                        SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
-                    ) AS numbers
-                WHERE numbers.n <= 1 + LENGTH(p.category) - LENGTH(REPLACE(p.category, ',', ''))
-                ) AS parsed
-                JOIN subCategory sc ON sc.sub_category_id = parsed.sub_category_id
-                JOIN category ca ON ca.category_id = sc.category_id
-            ), '') AS categories -- 카테고리 끝*/
         subcat.sub_category_name AS category
         FROM project p
         JOIN contract c ON c.project_id = p.project_id
@@ -209,14 +168,14 @@
         JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
 
         WHERE c.freelancer_id = #{freelancerId}
-        AND c.end_date > CURDATE()
-        ORDER BY c.end_date ASC
+        AND p.end_date > CURDATE()
+        ORDER BY p.end_date ASC
         LIMIT #{row}, 10
         ]]>
     </select>
-    <select id="selectOngoingProjectsForMyPage" resultType="dto.FreelancerProject" parameterType="Map">
+    <select id="selectOngoingProjectsForMyPage" resultType="dto.FreelancerProject" parameterType="String">
         <![CDATA[
-        SELECT
+       SELECT
         p.project_id AS projectId,
         p.project_name AS projectName,
         CONCAT(DATE_FORMAT(p.start_date, '%Y.%m.%d'), ' ~ ', DATE_FORMAT(p.end_date, '%Y.%m.%d')) AS projectDuration,
@@ -242,8 +201,8 @@
         JOIN contract c ON c.project_id = p.project_id
         JOIN subCategory s ON p.sub_category_id = s.sub_category_id
         WHERE c.freelancer_id = #{freelancerId}
-        AND c.end_date > CURDATE()
-        ORDER BY c.end_date ASC
+        AND p.end_date > CURDATE()
+        ORDER BY p.end_date ASC
         LIMIT 5
         ]]>
     </select>
@@ -254,7 +213,7 @@
         FROM contract c
                  JOIN project p ON c.project_id = p.project_id
         WHERE c.freelancer_id = #{freelancerId}
-          AND c.end_date <= CURDATE()
+          AND p.end_date <= CURDATE()
         ]]>
     </select>
 
@@ -287,8 +246,8 @@
                  JOIN client cl ON p.client_id = cl.client_id
                  JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
         WHERE c.freelancer_id = #{freelancerId}
-          AND c.end_date <= CURDATE()
-        ORDER BY c.end_date ASC
+          AND p.end_date <= CURDATE()
+        ORDER BY p.end_date ASC
         LIMIT #{row}, 10
         ]]>
     </select>
@@ -311,7 +270,7 @@
                             ON ct.project_id = p.project_id
         WHERE ct.freelancer_id = #{freelancerId}
           AND ct.project_id = #{projectId}
-        ORDER BY ct.end_date, s.cnt
+        ORDER BY p.end_date, s.cnt
     </select>
 
     <select id="catalogFreelancersByCategory" parameterType="int" resultType="dto.Freelancer">

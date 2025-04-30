@@ -28,7 +28,7 @@
                     <h3>찜한 프로젝트</h3>
                 </div>
             </div>
-            <div class="table-container">
+            <div class="table-container" style="overflow-x: auto;">
                 <table>
                     <thead>
                     <tr>
@@ -73,7 +73,7 @@
                     <h3>진행중인 프로젝트</h3>
                 </div>
             </div>
-            <div class="table-container">
+            <div class="table-container" style="overflow-x: auto;">
                 <table>
                     <thead>
                     <tr>

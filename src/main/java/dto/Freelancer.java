@@ -40,7 +40,7 @@ public class Freelancer {
     String accountNum;
     boolean isNegotiable;
     boolean isResident;
-    int desiredSalary;
+    Integer desiredSalary;
     String desiredLocation;
     String otherRequest;
     String attachment;
@@ -257,11 +257,11 @@ public class Freelancer {
         isResident = resident;
     }
 
-    public int getDesiredSalary() {
+    public Integer getDesiredSalary() {
         return desiredSalary;
     }
 
-    public void setDesiredSalary(int desiredSalary) {
+    public void setDesiredSalary(Integer desiredSalary) {
         this.desiredSalary = desiredSalary;
     }
 

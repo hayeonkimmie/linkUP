@@ -22,6 +22,9 @@ public class MyPageApplyList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
+        if (freelancerId == null) {
+            response.sendRedirect("/linkup/login");
+        };
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
         Integer page = null;

@@ -26,21 +26,16 @@
 <!-- 헤더 인클루드 영역 -->
 <%--    <jsp:include page="../home/header.jsp" />--%>
 <div id="header-placeholder"></div>
-<div class="container"style="
-    padding: 30px 0;
-    margin: 30px 10px 0px 10px;">
+<div class="container">
     <!-- 사이드바 -->
     <jsp:include page="/freelancer/sidebar.jsp"/>
     <!-- 메인 콘텐츠 -->
-    <div class="content">
-
+    <div class="content" style="margin: 0 -1px;">
         <div class="topbar">
             <h2>내 프로젝트 현황</h2>
             <p>진행중인 / 완료된 프로젝트 목록을 확인하세요</p>
         </div>
-        <div class="main-content"style="
-    padding: 30px 0;
-">
+        <div class="main-content"style=" padding: 30px 0;">
             <div class="tabs">
                 <div class="tab active" onclick="switchTab('ongoing')">진행중인 프로젝트 <span>(${goingProjCnt})</span></div>
                 <div class="tab" onclick="switchTab('completed')">완료된 프로젝트 <span>(${completedProjCnt})</span></div>
@@ -65,7 +60,7 @@
                     <c:choose>
                         <c:when test="${empty onGoingProjectList}">
                             <tr>
-                                <td colspan="8">진행중인 프로젝트가 없습니다.</td>
+                                <td colspan="9">진행중인 프로젝트가 없습니다.</td>
                             </tr>
                         </c:when>
                         <c:otherwise>
@@ -106,36 +101,39 @@
                     </c:choose>
                     </tbody>
                 </table>
-                <div class="pagination paging">
+
+                <div class="pagination">
                     <c:choose>
                         <c:when test="${pageInfo.curPage > 1}">
-                            <a href="?page=${pageInfo.curPage - 1}">&lt;</a>
+                            <a href="?page=${pageInfo.curPage-1 }">&lt;</a>
                         </c:when>
                         <c:otherwise>
                             <a>&lt;</a>
                         </c:otherwise>
                     </c:choose>
 
-                    <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
+                    <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"
+                               var="page">
                         <c:choose>
-                            <c:when test="${page eq pageInfo.curPage}">
-                                <a href="?page=${page}" class="select">${page}</a>
+                            <c:when test="${page eq pageInfo.curPage }">
+                                <a href="?page=${page }" class="select">${page }</a>
                             </c:when>
                             <c:otherwise>
-                                <a href="?page=${page}" class="btn">${page}</a>
+                                <a href="?page=${page }" class="btn">${page }</a>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
 
                     <c:choose>
-                        <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-                            <a href="?page=${pageInfo.curPage + 1}">&gt;</a>
+                        <c:when test="${pageInfo.curPage<pageInfo.allPage }">
+                            <a href="?page=${pageInfo.curPage+1 }">&gt;</a>
                         </c:when>
                         <c:otherwise>
                             <a>&gt;</a>
                         </c:otherwise>
                     </c:choose>
                 </div>
+
             </div>
             <!--완료된 프로젝트-->
             <div id="completed" class="tab-content" style="display: none;">
@@ -198,30 +196,31 @@
                     </c:otherwise>
                     </c:choose>
                 </table>
-                <div class="pagination paging">
+                <div class="pagination">
                     <c:choose>
                         <c:when test="${pageInfo.curPage > 1}">
-                            <a href="?page=${pageInfo.curPage - 1}">&lt;</a>
+                            <a href="?page=${pageInfo.curPage-1 }">&lt;</a>
                         </c:when>
                         <c:otherwise>
                             <a>&lt;</a>
                         </c:otherwise>
                     </c:choose>
 
-                    <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
+                    <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"
+                               var="page">
                         <c:choose>
-                            <c:when test="${page eq pageInfo.curPage}">
-                                <a href="?page=${page}" class="select">${page}</a>
+                            <c:when test="${page eq pageInfo.curPage }">
+                                <a href="?page=${page }" class="select">${page }</a>
                             </c:when>
                             <c:otherwise>
-                                <a href="?page=${page}" class="btn">${page}</a>
+                                <a href="?page=${page }" class="btn">${page }</a>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
 
                     <c:choose>
-                        <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-                            <a href="?page=${pageInfo.curPage + 1}">&gt;</a>
+                        <c:when test="${pageInfo.curPage<pageInfo.allPage }">
+                            <a href="?page=${pageInfo.curPage+1 }">&gt;</a>
                         </c:when>
                         <c:otherwise>
                             <a>&gt;</a>

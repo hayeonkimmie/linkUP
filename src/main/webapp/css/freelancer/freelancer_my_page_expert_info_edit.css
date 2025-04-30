@@ -149,7 +149,6 @@ textarea {
     text-decoration: none;
     margin-left: 8px;
     color: #5c057b;
-    background-color: rgba(92, 5, 123, 0.1);
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
@@ -251,7 +250,9 @@ a.delete-skill-btn{
     gap: 16px;
     align-items: flex-start;
 }
-
+/*input[type='month']{
+    ma
+}*/
 /* 입력 필드 너비 통일 */
 .input input,
 .dropdown select,
@@ -459,6 +460,7 @@ input[type="month"] {
     margin-bottom: 10px;
     flex-wrap: wrap;
     grid-template-columns: repeat(4, 1fr);
+    align-items : center;
 }
 
 .career-row input,
@@ -503,7 +505,7 @@ input[type="month"] {
     width: 100%;
     font-size: 24px;
     font-weight: bold;
-    color: #772e91;
+    color: #8b2c8c;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -574,6 +576,12 @@ textarea {
     background: transparent;
     cursor: pointer;
 }
+.license-row{
+    display: inline-flex;
+}
+.license-box imput{
+
+}
 /* ==============================
    버튼 공통
 ============================== */
@@ -599,7 +607,7 @@ button:hover,
 .add-career-btn,
 .search-btn {
     background-color: #eee;
-    color: #333;
+    color: #6e2070;
     border: 1px solid #bbb;
     font-size: 13px;
     border-radius: 6px;

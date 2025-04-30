@@ -36,9 +36,15 @@ public class MyProjectStatus extends HttpServlet {
         }
 
         String pageStr = request.getParameter("page");
-        int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
-
+        Integer page = null;
+        if(pageStr == null) {
+            page = 1;
+        } else {
+            page = Integer.parseInt(pageStr);
+        }
+        System.out.println("page = " + page);
         PageInfo pageInfo = new PageInfo(page);
+        System.out.println("pageInfo = " + pageInfo);
         IFreelancerProjectService projectService = new FreelancerProjectService();
         FreelancerSettlementService settlementService = new FreelancerSettlementService();
 

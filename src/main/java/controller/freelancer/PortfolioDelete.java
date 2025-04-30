@@ -20,6 +20,10 @@ public class PortfolioDelete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
+        String freelancerId = (String) request.getSession().getAttribute("userId");
+        if (freelancerId == null) {
+            response.sendRedirect("/linkup/login");
+        };
         Integer portfolioId = Integer.parseInt(request.getParameter("id"));
         Portfolio portfolio = new Portfolio();
         portfolio.setPortfolioId(portfolioId);

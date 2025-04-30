@@ -120,12 +120,21 @@
 #clear-skills {
     top: 0;
     right: 0;
-    background-color: #ccc;
     border: none;
-    padding: 5px 10px;
-    font-size: 12px;
     cursor: pointer;
-    border-radius: 5px;
+    background-color: #772e91;
+    color: white;
+    font-weight: 500;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 6px;
+    text-decoration: none;
+    height: 36px;
+    line-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 25px;
 }
 
 .skill-tag {

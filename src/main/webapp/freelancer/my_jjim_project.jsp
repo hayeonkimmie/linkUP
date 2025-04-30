@@ -17,13 +17,12 @@
     <script src="${contextPath}/js/freelancer_my_page_like_proj.js"></script>
 </head>
 <body>
-
 <div id="header-placeholder"></div>
 <div class="container">
 <!-- 사이드바 -->
 <jsp:include page="/freelancer/sidebar.jsp"/>
 <!-- 메인 콘텐츠 -->
-    <main class="content" >
+    <main class="content" style="margin: 0" >
         <section class="section">
             <div class="content-header">
                 <div class="content-header-text">
@@ -48,7 +47,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr><td colspan="9">찜한 프로젝트 내역이 없습니다.</td></tr>
+                            <tr><td colspan="9" style="height: 500px">찜한 프로젝트 내역이 없습니다.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -131,4 +130,9 @@
     </main>
 </div>
 </body>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </html>

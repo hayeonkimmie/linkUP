@@ -11,8 +11,8 @@
             a.apply_date, -- 지원일
             a.cancel_date, -- 취소일
             CASE
-                WHEN is_approved = true THEN '승인완료'
-                WHEN is_approved = false THEN '승인거절'
+                WHEN is_approved = true THEN '수락'
+                WHEN is_approved = false THEN '거절'
                 ELSE ''
                 END AS approved, -- 상태
             CASE

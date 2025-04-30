@@ -20,11 +20,18 @@
            subcat.sub_category_name AS category,
             p.advertisement_title,                       -- 공고 제목
             p.project_name,                              -- 프로젝트명
-            CASE
+/*            CASE
             WHEN duration < 12 THEN CONCAT(duration, '개월')
             WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
             ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
-            END AS duration,                                  -- 기간
+            END AS duration,                                  -- 기간*/
+            CASE
+                WHEN duration < 30 THEN CONCAT(duration, '일')
+                WHEN duration < 365 THEN CONCAT(duration DIV 30, '개월')
+                WHEN MOD(duration, 365) = 0 THEN CONCAT(duration DIV 365, '년')
+                WHEN ((duration MOD 365) DIV 30) = 0 THEN CONCAT(duration DIV 365, '년')
+                ELSE CONCAT(duration DIV 365, '년 ', (duration MOD 365) DIV 30, '개월')
+                END AS duration,
           /* 서브쿼리 */
             p.deadline_date,                             -- 마감일
             p.qualification,                             -- 자격 요건
@@ -69,9 +76,11 @@
             p.advertisement_title,                       -- 공고 제목
             p.project_name,                              -- 프로젝트명
             CASE
-                WHEN duration < 12 THEN CONCAT(duration, '개월')
-                WHEN MOD(duration, 12) = 0 THEN CONCAT(duration DIV 12, '년')
-                ELSE CONCAT(duration DIV 12, '년 ', MOD(duration, 12), '개월')
+                WHEN duration < 30 THEN CONCAT(duration, '일')
+                WHEN duration < 365 THEN CONCAT(duration DIV 30, '개월')
+                WHEN MOD(duration, 365) = 0 THEN CONCAT(duration DIV 365, '년')
+                WHEN ((duration MOD 365) DIV 30) = 0 THEN CONCAT(duration DIV 365, '년')
+                ELSE CONCAT(duration DIV 365, '년 ', (duration MOD 365) DIV 30, '개월')
                 END AS duration,                             -- 기간
             p.deadline_date,                             -- 마감일
             c.company_name,                              -- 회사명

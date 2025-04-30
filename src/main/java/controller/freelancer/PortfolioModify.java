@@ -27,9 +27,9 @@ public class PortfolioModify extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
-            request.setAttribute("err", "로그인 후 이용해주세요.");
-            request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
-        }
+            response.sendRedirect("/linkup/login");
+            return;
+        };
         Integer portfolioId = Integer.parseInt(request.getParameter("id"));
         System.out.println("portfolioId: " + portfolioId);
         IPortfolioService service = new PortfolioService();

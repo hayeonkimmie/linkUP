@@ -135,6 +135,6 @@ public class JJimProjList extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        request.getRequestDispatcher("/freelancer/my_jjim_project.jsp").forward(request, response);
+        response.sendRedirect("/linkup/my-page/project-jjim-list");
     }
 }

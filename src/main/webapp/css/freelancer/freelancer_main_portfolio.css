@@ -133,12 +133,11 @@ img{
 
 .tags span {
   font-size: 13px;
-  background-color: #efefef;
+  background-color: #e5d4f5;
   padding: 6px 12px;
   border-radius: 16px;
-  color: #444;
+  color: #5c057b;
 }
-
 /* 등록일 */
 .reg-date {
   font-size: 13px;
@@ -253,13 +252,6 @@ img{
   margin-bottom: 10px;
 }
 
-.tags span {
-  font-size: 13px;
-  background-color: #efefef;
-  padding: 6px 12px;
-  border-radius: 16px;
-  color: #444;
-}
 
 .reg-date {
   font-size: 13px;

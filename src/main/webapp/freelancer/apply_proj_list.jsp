@@ -63,7 +63,7 @@
                                     <fmt:formatDate value='${apply.applyDate}' pattern='yyyy-MM-dd'/>
                                     <c:if test="${apply.cancelDate ne null}">
                                         <br><span style="color:red; font-size:0.75rem;">취소 <fmt:formatDate
-                                            value='${apply.applyDate}' pattern='yyyy-MM-dd'/></span>
+                                            value='${apply.cancelDate}' pattern='yyyy-MM-dd'/></span>
                                     </c:if>
                                 </td>
                                 <td>
@@ -84,7 +84,10 @@
                                         class="d-day">${apply.dDay}</span></td>
                                 <td style="font-weight: bold;">${apply.approved}</td>
                                 <td>
-                                    <c:if test="${empty apply.cancelDate and fn:trim(apply.approved) ne '승인거절'}">
+                                    <c:if test="${empty apply.cancelDate
+                                         and fn:trim(apply.approved) ne '승인거절'
+                                         and fn:trim(apply.approved) ne '거절'
+                                         and fn:trim(apply.dDay) ne '마감'}">
                                     <button type="button"
                                                 class="cancel-btn"
                                                 data-apply-id="${apply.applyId}"
@@ -162,5 +165,10 @@
         });
     });
 </script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${contextPath}/js/header.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

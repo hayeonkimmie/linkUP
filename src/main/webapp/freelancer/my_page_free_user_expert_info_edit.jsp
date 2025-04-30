@@ -32,25 +32,25 @@
                     <h3>전문가 정보 설정</h3>
                 </div>
             </div>
-            <form action="${contextPath}/my-page/edit-expert-info" method="post" enctype="multipart/form-data">
+            <form action="${contextPath}/my-page/edit-expert-info" method="post" enctype="multipart/form-data" id="expertInfoForm">
                 <!-- 분야 -->
                 <div class="form-group">
                     <div class="category-section">
                         <label>전문 분야</label>
-                        <select id="category_name" name="category">
+                        <select id="category_name" name="category" required>
                             <option value="">1차 카테고리</option>
                             <c:forEach items="${selectCategoryList}" var="category">
                                 <option value="${category.categoryId}">${category.categoryName}</option>
                             </c:forEach>
                         </select>
-                        <select id="subCategory" name="subCategory">
+                        <select id="subCategory" name="subCategory" required>
                             <option value="">2차 카테고리</option>
                         </select>
                         <div class="specialization">
                             <c:if test="${freelancer.category ne null}">
                                 <span>${freelancer.category}</span>
                             </c:if>
-                            <%--                           <a class="clear_fields clear-category-btn">초기화</a>--%>
+                            <%-- <a class="clear_fields clear-category-btn">초기화</a>--%>
                         </div>
                     </div>
                     <!-- 스킬 -->
@@ -86,14 +86,14 @@
                                                     class="academicType">
                                                 <option value="">학교 구분</option>
                                                 <c:forEach var="type"
-                                                           items="${fn:split('고등학교^대학교(2,3년)^대학교(4년)^대학원', '^')}">
+                                                           items="${fn:split('고등학교^대학교(2, 3년)^대학교(4년)^대학원', '^')}">
                                                     <option value="${type}" ${academic.academicType eq type ? 'selected' : ''}>${type}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
                                         <div class="input input-academicName input-with-icon">
                                             <div class="label">학교명 <span class="star">*</span></div>
-                                            <input type="text" name="educationList[${status.index}].academicName"
+                                            <input type="text" name="educationList[${status.index}].academicName" placeholder="학교명"
                                                    value="${academic.academicName}" required/>
                                         </div>
                                         <div class="dropdown input-graduateStatus">
@@ -114,14 +114,14 @@
                                         </c:if>
                                         <div class="input input-month-group">
                                             <div class="input-education-date">
-                                                <label>입학연월 *</label>
-                                                <input type="month" name="educationList[${status.index}].enterDate"
-                                                       value="${academic.entranceDate}" required/>
+                                                <label>입학연월<span class="star">*</span></label>
+                                                <input name="educationList[${status.index}].enterDate" type="month"
+                                                       value="<fmt:formatDate value='${academic.entranceDate}' pattern='yyyy-MM'/>" required/>
                                             </div>
                                             <div class="input-education-date">
-                                                <label>졸업연월 *</label>
+                                                <label>졸업연월</label>
                                                 <input type="month" name="educationList[${status.index}].graduateDate"
-                                                       value="${academic.graduateDate}"/>
+                                                       value="<fmt:formatDate value='${academic.graduateDate}' pattern='yyyy-MM'/>" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -130,44 +130,48 @@
                             <c:otherwise>
                                 <div class="education-box item-box">
                                     <button type="button" class="buttonDeleteField">X</button>
-                                    <div class="dropdown input-academicType">
-                                        <div class="label">학력구분 <span class="star">*</span></div>
-                                        <c:set var="types" value="${fn:split('고등학교^대학교(2,3년)^대학교(4년)^대학원', '^')}"/>
-                                        <select name="academicType" required>
-                                            <option value="">학교 구분</option>
-                                            <c:forEach var="type" items="${types}">
-                                                <option value="${type}">${type}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="input input-academicName input-with-icon">
-                                        <div class="label">학교명 <span class="star">*</span></div>
-                                        <input type="text" name="educationList[0].academicName"
-                                               value="" required/>
-                                    </div>
-                                    <div class="dropdown input-graduateStatus">
-                                        <div class="label">졸업상태</div>
-                                        <select name="educationList[0].graduateStatus">
-                                            <option value="">졸업 구분</option>
-                                            <c:forEach var="statusVal" items="${fn:split('졸업,재학중,중퇴,휴학,기타', ',')}">
-                                                <option value="${statusVal}">${statusVal}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="input input-major input-with-icon academic-major-field">
-                                        <div class="label">전공명</div>
-                                        <input type="text" name="educationList[0].academicMajor" id="academicMajor_0" placeholder="전공" />
-                                    </div>
-                                    <div class="input input-month-group">
-                                        <div class="input-education-date">
-                                            <label>입학연월 </label>
-                                            <input type="month" name="educationList[0].enterDate"
-                                                   value=""/>
+                                    <div class="row">
+                                        <div class="dropdown input-academicType">
+                                            <div class="label">학력구분 <span class="star">*</span></div>
+                                            <c:set var="types" value="${fn:split('고등학교^대학교(2, 3년)^대학교(4년)^대학원', '^')}"/>
+                                            <select name="educationList[0].academicType" required>
+                                                <option value="">학교 구분</option>
+                                                <c:forEach var="type" items="${types}">
+                                                    <option value="${type}">${type}</option>
+                                                </c:forEach>
+                                            </select>
                                         </div>
-                                        <div class="input-education-date">
-                                            <label>졸업연월 </label>
-                                            <input type="month" name="educationList[0].graduateDate"
-                                                   value=""/>
+                                        <div class="input input-academicName input-with-icon">
+                                            <div class="label">학교명 <span class="star">*</span></div>
+                                            <input type="text" name="educationList[0].academicName"
+                                                   value="" required/>
+                                        </div>
+                                        <div class="dropdown input-graduateStatus">
+                                            <div class="label">졸업상태</div>
+                                            <select name="educationList[0].graduateStatus">
+                                                <option value="">졸업 구분</option>
+                                                <c:forEach var="statusVal" items="${fn:split('졸업,재학중,중퇴,휴학,기타', ',')}">
+                                                    <option value="${statusVal}">${statusVal}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="input input-major input-with-icon academic-major-field">
+                                            <div class="label">전공명</div>
+                                            <input type="text" name="educationList[0].academicMajor" id="academicMajor_0" placeholder="전공" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input input-month-group">
+                                            <div class="input-education-date">
+                                                <label>입학연월 </label>
+                                                <input type="month" name="educationList[0].enterDate"
+                                                       value=""/>
+                                            </div>
+                                            <div class="input-education-date">
+                                                <label>졸업연월 </label>
+                                                <input type="month" name="educationList[0].graduateDate"
+                                                       value=""/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -181,79 +185,126 @@
                 <div class="form-group">
                     <label>경력</label>
                     <div id="career-container">
-                        <c:if test="${not empty careerList}">
-                            <c:forEach items="${careerList}" var="career" varStatus="status">
-                                <div class="career-box item-box">
+                        <c:choose>
+                            <c:when test="${not empty careerList}">
+                                <c:forEach items="${careerList}" var="career" varStatus="status">
+                                    <div class="career-box item-box">
+                                        <button type="button" class="buttonDeleteField">X</button>
+                                        <div class="career-row">
+                                            <input type="text" name="careerList[${status.index}].companyName"
+                                                   placeholder="회사명" required
+                                                   value="${career.companyName}"/>
+                                            <input type="text" name="careerList[${status.index}].departmentName"
+                                                   placeholder="부서명"
+                                                   value="${career.departmentName}"/>
+                                            <span>입사<span class="star">*</span></span>
+                                            <input name="careerList[${status.index}].joinDate" type="month"
+                                                   value="<fmt:formatDate value='${career.joinDate}' pattern='yyyy-MM'/>" required/>
+                                            <span>퇴사</span>
+                                            <input name="careerList[${status.index}].resignDate" type="month"
+                                                   value="<fmt:formatDate value='${career.resignDate}' pattern='yyyy-MM'/>"/>
+                                        </div>
+                                        <div class="career-row">
+                                            <input type="text" name="careerList[${status.index}].position"
+                                                   placeholder=" 직급/직책"
+                                                   value="${career.position}"/>
+                                            <input type="text" name="careerList[${status.index}].jobTitle"
+                                                   placeholder="담당직무"
+                                                   value="${career.jobTitle}"/>
+                                            <input type="text" name="careerList[${status.index}].salary" placeholder="연봉"
+                                                   value="${career.salary}"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            <span>만 원</span>
+                                        </div>
+                                        <span>담당업무</span>
+                                        <textarea name="careerList[${status.index}].jobDescription"
+                                                  placeholder="담당하신 업무와 성과에 대해 간단하게 적어주세요."
+                                                  required>${career.jobDescription}</textarea>
+                                    </div>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="item-box career-box">
                                     <button type="button" class="buttonDeleteField">X</button>
                                     <div class="career-row">
-                                        <input type="text" name="careerList[${status.index}].companyName"
-                                               placeholder="회사명" required
-                                               value="${career.companyName}"/>
-                                        <input type="text" name="careerList[${status.index}].departmentName"
-                                               placeholder="부서명"
-                                               value="${career.departmentName}"/>
-                                        <span>입사</span>
-                                        <input name="careerList[${status.index}].joinDate" type="month"
-                                               value="<fmt:formatDate value='${career.joinDate}' pattern='yyyy-MM'/>"/>
+                                        <input type="text" name="careerList[0].companyName" id="companyName_0" placeholder="회사명" required="">
+                                        <input type="text" name="careerList[0].departmentName" id="departmentName_0" placeholder="부서명">
+                                        <span>입사<span class="star">*</span></span>
+                                        <input type="month" name="careerList[0].joinDate" id="joinDate_0" required>
                                         <span>퇴사</span>
-                                        <input name="careerList[${status.index}].resignDate" type="month"
-                                               value="<fmt:formatDate value='${career.resignDate}' pattern='yyyy-MM'/>"/>
+                                        <input type="month" name="careerList[0].resignDate" id="resignDate_0">
                                     </div>
                                     <div class="career-row">
-                                        <input type="text" name="careerList[${status.index}].position"
-                                               placeholder=" 직급/직책"
-                                               value="${career.position}"/>
-                                        <input type="text" name="careerList[${status.index}].jobTitle"
-                                               placeholder="담당직무"
-                                               value="${career.jobTitle}"/>
-                                        <input type="text" name="careerList[${status.index}].salary" placeholder="연봉"
-                                               value="${career.salary}"
-                                               oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
+                                        <input type="text" name="careerList[0].position" id="position_0" placeholder="직급/직책">
+                                        <input type="text" name="careerList[0].jobTitle" id="jobTitle_0" placeholder="담당직무">
+                                        <input type="text" name="careerList[0].salary" id="salary_0" placeholder="연봉" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                         <span>만 원</span>
                                     </div>
                                     <span>담당업무</span>
-                                    <textarea name="careerList[${status.index}].jobDescription"
-                                              placeholder="담당하신 업무와 성과에 대해 간단하게 적어주세요."
-                                              required>${career.jobDescription}</textarea>
+                                    <textarea name="careerList[0].jobDescription" id="jobDescription_0" placeholder="담당하신 업무와 성과에 대해 간단하게 적어주세요." required=""></textarea>
                                 </div>
-                            </c:forEach>
-                        </c:if>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <button type="button" class="add-career-btn">+ 경력 추가</button>
                 </div>
                 <div class="form form-group formCertificate">
                     <label>자격증</label>
                     <div id="license-container">
-                        <c:if test="${freelancer.licenseList ne null}">
-                            <c:forEach items="${freelancer.licenseList}" var="license" varStatus="status">
-                                <div class="license-box item-box">
+                        <c:choose>
+                            <c:when test="${freelancer.licenseList ne null}">
+                                <c:forEach items="${freelancer.licenseList}" var="license" varStatus="status">
+                                    <div class="license-box item-box">
+                                        <div class="license-row">
+                                            <button type="button" class="buttonDeleteField">X</button>
+                                            <div class="input input-certificate-name is-label">
+                                                <label>자격증 명 <span class="star">*</span></label>
+                                                <input type="text" name="licenseList[${status.index}].name"
+                                                       value="${license.licenseName}" maxlength="50" required/>
+                                            </div>
+                                            <div class="input input-certificate-agency is-label">
+                                                <label>점수 / 급</label>
+                                                <input type="text" name="licenseList[${status.index}].licenseGrade"
+                                                       value="${license.licenseGrade}" maxlength="50"/>
+                                            </div>
+                                            <div class="input input-certificate-agency is-label">
+                                                <label>발행처</label>
+                                                <input type="text" name="licenseList[${status.index}].licenseAgency"
+                                                       value="${license.licenseAgency}" maxlength="50"/>
+                                            </div>
+                                            <div class="input input-certificate-term is-label">
+                                                <label>취득월</label>
+                                                <input name="licenseList[${status.index}].licenseDate" type="month"
+                                                       value="<fmt:formatDate value='${license.licenseDate}' pattern='yyyy-MM'/>"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="item-box license-box">
                                     <div class="license-row">
                                         <button type="button" class="buttonDeleteField">X</button>
                                         <div class="input input-certificate-name is-label">
                                             <label>자격증 명 <span class="star">*</span></label>
-                                            <input type="text" name="licenseList[${status.index}].name"
-                                                   value="${license.licenseName}" maxlength="50" required/>
+                                            <input type="text" name="licenseList[0].name" id="licenseName_0" placeholder="자격증명" required="" maxlength="50">
                                         </div>
                                         <div class="input input-certificate-agency is-label">
                                             <label>점수 / 급</label>
-                                            <input type="text" name="licenseList[${status.index}].licenseGrade"
-                                                   value="${license.licenseGrade}" maxlength="50"/>
+                                            <input type="text" name="licenseList[0].licenseGrade" id="licenseGrade_0" placeholder="점수 / 급" maxlength="50">
                                         </div>
                                         <div class="input input-certificate-agency is-label">
                                             <label>발행처</label>
-                                            <input type="text" name="licenseList[${status.index}].licenseAgency"
-                                                   value="${license.licenseAgency}" maxlength="50"/>
+                                            <input type="text" name="licenseList[0].licenseAgency" id="licenseAgency_0" placeholder="발행처" maxlength="50">
                                         </div>
                                         <div class="input input-certificate-term is-label">
                                             <label>취득월</label>
-                                            <input name="licenseList[${status.index}].licenseDate" type="month"
-                                                   value="<fmt:formatDate value='${license.licenseDate}' pattern='yyyy-MM'/>"/>
+                                            <input type="month" name="licenseList[0].licenseDate" id="licenseDate_0">
                                         </div>
                                     </div>
                                 </div>
-                            </c:forEach>
-                        </c:if>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <button type="button" class="add-license-btn">+ 자격증 추가</button>
                 </div>
@@ -269,38 +320,18 @@
                 <div class="file-upload-section">
                     <h3>첨부파일</h3>
                     <div class="file-upload-buttons">
-                        <%-- <c:if test="${allPortfolioInfoMap ne null}">
-                             <button id="add-portfolio-info" type="button">등록한 포트폴리오 불러오기</button>
-                         </c:if>--%>
                         <button id="add-outer-url" type="button">외부 URL 추가</button>
                         <button id="add-attachment-file" type="button">내 PC에서 파일 첨부</button>
                     </div>
-                    <%--${freelancer.attachment}${freelancer.externalUrl}--%>
                     <table>
                         <tbody>
-                        <%--<c:if test="${freelancer.portfolioInfoList ne null}">
-                            <c:forEach items="${freelancer.portfolioInfoList}" var="portfolioInfo" varStatus="status">
-                                <tr class="portfolio-id-section">
-                                    <td><label for="portfolio-id-select-${status.index + 1}">포트폴리오</label></td>
-                                    <td>
-                                        <select class="project-id-select portfolioIdList" name="portfolioIds[${status.index}]" id="portfolio-id-select-${status.index + 1}">
-                                            <c:forEach var="entry" items="${allPortfolioInfoMap}">
-                                                <option value="${entry.key}" <c:if test="${entry.key eq portfolioInfo.portfolioId}">selected</c:if>>${entry.value.title}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </td>
-                                    <td><button type="button" class="delete-tr">X</button></td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>--%>
-
                         <c:if test="${freelancer.externalUrlList ne null}">
                             <c:forEach var="externalUrl" items="${freelancer.externalUrlList}" varStatus="status">
                                 <tr class="url-section">
                                     <td><label for="url-${status.index}">외부 링크</label></td>
                                     <td>
                                         <input type="text" value="${externalUrl}" name="url-${status.index}"
-                                               id="file-url-${status.index}" placeholder="https://example.com"/>
+                                               id="url-${status.index}" placeholder="https://example.com"/>
                                     </td>
                                     <td>
                                         <button type="button" class="delete-tr">X</button>
