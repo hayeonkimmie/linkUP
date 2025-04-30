@@ -2,13 +2,13 @@ package dto;
 
 import java.sql.Date;
 
-public class Project {
-    private int projectId;
+public class ProjectDetail {
+    private Integer projectId;
     private String clientId;
     private String advertisementTitle;
     private String projectName;
     private String thumbnail;
-    int duration;
+    private Integer duration;
     private Date createdDate;
     private Date deadlineDate;
     private String projectDescription;
@@ -21,104 +21,13 @@ public class Project {
     private Date settleDay;
     private String manager;
     private String mphone; // 이건 이미 카멜표기법에 맞음
-    private int subCategoryId;
+    private Integer subCategoryId;
     private String subCategoryName;
-    private String categoryName;
-    private String profileImg;
     private String email;
+    private String profileImg;
 
-    public Project() {
+    public ProjectDetail() {
     }
-
-    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String profileImg, String email) {
-        this.projectId = projectId;
-        this.clientId = clientId;
-        this.advertisementTitle = advertisementTitle;
-        this.projectName = projectName;
-        this.thumbnail = thumbnail;
-        this.duration = duration;
-        this.createdDate = createdDate;
-        this.deadlineDate = deadlineDate;
-        this.projectDescription = projectDescription;
-        this.jobDetails = jobDetails;
-        this.workingMethod = workingMethod;
-        this.workingEnvironment = workingEnvironment;
-        this.workingHours = workingHours;
-        this.qualification = qualification;
-        this.preferentialConditions = preferentialConditions;
-        this.settleDay = settleDay;
-        this.manager = manager;
-        this.mphone = mphone;
-        this.subCategoryId = subCategoryId;
-        this.subCategoryName = subCategoryName;
-        this.categoryName = categoryName;
-        this.profileImg = profileImg;
-        this.email = email;
-    }
-
-    public Project(String mphone, String manager, Date settleDay, String preferentialConditions, String qualification, String workingHours, String workingEnvironment, String workingMethod, String jobDetails, String projectDescription, Date deadlineDate, Date createdDate, int duration, String thumbnail, String projectName, String advertisementTitle, String clientId, int projectId) {
-        this.mphone = mphone;
-        this.manager = manager;
-        this.settleDay = settleDay;
-        this.preferentialConditions = preferentialConditions;
-        this.qualification = qualification;
-        this.workingHours = workingHours;
-        this.workingEnvironment = workingEnvironment;
-        this.workingMethod = workingMethod;
-        this.jobDetails = jobDetails;
-        this.projectDescription = projectDescription;
-        this.deadlineDate = deadlineDate;
-        this.createdDate = createdDate;
-        this.duration = duration;
-        this.thumbnail = thumbnail;
-        this.projectName = projectName;
-        this.advertisementTitle = advertisementTitle;
-        this.clientId = clientId;
-        this.projectId = projectId;
-    }
-
-    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date deadlineDate) {
-        this.projectId = projectId;
-        this.clientId = clientId;
-        this.advertisementTitle = advertisementTitle;
-        this.projectName = projectName;
-        this.thumbnail = thumbnail;
-        this.duration = duration;
-        this.projectDescription = projectDescription;
-        this.jobDetails = jobDetails;
-        this.workingMethod = workingMethod;
-        this.workingEnvironment = workingEnvironment;
-        this.workingHours = workingHours;
-        this.qualification = qualification;
-        this.preferentialConditions = preferentialConditions;
-        this.deadlineDate = deadlineDate;
-    }
-
-    public int getSubCategoryId() {
-        return subCategoryId;
-    }
-
-    public void setSubCategoryId(int subCategoryId) {
-        this.subCategoryId = subCategoryId;
-    }
-
-    public String getSubCategoryName() {
-        return subCategoryName;
-    }
-
-    public void setSubCategoryName(String subCategoryName) {
-        this.subCategoryName = subCategoryName;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-
 
     public String getProfileImg() {
         return profileImg;
@@ -128,11 +37,11 @@ public class Project {
         this.profileImg = profileImg;
     }
 
-    public int getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(int projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
@@ -143,7 +52,6 @@ public class Project {
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
-
 
     public String getAdvertisementTitle() {
         return advertisementTitle;
@@ -169,11 +77,11 @@ public class Project {
         this.thumbnail = thumbnail;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -273,10 +181,33 @@ public class Project {
         this.mphone = mphone;
     }
 
+    public Integer getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "ProjectDetail{" +
                 "projectId=" + projectId +
                 ", clientId='" + clientId + '\'' +
                 ", advertisementTitle='" + advertisementTitle + '\'' +
@@ -297,16 +228,8 @@ public class Project {
                 ", mphone='" + mphone + '\'' +
                 ", subCategoryId=" + subCategoryId +
                 ", subCategoryName='" + subCategoryName + '\'' +
-                ", categoryName='" + categoryName + '\'' +
+                ", email='" + email + '\'' +
                 ", profileImg='" + profileImg + '\'' +
                 '}';
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

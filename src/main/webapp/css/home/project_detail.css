@@ -1,0 +1,397 @@
+body {
+  margin: 0;
+  font-family: "Apple SD Gothic Neo", sans-serif;
+  background-color: #f9f9fb;
+  color: #333;
+}
+
+.background {
+  padding: 20px;
+  margin: 20px;
+  background-color: #ccc;
+}
+
+.job-detail-wrapper {
+  background-color: white;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 24px;
+}
+
+.main-content.full-width {
+  width: 100%;
+  position: relative;
+  padding-right: 220px;
+}
+
+.job-header-background {
+  background-color: #C4B6C2;
+  width: 100%;
+  padding: 30px 0;
+  border-radius: 8px;
+  color: #F2F1EE;
+}
+
+.job-header-box {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.header-content-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.header-text-content {
+  flex: 1;
+}
+
+.breadcrumb {
+  font-size: 15px;
+  color: #ddd;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.company-name {
+  font-size: 42px;
+  font-weight: bold;
+  color: #F2F1EE;
+  margin: 0;
+  padding: 0;
+}
+
+.job-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #F2F1EE;
+  margin: 4px 0 12px 0;
+  padding: 0;
+}
+
+.subtitle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #eee;
+  font-weight: 600;
+}
+
+.subtitle-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #f0f0f0;
+  margin-bottom: 24px;
+}
+
+.meta-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.meta-item,
+.meta-item.full {
+  flex: 1 1 calc(20% - 16px);
+  min-width: 200px;
+  border-radius: 8px;
+  padding: 12px;
+  box-sizing: border-box;
+  background-color: #f3f3f3;
+}
+
+.meta-label {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.meta-value {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.meta-value.contact {
+  text-decoration: underline;
+}
+
+.stack-title {
+  margin-top: 16px;
+  font-weight: bold;
+  color: #f0f0f0;
+}
+
+.stack-tags {
+  margin-top: 16px;
+}
+
+.stack-tags span {
+  display: inline-block;
+  background: #eef1f7;
+  color: #333;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-right: 8px;
+}
+
+.header-logo-box {
+  text-align: center;
+  width: 250px;
+}
+
+.header-logo-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.apply-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #A86282;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.divider {
+  margin: 10px 0 32px;
+  border-top: 2px solid #ccc;
+}
+
+.job-detatil-container {
+  background-color: #eee;
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.job-section {
+  margin-bottom: 36px;
+}
+
+.job-section h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.job-section p,
+.job-section ul {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #444;
+  margin: 4px 0;
+}
+
+.job-section ul {
+  padding-left: 20px;
+}
+
+.env-box {
+  display: flex;
+  gap: 40px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.aligned-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+/* ✅ 모달 배경 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ 모달 콘텐츠 박스 */
+.modal-content {
+  background-color: #E6E0E9; /* ← 추천 배경색 */
+  width: 460px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  font-family: "Apple SD Gothic Neo", sans-serif;
+  color: #333;
+  position: relative;
+}
+
+
+/* ✅ 헤더 */
+.modal-content h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* 닫기 버튼 */
+.modal-content .close-button {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+}
+
+/* ✅ 공통 라벨 */
+.modal-content label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 14px 0 6px;
+  color: #444;
+}
+
+/* ✅ 셀렉트 박스 */
+.modal-content select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+/* ✅ 이력서 카드 */
+.resume-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3f3f3;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+.resume-info {
+  flex: 1;
+}
+
+.resume-info p {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+.resume-info strong {
+  font-size: 14px;
+  display: block;
+  margin: 4px 0 2px;
+  color: #222;
+}
+
+.resume-info .no-file {
+  font-size: 12px;
+  color: #888;
+}
+
+.change-resume {
+  background-color: #eee;
+  color: #333;
+  padding: 6px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* ✅ 첨부 파일 영역 */
+.file-box {
+  background-color: #f3f3f3;
+  padding: 14px;
+  margin-top: 8px;
+  border-radius: 10px;
+}
+
+.file-box p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.add-file {
+  background-color: #ddd;
+  border: none;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+/* ✅ 하단 버튼 */
+.modal-footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-footer .btn {
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.modal-footer .btn.cancel {
+  background-color: #ddd;
+  color: #333;
+}
+
+.modal-footer .btn.submit {
+  background-color: #A86282;
+  color: #fff;
+}
+
+/* ✅ 입사지원 고정 버튼 (하단) */
+.fixed-apply-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #A86282;
+  text-align: center;
+  padding: 16px 0;
+  z-index: 1000;
+}
+
+.fixed-apply-button .apply-btn {
+  background: #fff;
+  color: #A86282;
+  font-weight: bold;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-size: 16px;
+  cursor: pointer;
+}

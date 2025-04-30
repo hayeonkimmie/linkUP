@@ -127,6 +127,39 @@
         ORDER BY p.created_date DESC
     </select>
 
+    <select id="selectProjectById" parameterType="int" resultType="dto.ProjectDetail">
+        SELECT
+            p.project_id,
+            p.client_id,
+            p.advertisement_title,
+            p.project_name,
+            p.thumbnail,
+            p.duration,
+            p.created_date,
+            p.deadline_date,
+            p.project_description,
+            p.job_details,
+            p.working_method,
+            p.working_environment,
+            p.working_hours,
+            p.qualification,
+            p.preferential_conditions,
+            p.settle_day,
+            p.manager,
+            p.mphone,
+            p.sub_category_id,
+            s.sub_category_name as sub_category_name,
+            u.email AS email,
+            u.profile_img AS profile_img
+        FROM project p
+                 JOIN subCategory s ON p.sub_category_id = s.sub_category_id
+                 JOIN client c ON p.client_id = c.client_id
+                    JOIN user u ON c.client_id = u.user_id
+        WHERE p.project_id = #{project_id}
+    </select>
+
+
+
 </mapper>
 
         <!--<?xml version="1.0" encoding="UTF-8" standalone="no"?>-->
