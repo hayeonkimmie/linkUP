@@ -38,7 +38,7 @@ public class MainController extends HttpServlet {
         if (userId != null) {
             path = "/home/mainLoginVersion.jsp";
         }
-
+        request.getSession().setAttribute("userId", "client001");
         request.getRequestDispatcher(path).forward(request, response);
     }
 

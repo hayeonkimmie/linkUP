@@ -160,4 +160,25 @@ public class ProjectMgt {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectMgt{" +
+                "projectId=" + projectId +
+                ", title='" + title + '\'' +
+                ", category='" + category + '\'' +
+                ", skills='" + skills + '\'' +
+                ", status='" + status + '\'' +
+                ", regDate='" + regDate + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", deadlineDate='" + deadlineDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", duration=" + duration +
+                ", totalAmount=" + totalAmount +
+                ", applyCount=" + applyCount +
+                ", projectProgress='" + projectProgress + '\'' +
+                ", settleStatus='" + settleStatus + '\'' +
+                ", payList=" + payList +
+                '}';
+    }
 }

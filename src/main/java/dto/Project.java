@@ -1,38 +1,36 @@
 package dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Project {
-    int projectId;
-    String clientId;
-    String advertisementTitle;
-    String projectName;
-    String thumbnail;
+    private int projectId;
+    private String clientId;
+    private String advertisementTitle;
+    private String projectName;
+    private String thumbnail;
     int duration;
-    Date createdDate;
-    Date deadlineDate;
-    String projectDescription;
-    String jobDetails;
-    String workingMethod;
-    String workingEnvironment;
-    String workingHours;
-    String qualification;
-    String preferentialConditions;
-    Date settleDay;
-    String manager;
-    String mphone; // 이건 이미 카멜표기법에 맞음
+    private Date createdDate;
+    private Date deadlineDate;
+    private String projectDescription;
+    private String jobDetails;
+    private String workingMethod;
+    private String workingEnvironment;
+    private String workingHours;
+    private String qualification;
+    private String preferentialConditions;
+    private Date settleDay;
+    private String manager;
+    private String mphone; // 이건 이미 카멜표기법에 맞음
     private int subCategoryId;
     private String subCategoryName;
     private String categoryName;
-    private String jobPosition;
-    private String reqSkills;
-    private String wantedSkills;
-    private String memail;
-    public Project() {
+    private String profileImg;
+    private String email;
 
+    public Project() {
     }
 
-    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String profileImg, double avgStar) {
+    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String profileImg, String email) {
         this.projectId = projectId;
         this.clientId = clientId;
         this.advertisementTitle = advertisementTitle;
@@ -55,10 +53,10 @@ public class Project {
         this.subCategoryName = subCategoryName;
         this.categoryName = categoryName;
         this.profileImg = profileImg;
-        this.avgStar = avgStar;
+        this.email = email;
     }
 
-    public Project(String mphone, String manager, Date settleDay, String preferentialConditions, String qualification, String workingHours, String workingEnvironment, String workingMethod, String jobDetails, String projectDescription, Date deadlineDate, Date createdDate, int duration, String thumbnail, String projectName, String advertisementTitle, String category, String clientId, int projectId) {
+    public Project(String mphone, String manager, Date settleDay, String preferentialConditions, String qualification, String workingHours, String workingEnvironment, String workingMethod, String jobDetails, String projectDescription, Date deadlineDate, Date createdDate, int duration, String thumbnail, String projectName, String advertisementTitle, String clientId, int projectId) {
         this.mphone = mphone;
         this.manager = manager;
         this.settleDay = settleDay;
@@ -79,7 +77,7 @@ public class Project {
         this.projectId = projectId;
     }
 
-    public Project(int projectId, String clientId, String category, String advertisementTitle, String projectName, String thumbnail, int duration, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date deadlineDate) {
+    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date deadlineDate) {
         this.projectId = projectId;
         this.clientId = clientId;
         this.advertisementTitle = advertisementTitle;
@@ -182,9 +180,8 @@ public class Project {
         this.categoryName = categoryName;
     }
 
-    private String profileImg;
 
-    // getter, setter 추가
+
     public String getProfileImg() {
         return profileImg;
     }
@@ -192,17 +189,7 @@ public class Project {
     public void setProfileImg(String profileImg) {
         this.profileImg = profileImg;
     }
-    private double avgStar; // 별점 평균
 
-    // Getter
-    public double getAvgStar() {
-        return avgStar;
-    }
-
-    // Setter
-    public void setAvgStar(double avgStar) {
-        this.avgStar = avgStar;
-    }
     public int getProjectId() {
         return projectId;
     }
@@ -348,6 +335,7 @@ public class Project {
         this.mphone = mphone;
     }
 
+
     @Override
     public String toString() {
         return "Project{" +
@@ -373,7 +361,14 @@ public class Project {
                 ", subCategoryName='" + subCategoryName + '\'' +
                 ", categoryName='" + categoryName + '\'' +
                 ", profileImg='" + profileImg + '\'' +
-                ", avgStar=" + avgStar +
                 '}';
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

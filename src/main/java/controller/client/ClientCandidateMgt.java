@@ -59,6 +59,7 @@ public class ClientCandidateMgt extends HttpServlet {
             // 서비스 호출해서 지원자 목록 가져오기
             List<dto.ClientCandidateMgt> applicants = service.getCandidateMgtList(param);
 
+
             // 5. 결과 저장해서 JSP로 값 전달
             request.setAttribute("project", projectInfo);
             request.setAttribute("applicants", applicants);

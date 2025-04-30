@@ -6,6 +6,7 @@ import dao.common.IProjectDAO;
 import dao.common.ProjectDAO;
 import dto.DashboardProject;
 import dto.Project;
+import dto.ProjectDetail;
 import util.PageInfo;
 
 import java.util.List;
@@ -15,7 +16,6 @@ public class ProjectService implements IProjectService {
 
     private final IDashboardProjectDAO dashboardProjectDAO = new DashboardProjectDAO();
     private final IProjectDAO projectDAO = new ProjectDAO();
-
 
     @Override
     public List<DashboardProject> getDashboardProjectList() {
@@ -46,5 +46,10 @@ public class ProjectService implements IProjectService {
     @Override
     public List<Project> catalogProjectByConditions(Map<String, String> param) {
         return projectDAO.catalogProjectByConditions(param);
+    }
+
+    @Override
+    public ProjectDetail selectProjectById(Integer projectId) throws Exception {
+        return projectDAO.selectProjectById(projectId);
     }
 }

@@ -60,9 +60,6 @@
     </select>
 
 
-
-
-
     <!-- 지원자 리스트 조회 -->
     <select id="selectCandidateMgtByStatus" resultMap="candidateMgtMap" parameterType="map">
         SELECT
@@ -105,6 +102,8 @@
             a.is_approved, a.apply_date, l.Lv, u.name
 
     </select>
+
+
 
 
     <update id="updateApplyStatus" parameterType="map">

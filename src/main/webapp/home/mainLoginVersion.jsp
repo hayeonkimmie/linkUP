@@ -122,14 +122,15 @@
 
             <div class="cards">
                 <c:forEach var="project" items="${devProjects}">
+                    <a href="${contextPath}/project?projectid=${project.projectId}" class="card-link">
                     <div class="card">
                         <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
                         <div class="card-text">
                             <strong>${project.projectName}</strong><br/>
-                            ★ <fmt:formatNumber value="${project.avgStar}" pattern="#.##" /><br/>
                                 ${project.clientId}
                         </div>
                     </div>
+                    </a>
                 </c:forEach>
             </div>
         </div>
@@ -142,14 +143,15 @@
 
             <div class="cards">
                 <c:forEach var="project" items="${designProjects}">
+                    <a href="${contextPath}/project?projectid=${project.projectId}" class="card-link">
                     <div class="card">
                         <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
                         <div class="card-text">
                             <strong>${project.projectName}</strong><br/>
-                            ★ <fmt:formatNumber value="${project.avgStar}" pattern="#.##" /><br/>
                                 ${project.clientId}
                         </div>
                     </div>
+                    </a>
                 </c:forEach>
             </div>
         </div>
@@ -163,12 +165,13 @@
             <div class="cards">
                 <c:forEach var="project" items="${planProjects}">
                     <div class="card">
+                        <a href="${contextPath}/project?projectid=${project.projectId}" class="card-link">
                         <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
                         <div class="card-text">
                             <strong>${project.projectName}</strong><br/>
-                            ★ <fmt:formatNumber value="${project.avgStar}" pattern="#.##" /><br/>
                                 ${project.clientId}
                         </div>
+                        </a>
                     </div>
                 </c:forEach>
             </div>
