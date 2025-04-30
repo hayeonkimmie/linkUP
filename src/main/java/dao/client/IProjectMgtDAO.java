@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IProjectMgtDAO {
-    List<ProjectMgt> selectProjectMgtByStatus(Map<String, Object> param) throws Exception;
+//    List<ProjectMgt> selectProjectMgtByStatus(Map<String, Object> param) throws Exception;
     void updateStatusToConfirmed(Map<String, Object> param) throws Exception;
 
     void deleteProject(int projectId) throws Exception;
@@ -17,4 +17,8 @@ public interface IProjectMgtDAO {
 
 
     ProjectMgt selectProjectById(int projectId) throws Exception;
+
+    int getProjectMgtCount(Map<String, Object> param) throws Exception;
+    List<ProjectMgt> selectProjectMgtByStatus(Map<String, Object> param) throws Exception;
+
 }

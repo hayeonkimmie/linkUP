@@ -16,11 +16,11 @@ public class ProjectMgtDAOImpl implements IProjectMgtDAO {
         this.sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
     }
 
-    // 내가 등록한 프로젝트 목록 조회
-    @Override
-    public List<ProjectMgt> selectProjectMgtByStatus(Map<String, Object> param) throws Exception {
-        return sqlSession.selectList("mapper.projectmgt.selectProjectMgtByStatus", param);
-    }
+//    // 내가 등록한 프로젝트 목록 조회
+//    @Override
+//    public List<ProjectMgt> selectProjectMgtByStatus(Map<String, Object> param) throws Exception {
+//        return sqlSession.selectList("mapper.projectmgt.selectProjectMgtByStatus", param);
+//    }
 
     // 구인 중인 프로젝트 '구인확정하기' 기능
     @Override
@@ -36,6 +36,16 @@ public class ProjectMgtDAOImpl implements IProjectMgtDAO {
     @Override
     public ProjectMgt selectProjectById(int projectId) throws Exception {
         return sqlSession.selectOne("mapper.projectmgt.selectProjectById", projectId);
+    }
+
+    @Override
+    public int getProjectMgtCount(Map<String, Object> param) throws Exception {
+        return sqlSession.selectOne("mapper.projectmgt.selectProjectMgtCount", param);
+    }
+
+    @Override
+    public List<ProjectMgt> selectProjectMgtByStatus(Map<String, Object> param) throws Exception {
+        return sqlSession.selectList("mapper.projectmgt.selectProjectMgtByStatus", param);
     }
 
     // 구인 중인 프로젝트 '삭제하기' 기능
