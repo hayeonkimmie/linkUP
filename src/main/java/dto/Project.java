@@ -24,7 +24,10 @@ public class Project {
     private int subCategoryId;
     private String subCategoryName;
     private String categoryName;
-
+    private String jobPosition;
+    private String reqSkills;
+    private String wantedSkills;
+    private String memail;
     public Project() {
 
     }
@@ -91,6 +94,68 @@ public class Project {
         this.qualification = qualification;
         this.preferentialConditions = preferentialConditions;
         this.deadlineDate = deadlineDate;
+    }
+
+    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String jobPosition, String reqSkills, String wantedSkills, String memail, String profileImg, double avgStar) {
+        this.projectId = projectId;
+        this.clientId = clientId;
+        this.advertisementTitle = advertisementTitle;
+        this.projectName = projectName;
+        this.thumbnail = thumbnail;
+        this.duration = duration;
+        this.createdDate = createdDate;
+        this.deadlineDate = deadlineDate;
+        this.projectDescription = projectDescription;
+        this.jobDetails = jobDetails;
+        this.workingMethod = workingMethod;
+        this.workingEnvironment = workingEnvironment;
+        this.workingHours = workingHours;
+        this.qualification = qualification;
+        this.preferentialConditions = preferentialConditions;
+        this.settleDay = settleDay;
+        this.manager = manager;
+        this.mphone = mphone;
+        this.subCategoryId = subCategoryId;
+        this.subCategoryName = subCategoryName;
+        this.categoryName = categoryName;
+        this.jobPosition = jobPosition;
+        this.reqSkills = reqSkills;
+        this.wantedSkills = wantedSkills;
+        this.memail = memail;
+        this.profileImg = profileImg;
+        this.avgStar = avgStar;
+    }
+
+    public String getJobPosition() {
+        return jobPosition;
+    }
+
+    public void setJobPosition(String jobPosition) {
+        this.jobPosition = jobPosition;
+    }
+
+    public String getReqSkills() {
+        return reqSkills;
+    }
+
+    public void setReqSkills(String reqSkills) {
+        this.reqSkills = reqSkills;
+    }
+
+    public String getWantedSkills() {
+        return wantedSkills;
+    }
+
+    public void setWantedSkills(String wantedSkills) {
+        this.wantedSkills = wantedSkills;
+    }
+
+    public String getMemail() {
+        return memail;
+    }
+
+    public void setMemail(String memail) {
+        this.memail = memail;
     }
 
     public int getSubCategoryId() {

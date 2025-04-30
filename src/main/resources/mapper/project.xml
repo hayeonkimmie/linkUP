@@ -126,6 +126,17 @@
         GROUP BY p.project_id
         ORDER BY p.created_date DESC
     </select>
+    <insert id="insertProject" parameterType="dto.Project" useGeneratedKeys="true" keyProperty="projectId">
+        INSERT INTO project (
+            client_id, advertisement_title, project_name, job_position, working_method, working_hours,
+            duration, working_environment, req_skills, wanted_skills, project_description, job_details,
+            qualification, preferential_conditions, deadline_date, manager, mphone, memail, sub_category_id
+        ) VALUES (
+                     #{clientId}, #{advertisementTitle}, #{projectName}, #{jobPosition}, #{workingMethod}, #{workingHours},
+                     #{duration}, #{workingEnvironment}, #{reqSkills}, #{wantedSkills}, #{projectDescription}, #{jobDetails},
+                     #{qualification}, #{preferentialConditions}, #{deadlineDate}, #{manager}, #{mphone}, #{memail}, #{subCategoryId}
+                 )
+    </insert>
 
 </mapper>
 

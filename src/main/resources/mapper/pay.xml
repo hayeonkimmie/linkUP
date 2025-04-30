@@ -3,9 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.pay">
-    <insert id="insertPay" parameterType="pay">
-        insert pay (project_pay_id,project_id,lv_id,project_fee)
-        values (#{project_fee_id}, #{project_id},#{lv_id},#{project_fee})
+<!--    <insert id="insertPay" parameterType="pay">-->
+<!--        insert pay (project_pay_id,project_id,lv_id,project_fee)-->
+<!--        values (#{project_fee_id}, #{project_id},#{lv_id},#{project_fee})-->
+<!--    </insert>-->
+
+    <insert id="insertPay" parameterType="dto.Pay">
+        INSERT INTO pay (
+            project_id, lv_id, sub_category_id, work, people, project_fee
+        ) VALUES (
+                     #{projectId}, #{lvId}, #{subCategoryId}, #{work}, #{people}, #{projectFee}
+                 )
     </insert>
 
     <select id="selectPayById" parameterType="int" resultType="dto.Pay">

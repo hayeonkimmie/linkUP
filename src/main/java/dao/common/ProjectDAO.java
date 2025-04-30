@@ -33,4 +33,12 @@ public class ProjectDAO implements IProjectDAO {
             return sqlSession.selectList("mapper.project.catalogProjectByConditions", param);
         }
     }
+
+    @Override
+    public void insertProject(Project project) {
+        try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            sqlSession.insert("mapper.project.insertProject", project);
+            sqlSession.commit(); // ⭐ INSERT할 때는 반드시 commit 해야 DB에 저장된다
+        }
+    }
 }
