@@ -27,7 +27,6 @@ public class ProjectMgtDAOImpl implements IProjectMgtDAO {
     public void updateStatusToConfirmed(Map<String, Object> param) throws Exception {
         // try 사용함으로써 commit()후 자동으로 session.close() 호출하기
         try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
-            session.update("mapper.projectmgt.updateStatusToConfirmed", param);
             int result = session.update("mapper.projectmgt.updateStatusToConfirmed", param);
             System.out.println("DB에 반영된 행 수 = " + result); // 테스트 (1이어야 함)
             session.commit();

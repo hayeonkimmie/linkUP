@@ -1,5 +1,6 @@
 package service;
 import dto.Project;
+import dto.ProjectDetail;
 import util.PageInfo;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface IProjectService {
     List<Project> catalogProjectByCategory(String category);
     List<Project> searchProjectsByCategoryAndKeyword(Map<String, String> param);
     List<Project> catalogProjectByConditions(Map<String, String> param);
+    ProjectDetail selectProjectById(Integer projectId) throws Exception;
 }
