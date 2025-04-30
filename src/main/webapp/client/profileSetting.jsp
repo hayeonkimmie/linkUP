@@ -7,13 +7,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지</title>
-    <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
-    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+<%--    <link rel="stylesheet" href="${contextPath}/css/client/style.css" />--%>
+    <link rel="stylesheet" href="${contextPath}/css/common/headerLoginSt.css"/>
+    <link rel="stylesheet" href="${contextPath}/css/client/clientProfile.css" />
+    <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css" />
+
 </head>
 
 <body>
 <!-- 공통 헤더 include -->
-<body>
 <jsp:include page="../home/headerLogin.jsp" />
 
 
@@ -113,13 +115,9 @@
             </div>
 
             <!-- 비밀번호 변경 버튼 (제출 시 action=changePw로 전달됨) -->
-            <div class="button-group">
+            <!-- 비밀번호 변경 & 저장 버튼 나란히 -->
+            <div class="button-group-wrapper">
                 <button class="btn-primary" type="submit" name="action" value="changePw">비밀번호 변경</button>
-            </div>
-
-            <%--    저장버튼 동작 처리 --%>
-            <br>
-            <div class="button-group-right">
                 <button class="button-save" type="submit" name="action" value="saveInfo">저장</button>
             </div>
         </form>

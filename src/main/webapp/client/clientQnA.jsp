@@ -9,9 +9,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>문의 내역</title>
-  <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
-  <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+<%--  <link rel="stylesheet" href="${contextPath}/css/client/style.css" />--%>
+  <link rel="stylesheet" href="${contextPath}/css/common/headerLoginSt.css"/>
   <link rel="stylesheet" href="${contextPath}/css/client/inquiryHistory.css" />
+  <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css" />
 </head>
 <body>
 <jsp:include page="../home/headerLogin.jsp" />
@@ -116,5 +117,7 @@
     </div>
   </main>
 </div>
+
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

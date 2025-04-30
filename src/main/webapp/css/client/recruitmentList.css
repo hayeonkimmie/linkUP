@@ -1,0 +1,224 @@
+/* ============================= */
+/*     recruitmentList.css      */
+/* ============================= */
+
+/* 전체 레이아웃 */
+.layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-left: 1px solid #ddd;
+    min-height: 100vh;
+}
+
+/* 사이드바 (공통) */
+.sidebar {
+    width: 180px;
+    background-color: #940683;
+    color: white;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 0.6rem;
+    border-radius: 4px;
+}
+
+.sidebar a:hover {
+    background-color: #7a066a;
+}
+
+/* 메인 컨텐츠 */
+.main {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: white;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 필터 탭 */
+.filter-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-tab {
+    padding: 0.5rem 1rem;
+    background-color: #e0e0e0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.filter-tab.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* 카드 */
+.job-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+}
+
+.job-card-badge .badge {
+    background-color: #e6f4ea;
+    color: #137333;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.job-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.tags span {
+    background-color: #e3eaff;
+    color: #3366cc;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+}
+
+.job-meta {
+    color: #666;
+    margin: 0.8rem 0;
+    font-size: 0.9rem;
+}
+
+strong {
+    font-size: 1rem;
+}
+
+.job-card-status {
+    text-align: right;
+    margin-top: 1rem;
+}
+
+.highlight {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
+.pay-section {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.pay-box {
+    flex: 1;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.pay-box h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.pay-box p {
+    margin: 0.4rem 0;
+    font-size: 0.9rem;
+}
+
+.buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.8rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-edit {
+    background-color: #e6f0ff;
+    color: #1967d2;
+}
+
+.btn-delete {
+    background-color: #ffe5e5;
+    color: #d93025;
+}
+
+.btn-manage {
+    background-color: #f1f3f4;
+    color: #333;
+}
+
+.btn-settle {
+    background-color: #e6f4ea;
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.btn-review {
+    background-color: #fff8e1;
+    color: #ff9800;
+    border: 1px solid #ff9800;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .main {
+        padding: 1rem;
+    }
+
+    .pay-section {
+        flex-direction: column;
+    }
+
+    .pay-box {
+        width: 100%;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

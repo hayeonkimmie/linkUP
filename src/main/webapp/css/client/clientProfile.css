@@ -1,0 +1,180 @@
+
+.layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-left: 1px solid #ddd;
+}
+
+.sidebar {
+    width: 180px;
+    background-color: #940683;
+    color: white;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 0.6rem;
+    border-radius: 4px;
+}
+
+.sidebar a:hover {
+    background-color: #7a066a;
+}
+
+
+.main {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: white;
+}
+
+/* ===== 섹션 헤더 ===== */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+
+h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.5rem;
+}
+
+/* 폼 전체 구조 */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* 프로필 사진 (현재 사용 안됨) */
+.profile {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.profile img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #d8d8d8;
+    display: block;
+    margin: 0 auto;
+}
+
+.profile .camera-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    background-color: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile .camera-icon::before {
+    content: '📷';
+    font-size: 16px;
+    color: white;
+}
+
+.profile input[type="file"] {
+    display: none;
+}
+
+/* 버튼 그룹 */
+.button-group-wrapper {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.button-group-wrapper button {
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary,
+.button-save {
+    background-color: #940683;
+    color: white;
+    border: none;
+    padding: 0.7rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary:hover,
+.button-save:hover {
+    background-color: #7a066a;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main {
+        padding: 1rem;
+    }
+
+    .button-group-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

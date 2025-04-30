@@ -8,15 +8,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>찜한 프리랜서</title>
-    <link rel="stylesheet" href="${contextPath}/css/client/style.css" />
-    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+    <title>찜한 구인자</title>
+    <link rel="stylesheet" href="${contextPath}/css/common/headerLoginSt.css"/>
     <link rel="stylesheet" href="${contextPath}/css/client/client_favorites.css" />
+    <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css" />
 </head>
-<%--// JS에서 해당 값을 읽어와서 AJAX 경로로 사용 가능 --%>
+
 <body data-context-path="${contextPath}">
 <jsp:include page="../home/headerLogin.jsp" />
-
 
 <div class="layout">
     <!-- 공통 사이드바 include -->
@@ -24,44 +23,48 @@
 
     <!-- 본문 -->
     <main class="main">
-        <h2 class="section-title">찜한 프리랜서</h2>
 
-        <!--  정렬 드롭다운 -->
-        <form method="get" action="${contextPath}/clientFavorites" style="margin-bottom: 20px;">
-            <select name="sort" onchange="this.form.submit()">
-                <option value="recent" ${sort == 'recent' ? 'selected' : ''}>최신순</option>
-                <option value="score" ${sort == 'score' ? 'selected' : ''}>평점순</option>
-                <option value="project" ${sort == 'project' ? 'selected' : ''}>프로젝트 개수 순</option>
+        <!-- 제목 + 필터 드롭다운 한 줄 -->
+        <div class="section-header">
+            <h2 class="section-title">찜한 구인자</h2>
+            <form method="get" action="${contextPath}/clientFavorites">
+                <select name="sort" class="filter-select" onchange="this.form.submit()">
+                    <option value="recent" ${sort == 'recent' ? 'selected' : ''}>최신순</option>
+                    <option value="score" ${sort == 'score' ? 'selected' : ''}>평점순</option>
+                    <option value="project" ${sort == 'project' ? 'selected' : ''}>프로젝트 개수 순</option>
+                </select>
+            </form>
+        </div>
 
-            </select>
-        </form>
-
-        </form>
-
-        <!-- ‍ 찜한 프리랜서 카드 (이미지 없음 버전) -->
+        <!-- 찜한 프리랜서 카드 목록 -->
         <div class="container">
             <c:forEach var="freelancer" items="${clientFavoritesList}">
                 <div class="card">
-                    <span class="heart" data-freelancer-id="${freelancer.freelancerId}" onclick="toggleFavorite(this)">❤️</span>
+                    <!-- 이름 + 하트 같은 줄 -->
+                    <div class="name-heart">
+                        <span class="name">👤 ${freelancer.name}</span>
+                        <span class="heart" data-freelancer-id="${freelancer.freelancerId}" onclick="toggleFavorite(this)">❤️</span>
+                    </div>
 
+                    <!-- 직무, 지역 -->
                     <div class="info">
-                        <!-- 이미지 추가해야 함 / webapp 에 프로필 사진 넣기 -->
-                        <!-- 텍스트 프로필 -->
                         <div class="info-text no-image">
-                            <div class="name">👤 ${freelancer.name}</div>
                             <div class="job">${freelancer.job}</div>
                             <div class="location">📍 ${freelancer.location}</div>
                         </div>
                     </div>
+
                     <div class="rating-project">
                         <div>⭐ ${freelancer.rating}/5.0</div>
                         <div>📁 프로젝트 ${freelancer.projectCount}개</div>
                     </div>
+
                     <div class="tags">
                         <c:forEach var="tag" items="${freelancer.tags}">
                             <span class="tag">${tag}</span>
                         </c:forEach>
                     </div>
+
                     <a href="${contextPath}/freelancer/profile?id=${freelancer.freelancerId}" class="profile-button">프로필 보기</a>
                 </div>
             </c:forEach>
@@ -94,11 +97,11 @@
                 <c:otherwise><a>&gt;</a></c:otherwise>
             </c:choose>
         </div>
+
     </main>
 </div>
 
-
-<!-- 외부 JS 파일 불러오기 -->
 <script src="${contextPath}/js/toggleFavorite.js"></script>
+<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
 </html>

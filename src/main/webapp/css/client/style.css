@@ -108,44 +108,15 @@ body {
     border: 1px solid #ff9800;
   }
 
-    .layout {
-      display: flex;
-      min-height: 100vh;
-    }
+/* 전체 레이아웃 */
+.layout {
+    display: flex;
+    max-width: 1200px; /* 약간 줄임 */
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 100vh;
+}
 
-    /* 사이드바 */
-    .sidebar {
-      width: 220px;
-      background-color: #940683;
-      color: white;
-      padding: 2rem 1rem;
-    }
-
-    .sidebar h2 {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .sidebar li {
-      margin-bottom: 1rem;
-    }
-
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-      display: block;
-      padding: 0.5rem;
-      border-radius: 4px;
-    }
-
-    .sidebar a:hover {
-      background-color: #555;
-    }
 
     /* 메인 콘텐츠 */
     .main {
@@ -314,39 +285,6 @@ body {
     min-height: 100vh;
   }
 
-  /* 사이드바 */
-  .sidebar {
-    width: 220px;
-    background-color: #940683;
-    color: white;
-    padding: 2rem 1rem;
-  }
-
-  .sidebar h2 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .sidebar li {
-    margin-bottom: 1rem;
-  }
-
-  .sidebar a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 0.5rem;
-    border-radius: 4px;
-  }
-
-  .sidebar a:hover {
-    background-color: #555;
-  }
 
   /* 메인 콘텐츠 */
   .main {
@@ -652,24 +590,7 @@ margin-top: 1rem;
     resize: vertical;
   }
 
-  @media (max-width: 768px) {
-    .layout {
-      flex-direction: column;
-    }
 
-    .sidebar {
-      width: 100%;
-      text-align: center;
-    }
-
-    .main {
-      padding: 1rem;
-    }
-
-    .form-grid {
-      grid-template-columns: 1fr;
-    }
-  }
 
   /* 프로필 사진 스타일 */
   .profile {
