@@ -43,8 +43,6 @@ public class SettlementController extends HttpServlet {
                 if ("json".equals(formatParam)) {
                     response.setContentType("application/json; charset=UTF-8");
                     response.setCharacterEncoding("UTF-8");
-                    Gson gson = new Gson();
-                    String json = gson.toJson(projects);
                     Integer pay = Integer.parseInt(request.getParameter("pay"));
                     AdminSettleHistory main = projects.values().stream().findFirst().orElse(null);
                     if (main != null) {
@@ -54,7 +52,6 @@ public class SettlementController extends HttpServlet {
                     List<SettledInfoDTO> waitList = settlementDAO.selectWaitingFreelancers(Integer.parseInt(request.getParameter("projectId")), slistId);
                     // 월별 리스트 가져오기
                     List<Map<String, Object>> settlementMonths = settlementDAO.selectAllSettlementMonthsByProjectId(Integer.parseInt(request.getParameter("projectId")));
-                    System.out.println("정산 월 데이터 : " +settlementMonths);
                     request.setAttribute("settlementMonths", settlementMonths);
                     request.setAttribute("doneList", doneList);
                     request.setAttribute("totalAmount", pay);
@@ -68,10 +65,8 @@ public class SettlementController extends HttpServlet {
                 int totalAmount = 0;
                 int totalFee = 0;
                 Map<String, Date> settleStartandEnd = settlementDAO.selectSettleStartandEnd(projectId);
-                System.out.println("정산 시작일과 종료일 : " + settleStartandEnd);
                 List<AdminSettleTarget> targetList = settlementDAO.selectFreelancersForSettlement(projectId, settleStartandEnd.get("startDate"), settleStartandEnd.get("endDate"));
                 for (AdminSettleTarget t : targetList) {
-                    System.out.println("Target : " + t);
                     totalAmount += t.getTotalPay();
                     totalFee += t.getFee();
                 }
@@ -87,11 +82,7 @@ public class SettlementController extends HttpServlet {
                 request.setAttribute("project", selected);
                 request.getRequestDispatcher("/admin/settlement_detail.jsp").forward(request, response);
             } else {
-                projectList = settlementDAO.selectProjectsForSettlement();
-                projectList = settlementService.filterProjectsWithUnsettled(projectList);
-                for (AdminSettleProject p : projectList.values()) {
-                    System.out.println("Project : " + p);
-                }
+                projectList = settlementService.filterProjectsWithUnsettled();
                 request.setAttribute("projectList", projectList);
                 request.getSession().setAttribute("projectList", projectList);
                 request.getRequestDispatcher("/admin/settlement.jsp").forward(request, response);
@@ -117,10 +108,8 @@ public class SettlementController extends HttpServlet {
 
         try {
             PrepareSettleJson[] item = gson.fromJson(jsonData, PrepareSettleJson[].class);
-            System.out.println("받은 JSON : \n"+item[0]);
             settlelist = settlementService.createSettleList(item[0], projectId);
             if (settlelist == null) {
-                System.out.println("정산 생성 조건 미충족으로 정산 중단됨");
                 response.sendRedirect("/admin/settlement");
                 return;
             }
@@ -133,19 +122,10 @@ public class SettlementController extends HttpServlet {
             if (mainProject != null) {
                 request.setAttribute("projectJson", new Gson().toJson(mainProject));
             }
-            System.out.println("mainProject : \n" + mainProject);
             List<SettledInfoDTO> doneList = settlementDAO.selectSettledFreelancers(slistId);
             List<SettledInfoDTO> waitList = settlementDAO.selectWaitingFreelancers(projectId, slistId);
             Integer totalAmount = 0;
-            for( SettledInfoDTO dto : doneList) {
-                System.out.println("정산 완료된 프리랜서 : " + dto);
-                totalAmount += dto.getSettleAmount();
-            }for( SettledInfoDTO dto : waitList) {
-                System.out.println("정산 대기 중인 프리랜서 : " + dto);
-                totalAmount += dto.getSettleAmount();
-            }
             List<Map<String, Object>> settlementMonths = settlementDAO.selectAllSettlementMonthsByProjectId(projectId);
-            System.out.println("정산 월별 리스트 : " + settlementMonths);
             request.setAttribute("settlementMonths", settlementMonths);
             request.setAttribute("doneList", doneList);
             request.setAttribute("waitList", waitList);

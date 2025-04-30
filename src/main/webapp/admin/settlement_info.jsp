@@ -82,14 +82,19 @@
             <c:otherwise>
               <c:forEach var="item" items="${doneList}">
                 <tr>
-                  <td>${item.freelancerName}</td>
+                  <td>
+                    <a href="javascript:void(0);" onclick="openSettlementModal('${item.freelancerName}', '${item.projectId}')">
+                        ${item.freelancerName}
+                    </a>
+                  </td>
                   <td>${item.position}</td>
                   <td>${item.startDate} ~ ${item.endDate}</td>
                   <td>${item.cnt}회차</td>
-                  <td><fmt:formatNumber value="${item.settleAmount}" pattern="#\,##0원"/></td>
+                  <td><fmt:formatNumber value="${item.settleAmount}" pattern="#,##0원"/></td>
                   <td><span class="status complete">${item.status}</span></td>
                 </tr>
               </c:forEach>
+
             </c:otherwise>
           </c:choose>
           </tbody>
@@ -119,14 +124,19 @@
             <c:otherwise>
               <c:forEach var="item" items="${waitList}">
                 <tr>
-                  <td><c:out value="${item.freelancerName != null ? item.freelancerName : '-'}"/></td>
+                  <td>
+                    <a href="javascript:void(0);" onclick="openSettlementModal('${item.freelancerName}', '${item.projectId}')">
+                      <c:out value="${item.freelancerName != null ? item.freelancerName : '-'}"/>
+                    </a>
+                  </td>
                   <td>${item.position}</td>
                   <td>${item.startDate} ~ ${item.endDate}</td>
                   <td>${item.cnt}회차</td>
-                  <td><fmt:formatNumber value="${item.settleAmount}" pattern="#\,##0원"/></td>
+                  <td><fmt:formatNumber value="${item.settleAmount}" pattern="#,##0원"/></td>
                   <td><span class="status pending">${item.status}</span></td>
                 </tr>
               </c:forEach>
+
             </c:otherwise>
           </c:choose>
           </tbody>
@@ -136,9 +146,39 @@
 
   </div>
 </div>
+<div id="settlementModal"
+     style="display:none; position:fixed; top:20%; left:30%; width:40%; background:white; border:1px solid #ccc; padding:20px; z-index:1000;">
+  <h3>
+    <span id="modalProjectName" style="font-weight:normal;"></span> - 정산 내역
+  </h3>
+  <table border="1" style="width:100%;" class="settlement-table">
+    <thead>
+    <tr>
+      <th>회차</th>
+      <th>금액</th>
+      <th>상태</th>
+      <th>정산일</th>
+    </tr>
+    </thead>
+    <tbody id="settlementTableBody">
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="4" class="total" style="text-align:right; font-weight:bold;">
+        총 합계: <strong id="modalTotalAmount">₩0</strong>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+  <br/>
+  <button onclick="closeSettlementModal()">닫기</button>
+</div>
 
 <script>
   window.projectJson = ${projectJson};
+</script>
+<script>
+  const contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="../js/admin_settlement_info.js"></script>
 

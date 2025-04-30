@@ -2,6 +2,8 @@ package controller.admin;
 
 import dao.admin.QnaDAO;
 import dto.QnA;
+import service.admin.IQnaService;
+import service.admin.QnaService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,9 +22,10 @@ public class QnaDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int qnaId = Integer.parseInt(request.getParameter("qnaId"));
         QnaDAO dao = new QnaDAO();
+        IQnaService qnaService = new QnaService(dao);
         QnA qna = null;
         try {
-            qna = dao.selectQnaById(qnaId);
+            qna = qnaService.selectQnaById(qnaId);
         } catch (Exception e) {
             e.printStackTrace();
         }

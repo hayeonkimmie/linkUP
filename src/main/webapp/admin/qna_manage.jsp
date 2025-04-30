@@ -21,6 +21,7 @@
     <h2 class="page-title">문의사항 관리</h2>
 
     <!-- ✅ 통계 카드 -->
+    <!-- ✅ 통계 카드 -->
     <div class="card-stats-row">
       <div class="stat-card">
         <div class="stat-label">전체 문의</div>
@@ -29,23 +30,17 @@
       <div class="stat-card">
         <div class="stat-label">답변 완료</div>
         <div class="stat-value answered">
-          <c:set var="answeredCount" value="0" />
-          <c:forEach var="q" items="${qnaList}">
-            <c:if test="${q.answerContent != null && q.answerContent != '(답변대기 중)'}">
-              <c:set var="answeredCount" value="${answeredCount + 1}" />
-            </c:if>
-          </c:forEach>
-          ${answeredCount}
+          ${answeredTotalCount}
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-label">미답변 문의</div>
         <div class="stat-value danger">
-          <c:set var="notAnsweredCount" value="${totalCount - answeredCount}" />
-          ${notAnsweredCount}
+          ${totalCount - answeredTotalCount}
         </div>
       </div>
     </div>
+
 
     <!-- ✅ 검색/필터 영역 -->
     <div class="qna-filter card">
@@ -53,11 +48,6 @@
         <input type="date" name="startDate" value="${param.startDate}">
         <span>~</span>
         <input type="date" name="endDate" value="${param.endDate}">
-        <select name="category">
-          <option value="">전체</option>
-          <option value="채용문의" ${param.category == '채용문의' ? 'selected' : ''}>채용문의</option>
-          <option value="기술문의" ${param.category == '기술문의' ? 'selected' : ''}>기술문의</option>
-        </select>
         <select name="answerStatus">
           <option value="">전체</option>
           <option value="답변완료" ${param.answerStatus == '답변완료' ? 'selected' : ''}>답변완료</option>

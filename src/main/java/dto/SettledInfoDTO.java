@@ -1,6 +1,7 @@
 package dto;
 
 public class SettledInfoDTO {
+    private Integer projectId;
     private String freelancerName;
     private String position;
     private int duration;
@@ -11,6 +12,14 @@ public class SettledInfoDTO {
     private String endDate;   // 근무 종료일
 
     public SettledInfoDTO() {
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 
     public String getFreelancerName() {

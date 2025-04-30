@@ -4,7 +4,6 @@ import dao.admin.IContractDAO;
 import dao.admin.IProjectDAO;
 import dao.admin.ISettlementDAO;
 import dto.*;
-import util.PageInfo;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -118,7 +117,8 @@ public class SettlementService implements ISettlementService {
 
 
     @Override
-    public HashMap<Integer, AdminSettleProject> filterProjectsWithUnsettled(HashMap<Integer, AdminSettleProject> fullList) {
+    public HashMap<Integer, AdminSettleProject> filterProjectsWithUnsettled() throws Exception{
+        HashMap<Integer, AdminSettleProject> fullList = settlementDAO.selectProjectsForSettlement();
         HashMap<Integer, AdminSettleProject> filtered = new HashMap<>();
         for (Integer key : fullList.keySet()) {
             AdminSettleProject p = fullList.get(key);

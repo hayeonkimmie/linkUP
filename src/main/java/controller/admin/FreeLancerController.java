@@ -42,9 +42,4 @@ public class FreeLancerController extends HttpServlet {
         request.setAttribute("freelancer", freelancer);
         request.getRequestDispatcher("/admin/freelancer_detail.jsp").forward(request, response);
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

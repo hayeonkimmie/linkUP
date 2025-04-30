@@ -78,6 +78,7 @@
     <select id="selectSettledFreelancers" parameterType="int" resultType="dto.SettledInfoDTO">
     <![CDATA[
         SELECT
+            sl.project_id,
             s.name AS freelancerName,
             p.category_name AS position, -- ✅ pay 테이블에서 category_name 가져오기
             DATEDIFF(s.end_date, s.start_date) DIV 30 + 1 AS duration,
@@ -97,6 +98,7 @@
     <select id="selectWaitingFreelancers" parameterType="map" resultType="dto.SettledInfoDTO">
     <![CDATA[
         SELECT
+            sl.project_id,
             u.name AS freelancerName,  -- ✅ 참여자 이름
             a.sub_category_name AS position,
             DATEDIFF(subquery.target_end, subquery.target_start) DIV 30 + 1 AS duration,
@@ -131,10 +133,32 @@
         ]]>
     </select>
 
+    <!-- 기존: settlelist + settlement 조인 -->
     <select id="selectSettleStartandEnd" parameterType="int" resultType="map">
-        SELECT MAX(start_date) as startDate, MAX(end_date) as endDate  FROM settlement
-        WHERE slist_id = (select MAX(slist_id) from settlelist where project_id = #{projectId})
+        SELECT
+            DATE_FORMAT(sl.settle_date, '%Y-%m-01') AS startDate,
+            LAST_DAY(sl.settle_date) AS endDate
+        FROM
+            settlelist sl
+        WHERE
+            sl.project_id = #{projectId}
+        ORDER BY sl.slist_id DESC
+        LIMIT 1
     </select>
+
+
+
+    <select id="selectMaxStartEndDateByProject" parameterType="int" resultType="map">
+        SELECT
+            MIN(start_date) AS startDate,
+            MAX(end_date) AS endDate
+        FROM
+            contract
+        WHERE
+            project_id = #{projectId}
+    </select>
+
+
 
     <select id="countWaitingFreelancersInCnt" parameterType="map" resultType="int">
         SELECT
@@ -206,5 +230,22 @@
               AND s.slist_id = sl.slist_id
         )
     </select>
+
+    <select id="selectSettlementHistory" parameterType="map" resultType="dto.SettlementDetailDTO">
+        SELECT
+        sl.cnt AS cnt,
+        s.ammount AS settle_ammount,
+        s.status AS status,
+        DATE_FORMAT(s.settleday, '%Y-%m-%d') AS settleDate
+        FROM
+        settlement s
+        JOIN settlelist sl ON s.slist_id = sl.slist_id
+        WHERE
+        s.name = #{freelancerName}  <!-- ✅ 수정: name으로 검색 -->
+        AND sl.project_id = #{projectId}
+        ORDER BY sl.cnt
+    </select>
+
+
 
 </mapper>

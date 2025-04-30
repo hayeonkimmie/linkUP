@@ -142,8 +142,7 @@
       <span class="toggle-icon" id="icon-qaMenu">▲</span>
     </div>
     <div class="submenu" id="qaMenu">
-      <a href="<c:url value='/admin/qna'/>" onclick="setSidebar('Q&A 관리', '❓')" id="qnaListLink">전체 문의 내역</a>
-      <a href="<c:url value='/admin/qna?status=complete'/>" id="answeredQnaLink" onclick="setSidebar('답변 완료 내역', '💬')">답변 완료 내역</a>
+      <a href="<c:url value='/admin/qna'/>" onclick="setSidebar('Q&A 관리', '❓')" id="qnaListLink">문의 내역</a>
     </div>
   </div>
 </aside>

@@ -54,28 +54,25 @@ public class UserListController extends HttpServlet {
 
         try {
             boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
-            if ("all".equals(userType) || Objects.isNull(userType) || userType.trim().isEmpty()) {
-                freelancerList = hasKeyword
-                        ? freelancerService.searchFreelancersByKeyword(keyword)
-                        : freelancerService.selectAllFreelancer();
-                clientList = hasKeyword
-                        ? clientService.selectClientsByKeyword(keyword)
-                        : clientService.getAllClients();
 
-            } else if ("freelancer".equals(userType)) {
-                freelancerList = hasKeyword
-                        ? freelancerService.searchFreelancersByKeyword(keyword)
-                        : freelancerService.selectAllFreelancer();
+            if (hasKeyword) {
+                if ("all".equals(userType) || userType == null || userType.trim().isEmpty()) {
+                    freelancerList = freelancerService.searchFreelancersByKeyword(keyword);
+                    clientList = clientService.selectClientsByKeyword(keyword);
 
-            } else if ("client".equals(userType)) {
-                clientList = hasKeyword
-                        ? clientService.selectClientsByKeyword(keyword)
-                        : clientService.getAllClients();
+                } else if ("freelancer".equals(userType)) {
+                    freelancerList = freelancerService.searchFreelancersByKeyword(keyword);
+
+                } else if ("client".equals(userType)) {
+                    clientList = clientService.selectClientsByKeyword(keyword);
+                }
             }
+            // 👉 else문으로 아무것도 안 불러오게 한다. (빈 리스트 그대로)
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         request.setAttribute("freelancerList", freelancerList);
         request.setAttribute("clientList", clientList);
         request.setAttribute("paramKeyword", keyword);

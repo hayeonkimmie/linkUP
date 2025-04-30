@@ -10,15 +10,14 @@ function includeHTML(id, file, callback) {
       });
 }
 
-function set
-SidebarByPath(pathname) {
+function setSidebarByPath(pathname) {
   if (pathname.includes("/admin/users")) {
     localStorage.setItem("sidebarTitle", "사용자 관리");
     localStorage.setItem("sidebarIcon", "👥");
   } else if (pathname.includes("/admin/project")) {
     localStorage.setItem("sidebarTitle", "프로젝트 관리");
     localStorage.setItem("sidebarIcon", "🛠️");
-  } else if (pathname.includes("/admin/settlement")) {
+  } else if (pathname.includes("/admin/settlement") || pathname.includes("/admin/settlement-history") ) {
     localStorage.setItem("sidebarTitle", "정산 관리");
     localStorage.setItem("sidebarIcon", "💰");
   } else if (pathname.includes("/admin/qna")) {

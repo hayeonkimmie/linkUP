@@ -7,9 +7,12 @@
  */
 package controller.admin;
 
+import dao.admin.IProjectDAO;
 import dao.admin.ProjectDAO;
 import dto.AdminProject;
 import dto.AdminProjectDetail;
+import service.admin.IProjectService;
+import service.admin.ProjectService;
 import util.PageInfo;
 
 import javax.servlet.*;
@@ -38,9 +41,8 @@ public class ProjectController extends HttpServlet {
         startDate = (startDate != null && startDate.trim().isEmpty()) ? null : startDate;
         String endDate = request.getParameter("endDate");
         endDate = (endDate != null && endDate.trim().isEmpty()) ? null : endDate;
-
-
         ProjectDAO projectDAO = new ProjectDAO();
+        IProjectService projectService = new ProjectService(projectDAO);
         String idParam = request.getParameter("id");
         String pageParam = request.getParameter("page");
         int curPage = (pageParam == null || pageParam.isEmpty()) ? 1 : Integer.parseInt(pageParam);
@@ -52,27 +54,23 @@ public class ProjectController extends HttpServlet {
             // url: http://localhost:8085/linkup/admin/project?id=1
             if (idParam != null) {
                 // ✅ 프로젝트 상세 페이지 처리
-                int id = Integer.parseInt(idParam);
-                AdminProjectDetail detail = projectDAO.selectProjectDetail(id);
+                AdminProjectDetail detail = projectService.selectProjectDetail(Integer.parseInt(idParam));
                 request.setAttribute("project", detail);
                 request.getRequestDispatcher("/admin/project_detail.jsp").forward(request, response);
             // 프로젝트 전체 목록 페이지 : /admin/project_list.jsp
             // url: http://localhost:8085/linkup/admin/project
-            } else {
-                List<AdminProject> projectList = projectDAO.selectPagedProjects(offset, perPage, keyword, settleStatus, startDate, endDate);
-                int totalCount = projectDAO.countProjects(keyword, settleStatus, startDate, endDate);
-                PageInfo pageInfo = new PageInfo(curPage);
-                int allPage = (int) Math.ceil((double) totalCount / perPage);
-                pageInfo.setAllPage(allPage);
-                int startPage = Math.max(1, curPage - 2);
-                int endPage = Math.min(allPage, startPage + 4);
-                pageInfo.setStartPage(startPage);
-                pageInfo.setEndPage(endPage);
+            }else {
+                List<AdminProject> projectList = projectService.getPagedProjects(offset, perPage, keyword, settleStatus, startDate, endDate);
+                int totalCount = projectService.getTotalProjectCount(keyword, settleStatus, startDate, endDate);
+                PageInfo pageInfo = projectService.calculatePageInfo(curPage, perPage, totalCount);
+
                 request.setAttribute("totalCount", totalCount);
                 request.setAttribute("projectList", projectList);
                 request.setAttribute("pageInfo", pageInfo);
+
                 request.getRequestDispatcher("/admin/project_list.jsp").forward(request, response);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "서버 내부 오류 발생");

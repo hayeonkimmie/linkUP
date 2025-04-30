@@ -21,8 +21,6 @@ import java.util.Optional;
 public class SettleHistoryController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-
-
     private final ISettlementService settlementService = new SettlementService(
             new ContractDAO(), new ProjectDAO(), new SettlementDAO()
     );
@@ -33,13 +31,11 @@ public class SettleHistoryController extends HttpServlet {
         String keyword = Optional.ofNullable(request.getParameter("keyword")).orElse("");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-
         int curPage = 1;
         int listCount = 10;
         try {
             curPage = Integer.parseInt(request.getParameter("page"));
         } catch (NumberFormatException ignored) {}
-
         PageInfo pageInfo = new PageInfo();
         pageInfo.setCurPage(curPage);
 

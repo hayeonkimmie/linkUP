@@ -66,5 +66,12 @@ public class QnaDAO {
         }
     }
 
+    // 답변완료된 QnA 총 개수
+    public int countAnsweredQna() throws Exception {
+        try(SqlSession session = this.sqlSession.openSession()) {
+            return session.selectOne("mapper.qna.countAnsweredQna");
+        }
+    }
+
 
 }
