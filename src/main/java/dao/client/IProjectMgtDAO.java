@@ -21,4 +21,6 @@ public interface IProjectMgtDAO {
     int getProjectMgtCount(Map<String, Object> param) throws Exception;
     List<ProjectMgt> selectProjectMgtByStatus(Map<String, Object> param) throws Exception;
 
+    // 상태별 프로젝트 총 개수 조회
+    int selectProjectCountByStatus(Map<String, Object> param) throws Exception;
 }

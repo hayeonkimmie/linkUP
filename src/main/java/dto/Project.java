@@ -125,7 +125,7 @@ public class Project {
         this.wantedSkills = wantedSkills;
         this.memail = memail;
         this.profileImg = profileImg;
-        this.avgStar = avgStar;
+
     }
 
     public String getJobPosition() {
