@@ -105,9 +105,9 @@ body {
     padding: 32px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin-bottom: 40px;
+    margin: 40px auto;
     min-height: 300px;
-    min-width: 1200px;
+    max-width: 1200px;
 }
 
 .profile-image {
@@ -203,4 +203,11 @@ body {
 
 .portfolio-btn:hover {
     background-color: #944D6C;
+}
+.content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 64px;
+    background-color: #f5f6fa;
 }

@@ -14,9 +14,8 @@
 <head>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <meta charset="UTF-8">
-<%--    <meta content="width=device-width, initial-scale=1.0" name="viewport">--%>
     <title>Link up Profile List</title>
-    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+    <link rel="stylesheet" href="${contextPath}/css/admin/admin_header.css" />
     <link rel="stylesheet" href="<c:url value='/css/admin/admin_portfolio_list.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,18 +24,15 @@
 </head>
 
 <body>
-<div class="header">
-    <div id="header-placeholder"></div>
-</div>
-
+<jsp:include page="/admin/admin_header.jsp" />
 <div class="container">
-    <main class="content" style="max-width: 1150px; margin: 0 auto;">
+    <jsp:include page="/admin/menutap.jsp" />
+    <main class="content">
         <section class="section">
             <div class="content-header">
                 <div class="content-header-text">
                     <span>
                         <h3>${name}님의 포트폴리오 목록</h3>
-                        <%--<p>${nickname}님의 최고의 프로젝트를 선보이세요.</p>--%>
                     </span>
                 </div>
             </div>
@@ -48,6 +44,8 @@
                 <c:when test="${portfolioList eq null}">
                     <div class="portfolio-empty empty">
                         <p>등록된 포트폴리오가 없습니다.</p>
+                        <p>포트폴리오를 등록해보세요.</p>
+                        <button class="add-portfolio" onclick="location.href='${contextPath}/my-page/portfolio-write'">+ 포트폴리오 등록</button>
                     </div>
                 </c:when>
 

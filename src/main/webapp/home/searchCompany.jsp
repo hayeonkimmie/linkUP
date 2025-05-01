@@ -9,9 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home/search.css" />
 </head>
-<body>
+<body data-context-path="${contextPath}">
 
-<div id="header-placeholder"></div>
+
+<div class="header">
+  <div id="header-placeholder"></div>
+</div>
 <div class="container">
   <p>${keyword} 검색</p>
   <div class="tab-container">

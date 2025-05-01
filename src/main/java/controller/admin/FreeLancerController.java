@@ -17,6 +17,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/admin/freelancer")
 public class FreeLancerController extends HttpServlet {
@@ -45,6 +46,7 @@ public class FreeLancerController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        request.setAttribute("name", Objects.requireNonNull(freelancer).getName());
         request.setAttribute("careerList", selectedCarreerList);
         request.setAttribute("freelancer", freelancer);
         request.getRequestDispatcher("/admin/freelancer_detail.jsp").forward(request, response);

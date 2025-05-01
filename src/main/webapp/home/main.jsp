@@ -109,7 +109,6 @@
                     <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
                     <div class="card-text">
                         <strong>${project.projectName}</strong><br/>
-<%--                        ★ <fmt:formatNumber value="${project.avgStar}" pattern="#.##" /><br/>--%>
                             ${project.clientId}
                     </div>
                 </div>

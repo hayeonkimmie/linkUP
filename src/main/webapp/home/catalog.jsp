@@ -143,6 +143,7 @@
 
             <div class="job-list">
                 <c:forEach var="f" items="${freelancerList}">
+                <a href="${contextPath}/freelancer?freelancerid=${f.freelancerId}" class="card-link">
                     <div class="job-card">
                         <div class="job-image"></div>
                         <h3>${f.introduction}</h3>
@@ -152,6 +153,7 @@
                             <span>${f.nickname}</span>
                         </div>
                     </div>
+                </a>
                 </c:forEach>
             </div>
         </div>

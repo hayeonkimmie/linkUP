@@ -35,6 +35,7 @@ public class MakeProjectController extends HttpServlet {
         List<Category> categoryList = categoryService.getAllCategoriesWithSub();
         String categoryListJSON = new Gson().toJson(categoryList);
         request.setAttribute("categoryListJSON", categoryListJSON);
+        request.getRequestDispatcher("/home/makeProject.jsp").forward(request, response);
     }
 
     @Override
