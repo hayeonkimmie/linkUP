@@ -7,6 +7,29 @@
 body {
   background-color: #f8f8f8;
 }
+.content-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.btn-submit,
+a.btn-submit {
+  background-color: #940683;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;   /* 링크 밑줄 제거 */
+  display: inline-block;   /* padding 적용되게 */
+}
+
+.btn-submit:hover,
+a.btn-submit:hover {
+  background-color: #7a066a;
+}
 header {
   display: flex;
   justify-content: center;
@@ -119,7 +142,6 @@ header .logo {
   font-size: 14px;
   margin-top: 4px;
 }
-
 /* 메인 콘텐츠 */
 .main-content {
   flex-grow: 1;
@@ -142,10 +164,21 @@ header .logo {
   border-top: 2px solid #ccc;
   font-size: 14px;
 }
-
+.empty{
+  width: 100%;
+  min-height: 400px;
+  max-height: fit-content;
+  display: grid;
+  background: white;
+  justify-items: center;
+  align-items: center;
+}
+.empty > div{
+  font-size: 25px;
+}
 /* 테이블 헤더 */
 .inquiry-table thead th {
-  text-align: left;
+  text-align: center;
   padding: 16px 12px;
   background-color: #f4f4f4;
   border-bottom: 1px solid #ddd;
@@ -168,7 +201,9 @@ header .logo {
 .accordion-toggle:hover {
   background-color: #f9f9f9;
 }
-
+.accordion-toggle > td{
+  text-align: center;
+}
 /* 아코디언 콘텐츠 */
 .accordion-content {
   display: none;

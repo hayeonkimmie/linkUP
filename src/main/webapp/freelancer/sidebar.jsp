@@ -24,7 +24,7 @@
             <a href="${contextPath}/my-page/edit-basic-info">기본 정보 설정</a>
             <a href="${contextPath}/my-page/edit-expert-info">전문가 정보 설정</a>
         </li>
-        <li><a href="${contextPath}/my-page/portfolio-list"><h3>포트폴리오</h3></a></li>
+        <li><h3><a href="${contextPath}/my-page/portfolio-list">포트폴리오</a></h3></li>
         <li><h3><a href="${contextPath}/my-page/project-jjim-list">찜한 프로젝트</a></h3></li>
         <li><h3><a href="${contextPath}/my-page/apply-proj-list">지원한 프로젝트 내역</a></h3></li>
         <li><h3><a href="${contextPath}/my-page/project-status">진행중인 / 완료된 프로젝트</a></h3></li>

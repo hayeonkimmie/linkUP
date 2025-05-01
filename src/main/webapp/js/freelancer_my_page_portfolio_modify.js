@@ -244,25 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('attachmentListHidden').value = JSON.stringify(attachmentList);
         }
     }
-
-    /*    function updateFileAndUrlIndexes() {
-            document.querySelectorAll('tr.url-section').forEach((row, idx) => {
-                const input = row.querySelector('input[type="text"]');
-                if (input) {
-                    input.name = `externalUrlList[${idx}]`;
-                    input.id = `url-${idx}`;
-                }
-            });
-
-            document.querySelectorAll('tr.file-section').forEach((row, idx) => {
-                const input = row.querySelector('input[type="file"]');
-                if (input) {
-                    input.name = `attachmentList[${idx}]`;
-                    input.id = `attachment-${idx}`;
-                }
-            });
-        }*/
-
     // 모든 섹션의 데이터를 콘솔에 로깅하는 함수
     function logAllSectionsData() {
         logSkillData();

@@ -25,7 +25,8 @@ public class MyPageQNAList extends HttpServlet {
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
             response.sendRedirect("/linkup/login");
-        };
+            return;
+        }
         System.out.println("freelancerId = "+freelancerId);
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
