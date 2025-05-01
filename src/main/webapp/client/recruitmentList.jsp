@@ -123,7 +123,7 @@
             <c:choose>
                 <c:when test="${project.status eq '구인중'}">
                     <button class="btn btn-secondary">모집확정하기</button>
-                    <button class="btn btn-edit">수정하기</button>
+                    <button class="btn btn-edit" onclick="location.href='${contextPath}/editProject?projectId=${project.projectId}'">수정하기</button>
                     <button class="btn btn-delete">삭제하기</button>
                     <a href="${contextPath}/candidateMgt?projectId=${project.projectId}" class="btn btn-manage">지원자
                         관리</a>

@@ -169,6 +169,60 @@
         WHERE p.project_id = #{project_id}
     </select>
 
+<!--    수정할 프로젝트 조회-->
+    <select id="selectProjectFixById" parameterType="int" resultType="dto.Project">
+        SELECT
+            project_id,
+            client_id,
+            advertisement_title,
+            project_name,
+            job_position,
+            working_method,
+            working_hours,
+            duration,
+            working_environment,
+            req_skills,
+            wanted_skills,
+            project_description,
+            job_details,
+            qualification,
+            preferential_conditions,
+            deadline_date,
+            manager,
+            mphone,
+            memail,
+            sub_category_id
+        FROM project
+        WHERE project_id = #{projectId}
+    </select>
+
+
+<!--    프로젝트 수정-->
+    <update id="updateProject" parameterType="dto.Project">
+        UPDATE project
+        SET
+            advertisement_title = #{advertisementTitle},
+            project_name = #{projectName},
+            job_position = #{jobPosition},
+            working_method = #{workingMethod},
+            working_hours = #{workingHours},
+            duration = #{duration},
+            working_environment = #{workingEnvironment},
+            req_skills = #{reqSkills},
+            wanted_skills = #{wantedSkills},
+            project_description = #{projectDescription},
+            job_details = #{jobDetails},
+            qualification = #{qualification},
+            preferential_conditions = #{preferentialConditions},
+            deadline_date = #{deadlineDate},
+            manager = #{manager},
+            mphone = #{mphone},
+            memail = #{memail},
+            sub_category_id = #{subCategoryId}
+        WHERE project_id = #{projectId}
+    </update>
+
+
 
 
 </mapper>

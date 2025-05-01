@@ -1,13 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: KOSTA
-  Date: 25. 4. 16.
-  Time: 오전 9:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -352,7 +346,7 @@
 
       const hiddenTags = jobForm.querySelectorAll('input[name="jobPosition"]');
       if (hiddenTags.length === 0) {
-        allFilled = false;   
+        allFilled = false;
         recruitFieldInput.classList.add('border-red-500');
         errorFields.push('- 모집 분야를 1개 이상 입력해주세요.');
       } else {
@@ -432,8 +426,7 @@
   });
 </script>
 
-
-    <script>
+<script>
   const contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${contextPath}/js/header.js"></script>
