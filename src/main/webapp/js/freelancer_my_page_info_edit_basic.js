@@ -57,6 +57,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // 닉네임 중복 확인
     function checkNickname() {
         const nickname = nicknameInput.value.trim();
+
+        if (nickname === "") {
+            nicknameCheckResult.textContent = "닉네임을 입력해주세요";
+            nicknameCheckResult.style.color = "red";
+            isNicknameValid = false;
+            updateSubmitButtonState();
+            return; // 더 이상 진행하지 않음
+        }
+
         fetch(contextPath + "/check-nickname", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },

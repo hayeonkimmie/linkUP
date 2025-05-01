@@ -53,7 +53,7 @@
                         <th>요구사항</th>
                         <th>작업방식</th>
                         <th colspan="2">마감일</th>
-                        <th>정산 내역 확인하기</th>
+                        <th>정산 내역</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -147,7 +147,7 @@
                         <th>요구사항</th>
                         <th>작업방식</th>
                         <th colspan="2">마감일</th>
-                        <th>정산 내역 확인하기</th>
+                        <th>정산 내역</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -196,36 +196,38 @@
                     </c:otherwise>
                     </c:choose>
                 </table>
-                <div class="pagination">
-                    <c:choose>
-                        <c:when test="${pageInfo.curPage > 1}">
-                            <a href="?page=${pageInfo.curPage-1 }">&lt;</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a>&lt;</a>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"
-                               var="page">
+                <!-- 페이지네이션 -->
+                <div class="center">
+                    <div class="pagination" id="paging">
                         <c:choose>
-                            <c:when test="${page eq pageInfo.curPage }">
-                                <a href="?page=${page }" class="select">${page }</a>
+                            <c:when test="${pageInfo.curPage > 1}">
+                                <a href="?page=${pageInfo.curPage - 1}">&lt;</a>
                             </c:when>
                             <c:otherwise>
-                                <a href="?page=${page }" class="btn">${page }</a>
+                                <a>&lt;</a>
                             </c:otherwise>
                         </c:choose>
-                    </c:forEach>
 
-                    <c:choose>
-                        <c:when test="${pageInfo.curPage<pageInfo.allPage }">
-                            <a href="?page=${pageInfo.curPage+1 }">&gt;</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a>&gt;</a>
-                        </c:otherwise>
-                    </c:choose>
+                        <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
+                            <c:choose>
+                                <c:when test="${page eq pageInfo.curPage}">
+                                    <a href="?page=${page}" class="select">${page}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="?page=${page}" class="btn">${page}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+                                <a href="?page=${pageInfo.curPage + 1}">1&gt;</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a>&gt;</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
             </div>
             <%--<div class="pagination" id="paging">

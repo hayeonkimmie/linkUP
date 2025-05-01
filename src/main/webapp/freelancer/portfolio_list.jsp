@@ -20,13 +20,13 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer_main_portfolio.css'/>">
 --%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">
     <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
@@ -109,36 +109,38 @@
                             </div>
                         </div>
                     </c:forEach>
-                    <div class="pagination" id="paging">
-                        <c:choose>
-                            <c:when test="${pageInfo.curPage > 1}">
-                                <a href="?page=${pageInfo.curPage-1 }">&lt;</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a>&lt;</a>
-                            </c:otherwise>
-                        </c:choose>
-
-                        <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"
-                                   var="page">
+                    <!-- 페이지네이션 -->
+                    <div class="center">
+                        <div class="pagination" id="paging">
                             <c:choose>
-                                <c:when test="${page eq pageInfo.curPage }">
-                                    <a href="?page=${page }" class="select">${page }</a>
+                                <c:when test="${pageInfo.curPage > 1}">
+                                    <a href="?page=${pageInfo.curPage - 1}">&lt;</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="?page=${page }" class="btn">${page }</a>
+                                    <a>&lt;</a>
                                 </c:otherwise>
                             </c:choose>
-                        </c:forEach>
 
-                        <c:choose>
-                            <c:when test="${pageInfo.curPage<pageInfo.allPage }">
-                                <a href="?page=${pageInfo.curPage+1 }">&gt;</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a>&gt;</a>
-                            </c:otherwise>
-                        </c:choose>
+                            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="page">
+                                <c:choose>
+                                    <c:when test="${page eq pageInfo.curPage}">
+                                        <a href="?page=${page}" class="select">${page}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="?page=${page}" class="btn">${page}</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+
+                            <c:choose>
+                                <c:when test="${pageInfo.curPage < pageInfo.allPage}">
+                                    <a href="?page=${pageInfo.curPage + 1}">1&gt;</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a>&gt;</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                 </c:otherwise>
             </c:choose>

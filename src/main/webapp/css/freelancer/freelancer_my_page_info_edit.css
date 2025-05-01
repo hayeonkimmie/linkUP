@@ -1,25 +1,27 @@
-/* style.css */
+
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     background: #f5f9f8;
 }
-
-header {
-    display: flex;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: white;
-    border-bottom: 1px solid #ddd;
-    justify-content: space-between;
-}
-
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
     color: #8b2c8c;
 }
-
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+.content-header{
+    margin-top: 20px;
+}
 .main-nav ul {
     display: flex;
     list-style: none;
@@ -32,40 +34,48 @@ header {
     cursor: pointer;
     font-weight: 500;
 }
-
+.section{
+    min-height: fit-content;
+}
 .icons {
     display: flex;
     gap: 1rem;
 }
 
 .container {
-    display: flex;
+    height: 1040px;
 }
-.content {
-    flex: 1;
-    background: white;
-    margin: 2rem;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.05);
-}
-
 h2 {
     margin-top: 0;
 }
-
+.content-header-text {
+    width: 100%;
+    text-align: center;
+}
+.section {
+     min-height: fit-content;
+    margin-left: 51px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;   
+     justify-content: center;
+     padding-top: 2rem;
+ }
 .form-section h3 {
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
-
 .form-row {
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
     align-items: center;
+    width: 85%;
+    flex-wrap: wrap;
 }
-
+.section h3{
+    width: 85%;
+}
 input {
     padding: 0.7rem;
     border: 1px solid #ccc;
@@ -75,10 +85,11 @@ input {
 .names{
     display : inline-flex;
     flex-direction : row;
-    width: 100%;
+    width: 1000px;
+    align-items: flex-start;
 }
 .profile-upload{
-    width: 50%;
+    width: 30%;
     justify-content: center;
     align-content: center;
 }
@@ -105,23 +116,32 @@ input {
     width: 50%;
     flex-direction: column;
     margin-right: 15px;
-}
-.profile-info{
-    width: 50%;
-    flex-direction: column;
-    margin-right: 15px;
-}
-.profile-info > div > span{
-    flex-direction: row;
-    font-size: 1.2rem;
-    font-weight: 500;
-    width: 25%;
+    margin-left: 15px;
+    align-items:start;
 }
 .profile-info > div{
     display: flex;
     align-items: center;
+    width: 100%;
     flex-direction: row;
     margin-bottom: 1rem;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+.profile-info > div > input{
+    flex: 1;
+    max-width: 200px;
+}
+.profile-info > div > label{
+    font-size: 16px;
+    width: 15%;
+    min-width: 60px;
+}
+#nicknameCheckResult, #passwordCheckResult{
+    width: 250px;
+    padding-left: 15px;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 .profile-info > div> input{
     width: 75%;
@@ -140,8 +160,27 @@ input {
 .form-row.center {
     justify-content: center;
 }
+#CheckBank {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#CheckBank label {
+    width: 60px;
+}
+
+#CheckBank input[type="text"] {
+    max-width: 380px;
+    flex: 1;
+}
+input:read-only {
+    background-color: #f0f0f0;
+    color: #666;
+}
 
 .submit-btn {
+    margin-top: 50px;
     background-color: #8b2c8c;
     color: white;
     padding: 0.7rem 3rem;
@@ -154,4 +193,9 @@ input {
 
 .submit-btn:hover {
     background-color: #6e2070;
+}
+.star{
+    color: red;
+    font-size: 1.2rem;
+    margin-left: 4px;
 }
