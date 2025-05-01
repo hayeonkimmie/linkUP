@@ -1,7 +1,6 @@
 package dto;
 
 public class SettlementListForF {
-    private Integer cnt;         // 회차
     private String status;      // 정산 상태 (0: 대기중, 1: 완료 등)
     private Integer ammount;     // 회차별 금액 (주의: 오타 그대로 반영)
     private String settleDate;   // 정산일
@@ -17,12 +16,6 @@ public class SettlementListForF {
     }
 
     // getter, setter
-    public Integer getCnt() {
-        return cnt;
-    }
-    public void setCnt(Integer cnt) {
-        this.cnt = cnt;
-    }
     public String getStatus() {
         return status;
     }
@@ -57,8 +50,7 @@ public class SettlementListForF {
     @Override
     public String toString() {
         return "SettlementListForF{" +
-                "cnt=" + cnt +
-                ", status='" + status + '\'' +
+                " status='" + status + '\'' +
                 ", ammount=" + ammount +
                 ", settleDate='" + settleDate + '\'' +
                 ", projectId=" + projectId +

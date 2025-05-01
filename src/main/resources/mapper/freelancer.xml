@@ -252,26 +252,24 @@
         ]]>
     </select>
     <select id="selectSettlementListForMyPage" resultType="dto.SettlementListForF" parameterType="Map">
-        SELECT
-            DISTINCT s.cnt,
-            p.project_id,
-            p.project_name,
-            st.ammount,
-            st.status,
-            s.settle_date
-        FROM contract ct
-                 INNER JOIN freelancer f
-                            ON ct.freelancer_id = f.freelancer_id
-                 INNER JOIN settlelist s
-                            ON ct.id = s.contract_id
-                 INNER JOIN settlement st
-                            ON ct.project_pay_id = st.category_id
-                 INNER JOIN project p
-                            ON ct.project_id = p.project_id
-        WHERE ct.freelancer_id = #{freelancerId}
-          AND ct.project_id = #{projectId}
-        ORDER BY p.end_date, s.cnt
+        SELECT sm.pname as projectName, sl.project_id, sm.ammount, sm.settleday as settleDate, sm.status
+        FROM settlement sm
+                 JOIN settlelist sl ON sm.slist_id = sl.slist_id
+        WHERE sm.freelancer_id = #{freelancerId}
+          AND sl.project_id = #{projectId}
+        GROUP BY sl.project_id, sm.pname, sm.ammount, sm.settleday, sm.status
+        ORDER BY sl.project_id, sm.settleday
     </select>
+<!--    <select id="selectSettlementListForMyPage" resultType="dto.SettlementListForF" parameterType="Map">
+        select pname as projectName, settleday as settleDate, ammount , status
+        from settlement
+        where category_id =
+              (
+              select project_pay_id
+               from contract
+               where freelancer_id = #{freelancerId} and project_id = #{projectId}
+              )
+    </select>-->
 
     <select id="catalogFreelancersByCategory" parameterType="int" resultType="dto.Freelancer">
         SELECT
@@ -388,7 +386,4 @@
         GROUP BY f.freelancer_id
         ORDER BY f.freelancer_id DESC
     </select>
-
-
-
 </mapper>
