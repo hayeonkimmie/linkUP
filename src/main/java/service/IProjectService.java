@@ -1,4 +1,5 @@
 package service;
+import dto.Apply;
 import dto.Project;
 import dto.ProjectDetail;
 import util.PageInfo;
@@ -19,4 +20,5 @@ public interface IProjectService {
     List<Project> searchProjectsByCategoryAndKeyword(Map<String, String> param);
     List<Project> catalogProjectByConditions(Map<String, String> param);
     ProjectDetail selectProjectById(Integer projectId) throws Exception;
+    Apply createApply(Integer projectId, String freelancerId, String position) throws Exception;
 }

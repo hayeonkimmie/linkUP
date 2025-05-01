@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>프로젝트 상세</title>
     <link rel="stylesheet" href="${contextPath}/css/home/project_detail.css"/>
-    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css"/>
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
 <div class="header">
@@ -45,19 +45,17 @@
                     </div>
                     <hr class="divider"/>
                     <div class="meta-info">
-                        <div class="meta-item">
-                            <div class="meta-label">정산일</div>
-                            <div class="meta-value"><fmt:formatDate value="${project.settleDay}"
-                                                                    pattern="yyyy-MM-dd"/></div>
-                        </div>
+<%--                        <div class="meta-item">--%>
+<%--                            <div class="meta-label">정산일</div>--%>
+<%--                            <div class="meta-value"><fmt:formatDate value="${project.settleDay}" pattern="yyyy-MM-dd"/></div>--%>
+<%--                        </div>--%>
                         <div class="meta-item">
                             <div class="meta-label">프로젝트 기간</div>
                             <div class="meta-value">${project.duration}일</div>
                         </div>
                         <div class="meta-item">
                             <div class="meta-label">마감일</div>
-                            <div class="meta-value"><fmt:formatDate value="${project.deadlineDate}"
-                                                                    pattern="yyyy-MM-dd"/></div>
+                            <div class="meta-value"><fmt:formatDate value="${project.deadlineDate}" pattern="yyyy-MM-dd"/></div>
                         </div>
                         <div class="meta-item full">
                             <div class="meta-label">담당자 연락처</div>
@@ -119,15 +117,8 @@
                 <label for="positionSelect">지원 포지션</label>
                 <select id="positionSelect" class="form-control">
                     <option value="">포지션 선택</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="resumeSelect">이력서 선택</label>
-                <select id="resumeSelect" class="form-control">
-                    <option value="">이력서 선택</option>
-                    <c:forEach var="resume" items="${resumeList}">
-                        <option value="${resume.resumeId}">${resume.title}</option>
+                    <c:forEach var="pay" items="${projectPayList}">
+                        <option value="${pay.categoryName}">${pay.categoryName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -146,29 +137,6 @@
 <script>
     function openModal() {
         document.getElementById("applyModal").style.display = "flex";
-        const positionSelect = document.getElementById("positionSelect");
-        positionSelect.innerHTML = "<option value=''>포지션 불러오는 중...</option>";
-
-        fetch(`${contextPath}/getCategoryForApply?projectId=${projectid}`)
-            .then(response => response.json())
-            .then(data => {
-                positionSelect.innerHTML = "<option value=''>포지션 선택</option>";
-
-                if (data.length === 0) {
-                    positionSelect.innerHTML = "<option value=''>등록된 포지션 없음</option>";
-                } else {
-                    data.forEach(position => {
-                        const option = document.createElement("option");
-                        option.value = position.value; // 예: "웹개발"
-                        option.textContent = position.label; // 예: "웹개발"
-                        positionSelect.appendChild(option);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error("포지션 불러오기 실패", error);
-                positionSelect.innerHTML = "<option value=''>포지션 불러오기 실패</option>";
-            });
     }
 
     function closeModal() {
@@ -177,18 +145,22 @@
 
     function submitApplication() {
         const position = document.getElementById("positionSelect").value;
-        const projectId = ${projectid};
-        const userId = document.getElementById("userId").value;
+        const projectId = '${project.projectId}';
+        const userId = '${userid}';
+
+        console.log("지원 포지션:", position);
+        console.log("프로젝트 ID:", projectId);
+        console.log("사용자 ID:", userId);
 
         if (!position) {
-            alert("포지션을 선택해 주세요.");
+            alert("지원 포지션을 선택해 주세요.");
             return;
         }
 
         const requestData = {
-            positionId: parseInt(position),
-            projectId: parseInt(projectId),
-            userId: userId
+            projectId: projectId,
+            userId: userId,
+            position: position
         };
 
         fetch(`${contextPath}/applyProject`, {
@@ -202,17 +174,18 @@
                 if (!response.ok) {
                     throw new Error("서버 오류");
                 }
-                return response.json(); // 서버가 JSON 응답한다면
+                return response.json(); // 응답이 JSON이 아니면 생략 가능
             })
             .then(result => {
-                alert("입사지원이 완료되었습니다!");
-                closeModal();
+                // ✅ 여기에서 페이지 이동 처리
+                window.location.href = `${contextPath}/my-page/apply-proj-list`;
             })
             .catch(error => {
                 console.error("지원 실패", error);
                 alert("입사지원 중 오류가 발생했습니다.");
             });
     }
+
 </script>
 
 <script>

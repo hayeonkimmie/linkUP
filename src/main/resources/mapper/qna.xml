@@ -102,7 +102,6 @@
         answer_date AS answerDate
         FROM qna
         <where>
-            user_id = #{userId}
             <if test="keyword != null and keyword != ''">
                 (question_title LIKE CONCAT('%', #{keyword}, '%') OR user_id LIKE CONCAT('%', #{keyword}, '%'))
             </if>
@@ -129,7 +128,6 @@
     <select id="countQna" parameterType="map" resultType="int">
         SELECT COUNT(*) FROM qna
         <where>
-            user_id = #{userId}
             <if test="keyword != null and keyword != ''">
                 (question_title LIKE CONCAT('%', #{keyword}, '%') OR user_id LIKE CONCAT('%', #{keyword}, '%'))
             </if>
@@ -170,7 +168,7 @@
         SELECT COUNT(*)
         FROM qna
         WHERE answer_content IS NOT NULL
-        AND  user_id = #{userId}
+          AND answer_content != '(답변대기 중)'
     </select>
 
 

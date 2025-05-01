@@ -25,8 +25,29 @@ public class Apply {
     private String applyStatus; // 지원상태
     private String dDay;                        // 마감일 기준 D-Day 텍스트 (D-3, D-Day, 마감 등)
 
+    private Integer projectPayId;
+    private String subCategoryName;
+
+
     public Apply() {
         super();
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+    }
+
+
+    public Integer getProjectPayId() {
+        return projectPayId;
+    }
+
+    public void setProjectPayId(Integer projectPayId) {
+        this.projectPayId = projectPayId;
     }
 
     public Integer getApplyId() {

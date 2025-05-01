@@ -1,14 +1,17 @@
 package service;
 
 import dao.admin.DashboardProjectDAO;
+import dao.admin.FreelancerDAO;
 import dao.admin.IDashboardProjectDAO;
 import dao.common.IProjectDAO;
 import dao.common.ProjectDAO;
-import dto.DashboardProject;
-import dto.Project;
-import dto.ProjectDetail;
+import dao.home.ApplyDAO;
+import dao.home.IPayDAO;
+import dao.home.PayDAO;
+import dto.*;
 import util.PageInfo;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,8 @@ public class ProjectService implements IProjectService {
 
     private final IDashboardProjectDAO dashboardProjectDAO = new DashboardProjectDAO();
     private final IProjectDAO projectDAO = new ProjectDAO();
+    private final IPayDAO payDAO = new PayDAO();
+    private final FreelancerDAO freelancerDAO = new FreelancerDAO();
 
     @Override
     public List<DashboardProject> getDashboardProjectList() {
@@ -51,5 +56,36 @@ public class ProjectService implements IProjectService {
     @Override
     public ProjectDetail selectProjectById(Integer projectId) throws Exception {
         return projectDAO.selectProjectById(projectId);
+    }
+
+    @Override
+    public Apply createApply(Integer projectId, String freelancerId, String position) throws Exception {
+        ProjectDetail project = projectDAO.selectProjectById(projectId);
+        if (project == null) {
+            throw new Exception("프로젝트를 찾을 수 없습니다.");
+        }
+        Pay pay = payDAO.selectPayByProjectIdandName(projectId, position);
+        if (pay == null) {
+            throw new Exception("포지션 정보를 찾을 수 없습니다.");
+        }
+        AdminFreelancer freelancer = freelancerDAO.selectFreelancerById(freelancerId);
+        if (freelancer == null) {
+            throw new Exception("프리랜서를 찾을 수 없습니다.");
+        }
+        System.out.println("position : " + pay);
+        System.out.println("Freelancer : " + freelancer);
+        System.out.println("Project : " + project);
+        Apply apply = new Apply();
+        apply.setFreelancerId(freelancerId);
+        apply.setProjectId(projectId);
+        apply.setApplyDate(new Date(System.currentTimeMillis()));
+        apply.setCancelDate(null);
+        apply.setIsApproved(false);
+        apply.setProjectPayId(pay.getProjectPayId());
+        apply.setSubCategoryName(pay.getCategoryName());
+
+        ApplyDAO applyDAO = new ApplyDAO();
+        applyDAO.makeProjectApply(apply);
+        return null;
     }
 }

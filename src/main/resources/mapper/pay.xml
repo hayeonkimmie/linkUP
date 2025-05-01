@@ -16,10 +16,21 @@
                  )
     </insert>
 
-    <select id="selectPayById" parameterType="int" resultType="dto.Pay">
+    <select id="selectPayById" parameterType="int" resultType="pay">
         select *
         from pay
         where project_pay_id = #{projectPayId}
     </select>
 
+    <select id="selectPayByProjectIdandName" parameterType="map" resultType="pay">
+        select *
+        from pay
+        where project_id = #{projectId} and category_name = #{position}
+    </select>
+
+    <select id="selectPayByProjectId" parameterType="int" resultType="pay">
+        select *
+        from pay
+        where project_id = #{projectId}
+    </select>
 </mapper>

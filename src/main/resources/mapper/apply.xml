@@ -81,8 +81,25 @@
         LIMIT #{row}, 10
         ]]>
     </select>
-    <insert id="insertApplyProject" parameterType="map">
 
+    <insert id="makeProjectApply" parameterType="apply" useGeneratedKeys="true" keyProperty="applyId">
+        INSERT INTO apply (
+            freelancer_id,
+            project_id,
+            apply_date,
+            cancel_date,
+            is_approved,
+            project_pay_id,
+            sub_category_name
+        ) VALUES (
+                     #{freelancerId},
+                     #{projectId},
+                     #{applyDate},
+                     #{cancelDate},
+                     #{isApproved},
+                     #{projectPayId},
+                     #{subCategoryName}
+                 )
     </insert>
     <update id="cancelApplyProject" parameterType="Integer">
         UPDATE apply

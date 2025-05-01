@@ -115,6 +115,7 @@
 
             <div class="job-list">
                 <c:forEach var="p" items="${projectList}">
+                    <a href="${contextPath}/project?projectid=${p.projectId}" class="card-link">
                     <div class="job-card">
                         <div class="job-image"></div>
                         <h3>${p.advertisementTitle}</h3>
@@ -124,6 +125,7 @@
                             <span>${p.manager}</span>
                         </div>
                     </div>
+                    </a>
                 </c:forEach>
             </div>
         </div>

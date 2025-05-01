@@ -11,6 +11,9 @@ public class Pay {
     private int fee; // 수수료 금액의 0.3% 추가
     private String work;  // 담당 업무
     private int people;   // 모집 인원
+
+    private Integer projectPayId;
+
     public Pay() {
     }
 
@@ -35,6 +38,14 @@ public class Pay {
         this.fee = fee;
         this.work = work;
         this.people = people;
+    }
+
+    public Integer getProjectPayId() {
+        return projectPayId;
+    }
+
+    public void setProjectPayId(Integer projectPayId) {
+        this.projectPayId = projectPayId;
     }
 
     public String getWork() {
@@ -115,5 +126,21 @@ public class Pay {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return "Pay{" +
+                "projectFeeId=" + projectFeeId +
+                ", projectId=" + projectId +
+                ", lvId=" + lvId +
+                ", subCategoryId=" + subCategoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", projectFee=" + projectFee +
+                ", pay=" + pay +
+                ", fee=" + fee +
+                ", work='" + work + '\'' +
+                ", people=" + people +
+                '}';
     }
 }

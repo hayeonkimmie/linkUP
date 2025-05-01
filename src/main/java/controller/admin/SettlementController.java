@@ -83,6 +83,9 @@ public class SettlementController extends HttpServlet {
                 request.getRequestDispatcher("/admin/settlement_detail.jsp").forward(request, response);
             } else {
                 projectList = settlementService.filterProjectsWithUnsettled();
+                for(AdminSettleProject p : projectList.values()){
+                    System.out.println(p);
+                }
                 request.setAttribute("projectList", projectList);
                 request.getSession().setAttribute("projectList", projectList);
                 request.getRequestDispatcher("/admin/settlement.jsp").forward(request, response);

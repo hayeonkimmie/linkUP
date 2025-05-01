@@ -41,6 +41,7 @@ public class QnaController extends HttpServlet {
         try {
             QnaDAO qnaDAO = new QnaDAO();
             List<QnA> qnaList = qnaDAO.selectPagedQna(offset, perPage, keyword, category, answerStatus, startDate, endDate);
+            System.out.println("qnaList: " + qnaList);
             int totalCount = qnaDAO.countQna(keyword, category, answerStatus, startDate, endDate);
             int answeredTotalCount = qnaDAO.countAnsweredQna();  // ✅ 추가!
 
