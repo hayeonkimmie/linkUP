@@ -13,4 +13,6 @@ public interface IProjectDAO {
     List<Project> catalogProjectByConditions(Map<String, String> param);
     ProjectDetail selectProjectById(Integer projectId) throws Exception;
     void insertProject(Project project); // ✅ 등록만
+    List<Project> getProjectById(int projectId) throws Exception; // 프로젝트 수정 기능
+
 }

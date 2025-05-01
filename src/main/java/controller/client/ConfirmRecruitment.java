@@ -86,7 +86,7 @@ public class ConfirmRecruitment extends HttpServlet {
 
             if (startDateStr != null && !startDateStr.isEmpty()) {
                 try {
-                    // 중요: 시작일 파싱
+                    // 시작일 파싱
                     Date startDate = Date.valueOf(startDateStr);
 
                     // 연도에 관계없이 월과 일만 비교하기 위해 변환
