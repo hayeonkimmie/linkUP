@@ -9,7 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,67 +25,94 @@
 </head>
 <body>
 <jsp:include page="/admin/admin_header.jsp" />
-<!-- 생략된 헤더는 동일 -->
-
 <div class="layout-wrapper">
   <jsp:include page="/admin/menutap.jsp" />
-
   <div class="content">
-    <!-- ✅ 닉네임 / 대표 정보 박스 -->
     <div class="profile-banner">
       <img class="profile-image" src="${contextPath}/img/${freelancer.profileImg}" alt="프로필 이미지"/>
-
       <div class="profile-info">
         <h1 class="name">${freelancer.name} <span>(${freelancer.nickname})</span></h1>
-
         <div class="skill-badges">
           <c:forEach var="tag" items="${fn:split(freelancer.skill, '^')}">
             <span class="badge">${tag}</span>
           </c:forEach>
         </div>
+
+        <!-- ✅ 포트폴리오 보기 버튼 -->
+        <div style="margin-top: 20px;">
+          <a href="${contextPath}/portfolio-list?freelancerid=${freelancer.freelancerId}"
+             class="portfolio-btn">이 전문가의 포트폴리오 보기</a>
+        </div>
       </div>
     </div>
 
-    <hr class="section-divider" />
 
-    <!-- ✅ 자기소개 -->
+  <%--    <hr class="section-divider" />--%>
     <div class="card">
       <h2>자기소개</h2>
       <p class="introduction-text">${freelancer.introduction}</p>
-    </div>
-
-    <!-- ✅ 경력사항 -->
-    <div class="card">
       <h2>경력사항</h2>
-      <ul class="info-list">
-        <li><strong>등록일:</strong> ${freelancer.registrationDate}</li>
-        <li><strong>학력:</strong> ${freelancer.academic}</li>
-        <li><strong>거주 여부:</strong>
-          <c:choose>
-            <c:when test="${freelancer.resident}">거주자</c:when>
-            <c:otherwise>비거주자</c:otherwise>
-          </c:choose>
-        </li>
-        <li><strong>희망 연봉:</strong> ${freelancer.desiredSalary}</li>
-        <li><strong>자격증:</strong> ${freelancer.license}</li>
-      </ul>
-    </div>
+      <c:choose>
+        <c:when test="${not empty careerList}">
+          <div class="career-container">
+            <c:forEach var="career" items="${careerList}">
+              <div class="career-card">
+                <h3 class="company-name">${career.companyName}</h3>
+                <p class="job-title">${career.position} / ${career.jobTitle}</p>
+                <p class="department">${career.departmentName}</p>
+                <p class="job-desc">${career.jobDescription}</p>
+                <ul class="career-meta">
+                  <li><strong>연봉:</strong> <fmt:formatNumber value="${career.salary}" pattern="#,###"/> 만원</li>
+                  <li><strong>재직 기간:</strong>
+                    <fmt:formatDate value="${career.joinDate}" pattern="yyyy-MM-dd"/> ~
+                    <c:choose>
+                      <c:when test="${career.resignDate != null}">
+                        <fmt:formatDate value="${career.resignDate}" pattern="yyyy-MM-dd"/>
+                      </c:when>
+                      <c:otherwise>재직중</c:otherwise>
+                    </c:choose>
+                  </li>
+                </ul>
+              </div>
+            </c:forEach>
+          </div>
+        </c:when>
+        <c:otherwise>
+          <p>등록된 경력 정보가 없습니다.</p>
+        </c:otherwise>
+      </c:choose>
 
-    <!-- ✅ 기타 정보 -->
-    <div class="card">
+
+    <h2>자격증</h2>
+    <c:set var="licenseArray" value="${fn:split(freelancer.license, '^')}" />
+    <c:if test="${not empty licenseArray}">
+      <div class="license-card">
+        <p><strong>자격증명:</strong> ${licenseArray[0]}</p>
+
+        <c:choose>
+          <c:when test="${not empty licenseArray[1] and fn:length(licenseArray) >= 4}">
+            <p><strong>급수:</strong> ${licenseArray[1]}</p>
+            <p><strong>발급처:</strong> ${licenseArray[2]}</p>
+            <p><strong>취득일:</strong> ${licenseArray[3]}</p>
+          </c:when>
+          <c:otherwise>
+            <p><strong>발급처:</strong> ${licenseArray[1]}</p>
+            <p><strong>취득일:</strong> ${licenseArray[2]}</p>
+          </c:otherwise>
+        </c:choose>
+      </div>
+    </c:if>
+
       <h2>기타 정보</h2>
       <ul class="info-list">
         <li><strong>이메일:</strong> ${freelancer.email}</li>
         <li><strong>전화번호:</strong> ${freelancer.phoneNum}</li>
         <li><strong>주소:</strong> ${freelancer.address}</li>
-        <li><strong>포트폴리오 링크:</strong> <a href="${freelancer.externalUrl}" target="_blank">${freelancer.externalUrl}</a></li>
-        <li><strong>첨부파일:</strong> ${freelancer.attachment}</li>
         <li><strong>기타 요청사항:</strong> ${freelancer.otherRequests}</li>
       </ul>
-    </div>
+</div>
   </div>
-</div><script>
-  // HEX 대비색 구하기
+<script>
   function getContrastYIQ(hexcolor) {
     hexcolor = hexcolor.replace("#", "");
     const r = parseInt(hexcolor.substr(0, 2), 16);
@@ -93,8 +121,6 @@
     const yiq = (r * 299 + g * 587 + b * 114) / 1000;
     return yiq >= 128 ? "#000" : "#fff";
   }
-
-  // 랜덤 HEX 색상 생성기
   function getRandomHexColor() {
     const r = Math.floor(Math.random() * 200);
     const g = Math.floor(Math.random() * 200);
@@ -109,8 +135,6 @@
                     .join("")
     );
   }
-
-  // DOM 로드 후 badge 색상 적용
   window.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".skill-badges .badge").forEach(badge => {
       const bgColor = getRandomHexColor();

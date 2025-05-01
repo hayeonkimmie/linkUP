@@ -8,4 +8,5 @@ public interface ICareerDAO {
     public void insertCareer(Career career) throws Exception;
     public void updateCareer(Career career) throws Exception;
     public void deleteCareer(Integer num) throws Exception;
+    List<Career> selectCareerListByFreelancerId(String freelancerId) throws Exception;
 }

@@ -1,6 +1,7 @@
 package service.admin;
 
 import dto.AdminFreelancer;
+import dto.Career;
 import dto.Freelancer;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface IFreelancerService {
     List<Freelancer> searchFreelancersByKeyword(String keyword) throws Exception;
 
     AdminFreelancer selectFreelancerById(String freelancerId) throws Exception;
+
+    List<Career> selectCareerListByFreelancerId(String freelancerId) throws Exception;
 }

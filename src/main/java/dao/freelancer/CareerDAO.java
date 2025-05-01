@@ -28,4 +28,9 @@ public class CareerDAO implements ICareerDAO{
     public void deleteCareer(Integer num) throws Exception {
 
     }
+
+    @Override
+    public List<Career> selectCareerListByFreelancerId(String freelancerId) throws Exception {
+        return sqlSession.selectList("mapper.career.selectCareerListByFreelancerId", freelancerId);
+    }
 }

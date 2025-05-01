@@ -7,6 +7,7 @@ package controller.admin;
 import dao.admin.FreelancerDAO;
 import dao.admin.IFreelancerDAO;
 import dto.AdminFreelancer;
+import dto.Career;
 import dto.Freelancer;
 import service.admin.FreelancerService;
 import service.admin.IFreelancerService;
@@ -15,6 +16,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/admin/freelancer")
 public class FreeLancerController extends HttpServlet {
@@ -33,12 +35,17 @@ public class FreeLancerController extends HttpServlet {
         IFreelancerService freelancerService = new FreelancerService(freelancerDAO);
 
         AdminFreelancer freelancer = null;
+        List<Career> selectedCarreerList = null;
         try {
             freelancer = freelancerService.selectFreelancerById(freelancerid);
+            selectedCarreerList = freelancerService.selectCareerListByFreelancerId(freelancerid);
+            for(Career career : selectedCarreerList) {
+                System.out.println("Selected Career : "+career);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        request.setAttribute("careerList", selectedCarreerList);
         request.setAttribute("freelancer", freelancer);
         request.getRequestDispatcher("/admin/freelancer_detail.jsp").forward(request, response);
     }

@@ -86,5 +86,6 @@
         <mapper resource="mapper/news.xml"/>
         <mapper resource="mapper/afreelancer.xml"/>
         <mapper resource="mapper/projectmgt.xml"/>
+        <mapper resource="mapper/career.xml"/>
     </mappers>
 </configuration>

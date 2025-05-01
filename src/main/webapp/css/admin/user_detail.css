@@ -178,3 +178,29 @@ body {
     color: #333;
     line-height: 1.7;
 }
+
+.license-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    font-size: 15px;
+    color: #333;
+}
+.portfolio-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #A86282;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.portfolio-btn:hover {
+    background-color: #944D6C;
+}
