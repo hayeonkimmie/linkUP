@@ -22,8 +22,8 @@ public class MyPageReviewDelete extends HttpServlet {
         Integer reviewId = Integer.parseInt(request.getParameter("id"));
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
-            request.setAttribute("err", "로그인 후 이용해주세요.");
-            request.getRequestDispatcher("/freelancer/my_page_main.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
         freelancerId = "free002"; //로그인 기능이 구현된 이후에는 빼기
         try {

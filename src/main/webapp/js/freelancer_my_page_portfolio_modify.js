@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tr.classList.add("file-section");
             const fileIndex = tbody.querySelectorAll("tr.file-section").length;
             tr.innerHTML = `
-                <td><label for="attachment-${fileIndex}">첨부파일 <p>10mb 이하의 파일을 올려주세요.</p></label></td>
+                <td><label for="attachment-${fileIndex}">첨부파일 <p class="attachment-notification ">10mb 이하의 파일을 올려주세요.</p></label></td>
                 <td>
                     <input type="file" name="attachment-${fileIndex}" id="attachment-${fileIndex}" 
                            accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx"/>

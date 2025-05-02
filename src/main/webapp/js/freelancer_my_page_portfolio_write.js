@@ -66,11 +66,13 @@ function initFileSection() {
         const options = optionList ? optionList.innerHTML : "";
 
         tr.innerHTML = `
-            <td><label for="projectId">프로젝트 상세페이지</label></td>
+            <td><label for="projectId">링크업을 통해 참여했던 프로젝트</label></td>
             <td>
                 <select class="project-id-select" name="project-id-select" style="width: 100%; height: 40px;">
                     ${options}
                 </select>
+            </td>
+            <td>
                 <button type="button" class="delete-tr">X</button>
             </td>
         `;
@@ -86,6 +88,8 @@ function initFileSection() {
             <td><label>외부 링크</label></td>
             <td>
                 <input type="url" placeholder="https://" class="file-url"/>
+            </td>
+            <td>
                 <button type="button" class="delete-tr">X</button>
             </td>
         `;
@@ -99,9 +103,11 @@ function initFileSection() {
         const tr = document.createElement("tr");
         tr.classList.add("file-section");
         tr.innerHTML = `
-            <td><label>첨부파일</label></td>
+            <td><label>첨부파일 <p class="attachment-notification ">10mb 이하의 파일을 올려주세요.</p></label></td>
             <td>
                 <input type="file" class="file-item"/>
+            </td>
+            <td>
                 <button type="button" class="delete-tr">X</button>
             </td>
         `;

@@ -42,7 +42,7 @@
                     <c:choose>
                         <c:when test="${empty jjimProjList}">
                             <tr>
-                                <td colspan="8" class="empty"><b>찜한 프로젝트가 없습니다.</b></td>
+                                <td colspan="7" class="main-empty"><b>찜한 프로젝트가 없습니다.</b></td>
                             </tr>
                         </c:when>
                         <c:otherwise>
@@ -65,7 +65,7 @@
                 </table>
             </div>
         </section>
-        <section class="section">
+        <section class="main-section">
             <div class="content-header">
                 <div class="content-header-text">
                     <h3>진행중인 프로젝트</h3>
@@ -88,7 +88,7 @@
                         <c:choose>
                             <c:when test="${empty onGoingProjList}">
                                 <tr>
-                                    <td colspan="8" class="empty"><b>진행중인 프로젝트가 없습니다.</b></td>
+                                    <td colspan="8" class="main-empty"><b>진행중인 프로젝트가 없습니다.</b></td>
                                 </tr>
                             </c:when>
                             <c:otherwise>

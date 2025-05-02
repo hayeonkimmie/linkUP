@@ -24,7 +24,7 @@ public class MyPageQNAList extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
-            response.sendRedirect("/linkup/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
         System.out.println("freelancerId = "+freelancerId);

@@ -31,7 +31,7 @@ public class MyProjectStatus extends HttpServlet {
 
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 

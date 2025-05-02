@@ -28,7 +28,7 @@ img{
 }
 
 .add-portfolio {
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-size: 14px;
   border-radius: 8px;
   background-color: #91009e;
@@ -152,25 +152,27 @@ img{
 }
 
 .actions button {
-  padding: 8px 18px;
+  padding: 6px 12px;
+  width: 60px;
+  height: 32px;
   font-size: 14px;
   font-weight: bold;
-  background-color: #91009e;
-  color: white;
+/*  background-color: #91009e;
+  color: white;*/
   border: none;
-  border-radius: 10px;
+  /*border-radius: 10px;*/
   cursor: pointer;
   transition: background-color 0.3s;
+  border-radius: 6px;
+  /*font-size: 0.9rem;*/
 }
-
-.actions button .edit-btn{
-
+.edit-btn{
+  background-color: #e6f0ff;
+  color: #1967d2;
 }
-.actions button .delete-btn{
-
-}
-.actions button:hover {
-  background-color: #75017d;
+.delete-btn{
+  background-color: #ffe5e5;
+  color: #d93025;
 }
 
 /* 변경 후*/
@@ -252,34 +254,7 @@ img{
   margin-bottom: 10px;
 }
 
-
 .reg-date {
   font-size: 13px;
   color: #999;
-}
-
-/* 버튼 */
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  flex-direction: column;
-}
-
-.actions button {
-  padding: 8px 18px;
-  width: 100px;
-  height: 50px;
-  font-size: 14px;
-  font-weight: bold;
-  background-color: #91009e;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.actions button:hover {
-  background-color: #75017d;
 }

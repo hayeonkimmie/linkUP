@@ -29,6 +29,11 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
 }
+main.content, section.section {
+    display: block;        /* 기본값이지만 명시적이면 충돌 방지에 도움됨 */
+    height: auto;          /* 콘텐츠에 따라 자동으로 높이 조정 */
+    overflow: visible;     /* 자식 요소가 넘칠 경우를 대비 */
+}
 
 /*사이드바*/
 .sidebar {
@@ -94,9 +99,11 @@ body {
     border-radius: 5px;
 }
 
+.main-section {
+    max-height: 300px;
+}
 .section {
     margin-bottom: 40px;
-    max-height: 300px;
 }
 
 .section h3 {
@@ -144,9 +151,18 @@ tbody tr td a {
     text-decoration: none;
     color: black;
 }
-td.empty{
+td.main-empty{
     height: 150px;
     font-size: 15px;
+    min-height: 588px;
+    background: white;
+}
+.empty{
+    width: 100%;
+    max-height: fit-content;
+}
+td.empty > p {
+    margin-left: 15px;
 }
 .duration{
     max-width: 150px;
@@ -173,15 +189,22 @@ td.empty{
     color: #065f46;
 }
 
-.empty {
-    width: 100%;
-    min-height: 588px;
-    max-height: fit-content;
+div.empty {
+    min-height: 400px;
+    display: grid;
     background: white;
+    justify-items: center;
+    align-items: center;
 }
-
-.empty > p {
-    margin-left: 15px;
+.empty > div{
+    font-size: 25px;
+}
+td.empty{
+    height: 400px;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: bold;
 }
 .center{
     text-align: center;

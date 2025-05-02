@@ -35,19 +35,19 @@
                     <div class="qna-empty empty">
                         <table>
                             <thead>
-                            <tr>
-                                <th><input type="checkbox" id=""/></th>
-                                <th>프로젝트명</th>
-                                <th>분야</th>
-                                <th>기간</th>
-                                <th style="width:153px;">근무 환경 | 근무 방식</th>
-                                <th>클라이언트</th>
-                                <th>지원 자격</th>
-                                <th colspan="2">모집 마감일</th>
-                            </tr>
+                                <tr>
+                                    <th class="center"><input type="checkbox"/></th>
+                                    <th>프로젝트명</th>
+                                    <th>분야</th>
+                                    <th class="duration center">기간</th>
+                                    <th style="width:153px;">근무 환경 | 근무 방식</th>
+                                        <%--<th>클라이언트</th>--%>
+                                    <th>지원 자격</th>
+                                    <th class="deadline center" colspan="2">모집 마감일</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr><td colspan="9" style="height: 500px">찜한 프로젝트 내역이 없습니다.</td></tr>
+                            <tr><td class="empty" colspan="8">찜한 프로젝트 내역이 없습니다.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -55,8 +55,7 @@
                 <c:otherwise>
                     <div class="project-table">
                         <div class="project-table-header">
-                            <h3>찜한 프로젝트 목록</h3>
-                            <p>총 ${jjimProjCnt} 건</p>
+                            <h3>찜한 프로젝트 목록 <span>총 ${jjimProjCnt} 건</span></h3>
                         <form action="${contextPath}/my-page/project-jjim-list" method="post">
                             <div class="delete-button-wrapper">
                                 <button class="delete-button" type="submit">삭제</button>
@@ -64,14 +63,14 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="select_all"/></th>
+                                    <th class="center"><input type="checkbox" id="select_all"/></th>
                                     <th>프로젝트명</th>
                                     <th>분야</th>
-                                    <th>기간</th>
-                                    <th>근무 환경 | 근무 방식</th>
-                                    <th>클라이언트</th>
+                                    <th class="duration center">기간</th>
+                                    <th style="width:153px;">근무 환경 | 근무 방식</th>
+                                    <%--<th>클라이언트</th>--%>
                                     <th>지원 자격</th>
-                                    <th colspan="2">모집 마감일</th>
+                                    <th class="deadline center" colspan="2">모집 마감일</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -80,14 +79,14 @@
                                         <td><input class="row-check"  type="checkbox" name="jjimId" value="${jp.jjimId}"/></td>
                                         <td>${jp.projectName}</td>
                                         <td>${jp.category}</td>
-                                        <td>${jp.duration}</td>
+                                        <td class="center">${jp.duration}</td>
                                         <td>${jp.workingEnvironment}
                                             <c:if test="${jp.workingEnvironment ne '재택'}"> | ${jp.workingMethod}</c:if>
                                         </td>
-                                        <td>${jp.companyName}</td>
+                                        <%--<td>${jp.companyName}</td>--%>
                                         <td>${jp.qualification}</td>
-                                        <td>${jp.deadlineDate}</td>
-                                        <td class="d-day">${jp.dDay}</td>
+                                        <td class="center">${jp.deadlineDate}</td>
+                                        <td class="d-day center">${jp.dDay}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

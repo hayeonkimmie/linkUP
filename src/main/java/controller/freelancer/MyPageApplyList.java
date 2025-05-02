@@ -23,8 +23,9 @@ public class MyPageApplyList extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
-            response.sendRedirect("/linkup/login");
-        };
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
         Integer page = null;
@@ -40,6 +41,7 @@ public class MyPageApplyList extends HttpServlet {
         List<Apply> ApplyProjList = null;
         try {
             Integer applyProjCount = service.getApplyProjCnt(freelancerId);
+            request.setAttribute("applyProjCount", applyProjCount);
             if(applyProjCount > 0) {
                 ApplyProjList = service.getApplProjyList(freelancerId, pageInfo);
                 request.setAttribute("pageInfo", pageInfo);
@@ -48,13 +50,14 @@ public class MyPageApplyList extends HttpServlet {
                 request.setAttribute("page", page);
                 System.out.println("43 ApplyProjList = " + ApplyProjList);
                 request.setAttribute("ApplyProjList", ApplyProjList);
-                request.getRequestDispatcher("/freelancer/apply_proj_list.jsp").forward(request, response);
             } else{
+                request.setAttribute("applyProjCount", 0);
                 request.setAttribute("ApplyProjList", null);
             }
         } catch (Exception e) {
             request.setAttribute("err", "지원내역 조회에 실패했습니다");
             e.printStackTrace();
         }
+        request.getRequestDispatcher("/freelancer/apply_proj_list.jsp").forward(request, response);
     }
 }

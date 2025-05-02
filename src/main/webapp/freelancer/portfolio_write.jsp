@@ -4,19 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link up Profile Write</title>
+    <title>Link up 포트폴리오 작성</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <%--    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">--%>
     <%--    <link rel="stylesheet" href="${contextPath}/css/headerSt.css">--%>
 
-    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <%--    <script src="../js/freelancer_my_page_portfolio_write.js"></script>--%>
     <%--<script src="<c:url value='/js/freelancer_my_page_portfolio_write.js'/>"></script>--%>
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
 </head>
 <body>
 
@@ -67,7 +67,7 @@
 
                 <!-- 스킬 -->
                 <div class="skills-section">
-                    <span>스킬</span>
+                    <h5>스킬</h5>
                     <input type="text" id="skills" placeholder="스킬을 입력하고 쉼표(,) 또는 Enter 키로 구분해주세요" />
                     <a id="clear-skills">초기화</a>
                     <div class="skill-tags" style="margin-top: 10px;">
@@ -75,14 +75,14 @@
                 </div>
                 <!-- 포트폴리오 소개 -->
                 <div class="portfolio-description">
-                    <span>포트폴리오 소개</span>
+                    <h5>포트폴리오 소개</h5>
                     <textarea id="introduction" name="introduction" placeholder="프로젝트 소개 및 기여 내용을 서술해 주세요"></textarea>
                 </div>
 
                 <!-- 첨부파일 등록 -->
                 <!-- 첨부파일 등록 -->
                 <div class="file-upload-section">
-                    <h3>첨부파일</h3>
+                    <h5>첨부파일</h5>
                     <div class="file-upload-buttons">
                         <button id="add-project-log" type="button">진행했던 프로젝트 이력 불러오기</button>
                         <button id="add-outer-url" type="button">외부 URL 추가</button>
@@ -116,8 +116,7 @@
                         <c:otherwise>
                             <option value="">참여했던 프로젝트 명을 선택해주세요.</option>
                             <c:forEach var="project" items="${projectInfoMap }">
-                                <%--                                <option value="${project.key}">${project.value.projectName}</option>--%>
-                                <option value="${project.key}">${project.value}</option>
+                               <option value="${project.key}">${project.value}</option>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>

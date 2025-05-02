@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link up 포트폴리오 수정</title>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
-    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css"/>
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
 </head>
 <body>
 <div class="header">
@@ -39,10 +39,9 @@
                            placeholder="포트폴리오 제목을 입력해 주세요" required value="${portfolio.title}"/>
                 </div>
 
-                <div style="width: 100%">
+                <div class="thumbnail-project-info">
                     <!-- 썸네일 업로드 -->
                     <div class="thumbnail-upload-section">
-                        <span>포트폴리오 썸네일 사진</span>
                         <div class="thumbnail-upload-box">
                             <label class="upload-placeholder">
                                 <img src="image?filename=${portfolio.thumbnail}" alt="이미지선택" id="preview" width="100px"
@@ -50,32 +49,34 @@
                             </label>
                         </div>
                     </div>
-                    <!-- 프로젝트 기간 -->
-                    <c:set var="startMonth" value=""/>
-                    <c:if test="${portfolio.portProjStart ne null}">
-                        <fmt:formatDate value="${portfolio.portProjStart}" pattern="yyyy-MM" var="startMonth"/>
-                    </c:if>
+                    <div class="project-info-right">
+                        <!-- 프로젝트 기간 -->
+                        <c:set var="startMonth" value=""/>
+                        <c:if test="${portfolio.portProjStart ne null}">
+                            <fmt:formatDate value="${portfolio.portProjStart}" pattern="yyyy-MM" var="startMonth"/>
+                        </c:if>
 
-                    <c:set var="endMonth" value=""/>
-                    <c:if test="${portfolio.portProjEnd ne null}">
-                        <fmt:formatDate value="${portfolio.portProjEnd}" pattern="yyyy-MM" var="endMonth"/>
-                    </c:if>
-                    <div class="project-period">
-                        <span>프로젝트 기간</span> <br/>
-                        <input id="portProjStart" name="portProjStart" type="month" required value="${startMonth}"/>
-                        ~
-                        <input id="portProjEnd" name="portProjEnd" type="month" value="${endMonth}"/>
+                        <c:set var="endMonth" value=""/>
+                        <c:if test="${portfolio.portProjEnd ne null}">
+                            <fmt:formatDate value="${portfolio.portProjEnd}" pattern="yyyy-MM" var="endMonth"/>
+                        </c:if>
+                        <div class="project-period">
+                            <span>프로젝트 기간</span> <br/>
+                            <input id="portProjStart" name="portProjStart" type="month" required value="${startMonth}"/>
+                            ~
+                            <input id="portProjEnd" name="portProjEnd" type="month" value="${endMonth}"/>
+                        </div>
+                        <!-- 팀 구성 및 역할 -->
+                        <div class="team-role">
+                            <span>팀 구성 및 역할</span><br/>
+                            <input type="text" id="teamRole" name="teamRole" placeholder="ex) 개인 프로젝트 or FE 개발 4명, BE 개발 5명"
+                                   required value=" ${portfolio.teamRole }"/>
+                        </div>
                     </div>
-                </div>
-                <!-- 팀 구성 및 역할 -->
-                <div class="team-role">
-                    <span>팀 구성 및 역할</span><br/>
-                    <input type="text" id="teamRole" name="teamRole" placeholder="ex) 개인 프로젝트 or FE 개발 4명, BE 개발 5명"
-                           required value=" ${portfolio.teamRole }"/>
-                </div>
+                </div><!-- 프로젝트 기간 -->
                 <!-- 스킬 -->
                 <div class="skills-section">
-                    <span>스킬</span>
+                    <h5>스킬</h5>
                     <input type="text" id="skills" placeholder="스킬을 입력하고 쉼표(,) 또는 Enter 키로 구분해주세요"/>
                     <a id="clear-skills">초기화</a>
                     <div class="skill-tags" style="margin-top: 10px;">
@@ -87,14 +88,14 @@
                 </div>
                 <!-- 포트폴리오 소개 -->
                 <div class="portfolio-description">
-                    <span>포트폴리오 소개</span>
+                    <h5>포트폴리오 소개</h5>
                     <textarea id="introduction" name="introduction"
                               placeholder="프로젝트 소개 및 기여 내용을 서술해 주세요">${portfolio.introduce }</textarea>
                 </div>
 
                 <!-- 첨부파일 등록 -->
                 <div class="file-upload-section">
-                    <h3>첨부파일</h3>
+                    <h5>첨부파일</h5>
                     <div class="file-upload-buttons">
                         <button id="add-project-log" type="button">진행했던 프로젝트 이력 불러오기</button>
                         <button id="add-outer-url" type="button">외부 URL 추가</button>
@@ -151,7 +152,7 @@
                         <c:if test="${portfolio.attachmentList ne null}">
                             <c:forEach var="attachment" items="${portfolio.attachmentList}" varStatus="status">
                                 <tr class="file-section">
-                                    <td><label for="attachment-${status.index}">첨부파일</label></td>
+                                    <td><label for="attachment-${status.index}">첨부파일 <p class="attachment-notification ">10mb 이하의 파일을 올려주세요.</p></label></td>
                                     <td>
                                         <a>${attachment}</a>
                                         <span onclick="document.getElementById('attachment-${status.index}').click();">파일 변경</span>

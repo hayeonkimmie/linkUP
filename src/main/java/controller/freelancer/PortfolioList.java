@@ -25,10 +25,10 @@ public class PortfolioList extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         IPortfolioService service = new PortfolioService();
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        if (freelancerId == null) {
-            response.sendRedirect("/linkup/login");
+        /*if (freelancerId == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
-        }
+        }*/
         String pageStr = request.getParameter("page");
         System.out.println("page = " + pageStr);
         Integer page = null;

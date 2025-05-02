@@ -23,10 +23,10 @@ public class PortfolioDetail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        if (freelancerId == null) {
-            response.sendRedirect("/linkup/login");
+        /*if (freelancerId == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
-        };
+        }*/
         IPortfolioService service = new PortfolioService();
 
         Integer portfoId = Integer.parseInt(request.getParameter("id"));

@@ -43,7 +43,7 @@
                     <span>
                         <h3>포트폴리오 목록</h3>
                         <%--<p>${nickname}님의 최고의 프로젝트를 선보이세요.</p>--%>
-                        <p>닉네임님의 최고의 프로젝트를 선보이세요.</p>
+                        <p>최고의 프로젝트를 선보이세요.</p>
                     </span>
                     <button class="add-portfolio" onclick="location.href='${contextPath}/my-page/portfolio-write'">+ 포트폴리오 등록</button>
                 </div>
@@ -55,9 +55,8 @@
             <c:choose>
                 <c:when test="${portfolioList eq null}">
                     <div class="portfolio-empty empty">
-                        <p>등록된 포트폴리오가 없습니다.</p>
-                        <p>포트폴리오를 등록해보세요.</p>
-                        <button class="add-portfolio" onclick="location.href='${contextPath}/my-page/portfolio-write'">+ 포트폴리오 등록</button>
+                        <b>등록된 포트폴리오가 없습니다.</b>
+                        <%--<button class="add-portfolio" onclick="location.href='${contextPath}/my-page/portfolio-write'">+ 포트폴리오 등록</button>--%>
                     </div>
                 </c:when>
 
@@ -101,9 +100,9 @@
                                         </div>
                                         <div class="reg-date">등록일 | ${portfolio.createdDate}</div>
                                     </div>
-                                    <div class="actions">
-                                        <button class="edit-btn" onclick="location.href='${contextPath}/my-page/portfolio-modify?id=${portfolio.portfolioId }'">수정</button>
-                                        <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">삭제</button>
+                                    <div class="actions d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button class="btn btn-primary me-md-2 edit-btn " onclick="location.href='${contextPath}/my-page/portfolio-modify?id=${portfolio.portfolioId }'">수정</button>
+                                        <button class="btn btn-primary delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">삭제</button>
                                     </div>
                                 </div>
                             </div>

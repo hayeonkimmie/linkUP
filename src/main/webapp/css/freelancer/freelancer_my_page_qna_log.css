@@ -92,6 +92,9 @@ header .logo {
 .accordion-content.qna-detail.active {
   display: table-row;
 }
+.accordion-content-inner > h4, .accordion-content-inner > p{
+  margin-left: 27px;
+}
 
 .accordion-content-inner > p, .accordion-content-inner> h4{
   text-align: left;
@@ -164,7 +167,24 @@ header .logo {
   border-top: 2px solid #ccc;
   font-size: 14px;
 }
-.empty{
+.inquiry-table tr{
+  width: 100%;
+}
+td{
+  border-top:none;
+}
+.accordion-toggle > td:nth-child(2){
+  display: flex;
+  justify-content: center;
+}
+.accordion-toggle > td:first-child, .accordion-toggle > td:last-child{
+  font-size: 16px;
+}
+th:nth-of-type(1) { width: 62% }
+th:nth-of-type(2) { width: 18% }
+th:nth-of-type(3) { width: 20% }
+
+.qna-empty{
   width: 100%;
   min-height: 400px;
   max-height: fit-content;
@@ -173,7 +193,7 @@ header .logo {
   justify-items: center;
   align-items: center;
 }
-.empty > div{
+.qna-empty > td{
   font-size: 25px;
 }
 /* 테이블 헤더 */
