@@ -12,9 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <%--    <link rel="stylesheet" href="<c:url value='/css/common/headerSt.css'/>">--%>
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_apply_proj_list.css'/>">
-    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
 </head>
 <body>
 
@@ -26,24 +26,24 @@
         <section class="section">
             <h3>내 프로젝트 지원 현황 총 ${applyProjCount} 건</h3>
             <p style="color: #888; font-size: 0.9rem; margin-bottom: 1rem;">지원한 프로젝트 목록을 확인하세요</p>
-            <table id="apply-table">
+            <table class="apply-table">
                 <thead>
                 <tr>
                     <th>상태</th>
                     <th>지원일</th>
-                    <th>프로젝트 정보</th>
-                    <th colspan="2">분야</th>
+                    <th style="width:30%;">프로젝트 정보</th>
+                    <th>분야</th>
                     <th>기간 | 예산</th>
                     <th>모집 마감일<br>D-Day</th>
-                    <th>승인여부</th>
+                    <th style="width: 8%;">승인여부</th>
                     <th>지원취소</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:choose>
-                    <c:when test="${ApplyProjList eq null}">
+                    <c:when test="${empty ApplyProjList}">
                         <tr>
-                            <td colspan="10" style="text-align: center; padding: 20px;">
+                            <td colspan="8" class="empty">
                                 지원한 프로젝트가 없습니다.
                             </td>
                         </tr>
@@ -57,7 +57,7 @@
                                             <span class="status ongoing">지원완료</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="status completed" style="background: #e05a5a;">지원취소</span>
+                                            <span class="status canceled" style="">지원취소</span>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
@@ -72,11 +72,11 @@
                                     <div class="project-info">
                                         <div class="project-text">
                                                 <%--${apply.advertisementTitle}<br>--%>
-                                                ${apply.projectName}
+                                            <a href="${contextPath}/project?projectid=${apply.projectId}">${apply.projectName}</a>
                                         </div>
                                     </div>
                                 </td>
-                                <td colspan="2">
+                                <td>
                                     <span>${apply.category}</span>
                                 </td>
                                 <td>
@@ -130,7 +130,7 @@
 
                     <c:choose>
                         <c:when test="${pageInfo.curPage < pageInfo.allPage}">
-                            <a href="?page=${pageInfo.curPage + 1}">1&gt;</a>
+                            <a href="?page=${pageInfo.curPage + 1}">&gt;</a>
                         </c:when>
                         <c:otherwise>
                             <a>&gt;</a>

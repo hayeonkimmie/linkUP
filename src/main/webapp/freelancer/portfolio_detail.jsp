@@ -18,12 +18,12 @@
 <%--   <link rel="stylesheet" href="${contextPath}/css/headerSt.css"/>--%>
 <%--   <link rel="stylesheet" href="${contextPath}/css/freelancer_my_page.css'/>">--%>
 <%--    <link rel="stylesheet" href="${contextPath}/css/freelancer_main_portfolio_detail.css'/>"/>--%>
-   <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_detail.css'/>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_my_page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_detail.css'/>">
 </head>
 <body>
 <div class="header">

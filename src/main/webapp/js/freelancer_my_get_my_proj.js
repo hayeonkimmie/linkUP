@@ -27,7 +27,7 @@ window.onload = function () {
         }
     };
     // ✅ 아코디언: 다시 누르면 닫힘 + 하나만 열림
-    document.querySelectorAll('.clickable').forEach(row => {
+    /*document.querySelectorAll('.clickable').forEach(row => {
         row.addEventListener('click', () => {
             const next = row.nextElementSibling;
 
@@ -47,7 +47,7 @@ window.onload = function () {
                 next.style.display = 'table-row';
             }
         });
-    });
+    });*/
 };
 document.querySelectorAll('.settlement-btn').forEach(btn => {
     btn.addEventListener('click', (event) => { // event 파라미터 추가
@@ -89,9 +89,9 @@ function openSettlementModal(settlementList) {
         settlementList.forEach((settle, index) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                <td>${index + 1}</td>
+                <td>${index + 1} 회차</td>
                 <td>₩${parseInt(settle.ammount, 10).toLocaleString()}</td>
-                <td class="status ${settle.status === '정산완료' ? 'complete' : ''}">${settle.status}</td>
+                <td><span class="status ${settle.status === '정산완료' ? 'complete' : ''}">${settle.status}</span></td>
                 <td>${settle.settleDate}</td>
             `;
             tbody.appendChild(tr);

@@ -22,7 +22,8 @@ public class PortfolioDelete extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
-            response.sendRedirect("/linkup/login");
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
         Integer portfolioId = Integer.parseInt(request.getParameter("id"));
         IPortfolioService service = new PortfolioService();

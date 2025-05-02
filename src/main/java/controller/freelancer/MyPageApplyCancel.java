@@ -21,8 +21,9 @@ public class MyPageApplyCancel extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
-            response.sendRedirect("/linkup/login");
-        };
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
         String applyIdStr = request.getParameter("applyId");
         System.out.println("MyPageApplyCancel applyIdStr = " + applyIdStr);
         Integer applyId = null;

@@ -26,7 +26,7 @@ public class FreeMyPageMainController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
         if (freelancerId == null) {
-            response.sendRedirect("/linkup/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
         IFreelancerProjectService fService = new FreelancerProjectService();

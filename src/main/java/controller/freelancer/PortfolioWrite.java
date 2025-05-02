@@ -37,9 +37,9 @@ public class PortfolioWrite extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String freelancerId = (String) request.getSession().getAttribute("userId");
-        if(freelancerId == null) {
-            request.setAttribute("err", "로그인 후 이용해주세요.");
-            response.sendRedirect("/linkup/login");
+        if (freelancerId == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
         IPortfolioService service = new PortfolioService();
         try {

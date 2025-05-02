@@ -57,12 +57,12 @@
                         <div class="form-row profile-info">
                             <div>
                                 <label>이름<span class="star">*</span></label>
-                                <input type="text" placeholder="이름" value="${freelancer.name}" name="name" class="required"
+                                <input type="text" placeholder="이름" value="${freelancer.name}" name="name" oninput="this.value = this.value.replace(/\s+/g, '')" class="required" maxlength="10"
                                        required/>
                             </div>
                             <div>
                                 <label>닉네임<span class="star">*</span></label>
-                                <input type="text" placeholder="닉네임" value="${freelancer.nickname}" id="nickname"
+                                <input type="text" placeholder="닉네임" value="${freelancer.nickname}" id="nickname" maxlength="30"
                                        name="nickname" class="required" required/>
                                 <%--<button type="button" id="checkNicknameBtn">중복 체크</button>--%>
                                 <span id="nicknameCheckResult"></span>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="form-row">
                         <input type="text" id="address" name="address" placeholder="주소" onclick="execDaumPostcode()"
-                               required value="${freelancer.address}" readonly="readonly" class="required"/>
+                               required value="${freelancer.address}" class="required"/>
                     </div>
 
                     <h3>비밀번호</h3>

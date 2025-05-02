@@ -116,7 +116,7 @@ input {
     width: 50%;
     flex-direction: column;
     margin-right: 15px;
-    margin-left: 15px;
+    margin-left: 34px;
     align-items:start;
 }
 .profile-info > div{
@@ -138,7 +138,7 @@ input {
     min-width: 60px;
 }
 #nicknameCheckResult, #passwordCheckResult{
-    width: 250px;
+    width: 190px;
     padding-left: 15px;
     font-size: 0.9rem;
     white-space: nowrap;

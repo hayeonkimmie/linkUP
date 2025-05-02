@@ -6,6 +6,9 @@
 .content{
     padding: 0px 15px;
 }
+a{
+    text-decoration: none;
+}
 /* 메인 콘텐츠 영역 */
 /*.main-content {
     flex: 1;
@@ -18,6 +21,9 @@
 table{
     overflow: auto !important;
     width: 100%;
+}
+.apply-table{
+    margin-bottom: 30px;
 }
 /* 페이지 타이틀 */
 .page-title {
@@ -56,7 +62,9 @@ table{
     text-align: center;
     color: #333;
 }
-
+th:first-child, td:first-child{
+    width: 100px;
+}
 /* 프로젝트 정보 셀 */
 .project-info {
     display: flex;
@@ -98,15 +106,17 @@ table{
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
-    color: white;
 }
-
+.ongoing{
+    color: #166534;
+    background-color:#DCFCE7;
+}
+.canceled{
+    color: #991B1B;
+    background: #FECACA;
+}
 .status.success {
     background-color: #1aa251;
-}
-
-.status.cancel {
-    background-color: #e74c3c;
 }
 
 /* 취소 날짜 */
@@ -119,8 +129,10 @@ table{
 
 /* 지원 취소 버튼 */
 .cancel-btn {
-    background-color: #8E0D8D;
-    color: white;
+/*    background-color: #8E0D8D;
+    color: white;*/
+    background-color: #ffe5e5;
+    color: #d93025;
     padding: 6px 12px;
     border: none;
     border-radius: 5px;
@@ -128,12 +140,6 @@ table{
     font-size: 13px;
     transition: background-color 0.2s ease;
 }
-
-
-.cancel-btn:hover {
-    background-color: #871187;
-}
-
 /* 승인 완료 텍스트 */
 .approved {
     color: #1aa251;

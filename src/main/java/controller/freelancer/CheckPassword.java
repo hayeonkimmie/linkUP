@@ -20,7 +20,6 @@ public class CheckPassword extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String sessionId = (String) request.getSession().getAttribute("userId");
         String password = request.getParameter("password");
-        sessionId ="free002";
         System.out.println(password);
         IUserService service = new UserService();
         boolean isCorrect = service.checkPassword(sessionId, password);

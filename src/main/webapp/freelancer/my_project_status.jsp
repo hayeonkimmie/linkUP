@@ -46,27 +46,27 @@
                     <thead>
                     <tr>
                         <th>프로젝트 정보</th>
-                        <th>분야</th>
-                        <th>기간</th>
+                        <%--<th>분야</th>--%>
+                        <th class="duration">기간</th>
                         <th>예산</th>
                         <th>요구사항</th>
                         <th>작업방식</th>
-                        <th colspan="2">마감일</th>
-                        <th>정산 내역</th>
+                        <th style="width: 170px" class="deadline" colspan="2">마감일</th>
+                        <th style="width: 100px">정산 내역</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:choose>
                         <c:when test="${empty onGoingProjectList}">
                             <tr>
-                                <td colspan="9">진행중인 프로젝트가 없습니다.</td>
+                                <td class="empty" colspan="8">진행중인 프로젝트가 없습니다.</td>
                             </tr>
                         </c:when>
                         <c:otherwise>
                             <c:forEach items="${onGoingProjectList}" var="project">
                                 <tr class="clickable" onclick="toggleDetails(this)">
                                     <td>
-                                        <a href="${project.projectId}">${project.projectName}</a><br/>${project.clientName}
+                                        <a href="${project.projectId}">${project.projectName}</a>
                                     </td>
                                     <td>${project.categories}</td>
                                     <td>${project.projectDuration}</td>
@@ -86,15 +86,15 @@
                                     </td>
                                 </tr>
                                 <tr class="accordion-row">
-                                    <td colspan="9">
+                                    <td colspan="8">
                                         <p>프로젝트 소개</p>
-                                        <p>${project.projectDescription}</p>
+                                        <span>${project.projectDescription}</span>
                                         <p>프로젝트 상세 업무 내용</p>
-                                        <p>${project.jobDetails}</p>
+                                        <span>${project.jobDetails}</span>
                                         <hr/>
                                         <p>프로젝트 담당자 정보</p>
-                                        <p>${project.projectManager}</p>
-                                        <p>${project.managerPhone}</p>
+                                        <span>${project.clientName} ${project.projectManager}</span>
+                                        <span>${project.managerPhone}</span>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -143,20 +143,20 @@
                     <thead>
                     <tr>
                         <th>프로젝트 정보</th>
-                        <th>분야</th>
-                        <th>기간</th>
+                        <%--<th>분야</th>--%>
+                        <th class="duration">기간</th>
                         <th>예산</th>
                         <th>요구사항</th>
                         <th>작업방식</th>
-                        <th colspan="2">마감일</th>
-                        <th>정산 내역</th>
+                        <th style="width: 170px" class="deadline" colspan="2">마감일</th>
+                        <th style="width: 100px">정산 내역</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:choose>
                     <c:when test="${empty completedProjectList}">
                     <tr>
-                        <td colspan="9">완료된 프로젝트가 없습니다.</td>
+                        <td class="empty" colspan="8">완료된 프로젝트가 없습니다.</td>
                     </tr>
                     </c:when>
                     <c:otherwise>
@@ -165,9 +165,9 @@
                     <tr class="clickable" onclick="toggleDetails(event)">
 
                         <td>
-                            <a href="${project.projectId}">${project.projectName}</a><br/>${project.clientName}
+                            <a href="${project.projectId}">${project.projectName}</a>
                         </td>
-                        <td>${project.categories}</td>
+                        <%--<td>${project.categories}</td>--%>
                         <td>${project.projectDuration}</td>
                         <td>${project.totalBudget}</td>
                         <td>
@@ -185,14 +185,15 @@
                         </td>
                     </tr>
                     <tr class="accordion-row">
-                        <td colspan="9">
+                        <td colspan="8">
                             <p>프로젝트 소개</p>
+                           <span>분야 : ${project.categories}</span>
                             <p>${project.projectDescription}</p>
                             <p>프로젝트 상세 업무 내용</p>
                             <p>${project.jobDetails}</p>
                             <hr/>
                             <p>프로젝트 담당자 정보</p>
-                            <p>${project.projectManager}</p>
+                            <p>${project.clientName} ${project.projectManager}</p>
                             <p>${project.managerPhone}</p>
                         </td>
                     </tr>

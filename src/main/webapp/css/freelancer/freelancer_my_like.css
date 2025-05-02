@@ -5,50 +5,6 @@
     text-align: center;
     margin-bottom: 40px;
 }
-/*
-.profile-img {
-    width: 100px;
-    height: 100px;
-    background-color: #ddd;
-    border-radius: 50%;
-    margin: 0 auto 10px;
-}
-
-.nickname {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.mypage-label {
-    font-size: 18px;
-    margin-top: 5px;
-}
-
-.sidebar-menu p {
-    margin: 20px 0 5px;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.sidebar-menu ul {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: 10px;
-}
-
-.sidebar-menu li {
-    padding: 6px 0;
-    cursor: pointer;
-}
-
-.sidebar-menu li.active {
-    color: black;
-    background-color: white;
-    padding: 6px 10px;
-    border-radius: 5px;
-    font-weight: bold;
-}*/
-
 .main-content {
     flex: 1;
     padding: 40px;
@@ -59,7 +15,12 @@
     font-size: 20px;
     margin-bottom: 5px;
 }
+.h3 > span{
+    font-size: 14px;
+    color: #777;
+    margin-left: 16px;
 
+}
 .subtext {
     font-size: 14px;
     color: #777;
@@ -76,16 +37,37 @@
 
 .project-table th,
 .project-table td {
-    padding: 12px;
+    padding: 12px 6px;
     border-bottom: 1px solid #eee;
-    text-align: left;
+    text-align: center;
     font-size: 14px;
 }
 
 .project-table thead {
     background-color: #f1f1f1;
 }
-
+.center{
+    text-align: center !important;
+}
+tr > th:first-child,
+tr > td:first-child {
+    width: 37px;
+    text-align: center !important;
+}
+tr > th:last-child {
+    width: 15.7%;
+    /*width: 175px;*/
+}
+tr td:nth-child(4),tr > th:nth-child(4) {
+    /*width: 85px;*/
+    width: 8%;
+}
+/*tr > td:last-child, tr td:nth-child(8) {
+    width: 85px;
+}*/
+*tr > td:last-child, tr td:nth-child(7) {
+    width: 85px;
+}
 .project-table .d-day {
     color: red;
     font-weight: bold;
@@ -97,13 +79,15 @@
 .delete-button-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin-top: 10px;
+    margin: 0 0 15px 0;
 }
 
 .delete-button {
     padding: 8px 20px;
-    background-color: #ff4d4f;
-    color: white;
+/*    background-color: #ff4d4f;
+    color: white;*/
+    background-color: #ffe5e5;
+    color: #d93025;
     border: none;
     border-radius: 5px;
     cursor: pointer;
