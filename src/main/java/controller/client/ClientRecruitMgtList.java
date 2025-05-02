@@ -27,7 +27,22 @@ public class ClientRecruitMgtList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //캐시방지
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+
         try {
+            // 세션에서 프로젝트 업데이트 플래그 확인
+            HttpSession session = request.getSession();
+            Boolean projectUpdated = (Boolean) session.getAttribute("projectUpdated");
+
+            // 프로젝트가 업데이트 되었다면 플래그 제거
+            if (projectUpdated != null && projectUpdated) {
+                session.removeAttribute("projectUpdated");
+                System.out.println("프로젝트가 업데이트 되었습니다. 최신 데이터를 로드합니다.");
+            }
+
             // [오늘 날짜를 기준으로 DB 상태 갱신]
             Map<String, Object> statusParam = new HashMap<>();
             statusParam.put("today", new java.sql.Date(System.currentTimeMillis()));
@@ -35,7 +50,6 @@ public class ClientRecruitMgtList extends HttpServlet {
             service.updateProgressToEnd(statusParam); // 진행중 -> 종료됨
 
             // 세션에서 로그인 한 clientId 확인해서 가져오기
-            HttpSession session = request.getSession();
             String clientId = (String) session.getAttribute("userId");
             if (clientId == null || clientId.isEmpty()) {
                 clientId = "client001"; // 테스트용 기본값
@@ -52,7 +66,7 @@ public class ClientRecruitMgtList extends HttpServlet {
             param.put("clientId", clientId);
             param.put("status", status);
 
-            // 서비스 호출
+            // 서비스 호출 - 항상 최신 데이터를 로드하도록 함
             List<ProjectMgt> projectList = service.getProjectByStatus(param);
 
             // DB project의 컬럼 project_progress는 오직 구인완료 상태에만 의미 있음

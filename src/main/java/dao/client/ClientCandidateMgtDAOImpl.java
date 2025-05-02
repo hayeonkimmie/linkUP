@@ -32,5 +32,15 @@ public class ClientCandidateMgtDAOImpl implements IClientCandidateMgtDAO {
         param.put("applyStatus", applyStatus);
         sqlSession.update("mapper.candidatemgt.updateApplyStatus", param);
     }
+
+    // 지원상태 => 수락하면 계약테이블에 행 추가
+    @Override
+    public void insertContract(int projectId, String freelancerId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("projectId", projectId);
+        map.put("freelancerId", freelancerId);
+        sqlSession.insert("mapper.candidatemgt.insertContract", map);
+    }
+
 }
 
