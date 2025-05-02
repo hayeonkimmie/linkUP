@@ -31,14 +31,13 @@ public class ClientFavoritesServiceImpl implements IClientFavoritesService {
     }
 
     //정렬 필터 + 페이징 처리
-    //정렬 필터 + 페이징 처리
     @Override
     public List<ClientFavorites> getClientFavoritesWithFilter(PageInfo pageInfo, String clientId, String sort, String keyword) throws Exception {
         final int pageSize = 9;
         int curPage = Math.max(1, pageInfo.getCurPage());
         int offset = (curPage - 1) * pageSize;
 
-        // ⭐ 기본 정렬 지정
+        // 기본 정렬 지정
         if (sort == null || sort.trim().isEmpty()) {
             sort = "recent";
         }

@@ -35,6 +35,12 @@ public class ClientCandidateAction extends HttpServlet {
             // 서비스 계층 메서드 호출 (프리랜서 지원상태 업데이트)
             service.updateApplyStatus(projectId, freelancerId, applyStatus);
             response.setStatus(HttpServletResponse.SC_OK); // http응답상태 코드 200 ok
+
+            // 수락(1)일 때만 계약 테이블에 insert
+            if (applyStatus == 1) {
+                service.insertContract(projectId, freelancerId);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             // 클라이언트에게 500 상태코드 & 오류메시지 전송

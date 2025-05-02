@@ -47,4 +47,21 @@ public class PayDAO implements IPayDAO {
         }
         return payList;
     }
+
+    @Override
+    public List<Pay> getPaysByProjectId(int projectId) {
+        List<Pay> payList = null;
+        try (SqlSession session = sqlSession.openSession()) {
+            payList = session.selectList("mapper.pay.getPaysByProjectId", projectId);
+        }
+        return payList;
+    }
+
+    @Override
+    public void deletePaysByProjectId(int projectId) {
+        try (SqlSession session = sqlSession.openSession()) {
+            session.delete("mapper.pay.deletePaysByProjectId", projectId);
+            session.commit();
+        }
+    }
 }
