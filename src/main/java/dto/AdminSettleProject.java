@@ -1,5 +1,7 @@
 package dto;
 
+import java.sql.Date;
+
 public class AdminSettleProject {
     private String contractId;
     private Integer projectId;
@@ -15,6 +17,7 @@ public class AdminSettleProject {
     private Integer totalContracts;
     private Integer settledCount;
     private Integer participant;
+    private Date settleDay;
     private Integer settleDate;
     private String clientStatus;
     private String settleStatus;
@@ -22,24 +25,12 @@ public class AdminSettleProject {
     public AdminSettleProject() {
     }
 
-    public AdminSettleProject(String contractId, Integer projectId, String clientId, String companyName, String projectName, String projectDuration, String projectManager, String managerPhone, Integer totalAmount, Integer totalFee, Integer totalSettlement, Integer totalContracts, Integer settledCount, Integer participant, Integer settleDate, String clientStatus, String settleStatus) {
-        this.contractId = contractId;
-        this.projectId = projectId;
-        this.clientId = clientId;
-        this.companyName = companyName;
-        this.projectName = projectName;
-        this.projectDuration = projectDuration;
-        this.projectManager = projectManager;
-        this.managerPhone = managerPhone;
-        this.totalAmount = totalAmount;
-        this.totalFee = totalFee;
-        this.totalSettlement = totalSettlement;
-        this.totalContracts = totalContracts;
-        this.settledCount = settledCount;
-        this.participant = participant;
-        this.settleDate = settleDate;
-        this.clientStatus = clientStatus;
-        this.settleStatus = settleStatus;
+    public Date getSettleDay() {
+        return settleDay;
+    }
+
+    public void setSettleDay(Date settleDay) {
+        this.settleDay = settleDay;
     }
 
     public String getContractId() {
@@ -198,6 +189,7 @@ public class AdminSettleProject {
                 ", settleDate=" + settleDate +
                 ", clientStatus='" + clientStatus + '\'' +
                 ", settleStatus='" + settleStatus + '\'' +
+                ", settleDay=" + settleDay +
                 '}';
     }
 }

@@ -101,7 +101,7 @@
 
 
     <select id="selectProjectsForSettlement" resultType="dto.AdminSettleProject">
-    <![CDATA[
+<![CDATA[
         SELECT
             p.project_id,
             p.client_id,
@@ -119,15 +119,15 @@
             IFNULL(SUM(ct.total_pay), 0) AS total_settlement,
             COUNT(DISTINCT ct.id) AS total_contracts,
 
-            -- ✅ 이번달 정산 예정일자 기준으로 완료 인원 세기
             (
-                SELECT COUNT(DISTINCT s.position)
+                SELECT COUNT(DISTINCT s.freelancer_id)
                 FROM settlement s
-                         JOIN settlelist sl ON s.slist_id = sl.slist_id
-                WHERE sl.project_id = p.project_id
+                         JOIN settlelist sl2 ON s.slist_id = sl2.slist_id
+                WHERE sl2.project_id = p.project_id
                   AND s.status = '정산완료'
-                  AND DATE_FORMAT(sl.settle_date, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')
+                  AND sl2.settle_date = sl.settle_day
             ) AS settled_count,
+
 
             (
                 SELECT COUNT(DISTINCT a2.freelancer_id)
@@ -136,6 +136,7 @@
                   AND a2.is_approved = 1
             ) AS participant,
 
+            sl.settle_day AS settle_day,
             DAY(p.settle_day) AS settle_date,
             MAX(ct.client_status) AS client_status,
             MAX(ct.status) AS settle_status
@@ -143,6 +144,11 @@
         FROM project p
             JOIN client c ON p.client_id = c.client_id
             JOIN contract ct ON ct.project_id = p.project_id
+            LEFT JOIN (
+            SELECT project_id, MAX(settle_date) AS settle_day
+            FROM settlelist
+            GROUP BY project_id
+            ) sl ON sl.project_id = p.project_id
 
         WHERE ct.status = '진행중'
         GROUP BY
@@ -153,16 +159,11 @@
             p.created_date,
             p.settle_day,
             p.manager,
-            p.mphone
+            p.mphone,
+            sl.settle_day
         ORDER BY p.settle_day DESC
         ]]>
 </select>
-
-
-
-
-
-
 
     <select id="countAllProjects" resultType="int">
         SELECT COUNT(*) FROM project
