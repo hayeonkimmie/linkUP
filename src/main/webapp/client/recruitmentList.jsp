@@ -34,10 +34,6 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- 캐시 방지 메타 태그 추가 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>프로젝트 관리</title>
     <link rel="stylesheet" href="${contextPath}/css/client/style.css"/>
     <link rel="stylesheet" href="${contextPath}/css/common/headerLoginSt.css"/>
@@ -160,8 +156,13 @@
                                         <button class="btn btn-edit">수정하기</button>
                                     </c:when>
                                     <c:when test="${project.projectProgress eq '진행중'}">
-                                        <button class="btn btn-settle">월별 정산하기</button>
+                                        <a href="<c:url value='/request-settlement'>
+                                                <c:param name='projectId' value='${project.projectId}'/>
+                                             </c:url>" class="btn btn-settle">
+                                            월별 정산하기
+                                        </a>
                                     </c:when>
+
                                     <c:when test="${project.projectProgress eq '종료됨' and project.settleStatus eq '완료'}">
                                         <button class="btn btn-review">리뷰작성</button>
                                     </c:when>
@@ -222,6 +223,7 @@
         }
     });
 </script>
+
 <script src="${contextPath}/js/catalog.js"></script>
 <script src="${contextPath}/js/header.js"></script>
 <script src="${contextPath}/js/headerLogin.js"></script>

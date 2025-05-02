@@ -54,7 +54,6 @@ public class ClientRecruitMgtList extends HttpServlet {
             if (clientId == null || clientId.isEmpty()) {
                 clientId = "client001"; // 테스트용 기본값
             }
-
             // 파라미터로 status받기 (전체보기, 구인중, 시작전, 진행중, 종료됨)
             String status = request.getParameter("status");
             if (status == null || status.isEmpty()) {
@@ -75,19 +74,12 @@ public class ClientRecruitMgtList extends HttpServlet {
                     project.setProjectProgress(""); // 구인완료 상태가 아니면 값 비우기
                 }
             }
-
             // 결과 저장해서 JSP로 전달
+            for(ProjectMgt project : projectList) {
+                System.out.println("project : \n"+project);
+            }
             request.setAttribute("projectList", projectList); // 서비스 호출해서 list 받아오기
             request.setAttribute("status", status); // 상태 값 받아오기
-            System.out.println("projectList.size() = " + projectList.size()); // 테스트 출력
-
-            // 출력 테스트 코드
-            for (ProjectMgt projectMgt : projectList) {
-                System.out.println("startDate = " + projectMgt.getStartDate());
-                System.out.println("endDate = " + projectMgt.getEndDate());
-                System.out.println("status = " + projectMgt.getStatus());
-                System.out.println("progress = " + projectMgt.getProjectProgress());
-            }
 
             // JSP로 이동
             request.getRequestDispatcher("./client/recruitmentList.jsp").forward(request, response);

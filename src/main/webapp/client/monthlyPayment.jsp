@@ -45,35 +45,29 @@
             <table>
                 <thead>
                 <tr>
-                    <th>정산월</th>
+                    <th>회차</th>
+                    <th>이름</th>
                     <th>정산 기간</th>
-                    <th>월별 금액</th>
-                    <th>정산 상태</th>
+                    <th>금액</th>
                     <th>작업</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>2025-04</td>
-                    <td>2025-04-28 ~ 2025-04-30</td>
-                    <td>5,332,511원</td>
-                    <td><span class="status pending">미정산</span></td>
-                    <td><button class="btn">정산하기</button></td>
-                </tr>
-                <tr>
-                    <td>2025-05</td>
-                    <td>2025-05-01 ~ 2025-05-31</td>
-                    <td>5,332,511원</td>
-                    <td><span class="status completed">완료</span></td>
-                    <td><button class="btn" disabled>정산완료</button></td>
-                </tr>
-                <tr>
-                    <td>2025-06</td>
-                    <td>2025-06-01 ~ 2025-06-27</td>
-                    <td>5,332,511원</td>
-                    <td><span class="status pending">미정산</span></td>
-                    <td><button class="btn">정산하기</button></td>
-                </tr>
+                <c:forEach var="target" items="${settleTargets}" varStatus="status">
+                    <tr>
+                        <td>${round}</td>
+                        <td>${target.freelancerName}</td>
+                        <td>${target.settlePeriod}</td>
+                        <td><fmt:formatNumber value="${target.pay}" type="number" groupingUsed="true"/>원</td>
+                        <td>
+                            <form action="${contextPath}/submit-settlement" method="post">
+                                <input type="hidden" name="freelancerName" value="${target.freelancerName}" />
+                                <input type="hidden" name="round" value="${round}" />
+                                <input type="submit" class="btn" value="정산하기" />
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -83,7 +77,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    const contextPath = '${contextPath}';
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // 정산하기 버튼에 이벤트 리스너 추가
@@ -113,6 +109,7 @@
     });
 </script>
 <script src="${contextPath}/js/catalog.js"></script>
+
 <script src="${contextPath}/js/header.js"></script>
 <script src="${contextPath}/js/headerLogin.js"></script>
 <script src="${contextPath}/js/monthlySettlement.js"></script>
