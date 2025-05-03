@@ -4,4 +4,5 @@ import dto.Apply;
 
 public interface IApplyDAO {
     Apply makeProjectApply(Apply apply) throws Exception;
+    Apply setlectApplyByApplyId(int applyId) throws Exception;
 }

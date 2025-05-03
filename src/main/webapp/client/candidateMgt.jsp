@@ -69,6 +69,8 @@
         <tbody>
         <c:forEach var="applicant" items="${applicants}">
           <tr data-freelancer-id="${applicant.freelancerId}">
+            <input type="hidden" class="apply-id" value="${applicant.applyId}" />
+            <input type="hidden" class="settle-day" value="${applicant.settleDay}" />
               <%-- 경력 (년), 평점 다른 필드로 교체해야할 듯 --%>
             <td><strong>${applicant.name}</strong></td> <%-- 지원자 이름 --%>
             <td>${applicant.applyPosition}</td> <%-- 지원한 레벨 (초급, 중급, 고급) --%>

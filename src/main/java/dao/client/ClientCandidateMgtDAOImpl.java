@@ -1,6 +1,10 @@
 package dao.client;
 
-import dto.ClientCandidateMgt;
+import dao.common.IProjectDAO;
+import dao.common.ProjectDAO;
+import dao.home.ApplyDAO;
+import dao.home.IApplyDAO;
+import dto.*;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
 
@@ -58,23 +62,31 @@ public class ClientCandidateMgtDAOImpl implements IClientCandidateMgtDAO {
 
     // 지원상태 => 수락하면 계약테이블에 행 추가
     @Override
-    public void insertContract(int projectId, String freelancerId) {
+    public void insertContract(int projectId, String freelancerId, Integer applyId, String clientId) throws Exception {
         SqlSession sqlSession = null;
         try {
             sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
             Map<String, Object> map = new HashMap<>();
             map.put("projectId", projectId);
             map.put("freelancerId", freelancerId);
+            IApplyDAO applyDAO = new ApplyDAO();
+            IProjectDAO projectDAO = new ProjectDAO();
+            Apply apply = applyDAO.setlectApplyByApplyId(applyId);
+            Project project = projectDAO.selectProjectById(projectId);
+            Contract cContract = new Contract();
+            cContract.setId("ct107");
+            cContract.setApplyId(applyId);
+            cContract.setProjectPayId(apply.getProjectPayId());
+            cContract.setProjectId(apply.getProjectId());
+            cContract.setClientId(clientId);
+            cContract.setStartDate();
+            cContract.setFreelancerId(apply.getFreelancerId());
 
-            // 디버깅 로그 추가
-            System.out.println("insertContract 맵 파라미터: " + map);
+            cContract.setId("ct107");
 
 
             sqlSession.insert("mapper.candidatemgt.insertContract", map);
             sqlSession.commit();
-
-            // 디버깅 로그 (계약 테이블 행 추가 여부)
-            System.out.println("insertContract 성공 - 계약 테이블에 행 추가됨");
         } catch (Exception e) {
             if (sqlSession != null) sqlSession.rollback();
             System.err.println("insertContract 실패: " + e.getMessage());

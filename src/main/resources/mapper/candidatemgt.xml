@@ -26,6 +26,8 @@
         <result property="applyStatus" column="is_approved"/> <!-- 지원 결과 -->
         <result property="applyDate" column="apply_date"/> <!-- 지원일자 -->
         <result property="freelancerId" column="freelancer_id"/>
+        <result property="applyId" column="apply_id"/>
+        <result property="settleDay" column="settle_day"/>
 
     </resultMap>
 
@@ -73,8 +75,10 @@
             pj.status,
             "" AS projectProgress,
             pj.req_skills,
+            pj.settle_day as settle_day,
             (SELECT SUM(p2.project_fee) FROM pay p2 WHERE p2.project_id = pj.project_id) AS totalAmount,
             (SELECT COUNT(*) FROM apply a2 WHERE a2.project_id = pj.project_id) AS applyCount,
+            a.apply_id as apply_id,
             a.is_approved AS applyStatus,
             a.freelancer_id,
             a.apply_date AS applyDate,

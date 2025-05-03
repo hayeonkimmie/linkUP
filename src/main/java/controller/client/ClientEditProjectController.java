@@ -1,11 +1,14 @@
-package controller.project;
+package controller.client;
 
 import com.google.gson.Gson;
 import dto.Category;
 import dto.Pay;
 import dto.Project;
+import dto.ProjectMgt;
 import service.client.ClientEditProjectServiceImpl;
 import service.client.IClientEditProjectService;
+import service.client.IProjectMgtService;
+import service.client.ProjectMgtServiceImpl;
 import service.common.CategoryMenuServiceImpl;
 import service.common.ICategoryMenuService;
 import service.home.IPayService;
@@ -16,7 +19,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/editProject")
 public class ClientEditProjectController extends HttpServlet {
@@ -154,13 +159,25 @@ public class ClientEditProjectController extends HttpServlet {
                     payService.registerPay(pay);
                 }
             }
-
-            // 세션에 프로젝트 업데이트 플래그 설정
-            HttpSession session = request.getSession();
-            session.setAttribute("projectUpdated", true);
+            IProjectMgtService service = new ProjectMgtServiceImpl();
+            Map<String, Object> param = new HashMap<>();
+            String clientId = (String) request.getSession().getAttribute("userId");
+            if (clientId == null || clientId.isEmpty()) {
+                clientId = "client001"; // 테스트용 기본값
+            }
+            // 파라미터로 status받기 (전체보기, 구인중, 시작전, 진행중, 종료됨)
+            String status = request.getParameter("status");
+            if (status == null || status.isEmpty()) {
+                status = "all"; // 기본값: 전체보기
+            }
+            param.put("clientId", clientId);
+            param.put("status", status);
+            List<ProjectMgt> projectList = service.getProjectByStatus(param);
 
             // 수정 완료 후 마이페이지로 리다이렉트
-            response.sendRedirect(request.getContextPath() + "/clientRecruitMgt");
+            request.setAttribute("projectList", projectList);
+            request.setAttribute("status", status); // 상태 값 받아오기
+            response.sendRedirect(request.getContextPath()+"/clientRecruitMgt");
 
         } catch (Exception e) {
             e.printStackTrace();

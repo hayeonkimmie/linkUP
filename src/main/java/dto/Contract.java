@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Contract {
     private String id;
     private int applyId;
-    private int projectFeeId;
+    private int projectPayId;
     private int projectId;
     private String freelancerId;
     private String clientId;
@@ -26,10 +26,10 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(String id, int applyId, int projectFeeId, int projectId, String freelancerId, String clientId, Date settleDay, Date startDate, Date endDate, String pname, Integer pay, int fee, String pmanager, int totalPay, String clientStatus, String status, String fphone, String account) {
+    public Contract(String id, int applyId, int projectPayId, int projectId, String freelancerId, String clientId, Date settleDay, Date startDate, Date endDate, String pname, Integer pay, int fee, String pmanager, int totalPay, String clientStatus, String status, String fphone, String account) {
         this.id = id;
         this.applyId = applyId;
-        this.projectFeeId = projectFeeId;
+        this.projectPayId = projectPayId;
         this.projectId = projectId;
         this.freelancerId = freelancerId;
         this.clientId = clientId;
@@ -63,12 +63,12 @@ public class Contract {
         this.applyId = applyId;
     }
 
-    public int getProjectFeeId() {
-        return projectFeeId;
+    public int getProjectPayId() {
+        return projectPayId;
     }
 
-    public void setProjectFeeId(int projectFeeId) {
-        this.projectFeeId = projectFeeId;
+    public void setProjectPayId(int projectPayId) {
+        this.projectPayId = projectPayId;
     }
 
     public int getProjectId() {

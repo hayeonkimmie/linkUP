@@ -18,33 +18,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateApplyStatus(rowElement, newStatus) {
         const freelancerId = rowElement.getAttribute('data-freelancer-id');
+        const applyId = rowElement.querySelector('.apply-id')?.value;
+        const settleDay = rowElement.querySelector('.settle-day')?.value;
+        const projectId = new URLSearchParams(window.location.search).get('projectId');
+
+        if (!applyId || !projectId || !freelancerId || !settleDay) {
+            alert('필요한 정보가 누락되었습니다.');
+            return;
+        }
 
         fetch(`${contextPath}/candidateAction`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `projectId=${projectId}&freelancerId=${freelancerId}&applyStatus=${newStatus}`
+            body: `applyId=${applyId}&projectId=${projectId}&freelancerId=${freelancerId}&applyStatus=${newStatus}&settleDay=${settleDay}`
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('상태 업데이트 실패');
-                }
+                if (!response.ok) throw new Error('상태 업데이트 실패');
                 return response.text();
             })
             .then(data => {
-                // UI 업데이트
-                const statusCell = rowElement.querySelector('.apply-status');
-                statusCell.innerHTML = (newStatus === 1) ? '합격' : '불합격';
-
-                // 버튼 없애기
-                const actionCell = rowElement.querySelector('.action-buttons');
-                actionCell.innerHTML = '';
-
-                // 알림창
+                rowElement.querySelector('.apply-status').innerHTML = newStatus === 1 ? '합격' : '불합격';
+                rowElement.querySelector('.action-buttons').innerHTML = '';
                 alert(newStatus === 1 ? '수락 처리 완료!' : '거절 처리 완료!');
-
-                // 페이지 새로고침 (변경사항을 즉시 반영)
                 window.location.reload();
             })
             .catch(error => {

@@ -30,8 +30,8 @@ public class ClientCandidateMgtImpl implements IClientCandidateMgt{
 
     /// 수락 시 계약테이블에 행 추가
     @Override
-    public void insertContract(int projectId, String freelancerId) {
-        clientCandidateMgtDAO.insertContract(projectId, freelancerId);
+    public void insertContract(int projectId, String freelancerId, Integer applyId, String clientId) throws Exception {
+        clientCandidateMgtDAO.insertContract(projectId, freelancerId, applyId, clientId);
 
     }
 

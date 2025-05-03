@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.sql.Date;
 
 @WebServlet("/candidateAction")
 public class ClientCandidateAction extends HttpServlet {
@@ -33,11 +34,12 @@ public class ClientCandidateAction extends HttpServlet {
             int projectId = Integer.parseInt(request.getParameter("projectId"));
             String freelancerId = request.getParameter("freelancerId");
             int applyStatus = Integer.parseInt(request.getParameter("applyStatus"));
-
+            Integer applyId = Integer.parseInt(request.getParameter("applyId"));
             // 디버깅 로그 출력
             System.out.println("projectId: " + request.getParameter("projectId"));
             System.out.println("freelancerId: " + request.getParameter("freelancerId"));
             System.out.println("applyStatus: " + request.getParameter("applyStatus"));
+            System.out.println("applyId: " + applyId);
 
             // 서비스 계층 메서드 호출 (프리랜서 지원상태 업데이트)
             service.updateApplyStatus(projectId, freelancerId, applyStatus);
@@ -45,7 +47,7 @@ public class ClientCandidateAction extends HttpServlet {
 
             // 수락(1)일 때만 계약 테이블에 insert
             if (applyStatus == 1) {
-                service.insertContract(projectId, freelancerId);
+                service.insertContract(projectId, freelancerId, applyId, (String) request.getSession().getAttribute("userId"));
             }
 
             // JSON 응답 생성

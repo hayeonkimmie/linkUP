@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,16 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>월별 정산하기</title>
     <link rel="stylesheet" href="${contextPath}/css/common/headerLoginSt.css"/>
-    <link rel="stylesheet" href="${contextPath}/css/client/monthlySettlement.css" />
-    <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css" />
-
+    <link rel="stylesheet" href="${contextPath}/css/client/monthlySettlement.css"/>
+    <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css"/>
 </head>
 <body>
 
 <div id="header-placeholder"></div>
 <div class="layout">
-    <!-- 공통 사이드바 include -->
-    <jsp:include page="../common/sidebar.jsp" />
+    <jsp:include page="../common/sidebar.jsp"/>
 
     <div class="main">
         <div class="header">
@@ -41,75 +39,49 @@
             </div>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                <tr>
-                    <th>회차</th>
-                    <th>이름</th>
-                    <th>정산 기간</th>
-                    <th>금액</th>
-                    <th>작업</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="target" items="${settleTargets}" varStatus="status">
-                    <tr>
-                        <td>${round}</td>
-                        <td>${target.freelancerName}</td>
-                        <td>${target.settlePeriod}</td>
-                        <td><fmt:formatNumber value="${target.pay}" type="number" groupingUsed="true"/>원</td>
-                        <td>
-                            <form action="${contextPath}/submit-settlement" method="post">
-                                <input type="hidden" name="freelancerName" value="${target.freelancerName}" />
-                                <input type="hidden" name="round" value="${round}" />
-                                <input type="submit" class="btn" value="정산하기" />
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
+        <form action="${contextPath}/submit-settlement" method="post" id="settleForm">
+            <input type="hidden" name="round" value="${round}"/>
 
-        <div class="buttons">
-            <a href="#" class="btn btn-secondary">돌아가기</a>
-        </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>이름</th>
+                        <th>정산 기간</th>
+                        <th>금액</th>
+                        <th>선택</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="target" items="${settleTargets}" varStatus="status">
+                        <tr>
+                            <td>${status.index + 1}</td>
+                            <td>${target.freelancerName}</td>
+                            <td>${target.settlePeriod}</td>
+                            <td><fmt:formatNumber value="${target.pay}" type="number" groupingUsed="true"/>원</td>
+                            <td>
+                                <input type="checkbox" name="freelancerNames" value="${target.freelancerName}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="btn">정산하기</button>
+                <a href="${contextPath}/clientRecruitMgt" class="btn btn-secondary">돌아가기</a>
+            </div>
+        </form>
     </div>
 </div>
+
 <script>
     const contextPath = '${contextPath}';
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 정산하기 버튼에 이벤트 리스너 추가
-        const settleBtns = document.querySelectorAll('.btn:not([disabled])');
-        settleBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (confirm('해당 월의 정산을 진행하시겠습니까?')) {
-                    // 버튼 비활성화 및 로딩 표시
-                    this.disabled = true;
-                    this.textContent = '처리중...';
 
-                    // 실제로는 여기서 AJAX 요청을 보내야 함
-                    // 테스트용 타이머
-                    setTimeout(() => {
-                        alert('정산이 완료되었습니다.');
-                        this.textContent = '정산완료';
-                        this.disabled = true;
-                        const row = this.closest('tr');
-                        const statusCell = row.querySelector('.status');
-                        statusCell.textContent = '완료';
-                        statusCell.classList.remove('pending');
-                        statusCell.classList.add('completed');
-                    }, 1000);
-                }
-            });
-        });
-    });
-</script>
 <script src="${contextPath}/js/catalog.js"></script>
-
 <script src="${contextPath}/js/header.js"></script>
 <script src="${contextPath}/js/headerLogin.js"></script>
 <script src="${contextPath}/js/monthlySettlement.js"></script>

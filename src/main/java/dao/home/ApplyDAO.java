@@ -25,4 +25,19 @@ public class ApplyDAO implements IApplyDAO {
         }
         return apply;
     }
+
+    @Override
+    public Apply setlectApplyByApplyId(int applyId) throws Exception {
+        Apply apply = null;
+        try(SqlSession session = this.sqlSession.openSession()) {
+            apply = session.selectOne("mapper.apply.setlectApplyByApplyId", applyId);
+            session.commit();
+            System.out.println(apply);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("프로젝트 ID로 계약 수를 세는 중 오류 발생", e);
+        }
+
+        return apply;
+    }
 }
