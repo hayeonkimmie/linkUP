@@ -154,7 +154,7 @@
         p.working_hours AS workingHours,
         p.manager AS projectManager,
         p.mphone AS managerPhone,
-        CONCAT(FORMAT(c.total_pay, 0), ' 원') AS totalBudget,
+        CONCAT(FORMAT(c.pay, 0), ' 원') AS totalBudget,
         p.deadline_date,
         CASE
         WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
@@ -233,7 +233,7 @@
             p.working_hours AS workingHours,
             p.manager AS projectManager,
             p.mphone AS managerPhone,
-            CONCAT(FORMAT(c.total_pay, 0), '원') AS totalBudget,
+            CONCAT(FORMAT(c.pay, 0), '원') AS totalBudget,
             subcat.sub_category_name as categories,
             p.deadline_date,
             CASE

@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getCareerTemplate(index, base) {
         return `
-            <button type="button" class="buttonDeleteField">X</button>
+            <button type="button" class="button buttonDeleteField">X</button>
             <div class="career-row">
                 <input type="text" name="${base}[${index}].companyName" id="companyName_${index}" placeholder="회사명" required />
                 <input type="text" name="${base}[${index}].departmentName" id="departmentName_${index}" placeholder="부서명" />
@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getEducationTemplate(index, base) {
         return `
-            <button type="button" class="buttonDeleteField">X</button>
+            <button type="button" class="button buttonDeleteField">X</button>
             <div class="dropdown input-academicType">
                 <div class="label">학력구분 <span class="star">*</span></div>
                 <select name="${base}[${index}].academicType" id="academicType_${index}" class="academicType">
@@ -326,10 +326,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="label">전공명</div>
                 <input type="text" name="${base}[${index}].academicMajor" id="academicMajor_${index}" placeholder="전공" />
             </div>
-            <div class="input input-month-group">
+            <div class="input-month-group-horizontal">
                 <div class="input-education-date">
                     <label>입학연월</label>
-                    <input type="month" name="${base}[${index}].enterDate" id="enterDate_${index}" />
+                    <input type="month" name="${base}[${index}].enterDate" id="enterDate_${index}"/>
                 </div>
                 <div class="input-education-date">
                     <label>졸업연월</label>
@@ -342,9 +342,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function getLicenseTemplate(index, base) {
         return `
             <div class="license-row">
-                <button type="button" class="buttonDeleteField">X</button>
+                <button type="button" class="button buttonDeleteField">X</button>
                 <div class="input input-certificate-name is-label">
-                    <label>자격증 명 <span class="star">*</span></label>
+                    <label>자격증 명 </label>
                     <input type="text" name="${base}[${index}].name" id="licenseName_${index}" placeholder="자격증명" required maxlength="50"/>
                 </div>
                 <div class="input input-certificate-agency is-label">
@@ -531,7 +531,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <input type="text" name="url-${urlIndex}" id="url-${urlIndex}" placeholder="https://example.com"/>
                 </td>
                 <td>
-                    <button type="button" class="delete-tr">X</button>
+                    <button type="button" class="button delete-tr">X</button>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -546,13 +546,13 @@ document.addEventListener("DOMContentLoaded", function () {
             tr.classList.add("file-section");
             const fileIndex = tbody.querySelectorAll("tr.file-section").length;
             tr.innerHTML = `
-                <td><label for="attachment-${fileIndex}">첨부파일 <p>10mb 이하의 파일을 올려주세요.</p></label></td>
+                <td><label for="attachment-${fileIndex}">첨부파일 <p class="attachment-notification ">10mb 이하의 파일을 올려주세요.</p></label></td>
                 <td>
                     <input type="file" name="attachment-${fileIndex}" id="attachment-${fileIndex}" 
                            accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx"/>
                 </td>
                 <td>
-                    <button type="button" class="delete-tr">X</button>
+                    <button type="button" class="button delete-tr">X</button>
                 </td>
             `;
             tbody.appendChild(tr);

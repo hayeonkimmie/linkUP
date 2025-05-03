@@ -92,11 +92,11 @@
                                         </h3>
                                         <p class="description">${portfolio.introduce }</p>
                                         <div class="tags">
-                                            <c:forEach var="skill" items="${portfolio.skillList }">
-                                                <c:if test="${not empty skill }">
-                                                    <span class="tag">${skill }</span>
-                                                </c:if>
-                                            </c:forEach>
+                                            <c:if test="${not empty portfolio.skillList }">
+                                                <c:forEach var="skill" items="${portfolio.skillList }">
+                                                        <span class="tag">${skill }</span>
+                                                </c:forEach>
+                                            </c:if>
                                         </div>
                                         <div class="reg-date">등록일 | ${portfolio.createdDate}</div>
                                     </div>

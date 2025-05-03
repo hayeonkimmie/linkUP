@@ -50,9 +50,9 @@ public class CreateAccRecruiterController extends HttpServlet {
         user.setPassword(password);
         user.setPhoneNum(phone);
         user.setProfileImg(null);
-        user.setToken(null);
+/*        user.setToken(null);
         user.setAcceptNoti(true);
-        user.setAcceptConsent(true);
+        user.setAcceptConsent(true);*/
         user.setRegistrationDate(Date.valueOf(LocalDate.now()));
         user.setWithdrawalDate(null);
 

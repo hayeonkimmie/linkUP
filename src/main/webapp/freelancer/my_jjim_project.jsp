@@ -40,7 +40,7 @@
                                     <th>프로젝트명</th>
                                     <th>분야</th>
                                     <th class="duration center">기간</th>
-                                    <th style="width:153px;">근무 환경 | 근무 방식</th>
+                                    <th style="width:16.81%;">근무 환경 | 근무 방식</th>
                                         <%--<th>클라이언트</th>--%>
                                     <th>지원 자격</th>
                                     <th class="deadline center" colspan="2">모집 마감일</th>
@@ -67,7 +67,7 @@
                                     <th>프로젝트명</th>
                                     <th>분야</th>
                                     <th class="duration center">기간</th>
-                                    <th style="width:153px;">근무 환경 | 근무 방식</th>
+                                    <th style="width:16.81%;">근무 환경 | 근무 방식</th>
                                     <%--<th>클라이언트</th>--%>
                                     <th>지원 자격</th>
                                     <th class="deadline center" colspan="2">모집 마감일</th>

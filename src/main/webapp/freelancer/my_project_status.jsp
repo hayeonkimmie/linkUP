@@ -68,7 +68,7 @@
                                     <td>
                                         <a href="${project.projectId}">${project.projectName}</a>
                                     </td>
-                                    <td>${project.categories}</td>
+                                    <%--<td>${project.categories}</td>--%>
                                     <td>${project.projectDuration}</td>
                                     <td>${project.totalBudget}</td>
                                     <td>

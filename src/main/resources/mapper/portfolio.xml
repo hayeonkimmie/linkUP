@@ -8,7 +8,7 @@
     </select>
     <!--포트폴리오 목록 조회-->
     <select id="selectPortfolioListByPage" parameterType="Map" resultType="portfolio">
-        SELECT portfolio_id, title, thumbnail, introduce, skill_description, created_date, is_temp_saved
+        SELECT portfolio_id, title, thumbnail, introduce, skill_description, created_date
         FROM portfolio
         where freelancer_id = #{user_id}
           and is_deleted is false order by portfolio_id desc limit #{row}, 10
@@ -29,13 +29,13 @@
     <select id="selectAllPortfolioInfoForProfile" resultType="Map" parameterType="String">
         SELECT portfolio_id, title
         FROM portfolio
-        WHERE freelancer_id = #{freelancerId} and is_deleted = false and is_temp_saved = false
+        WHERE freelancer_id = #{freelancerId} and is_deleted = false
         ORDER BY portfolio_id DESC
     </select>
     <select id="selectedPortfolioInfoForProfile" resultType="portfolio" parameterType="String">
         SELECT portfolio_id, title, priority
         FROM portfolio
-        WHERE freelancer_id = #{freelancerId} and is_deleted = false and is_temp_saved = false and priority is not null
+        WHERE freelancer_id = #{freelancerId} and is_deleted = false
         ORDER BY
             priority ASC,
             portfolio_id DESC
@@ -61,18 +61,17 @@
             skill_description = #{skillDescription},
             attachment = #{attachment},
             external_url = #{externalUrl},
-            project_id = #{projectId},
-            is_temp_saved = #{isTempSaved}
+            project_id = #{projectId}
         WHERE portfolio_id = #{portfolioId}
     </update>
     <insert id="insertPortfolioComplete" parameterType="portfolio" useGeneratedKeys="true" keyProperty="portfolioId">
-        INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, port_proj_start, port_proj_end, team_role, skill_description, project_id, attachment, external_url, is_temp_saved)
-        VALUES (#{freelancerId}, #{title}, #{thumbnail}, #{introduce}, #{portProjStart}, #{portProjEnd}, #{teamRole}, #{skillDescription}, #{projectId}, #{attachment}, #{externalUrl}, false);
+        INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, port_proj_start, port_proj_end, team_role, skill_description, project_id, attachment, external_url)
+        VALUES (#{freelancerId}, #{title}, #{thumbnail}, #{introduce}, #{portProjStart}, #{portProjEnd}, #{teamRole}, #{skillDescription}, #{projectId}, #{attachment}, #{externalUrl});
     </insert>
-    <insert id="insertPortfolioIncomplete" parameterType="portfolio" useGeneratedKeys="true" keyProperty="portfolioId">/*미완인 포폴*/
+<!--    <insert id="insertPortfolioIncomplete" parameterType="portfolio" useGeneratedKeys="true" keyProperty="portfolioId">/*미완인 포폴*/
     INSERT INTO portfolio (freelancer_id, title, thumbnail, introduce, skill_description, project_id, attachment, external_url, is_temp_saved)
     VALUES (#{freelancerId}, #{title}, #{thumbnail}, #{introduce}, #{skillDescription}, #{projectId}, #{attachment}, #{externalUrl}, true)
-    </insert>
+    </insert>-->
     <update id="deletePortfolioById" parameterType="Integer">
         update portfolio set is_deleted=true
         WHERE portfolio_id = #{portfolioId}

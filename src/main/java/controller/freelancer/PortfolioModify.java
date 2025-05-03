@@ -110,28 +110,6 @@ public class PortfolioModify extends HttpServlet {
             portfolio.setPortProjEnd(endDate);
 
         // . ExternalUrlList
-            /*List<String> externalUrlList = new ArrayList<>();
-            String externalUrlListJson = multi.getParameter("externalUrlListJson");
-            if (externalUrlListJson != null && !externalUrlListJson.isEmpty()) {
-                JSONArray urlArray = (JSONArray) parser.parse(externalUrlListJson);
-                for (Object url : urlArray) {
-                    externalUrlList.add((String) url);
-                }
-                System.out.println("1차 체크포인트 externalUrlList :" + externalUrlList);
-                portfolio.setExternalUrl(String.join("^", externalUrlList));
-            }
-
-            // 5. AttachmentList
-            List<String> attachmentList = new ArrayList<>();
-            String attachmentListJson = multi.getParameter("attachmentListJson");
-            if (attachmentListJson != null && !attachmentListJson.isEmpty()) {
-                JSONArray attachmentArray = (JSONArray) parser.parse(attachmentListJson);
-                for (Object fileName : attachmentArray) {
-                    attachmentList.add((String) fileName);
-                }
-                System.out.println("2차 체크포인트 attachmentList :" + attachmentList);
-                portfolio.setAttachment(String.join("^", attachmentList));
-            }*/
             portfolio.setAttachment(multi.getParameter("attachmentHidden"));
             portfolio.setExternalUrl(multi.getParameter("externalUrlListHidden"));
             String skillDescription = multi.getParameter("skillDescription"); // "Java^Spring^MySQL"

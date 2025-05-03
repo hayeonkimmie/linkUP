@@ -15,12 +15,9 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_write_and_modify.css'/>">
 </head>
 <body>
-<div class="header">
     <!-- 헤더 인클루드 영역 -->
     <div id="header-placeholder"></div>
     <%--    <jsp:include page="../home/header.jsp" />--%>
-</div>
-
 <div class="container">
     <jsp:include page="/freelancer/sidebar.jsp"/>
     <main class="content">
@@ -80,10 +77,12 @@
                     <input type="text" id="skills" placeholder="스킬을 입력하고 쉼표(,) 또는 Enter 키로 구분해주세요"/>
                     <a id="clear-skills">초기화</a>
                     <div class="skill-tags" style="margin-top: 10px;">
-                        <c:forEach var="skill" items="${portfolio.skillList }">
-                            <span class="skill-tag" data-skill="${skill}">${skill}
-                                <button class="delete-skill-btn">X</button></span>
-                        </c:forEach>
+                        <c:if test="${not empty portfolio.skillList }">
+                            <c:forEach var="skill" items="${portfolio.skillList }">
+                                <span class="skill-tag" data-skill="${skill}">${skill}
+                                    <button class="delete-skill-btn">X</button></span>
+                            </c:forEach>
+                        </c:if>
                     </div>
                 </div>
                 <!-- 포트폴리오 소개 -->

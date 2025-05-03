@@ -141,7 +141,6 @@ public class PortfolioWrite extends HttpServlet {
             String skillDescription = multi.getParameter("skillDescriptionHidden"); // "Java^Spring^MySQL"
             System.out.println("3차 체크포인트 skillDescription : " + skillDescription);
             portfolio.setSkillDescription(skillDescription);
-            portfolio.setTempSaved(true);
 /*            if(multi.getParameter("tempSaved") != null && multi.getParameter("tempSaved").equals("true")) {
                 portfolio.setTempSaved(true);
             } else {

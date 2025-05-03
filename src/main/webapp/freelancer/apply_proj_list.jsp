@@ -30,13 +30,13 @@
                 <thead>
                 <tr>
                     <th>상태</th>
-                    <th>지원일</th>
-                    <th style="width:30%;">프로젝트 정보</th>
+                    <th style="width:10%;">지원일</th>
+                    <th>프로젝트 정보</th>
                     <th>분야</th>
-                    <th>기간 | 예산</th>
-                    <th>모집 마감일<br>D-Day</th>
+                    <th style="width: 10%;">기간 | 예산</th>
+                    <th style="width: 9%;">모집 마감일<br>D-Day</th>
                     <th style="width: 8%;">승인여부</th>
-                    <th>지원취소</th>
+                    <th style="width: 9%">지원취소</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,7 +80,10 @@
                                     <span>${apply.category}</span>
                                 </td>
                                 <td>
-                                        ${apply.duration}<br>${apply.projectFee}
+                                    ${apply.duration}<br>
+                                        <c:if test="${not empty apply.projectFee}">
+                                            <fmt:formatNumber value="${apply.projectFee}" /> 원
+                                        </c:if>
                                 </td>
                                 <td><fmt:formatDate value='${apply.deadlineDate}' pattern='yyyy-MM-dd'/> <br><span
                                         class="d-day">${apply.dDay}</span></td>

@@ -1,5 +1,9 @@
+div.container{
+    justify-content:center
+}
 .content{
     padding-right: 40px;
+    max-width: 1000px;
 }
 .portfolio-info {
     display: flex;
@@ -87,8 +91,8 @@ td a{
 #list-btn{
 /*    color: white;
     background-color: #5bc0de;*/
-    color: #940683;
-    background-color: #e5d4f5;
+    background-color: #940683;
+    color: #e5d4f5;
 }
 .action-buttons /*.edit-btn,
 .action-buttons .delete-btn*/ {
@@ -106,12 +110,16 @@ td a{
     cursor: pointer;
 }
 .action-buttons .edit-btn{
-    background-color: #e6f0ff;
-    color: #1967d2;
+/*    background-color: #e6f0ff;
+    color: #1967d2;*/
+    color: #e6f0ff;
+    background-color: #1967d2;
 }
 
 .action-buttons .delete-btn {
 /*    background-color: #d9534f;*/
-    background-color: #ffe5e5;
-    color: #d93025;
+/*    background-color: #ffe5e5;
+    color: #d93025;*/
+    color: #ffe5e5;
+    background-color: #d93025;
 }

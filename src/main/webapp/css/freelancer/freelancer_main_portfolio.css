@@ -31,15 +31,11 @@ img{
   padding: 10px 20px;
   font-size: 14px;
   border-radius: 8px;
+  color: #e5d4f5;
   background-color: #91009e;
-  color: white;
   border: none;
   cursor: pointer;
   float: right;
-}
-
-.add-portfolio:hover {
-  background-color: #75017d;
 }
 
 /* 포트폴리오 카드 전체 목록 */
@@ -167,12 +163,24 @@ img{
   /*font-size: 0.9rem;*/
 }
 .edit-btn{
-  background-color: #e6f0ff;
-  color: #1967d2;
+/*  background-color: #e6f0ff;
+  color: #1967d2;*/
+    color: #e6f0ff;
+  background-color: #1967d2;
 }
 .delete-btn{
-  background-color: #ffe5e5;
-  color: #d93025;
+/*  background-color: #ffe5e5;
+  color: #d93025;*/
+  color: #ffe5e5;
+  background-color: #d93025;
+}
+.delete-btn:hover {
+  color: #ffe5e5;
+  background-color: #d93025;
+}
+.edit-btn:hover {
+  color: #e6f0ff;
+  background-color: #1967d2;
 }
 
 /* 변경 후*/
