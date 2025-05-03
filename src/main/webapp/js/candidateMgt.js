@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 return response.text();
             })
-            .then(() => {
+            .then(data => {
+                // UI 업데이트
                 const statusCell = rowElement.querySelector('.apply-status');
                 statusCell.innerHTML = (newStatus === 1) ? '합격' : '불합격';
 
@@ -42,10 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 알림창
                 alert(newStatus === 1 ? '수락 처리 완료!' : '거절 처리 완료!');
+
+                // 페이지 새로고침 (변경사항을 즉시 반영)
+                window.location.reload();
             })
             .catch(error => {
                 console.error('에러 발생:', error);
-                alert('처리 중 오류가 발생했습니다.');
+                alert('처리 중 오류가 발생했습니다: ' + error.message);
             });
     }
 });

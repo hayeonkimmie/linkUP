@@ -52,7 +52,7 @@
 
 
 
-    <!-- ✅ 최초 정산시 settlelist 테이블에 데이터 insert -->
+    <!--  최초 정산시 settlelist 테이블에 데이터 insert -->
     <insert id="createSettlelist" parameterType="dto.Settlelist" useGeneratedKeys="true" keyProperty="slistId">
             INSERT INTO settlelist (
                   contract_id,
