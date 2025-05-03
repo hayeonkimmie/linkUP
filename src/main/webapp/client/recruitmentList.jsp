@@ -152,9 +152,10 @@
                             </c:when>
                             <c:when test="${project.status eq '구인완료'}">
                                 <c:choose>
-                                    <c:when test="${project.projectProgress eq '시작전'}">
-                                        <button class="btn btn-edit">수정하기</button>
-                                    </c:when>
+<%--                                    시작전일 경우 '수정'불가능 하게 변경--%>
+<%--                                    <c:when test="${project.projectProgress eq '시작전'}">--%>
+<%--                                        <button class="btn btn-edit">수정하기</button>--%>
+<%--                                    </c:when>--%>
                                     <c:when test="${project.projectProgress eq '진행중'}">
                                         <a href="<c:url value='/request-settlement'>
                                                 <c:param name='projectId' value='${project.projectId}'/>
