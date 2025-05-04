@@ -58,12 +58,9 @@ public class ClientCandidateMgt extends HttpServlet {
 
             // 서비스 호출해서 지원자 목록 가져오기
             List<dto.ClientCandidateMgt> applicants = service.getCandidateMgtList(param);
-            for(dto.ClientCandidateMgt applicant : applicants) {
-                System.out.println(applicant);
-            }
 
             // 5. 결과 저장해서 JSP로 값 전달
-            request.setAttribute("project", projectInfo);
+            request.setAttribute("projectInfo", projectInfo);
             request.setAttribute("applicants", applicants);
             request.getRequestDispatcher("./client/candidateMgt.jsp").forward(request, response);
         } catch (Exception e) {

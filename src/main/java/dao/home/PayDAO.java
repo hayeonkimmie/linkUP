@@ -64,4 +64,15 @@ public class PayDAO implements IPayDAO {
             session.commit();
         }
     }
+
+    @Override
+    public Pay selectPayByProjectPayId(Integer projectPayId) throws Exception {
+        Pay pay = null;
+        try (SqlSession session = sqlSession.openSession()) {
+            pay = session.selectOne("mapper.pay.selectPayByProjectPayId", projectPayId);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pay;
+    }
 }

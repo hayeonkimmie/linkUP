@@ -75,6 +75,15 @@ public class ProjectDAO implements IProjectDAO {
 
     @Override
     public List<Project> getProjectById(int projectId) throws Exception {
-        return List.of();
+        return null;
     }
+
+    @Override
+    public Project selectProjectByProjectId(Integer projectId) throws Exception {
+        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            return session.selectOne("mapper.project.selectProjectByProjectId", projectId);
+        }
+    }
+
+
 }

@@ -74,10 +74,7 @@ public class ClientRecruitMgtList extends HttpServlet {
                     project.setProjectProgress(""); // 구인완료 상태가 아니면 값 비우기
                 }
             }
-            // 결과 저장해서 JSP로 전달
-            for(ProjectMgt project : projectList) {
-                System.out.println("project : \n"+project);
-            }
+
             request.setAttribute("projectList", projectList); // 서비스 호출해서 list 받아오기
             request.setAttribute("status", status); // 상태 값 받아오기
 

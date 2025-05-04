@@ -2,8 +2,12 @@ package dao.client;
 
 import dao.common.IProjectDAO;
 import dao.common.ProjectDAO;
+import dao.freelancer.FreelancerDAO;
+import dao.freelancer.IFreelancerDAO;
 import dao.home.ApplyDAO;
 import dao.home.IApplyDAO;
+import dao.home.IPayDAO;
+import dao.home.PayDAO;
 import dto.*;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisSqlSessionFactory;
@@ -66,30 +70,37 @@ public class ClientCandidateMgtDAOImpl implements IClientCandidateMgtDAO {
         SqlSession sqlSession = null;
         try {
             sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
-            Map<String, Object> map = new HashMap<>();
-            map.put("projectId", projectId);
-            map.put("freelancerId", freelancerId);
+            Integer contractCount = sqlSession.selectOne("mapper.contract.selectContractCountByProjectId", projectId);
             IApplyDAO applyDAO = new ApplyDAO();
+            IPayDAO payDAO = new PayDAO();
             IProjectDAO projectDAO = new ProjectDAO();
-            Apply apply = applyDAO.setlectApplyByApplyId(applyId);
-            Project project = projectDAO.selectProjectById(projectId);
+            IFreelancerDAO freelancerDAO= new FreelancerDAO();
+            ClientApply apply = applyDAO.setlectApplyByApplyId(applyId);
+            Pay pay = payDAO.selectPayByProjectPayId(apply.getProjectPayId());
+            Project project = projectDAO.selectProjectByProjectId(projectId);
+            Freelancer freelancer = freelancerDAO.selectBasicFreelancerById(apply.getFreelancerId());
             Contract cContract = new Contract();
-            cContract.setId("ct107");
+            cContract.setId("ct" + contractCount + projectId + freelancerId);
             cContract.setApplyId(applyId);
             cContract.setProjectPayId(apply.getProjectPayId());
             cContract.setProjectId(apply.getProjectId());
             cContract.setClientId(clientId);
-            cContract.setStartDate();
-            cContract.setFreelancerId(apply.getFreelancerId());
-
-            cContract.setId("ct107");
-
-
-            sqlSession.insert("mapper.candidatemgt.insertContract", map);
+            cContract.setStartDate(project.getStartDate());
+            cContract.setEndDate(project.getEndDate());
+            cContract.setPname(project.getProjectName());
+            cContract.setPay(pay.getProjectFee());
+            cContract.setFee((int) (pay.getProjectFee() * 0.03));
+            cContract.setPmanager(project.getManager());
+            cContract.setTotalPay((int) (pay.getProjectFee() * 1.03));
+            cContract.setClientStatus("N");
+            cContract.setStatus("계약완료");
+            cContract.setFphone(freelancer.getPhoneNum());
+            cContract.setAccount(freelancer.getAccountNum());
+            cContract.setFreelancerId(freelancerId);
+            sqlSession.insert("mapper.candidatemgt.insertContract", cContract);
             sqlSession.commit();
         } catch (Exception e) {
             if (sqlSession != null) sqlSession.rollback();
-            System.err.println("insertContract 실패: " + e.getMessage());
             e.printStackTrace();
             throw e;
         } finally {

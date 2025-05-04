@@ -246,6 +246,37 @@
         ORDER BY sl.cnt
     </select>
 
+    <select id="selectSettlementHistoryDetailByClientId" resultType="dto.ClientProjectSummary">
+        SELECT
+            p.project_id,
+            p.project_name,
+            (SELECT SUM(pay) FROM contract WHERE project_id = #{projectId}) AS total_amount,
+            -- 프로젝트 기간 (MIN~MAX)
+            (SELECT DATE_FORMAT(MIN(start_date), '%Y-%m-%d') FROM contract WHERE project_id = #{projectId}) AS startDate,
+            (SELECT DATE_FORMAT(MAX(end_date), '%Y-%m-%d') FROM contract WHERE project_id = #{projectId}) AS endDate,
 
-
+            -- 최신 회차
+            (SELECT
+                 CASE
+                     WHEN IFNULL((
+                                     SELECT COUNT(*) FROM settlement s
+                                     WHERE s.slist_id IN (
+                                         SELECT slist_id FROM settlelist
+                                         WHERE project_id = #{projectId}
+                                           AND cnt = (
+                                             SELECT MAX(cnt) FROM settlelist WHERE project_id = #{projectId}
+                                         )
+                                     )
+                                 ), 0)
+                         =
+                          (SELECT COUNT(*) FROM contract WHERE project_id = #{projectId})
+                         THEN
+                             (SELECT MAX(cnt) + 1 FROM settlelist WHERE project_id = #{projectId})
+                     ELSE
+                             (SELECT MAX(cnt) FROM settlelist WHERE project_id = #{projectId})
+                     END
+            ) AS nextRound
+        FROM project p
+        WHERE p.project_id = #{projectId}
+    </select>
 </mapper>

@@ -113,53 +113,44 @@
         WHERE project_id = #{projectId} AND freelancer_id = #{freelancerId}
     </update>
 
-    <insert id="insertContract" parameterType="map">
+    <insert id="insertContract" parameterType="dto.Contract">
         INSERT INTO contract (
+            id,
             apply_id,
             project_pay_id,
             project_id,
             client_id,
-            settle_day,
             start_date,
             end_date,
             pname,
             pay,
+            fee,
             pmanager,
             total_pay,
+            client_status,
             status,
             fphone,
             account,
             freelancer_id
-        )
-        SELECT
-            a.apply_id,
-            a.project_pay_id,
-            p.project_id,
-            p.client_id,
-            p.settle_day,
-            p.start_date,
-            p.end_date,
-            p.project_name AS pname,
-            pp.project_fee AS pay,
-            p.manager AS pmanager,
-            (SELECT SUM(project_fee) FROM pay WHERE project_id = #{projectId}) AS total_pay,
-            '계약완료' AS status,
-            u.phone_num AS fphone,
-            f.account_num AS account,
-            #{freelancerId}
-        FROM
-            apply a
-                JOIN
-            project p ON a.project_id = p.project_id
-                JOIN
-            freelancer f ON a.freelancer_id = f.freelancer_id
-                JOIN
-            user u ON u.user_id = f.freelancer_id
-                JOIN
-            pay pp ON pp.project_pay_id = a.project_pay_id
-        WHERE
-            a.project_id = #{projectId}
-          AND a.freelancer_id = #{freelancerId}
-          AND a.is_approved = 1
+        ) VALUES (
+                     #{id},
+                     #{applyId},
+                     #{projectPayId},
+                     #{projectId},
+                     #{clientId},
+                     #{startDate},
+                     #{endDate},
+                     #{pname},
+                     #{pay},
+                     #{fee},
+                     #{pmanager},
+                     #{totalPay},
+                     #{clientStatus},
+                     #{status},
+                     #{fphone},
+                     #{account},
+                     #{freelancerId}
+                 )
     </insert>
+
 </mapper>

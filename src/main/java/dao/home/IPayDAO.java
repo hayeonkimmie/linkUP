@@ -12,4 +12,6 @@ public interface IPayDAO {
     List<Pay> getPaysByProjectId(int projectId);
 
     void deletePaysByProjectId(int projectId);
+
+    Pay selectPayByProjectPayId(Integer projectPayId) throws Exception;
 }

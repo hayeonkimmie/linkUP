@@ -1,6 +1,7 @@
 package dao.home;
 
 import dto.Apply;
+import dto.ClientApply;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import util.SingleTonSession;
@@ -27,10 +28,10 @@ public class ApplyDAO implements IApplyDAO {
     }
 
     @Override
-    public Apply setlectApplyByApplyId(int applyId) throws Exception {
-        Apply apply = null;
+    public ClientApply setlectApplyByApplyId(int applyId) throws Exception {
+        ClientApply apply = null;
         try(SqlSession session = this.sqlSession.openSession()) {
-            apply = session.selectOne("mapper.apply.setlectApplyByApplyId", applyId);
+            apply = session.selectOne("mapper.apply.setlectApplyById", applyId);
             session.commit();
             System.out.println(apply);
         } catch (Exception e) {

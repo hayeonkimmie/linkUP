@@ -155,6 +155,16 @@ public class SettlementDAO implements ISettlementDAO {
             return historyMap;
         }
     }
+    @Override
+    public ClientProjectSummary selectSettlementHistoryDetailByClientId(Integer projectId) throws Exception{
+        ClientProjectSummary history = null;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            history = session.selectOne("mapper.settlement.selectSettlementHistoryDetailByClientId", projectId);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return history;
+    }
 
     @Override
     public List<SettledInfoDTO> selectSettledFreelancers(Integer slistId) throws Exception {

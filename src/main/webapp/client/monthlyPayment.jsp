@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -25,19 +26,20 @@
         </div>
 
         <div class="project-info">
-            <h2>백오피스 개선</h2>
+            <h2>${projectInfo.projectName}</h2>
             <div class="project-details">
                 <div class="detail-item">
-                    <p><strong>프로젝트 기간:</strong> 2025-04-28 ~ 2025-06-27</p>
+                    <p><strong>프로젝트 기간:</strong> ${projectInfo.startDate} ~ ${projectInfo.endDate}</p>
                 </div>
                 <div class="detail-item">
-                    <p><strong>총 프로젝트 금액:</strong> 10,665,022원</p>
+                    <p><strong>총 프로젝트 금액:</strong> <fmt:formatNumber value="${projectInfo.totalAmount}" type="number" groupingUsed="true" />원</p>
                 </div>
                 <div class="detail-item">
-                    <p><strong>총 개월 수:</strong> 2개월</p>
+                    <p><strong>총 개월 수:</strong> ${projectMonthCount}개월</p>
                 </div>
             </div>
         </div>
+
 
         <form action="${contextPath}/submit-settlement" method="post" id="settleForm">
             <input type="hidden" name="round" value="${round}"/>

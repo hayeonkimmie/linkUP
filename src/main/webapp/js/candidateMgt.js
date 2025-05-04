@@ -19,10 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateApplyStatus(rowElement, newStatus) {
         const freelancerId = rowElement.getAttribute('data-freelancer-id');
         const applyId = rowElement.querySelector('.apply-id')?.value;
-        const settleDay = rowElement.querySelector('.settle-day')?.value;
+        let settleDay = rowElement.querySelector('.settle-day')?.value;
         const projectId = new URLSearchParams(window.location.search).get('projectId');
 
-        if (!applyId || !projectId || !freelancerId || !settleDay) {
+        // settleDay가 null이거나 undefined일 경우 빈 문자열로 처리
+        if (!settleDay || settleDay === "null" || settleDay === null) {
+            settleDay = "";
+        }
+
+        if (!applyId || !projectId || !freelancerId) {
             alert('필요한 정보가 누락되었습니다.');
             return;
         }
@@ -49,4 +54,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('처리 중 오류가 발생했습니다: ' + error.message);
             });
     }
+
 });
