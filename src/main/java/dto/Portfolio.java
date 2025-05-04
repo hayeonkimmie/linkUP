@@ -17,10 +17,7 @@ public class Portfolio {
     String attachment;
     String externalUrl;
 
-    boolean isTempSaved;
-    boolean isUserDeleted;
     boolean isDeleted;
-    Integer priority;
     private String[] skillList;
     private String projectName;
     private String[] attachmentList;
@@ -32,7 +29,7 @@ public class Portfolio {
         super();
     }
 
-    public Portfolio(Integer portfolioId, String userId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String introduce, Integer projectId, String attachment, String externalUrl, boolean isTempSaved, boolean isUserDeleted, boolean isDeleted, Integer priority, String[] skillList, String projectName, String[] attachmentList, String[] externalUrlList, Map<Integer, String> projectInfoMap, Date createdDate) {
+    public Portfolio(Integer portfolioId, String userId, String title, String thumbnail, Date portProjStart, Date portProjEnd, String teamRole, String skillDescription, String introduce, Integer projectId, String attachment, String externalUrl, boolean isDeleted, String[] skillList, String projectName, String[] attachmentList, String[] externalUrlList, Map<Integer, String> projectInfoMap, Date createdDate) {
         this.portfolioId = portfolioId;
         this.freelancerId = userId;
         this.title = title;
@@ -45,10 +42,7 @@ public class Portfolio {
         this.projectId = projectId;
         this.attachment = attachment;
         this.externalUrl = externalUrl;
-        this.isTempSaved = isTempSaved;
-        this.isUserDeleted = isUserDeleted;
         this.isDeleted = isDeleted;
-        this.priority = priority;
         this.skillList = skillList;
         this.projectName = projectName;
         this.attachmentList = attachmentList;
@@ -157,26 +151,6 @@ public class Portfolio {
         return createdDate;
     }
 
-    public void getsetCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public boolean getIsTempSaved() {
-        return isTempSaved;
-    }
-
-    public void setTempSaved(boolean tempSaved) {
-        isTempSaved = tempSaved;
-    }
-
-    public boolean isUserDeleted() {
-        return isUserDeleted;
-    }
-
-    public void setUserDeleted(boolean userDeleted) {
-        isUserDeleted = userDeleted;
-    }
-
     public boolean getIsDeleted() {
         return isDeleted;
     }
@@ -228,21 +202,8 @@ public class Portfolio {
     public void setProjectInfoMap(Map<Integer, String> projectInfoMap) {
         this.projectInfoMap = projectInfoMap;
     }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
     public boolean isDeleted() {
         return isDeleted;
-    }
-
-    public boolean isTempSaved() {
-        return isTempSaved;
     }
 
     @Override
@@ -260,10 +221,7 @@ public class Portfolio {
                 ", projectId=" + projectId +
                 ", attachment='" + attachment + '\'' +
                 ", externalUrl='" + externalUrl + '\'' +
-                ", isTempSaved=" + isTempSaved +
-                ", isUserDeleted=" + isUserDeleted +
                 ", isDeleted=" + isDeleted +
-                ", priority=" + priority +
                 ", skillList=" + Arrays.toString(skillList) +
                 ", projectName='" + projectName + '\'' +
                 ", attachmentList=" + Arrays.toString(attachmentList) +

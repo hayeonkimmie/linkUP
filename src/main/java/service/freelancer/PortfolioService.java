@@ -55,15 +55,18 @@ public class PortfolioService implements IPortfolioService{
             portfolio.setIntroduce(p.getIntroduce());
 
             // 스킬 분리 처리 (null check 필수)
-            if (p.getSkillDescription() != null && p.getSkillDescription().contains("^")) {
-                String[] skills = p.getSkillDescription().split("\\^");
-                portfolio.setSkillList(skills);
+            if(p.getSkillDescription() != null){
+                if (p.getSkillDescription().contains("^")) {
+                    String[] skills = p.getSkillDescription().split("\\^");
+                    portfolio.setSkillList(skills);
+                } else {
+                    portfolio.setSkillList(new String[]{ p.getSkillDescription() }); // 단일 스킬일 경우
+                }
             } else {
-                portfolio.setSkillList(new String[]{ p.getSkillDescription() }); // 단일 스킬일 경우
+                portfolio.setSkillList(null);
             }
-
             portfolio.setCreatedDate(p.getCreatedDate());
-            portfolio.setTempSaved(p.getIsTempSaved());
+//            portfolio.setTempSaved(p.getIsTempSaved());
             portfolioList2.add(portfolio);
         }
 

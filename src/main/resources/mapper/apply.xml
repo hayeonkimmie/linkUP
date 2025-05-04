@@ -20,10 +20,8 @@
                 ELSE '지원취소'
                 END AS apply_status, -- 상태
             p.project_id, -- 프로젝트 ID
-
             -- 카테고리명과 서브카테고리명을 JOIN으로 가져와서 표시
             subcat.sub_category_name AS category,
-
             a.sub_category_name AS apply_category, -- 내가 지원한 분야
             p.advertisement_title, -- 공고 제목
             p.project_name, -- 프로젝트명
@@ -34,8 +32,68 @@
                 WHEN ((duration MOD 365) DIV 30) = 0 THEN CONCAT(duration DIV 365, '년')
                 ELSE CONCAT(duration DIV 365, '년 ', (duration MOD 365) DIV 30, '개월')
                 END AS duration, -- 기간
-            -- project_fee 서브쿼리
-            IFNULL((
+            p2.project_fee AS projectfee,
+            p.project_description, -- 프로젝트 설명
+            p.job_details, -- 업무 상세 설명
+            c.company_name, -- 회사명
+            p.working_method, -- 근무 방식
+            p.working_environment, -- 근무 환경
+            p.working_hours, -- 근무 시간
+            p.deadline_date, -- 마감일
+            CASE
+                WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
+                WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
+                ELSE '마감'
+                END AS d_day -- D-Day 표시
+        FROM apply a
+                 JOIN project p ON a.project_id = p.project_id
+                 JOIN client c ON p.client_id = c.client_id
+                 LEFT JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
+                 LEFT JOIN category cat ON subcat.category_id = cat.category_id
+                 join linkup.pay p2 on a.project_pay_id = p2.project_pay_id
+        WHERE a.freelancer_id = #{freelancerId}
+        ORDER BY
+            CASE
+                WHEN DATEDIFF(p.deadline_date, CURDATE()) >= 0 THEN DATEDIFF(p.deadline_date, CURDATE())
+                ELSE 99999
+                END ASC, -- 임박 마감 우선
+            a.apply_id DESC
+        LIMIT #{row}, 10
+        ]]>
+    </select>
+    <!--<select id="selectApplyProjectList" parameterType="map" resultType="apply">
+        <![CDATA[
+        SELECT
+            a.apply_id,
+            a.freelancer_id,
+            a.apply_date, &#45;&#45; 지원일
+            a.cancel_date, &#45;&#45; 취소일
+            CASE
+                WHEN is_approved = true THEN '수락'
+                WHEN is_approved = false THEN '거절'
+                ELSE ''
+                END AS approved, &#45;&#45; 상태
+            CASE
+                WHEN cancel_date is null THEN '지원완료'
+                ELSE '지원취소'
+                END AS apply_status, &#45;&#45; 상태
+            p.project_id, &#45;&#45; 프로젝트 ID
+
+            &#45;&#45; 카테고리명과 서브카테고리명을 JOIN으로 가져와서 표시
+            subcat.sub_category_name AS category,
+
+            a.sub_category_name AS apply_category, &#45;&#45; 내가 지원한 분야
+            p.advertisement_title, &#45;&#45; 공고 제목
+            p.project_name, &#45;&#45; 프로젝트명
+            CASE
+                WHEN duration < 30 THEN CONCAT(duration, '일')
+                WHEN duration < 365 THEN CONCAT(duration DIV 30, '개월')
+                WHEN MOD(duration, 365) = 0 THEN CONCAT(duration DIV 365, '년')
+                WHEN ((duration MOD 365) DIV 30) = 0 THEN CONCAT(duration DIV 365, '년')
+                ELSE CONCAT(duration DIV 365, '년 ', (duration MOD 365) DIV 30, '개월')
+                END AS duration, &#45;&#45; 기간
+            &#45;&#45; project_fee 서브쿼리
+           IFNULL((
                        SELECT CONCAT(FORMAT(pay.project_fee, 0), '만원')
                        FROM pay
                                 JOIN (
@@ -51,37 +109,38 @@
                          AND pay.sub_category_id = sc.sub_category_id
                          AND pay.project_id = a.project_id
                        LIMIT 1
-                   ), '') AS projectfee,
-            p.project_description, -- 프로젝트 설명
-            p.job_details, -- 업무 상세 설명
-            c.company_name, -- 회사명
-            p.working_method, -- 근무 방식
-            p.working_environment, -- 근무 환경
-            p.working_hours, -- 근무 시간
-            p.deadline_date, -- 마감일
+                   ), '') AS projectfee,p2.project_fee AS projectfee,
+           &#45;&#45; (select project_fee from pay where category_name = a.sub_category_name) as projectfee,
+            p.project_description, &#45;&#45; 프로젝트 설명
+            p.job_details, &#45;&#45; 업무 상세 설명
+            c.company_name, &#45;&#45; 회사명
+            p.working_method, &#45;&#45; 근무 방식
+            p.working_environment, &#45;&#45; 근무 환경
+            p.working_hours, &#45;&#45; 근무 시간
+            p.deadline_date, &#45;&#45; 마감일
             CASE
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
                 ELSE '마감'
-                END AS d_day -- D-Day 표시
+                END AS d_day &#45;&#45; D-Day 표시
 
         FROM apply a
                  JOIN project p ON a.project_id = p.project_id
                  JOIN client c ON p.client_id = c.client_id
                  LEFT JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
                  LEFT JOIN category cat ON subcat.category_id = cat.category_id
+                join linkup.pay p2 on a.project_pay_id = p2.project_pay_id
         WHERE a.freelancer_id = #{freelancerId}
 
         ORDER BY
             CASE
                 WHEN DATEDIFF(p.deadline_date, CURDATE()) >= 0 THEN DATEDIFF(p.deadline_date, CURDATE())
                 ELSE 99999
-                END ASC, -- 임박 마감 우선
-            a.apply_id DESC -- 최신 지원 우선
+                END ASC, &#45;&#45; 임박 마감 우선
+            a.apply_id DESC &#45;&#45; 최신 지원 우선
         LIMIT #{row}, 10
         ]]>
-    </select>
-
+        </select>-->
     <insert id="makeProjectApply" parameterType="apply" useGeneratedKeys="true" keyProperty="applyId">
         INSERT INTO apply (
             freelancer_id,

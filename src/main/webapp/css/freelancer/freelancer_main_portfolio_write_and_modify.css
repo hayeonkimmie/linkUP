@@ -4,6 +4,11 @@
 .container{
     margin: 0 auto;
     max-width: fit-content !important;
+    justify-content:center;
+}
+.content{
+    padding-right: 40px;
+    max-width: 1000px;
 }
 .portfolio-register-container {
     background: white;
@@ -238,6 +243,13 @@ table th:nth-child(3), table td:nth-child(3){
     border: 1px solid #ccc;
     border-radius: 6px;
 }
+.file-section a, .file-section span {
+    margin-top: 10px;
+    font-size: medium;
+}
+.file-section a{
+    margin-left: 5px;
+}
 
 td label{
     font-size: medium;
@@ -276,7 +288,7 @@ p.attachment-notification {
     color: white;
     cursor: pointer;
 }
-#submit-btn,#add-project-log { background-color: #91009e; }
+#submit-btn,#add-project-log { background-color: #5c057b; color: #F5EFFF;}
 #temp-submit-btn,#add-attachment-file { background-color: #777; }
 #delete-btn, #add-outer-url { background-color: #d9534f; }
 #list-btn{

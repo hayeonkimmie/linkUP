@@ -20,7 +20,6 @@
         <typeAlias type="dto.ProjectPay" alias="projectPay" />
         <typeAlias type="dto.ClientCandidateMgt" alias="clientCandidateMgt" />
 
-
         <typeAlias type="dto.Contract" alias="contract"/>
         <typeAlias type="dto.Freelancer" alias="freelancer"/>
         <typeAlias type="dto.ClientFavorites" alias="jjimfree"/>
@@ -33,7 +32,6 @@
         <typeAlias type="dto.Settlelist" alias="settlelist"/>
         <typeAlias type="dto.Settlement" alias="settlement"/>
         <typeAlias type="dto.SubCategory" alias="subCategory"/>
-        <typeAlias type="dto.Alarm" alias="alarm"/>
         <typeAlias type="dto.DashboardProject" alias="dproject"/>
         <typeAlias type="dto.ClientUserInfo" alias="adminclient"/>
         <typeAlias type="dto.Project" alias="project"/>
@@ -41,7 +39,6 @@
         <typeAlias type="dto.Notice" alias="notice"/>
         <typeAlias type="dto.News" alias="news"/>
     </typeAliases>
-
 
     <environments default="deveLopment">
         <environment id="deveLopment">
@@ -76,12 +73,10 @@
         <mapper resource="mapper/portfolio.xml"/>
         <mapper resource="mapper/dashboardproject.xml"/>
         <mapper resource="mapper/qna.xml"/>
-        <mapper resource="mapper/review.xml"/>
         <mapper resource="mapper/candidatemgt.xml"/>
         <mapper resource="mapper/settlelist.xml"/>
         <mapper resource="mapper/settlement.xml"/>
         <mapper resource="mapper/subCategory.xml"/>
-<!--        <mapper resource="mapper/alarm.xml"/>-->
         <mapper resource="mapper/notice.xml"/>
         <mapper resource="mapper/news.xml"/>
         <mapper resource="mapper/afreelancer.xml"/>

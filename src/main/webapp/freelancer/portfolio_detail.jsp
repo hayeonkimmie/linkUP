@@ -26,12 +26,10 @@
     <link rel="stylesheet" href="<c:url value='/css/freelancer/freelancer_main_portfolio_detail.css'/>">
 </head>
 <body>
-<div class="header">
     <!-- 헤더 인클루드 영역 -->
 <%--    <jsp:include page="../home/header.jsp" />--%>
 
     <div id="header-placeholder"></div>
-</div>
 <div class="container">
     <script>console.log(${err})</script>
     <!-- 사이드바 -->
@@ -72,9 +70,11 @@
         <section class="section">
             <h3>스킬</h3>
             <div class="skills">
-                <c:forEach var="skill" items="${portfolio.skillList }">
-                    <span>${skill}</span>
-                </c:forEach>
+                <c:if test="${not empty portfolio.skillList }">
+                    <c:forEach var="skill" items="${portfolio.skillList }">
+                        <span>${skill}</span>
+                    </c:forEach>
+                </c:if>
             </div>
         </section>
 

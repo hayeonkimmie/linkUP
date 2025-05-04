@@ -224,24 +224,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('skillDescriptionHidden').value = skillTags.join('^');
 
         // 🔹 외부 URL 리스트 준비
-        const urlInputs = document.querySelectorAll('tr.url-section input[type="text"]');
-        const externalUrlList = Array.from(urlInputs).map(input => input.value || '');
-        document.getElementById('externalUrlListHidden').value = JSON.stringify(externalUrlList);
-
-        // 🔹 외부 URL 리스트 준비
         const linkList = logLinkData();
         if (linkList && Array.isArray(linkList)) {
-            // logLinkData()는 { index, url } 형태이므로 url 값만 뽑아야 함
             const externalUrlList = linkList.map(item => item.url || '');
-            document.getElementById('externalUrlListHidden').value = JSON.stringify(externalUrlList);
+            document.getElementById('externalUrlListHidden').value = externalUrlList.join('^');
         }
-
-        // 🔹 첨부파일 리스트 준비
         const fileList = logFileData();
         if (fileList && Array.isArray(fileList)) {
-            // logFileData()는 { index, linkText, fileName } 형태
             const attachmentList = fileList.map(item => item.fileName || item.linkText || '');
-            document.getElementById('attachmentListHidden').value = JSON.stringify(attachmentList);
+            document.getElementById('attachmentListHidden').value = attachmentList.join('^');
         }
     }
     // 모든 섹션의 데이터를 콘솔에 로깅하는 함수

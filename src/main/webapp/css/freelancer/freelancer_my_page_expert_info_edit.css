@@ -4,7 +4,6 @@
 body {
     margin: 0;
     font-family: 'Roboto', 'Arial', sans-serif;
-    background: #f5f9f8;
     color: #222;
 }
 
@@ -127,7 +126,9 @@ textarea {
     margin-top: 8px;
 }
 /* ===== 공통 태그 스타일 (전문 분야 / 스킬) ===== */
-
+.specialization{
+    margin: 10px 0;
+}
 .skill-tag, .specialization span {
     display: inline-flex;
     align-items: center;
@@ -215,7 +216,7 @@ a.delete-skill-btn{
 }
 
 /* 드롭다운 셀렉트박스 스타일 */
-.form-group select {
+#category_name, #subCategory {
     width: 260px;
     height: 50px;
     font-size: 15px;
@@ -272,10 +273,6 @@ input[type="text"] {
    학력 영역
 ============================ */
 #education-container .education-box {
-/*    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    background-color: #fff;*/
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px 12px;
@@ -290,13 +287,6 @@ input[type="text"] {
 
 }
     /* 라벨 및 인풋 기본 스타일 */
-.dropdown, .input {
-    display: flex;
-    flex-direction: column;
-    min-width: 160px;
-    flex: 1 1 200px;
-}
-
 /* 입력 라인 정렬 */
 
 .education-box .row {
@@ -321,11 +311,19 @@ input[type="text"] {
 }
 
 .input-education-date {
-    display: flex;
-    gap: 12px;
+    /*display: flex;
+    gap: 12px;*/
     align-items: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 0;
 }
-
+.input-month-group {
+    display: flex;
+    gap: 16px; /* 양쪽 간격 조정 */
+}
 .input-education-date label {
     margin-right: 6px;
     margin-top: 10px;
@@ -338,15 +336,20 @@ input[type="text"] {
     display: flex;
     flex-direction: column;
 }
+.input-month-group-horizontal {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin-top: 16px;
+}
 
-
-/* 학력 추가 버튼 */
-#education_addbutton {
-    display: inline-block;
-    margin-top: 10px;
-    color: #772e91;
-    font-weight: bold;
-    cursor: pointer;
+.input-month-group-horizontal .input-education-date {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.academic-major-field > .label{
+    height: 28.8px;
 }
 /* 라벨 그룹 구조 개선 */
 .label {
@@ -380,7 +383,6 @@ input[type="month"] {
     flex-direction: column;
     grid-column: span 1;
 }
-
 
 /* 전공명 필드 */
 .input-education-graduate {
@@ -427,20 +429,14 @@ input[type="month"] {
 .education-box .buttonDeleteField:hover {
     color: #222;
 }
-
-/* 학력 추가 버튼 */
-#education_addbutton {
-    display: inline-block;
-    margin-top: 12px;
-    color: #772e91;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-}
 /* ============================
    경력 영역
 ============================ */
-#career-container .career-box, #license-container, .license-box {
+#career-container, #license-container #education-container{
+    position: relative;
+    width : 100%;
+}
+#career-container .career-box, #license-container, .license-box , #education-container, .education-box{
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
@@ -450,9 +446,7 @@ input[type="month"] {
     flex-direction: column;
     gap: 16px;
     position: relative;
-}
-#career-container, #license-container #education-container{
-    position: relative;
+    width: 100%;
 }
 .career-row {
     display: flex;
@@ -471,6 +465,9 @@ input[type="month"] {
     border-radius: 6px;
     flex: 1;
     min-width: 150px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .career-row:nth-of-type(2) {
@@ -482,7 +479,6 @@ input[type="month"] {
     align-items: center;
     gap: 4px;
 }
-
 
 /* 경력 삭제/추가 버튼 */
 .button.buttonDeleteField span,
@@ -496,18 +492,6 @@ input[type="month"] {
     font-size: 14px;
     border-radius: 6px;
     text-decoration: none;
-    cursor: pointer;
-}
-/* 추가 버튼 스타일 정렬 */
-.add-career-btn {
-    display: block;
-    text-align: center;
-    width: 100%;
-    font-size: 24px;
-    font-weight: bold;
-    color: #8b2c8c;
-    border: none;
-    background: transparent;
     cursor: pointer;
 }
 textarea {
@@ -526,7 +510,6 @@ textarea {
     padding-left: 4px;
 }
 
-
 .buttonDeleteField span {
     font-weight: bold;
 }
@@ -537,16 +520,14 @@ textarea {
     gap: 6px;
     flex: 1 1 200px;
 }
-
-/* 추가 버튼 스타일 */
-#education_addbutton,
-.add-career-btn {
-    display: inline-block;
-    color: #fff;
-    font-weight: bold;
+.button,
+.submit-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
     cursor: pointer;
-    font-size: 14px;
-    margin-top: 16px;
+    transition: background 0.3s;
 }
 
 /* ===============================
@@ -577,34 +558,65 @@ textarea {
     cursor: pointer;
 }
 .license-row{
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
 }
-.license-box imput{
-
+.license-row > .is-label > label{
+    height: 24px;
 }
-/* ==============================
-   버튼 공통
-============================== */
-button,
-.submit-btn {
-    background-color: #8b2c8c;
-    color: white;
-    padding: 0.7rem 2rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+.license-box .input {
+    display: flex;
+    flex-direction: column;
+/*    min-width: 150px;
+    flex: 1 1 200px;*/
+    max-width: 25%;
+    margin: 0 7px;
+    flex: 1 1 22%; /* 4개가 한 줄에 정렬되도록 */
+    min-width: 180px;
+}
+.formCertificate{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.formCertificate > label {
+    align-self: flex-start;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+.add-license-btn, .add-career-btn, .add-education-btn{
+    margin-top: 16px;
+/*    font-size: 16px;*/
+    font-weight: bold;
+    color : #eee;
+    border: 1px solid #bbb;
+    background-color: #772e91;
+    border-radius: 6px;
+    padding: 10px 16px;
     cursor: pointer;
-    transition: background 0.3s;
+    display: inline-block;
+    font-size: 14px;
 }
-
-button:hover,
+.submit-btn{
+    background-color: #8b2c8c;
+}
 .submit-btn:hover {
     background-color: #6e2070;
 }
-
+.delete-tr{
+    background-color: #8b2c8c;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
 .clear_fields,
 .buttonAddField,
-.add-career-btn,
 .search-btn {
     background-color: #eee;
     color: #6e2070;
@@ -678,6 +690,11 @@ file-upload-section td input{
     border: 1px solid #ccc;
     background-color: #f9f9f9;
 }
+p.attachment-notification {
+    font-size: 11px;
+    color: red;
+    margin: 1px;
+}
 /* 희망 근무조건 영역 */
 .form-group .radio-group {
     margin-bottom: 16px;
@@ -690,7 +707,7 @@ file-upload-section td input{
 
 .form-group input[type="number"],
 .form-group input[type="text"],
-.form-group textarea {
+.form-group textarea, .form-group select, .form-group input[type="month"] {
     margin-top: 10px;
     width: 100%;
     padding: 12px;
@@ -699,7 +716,9 @@ file-upload-section td input{
     font-size: 14px;
     box-sizing: border-box;
 }
-
+.form-group select{
+    padding: 5px;
+}
 .form-group .submit-wrap {
     margin-top: 30px;
 }
@@ -717,6 +736,24 @@ th, td {
     border: 1px solid #ccc;
     text-align: left;
     font-size: 14px;
+}
+tr > td:first-child {
+    width: 13%;
+}
+tr > td:last-child {
+    width: 6%;
+}
+tr > td:nth-child(2)  {
+    text-align: left;
+}
+tr > td:nth-child(2) a,
+tr > td:nth-child(2)i span {
+    display: inline-block;
+    margin-right: 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    vertical-align: middle;
 }
 .wanting-condition{
     background-color: #fff;
@@ -778,5 +815,8 @@ td > input{
     width: 100%;
 }
 td > a, td> span{
+    font-size: medium;
+}
+td > label{
     font-size: medium;
 }

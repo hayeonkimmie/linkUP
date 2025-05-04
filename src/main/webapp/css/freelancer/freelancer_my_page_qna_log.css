@@ -4,9 +4,6 @@
   margin: 0;
   padding: 0;
 }
-body {
-  background-color: #f8f8f8;
-}
 .content-header{
   display: flex;
   justify-content: space-between;
@@ -30,7 +27,7 @@ a.btn-submit {
 a.btn-submit:hover {
   background-color: #7a066a;
 }
-header {
+/*header {
   display: flex;
   justify-content: center;
   padding: 20px 0;
@@ -41,7 +38,7 @@ header .logo {
   font-size: 28px;
   font-weight: bold;
   color: #a200a2;
-}
+}*/
 .container {
   display: flex;
 }
