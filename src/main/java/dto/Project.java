@@ -31,6 +31,11 @@ public class Project {
     private String reqSkills;
     private String wantedSkills;
     private String memail;
+    private Date startDate;
+    private Date endDate;
+
+
+
     public Project() {
     }
 
@@ -126,6 +131,23 @@ public class Project {
         this.memail = memail;
         this.profileImg = profileImg;
 
+    }
+
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public String getJobPosition() {

@@ -222,7 +222,9 @@
         WHERE project_id = #{projectId}
     </update>
 
-
+    <select id="selectProjectByProjectId" parameterType="Integer" resultType="project">
+        select * from project where project_id = #{projectId}
+    </select>
 
 
 </mapper>

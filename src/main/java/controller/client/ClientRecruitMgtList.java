@@ -27,7 +27,22 @@ public class ClientRecruitMgtList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //캐시방지
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+
         try {
+            // 세션에서 프로젝트 업데이트 플래그 확인
+            HttpSession session = request.getSession();
+            Boolean projectUpdated = (Boolean) session.getAttribute("projectUpdated");
+
+            // 프로젝트가 업데이트 되었다면 플래그 제거
+            if (projectUpdated != null && projectUpdated) {
+                session.removeAttribute("projectUpdated");
+                System.out.println("프로젝트가 업데이트 되었습니다. 최신 데이터를 로드합니다.");
+            }
+
             // [오늘 날짜를 기준으로 DB 상태 갱신]
             Map<String, Object> statusParam = new HashMap<>();
             statusParam.put("today", new java.sql.Date(System.currentTimeMillis()));
@@ -35,12 +50,10 @@ public class ClientRecruitMgtList extends HttpServlet {
             service.updateProgressToEnd(statusParam); // 진행중 -> 종료됨
 
             // 세션에서 로그인 한 clientId 확인해서 가져오기
-            HttpSession session = request.getSession();
             String clientId = (String) session.getAttribute("userId");
             if (clientId == null || clientId.isEmpty()) {
                 clientId = "client001"; // 테스트용 기본값
             }
-
             // 파라미터로 status받기 (전체보기, 구인중, 시작전, 진행중, 종료됨)
             String status = request.getParameter("status");
             if (status == null || status.isEmpty()) {
@@ -52,7 +65,7 @@ public class ClientRecruitMgtList extends HttpServlet {
             param.put("clientId", clientId);
             param.put("status", status);
 
-            // 서비스 호출
+            // 서비스 호출 - 항상 최신 데이터를 로드하도록 함
             List<ProjectMgt> projectList = service.getProjectByStatus(param);
 
             // DB project의 컬럼 project_progress는 오직 구인완료 상태에만 의미 있음
@@ -62,18 +75,8 @@ public class ClientRecruitMgtList extends HttpServlet {
                 }
             }
 
-            // 결과 저장해서 JSP로 전달
             request.setAttribute("projectList", projectList); // 서비스 호출해서 list 받아오기
             request.setAttribute("status", status); // 상태 값 받아오기
-            System.out.println("projectList.size() = " + projectList.size()); // 테스트 출력
-
-            // 출력 테스트 코드
-            for (ProjectMgt projectMgt : projectList) {
-                System.out.println("startDate = " + projectMgt.getStartDate());
-                System.out.println("endDate = " + projectMgt.getEndDate());
-                System.out.println("status = " + projectMgt.getStatus());
-                System.out.println("progress = " + projectMgt.getProjectProgress());
-            }
 
             // JSP로 이동
             request.getRequestDispatcher("./client/recruitmentList.jsp").forward(request, response);

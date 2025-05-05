@@ -26,6 +26,8 @@
         <result property="applyStatus" column="is_approved"/> <!-- 지원 결과 -->
         <result property="applyDate" column="apply_date"/> <!-- 지원일자 -->
         <result property="freelancerId" column="freelancer_id"/>
+        <result property="applyId" column="apply_id"/>
+        <result property="settleDay" column="settle_day"/>
 
     </resultMap>
 
@@ -60,7 +62,6 @@
     </select>
 
 
-    <!-- 지원자 리스트 조회 -->
     <select id="selectCandidateMgtByStatus" resultMap="candidateMgtMap" parameterType="map">
         SELECT
             pj.project_id,
@@ -72,24 +73,26 @@
             pj.end_date,
             pj.duration,
             pj.status,
-            "" AS projectProgress, -- 아직 쿼리로 계산 안하니까 일단 NULL
+            "" AS projectProgress,
             pj.req_skills,
+            pj.settle_day as settle_day,
             (SELECT SUM(p2.project_fee) FROM pay p2 WHERE p2.project_id = pj.project_id) AS totalAmount,
             (SELECT COUNT(*) FROM apply a2 WHERE a2.project_id = pj.project_id) AS applyCount,
+            a.apply_id as apply_id,
             a.is_approved AS applyStatus,
             a.freelancer_id,
             a.apply_date AS applyDate,
             l.Lv AS applyPosition,
             u.name,
-            MIN(ca.join_date) AS joinDate,   -- career에서 join_date (최초 입사일)
-            MAX(ca.resign_date) AS resignDate, -- career에서 resign_date (최종 퇴사일)
+            MIN(ca.join_date) AS joinDate,
+            MAX(ca.resign_date) AS resignDate,
             IFNULL(SUM(TIMESTAMPDIFF(YEAR, ca.join_date, ca.resign_date)), 0) AS careerYear,
             (SELECT ROUND(AVG(r.star), 1) FROM review r WHERE r.r_user_id = a.freelancer_id) AS star
         FROM project pj
                  LEFT JOIN apply a ON pj.project_id = a.project_id
                  LEFT JOIN freelancer f ON a.freelancer_id = f.freelancer_id
                  LEFT JOIN user u ON f.freelancer_id = u.user_id
-                 LEFT JOIN pay p ON pj.project_id = p.project_id
+                 LEFT JOIN pay p ON a.project_pay_id = p.project_pay_id
                  LEFT JOIN lv l ON p.lv_id = l.Lv_id
                  LEFT JOIN career ca ON f.freelancer_id = ca.freelancer_id
         WHERE pj.client_id = #{clientId} AND pj.project_id = #{projectId}
@@ -100,9 +103,7 @@
             pj.deadline_date, pj.start_date, pj.end_date, pj.duration, pj.status,
             pj.req_skills,
             a.is_approved, a.apply_date, l.Lv, u.name
-
     </select>
-
 
 
 
@@ -110,8 +111,46 @@
         UPDATE apply
         SET is_approved = #{applyStatus}
         WHERE project_id = #{projectId} AND freelancer_id = #{freelancerId}
-
     </update>
 
+    <insert id="insertContract" parameterType="dto.Contract">
+        INSERT INTO contract (
+            id,
+            apply_id,
+            project_pay_id,
+            project_id,
+            client_id,
+            start_date,
+            end_date,
+            pname,
+            pay,
+            fee,
+            pmanager,
+            total_pay,
+            client_status,
+            status,
+            fphone,
+            account,
+            freelancer_id
+        ) VALUES (
+                     #{id},
+                     #{applyId},
+                     #{projectPayId},
+                     #{projectId},
+                     #{clientId},
+                     #{startDate},
+                     #{endDate},
+                     #{pname},
+                     #{pay},
+                     #{fee},
+                     #{pmanager},
+                     #{totalPay},
+                     #{clientStatus},
+                     #{status},
+                     #{fphone},
+                     #{account},
+                     #{freelancerId}
+                 )
+    </insert>
 
 </mapper>

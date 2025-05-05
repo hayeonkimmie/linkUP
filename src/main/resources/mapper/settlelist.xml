@@ -52,7 +52,7 @@
 
 
 
-    <!-- ✅ 최초 정산시 settlelist 테이블에 데이터 insert -->
+    <!--  최초 정산시 settlelist 테이블에 데이터 insert -->
     <insert id="createSettlelist" parameterType="dto.Settlelist" useGeneratedKeys="true" keyProperty="slistId">
             INSERT INTO settlelist (
                   contract_id,
@@ -160,6 +160,55 @@
         SELECT *
         FROM settlelist
         WHERE project_id = #{projectId}
+    </select>
+
+    <select id="selectSettleTargetsByClient" parameterType="map" resultType="dto.ClientSettleTarget">
+        SELECT u.name AS freelancerName,
+               IF((SELECT COUNT(*)
+                   FROM settlelist s
+                   WHERE s.project_id = c.project_id) = 0, CONCAT(
+                          DATE_FORMAT(c.start_date, '%Y-%m-%d'),
+                          ' ~ ',
+                          DATE_FORMAT(DATE_SUB(c.settle_day, INTERVAL 1 DAY), '%Y-%m-%d')
+                                                           ), CONCAT(
+                          DATE_FORMAT(DATE_SUB(c.settle_day, INTERVAL 1 MONTH), '%Y-%m-%d'),
+                          ' ~ ',
+                          DATE_FORMAT(DATE_SUB(c.settle_day, INTERVAL 1 DAY), '%Y-%m-%d')
+                                                              )) AS settlePeriod,
+               c.pay                                             AS pay
+        FROM contract c
+                 JOIN user u ON c.freelancer_id = u.user_id
+        WHERE c.client_id = #{clientId}
+          and c.project_id = #{projectId}
+          AND c.status = '진행중'
+    </select>
+
+    <select id="getLatestSettleRound" resultType="int">
+        SELECT MAX(cnt)
+        FROM settlelist
+        WHERE project_id = #{projectId}
+    </select>
+
+    <select id="countSettlementsByProjectAndRound" resultType="int">
+        SELECT COUNT(*)
+        FROM settlement s
+                 JOIN settlelist sl ON s.slist_id = sl.slist_id
+        WHERE sl.project_id = #{projectId}
+          AND sl.cnt = #{cnt}
+    </select>
+
+    <select id="countContractsByProject" resultType="int">
+        SELECT COUNT(*)
+        FROM contract
+        WHERE project_id = #{projectId}
+    </select>
+
+    <select id="getUsedSettleRounds" resultType="int">
+        SELECT DISTINCT sl.cnt
+        FROM settlement s
+                 JOIN settlelist sl ON s.slist_id = sl.slist_id
+        WHERE sl.project_id = #{projectId}
+        ORDER BY sl.cnt DESC
     </select>
 
 

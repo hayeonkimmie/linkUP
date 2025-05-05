@@ -1,5 +1,7 @@
 package dto;
 
+import java.sql.Date;
+
 // 레벨 별로 각각 다른 페이지로 넘어가야 하는지? (초급에 대한 지원자, 중급에 대한 지원자)
 public class ClientCandidateMgt {
     private int projectId; // 프로젝트 아이디
@@ -16,9 +18,10 @@ public class ClientCandidateMgt {
     private int applyCount; //지원자 수
     private String skills; //필요 기술
     private String applyPosition; // 지원직무 (초급, 중급, 고급)
-
+    private Integer applyId;
     private String name; // 지원자 이름
     private String freelancerId;
+    private Date settleDay;
     // 지원자 직무
 
     // 경력 몇년 (퇴사 - 종료일) => SUM해서 year로 구하기
@@ -55,6 +58,23 @@ public class ClientCandidateMgt {
         this.applyStatus = applyStatus;
         this.applyDate = applyDate;
         this.freelancerId = freelancerId;
+    }
+
+
+    public Date getSettleDay() {
+        return settleDay;
+    }
+
+    public void setSettleDay(Date settleDay) {
+        this.settleDay = settleDay;
+    }
+
+    public Integer getApplyId() {
+        return applyId;
+    }
+
+    public void setApplyId(Integer applyId) {
+        this.applyId = applyId;
     }
 
     public int getProjectId() {
@@ -231,5 +251,35 @@ public class ClientCandidateMgt {
 
     public void setFreelancerId(String freelancerId) {
         this.freelancerId = freelancerId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ClientCandidateMgt{" +
+                "projectId=" + projectId +
+                ", title='" + title + '\'' +
+                ", projectDescription='" + projectDescription + '\'' +
+                ", regDate='" + regDate + '\'' +
+                ", deadlineDate='" + deadlineDate + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", duration='" + duration + '\'' +
+                ", status='" + status + '\'' +
+                ", projectProgress='" + projectProgress + '\'' +
+                ", totalAmount=" + totalAmount +
+                ", applyCount=" + applyCount +
+                ", skills='" + skills + '\'' +
+                ", applyPosition='" + applyPosition + '\'' +
+                ", applyId=" + applyId +
+                ", name='" + name + '\'' +
+                ", freelancerId='" + freelancerId + '\'' +
+                ", careerYear='" + careerYear + '\'' +
+                ", joinDate='" + joinDate + '\'' +
+                ", resignDate='" + resignDate + '\'' +
+                ", star='" + star + '\'' +
+                ", applyStatus='" + applyStatus + '\'' +
+                ", applyDate='" + applyDate + '\'' +
+                '}';
     }
 }

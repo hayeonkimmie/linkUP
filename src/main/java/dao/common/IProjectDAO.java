@@ -14,5 +14,5 @@ public interface IProjectDAO {
     ProjectDetail selectProjectById(Integer projectId) throws Exception;
     void insertProject(Project project); // ✅ 등록만
     List<Project> getProjectById(int projectId) throws Exception; // 프로젝트 수정 기능
-
+    Project selectProjectByProjectId(Integer projectId) throws Exception; // 프로젝트 상세보기 기능
 }

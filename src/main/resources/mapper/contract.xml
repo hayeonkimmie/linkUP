@@ -31,4 +31,7 @@
         update contract set client_status = #{clientStatus} where project_id = #{projectId}
     </update>
 
+    <select id="selectContractCountByProjectId" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM contract WHERE project_id = #{projectId}
+    </select>
 </mapper>

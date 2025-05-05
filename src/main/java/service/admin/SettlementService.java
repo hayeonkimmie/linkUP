@@ -117,18 +117,53 @@ public class SettlementService implements ISettlementService {
 
 
     @Override
-    public HashMap<Integer, AdminSettleProject> filterProjectsWithUnsettled() throws Exception{
+    public HashMap<Integer, AdminSettleProject> filterProjectsWithUnsettled() throws Exception {
         HashMap<Integer, AdminSettleProject> fullList = settlementDAO.selectProjectsForSettlement();
         HashMap<Integer, AdminSettleProject> filtered = new HashMap<>();
+        LocalDate today = LocalDate.now();
+
         for (Integer key : fullList.keySet()) {
             AdminSettleProject p = fullList.get(key);
-            if (p.getTotalContracts() > p.getSettledCount()) {
+            System.out.println("\n🎯 대상 프로젝트: " + p.getProjectName());
+
+            LocalDate calculatedSettleDate = null;
+
+            // 1. 정산일 계산
+            if (p.getSettleDay() == null) {
+                try {
+                    int dayOfMonth = p.getSettleDate();
+                    calculatedSettleDate = today.withDayOfMonth(Math.min(dayOfMonth, today.lengthOfMonth()));
+                    System.out.println("📅 정산 예정일 (기본 날짜 기반): " + calculatedSettleDate);
+                } catch (Exception e) {
+                    System.out.println("⚠️ 정산일 계산 실패 (settleDate=" + p.getSettleDate() + ")");
+                    continue;
+                }
+            } else {
+                calculatedSettleDate = p.getSettleDay().toLocalDate().plusMonths(1);
+                System.out.println("📅 정산 예정일 (settleDay 기준 +1달): " + calculatedSettleDate);
+            }
+
+            // 2. 필터링 조건
+            boolean dateCondition = today.compareTo(calculatedSettleDate) >= 0;
+            boolean unfinishedSettle = p.getTotalContracts() > p.getSettledCount();
+
+            System.out.println("🔢 전체 계약: " + p.getTotalContracts() + ", 정산 완료: " + p.getSettledCount());
+
+            if (dateCondition) {
+                System.out.println("✅ 필터링 통과: 오늘(" + today + ") >= 정산일(" + calculatedSettleDate + ")");
                 filtered.put(key, p);
-                System.out.println("필터링된 프로젝트 : " + p);
+            } else if (unfinishedSettle) {
+                System.out.println("✅ 필터링 통과: 아직 이전 회차 정산 인원 부족");
+                filtered.put(key, p);
+            } else {
+                System.out.println("❌ 필터링 실패: 조건 미충족");
             }
         }
+
         return filtered;
     }
+
+
 
     @Override
     public List<AdminSettleHistory> getHistoryList(String keyword, String startDate, String endDate, int offset, int limit) throws Exception {

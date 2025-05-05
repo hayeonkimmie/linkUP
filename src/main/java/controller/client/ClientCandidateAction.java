@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.sql.Date;
 
 @WebServlet("/candidateAction")
 public class ClientCandidateAction extends HttpServlet {
@@ -26,19 +27,38 @@ public class ClientCandidateAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             request.setCharacterEncoding("UTF-8");
+            // JSON으로 전송
+            response.setContentType("application/json;charset=UTF-8");
 
             // 아래 projectId, freelancerId, applyStatus : 클라이언트가 폼/AJAX로 전송하기 위한 데이터
             int projectId = Integer.parseInt(request.getParameter("projectId"));
             String freelancerId = request.getParameter("freelancerId");
             int applyStatus = Integer.parseInt(request.getParameter("applyStatus"));
+            Integer applyId = Integer.parseInt(request.getParameter("applyId"));
+            // 디버깅 로그 출력
+            System.out.println("projectId: " + request.getParameter("projectId"));
+            System.out.println("freelancerId: " + request.getParameter("freelancerId"));
+            System.out.println("applyStatus: " + request.getParameter("applyStatus"));
+            System.out.println("applyId: " + applyId);
 
             // 서비스 계층 메서드 호출 (프리랜서 지원상태 업데이트)
             service.updateApplyStatus(projectId, freelancerId, applyStatus);
             response.setStatus(HttpServletResponse.SC_OK); // http응답상태 코드 200 ok
+
+            // 수락(1)일 때만 계약 테이블에 insert
+            if (applyStatus == 1) {
+                service.insertContract(projectId, freelancerId, applyId, (String) request.getSession().getAttribute("userId"));
+            }
+
+            // JSON 응답 생성
+            String jsonResponse = "{\"success\":true,\"message\":\"성공적으로 처리되었습니다.\"}";
+            response.getWriter().write(jsonResponse);
         } catch (Exception e) {
             e.printStackTrace();
-            // 클라이언트에게 500 상태코드 & 오류메시지 전송
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "지원자 상태 업데이트 실패");
+            // JSON 형식의 오류 응답
+            String errorResponse = "{\"success\":false,\"message\":\"" + e.getMessage() + "\"}";
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write(errorResponse);
         }
     }
 }

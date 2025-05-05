@@ -6,15 +6,15 @@ import dto.Project;
 
 public class ClientEditProjectServiceImpl implements IClientEditProjectService {
 
-    private final IClientEditProjectDAO dao = new ClientEditProjectDAOImpl();
+    private final IClientEditProjectDAO clientEditProjectDAO = new ClientEditProjectDAOImpl();
 
     @Override
     public Project getProjectById(int projectId) throws Exception {
-        return dao.selectProjectFixById(projectId);
+        return clientEditProjectDAO.selectProjectFixById(projectId);
     }
 
     @Override
     public void updateProject(Project project) throws Exception {
-        dao.updateProject(project);
+        clientEditProjectDAO.updateProject(project);
     }
 }

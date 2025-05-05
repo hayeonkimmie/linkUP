@@ -174,4 +174,21 @@
                  LEFT JOIN category cat ON subcat.category_id = cat.category_id
         WHERE a.freelancer_id =  #{freelancerId}
     </select>
+
+    <select id="setlectApplyByApplyId" parameterType="Integer" resultType="dto.Apply">
+        select * from apply where apply_id = #{applyId}
+    </select>
+
+    <select id="setlectApplyById" parameterType="Integer" resultType="dto.ClientApply">
+        SELECT
+            apply_id,
+            freelancer_id,
+            apply_date,
+            cancel_date,
+            is_approved,
+            project_id,
+            project_pay_id
+        FROM apply
+        WHERE apply_id = #{applyId}
+    </select>
 </mapper>

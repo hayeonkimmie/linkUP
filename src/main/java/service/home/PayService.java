@@ -19,4 +19,15 @@ public class PayService implements IPayService {
     public List<Pay> selectPayByProjectId(Integer projectId) throws Exception {
         return payDAO.selectPayByProjectId(projectId);
     }
+    @Override
+    public List<Pay> getPaysByProjectId(int projectId) {
+        // Pay 정보 가져오기 로직
+        return payDAO.getPaysByProjectId(projectId);
+    }
+
+    @Override
+    public void deletePaysByProjectId(int projectId) {
+        // 기존 Pay 정보 삭제 로직
+        payDAO.deletePaysByProjectId(projectId);
+    }
 }

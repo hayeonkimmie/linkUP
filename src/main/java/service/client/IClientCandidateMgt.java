@@ -10,4 +10,5 @@ public interface IClientCandidateMgt {
     List<ClientCandidateMgt> getCandidateMgtList(Map<String, Object> param) throws Exception;
     ClientCandidateMgt getProjectInfo(int projectId) throws Exception;
     void updateApplyStatus(int projectId, String freelancerId, int applyStatus) throws Exception;
+    void insertContract(int projectId, String freelancerId, Integer applyId, String clientId) throws Exception;
 }

@@ -60,4 +60,6 @@ public interface ISettlementDAO {
     List<SettledInfoDTO> selectWaitingFreelancersByMonth(Map<String, Object> param) throws Exception;
 
     List<SettlementDetailDTO> selectSettlementHistory(String freelancerName, int projectId) throws Exception;
+
+    ClientProjectSummary selectSettlementHistoryDetailByClientId(Integer projectId) throws Exception;
 }
