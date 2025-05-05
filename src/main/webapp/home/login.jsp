@@ -43,8 +43,10 @@
   </div>
 
   <div class="sns-login">
-    <button class="kakao-btn">카카오톡으로 로그인하기</button>
-    <button class="google-btn">구글 계정으로 로그인하기</button>
+    <a id="kakao-login-link" href="#" onclick="return false;"><!-- 카카오 로그인 -->
+      <img alt="카카오 로그인" src="${contextPath }/img/kakao_login_medium_narrow.png"/>
+    </a>
+<%--    <button class="google-btn">구글 계정으로 로그인하기</button>--%>
   </div>
 
   <a href="${contextPath}/createAcc" class="signup-link">회원가입 하러가기</a>
@@ -94,6 +96,28 @@
       document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("selected"));
       btn.classList.add("selected");
       document.getElementById("roleInput").value = btn.getAttribute("data-role");
+    });
+  });
+  const clientId = '73b91541c6bc7af0e57ea1cd1eb73773';
+  const redirectBase = 'http://localhost:8080/linkup/kakao';
+  // 카카오 로그인 버튼 클릭 이벤트
+  document.querySelectorAll(".role-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+      // 선택 표시 처리
+      document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+
+      // 역할 저장
+      const role = btn.getAttribute("data-role");
+      document.getElementById("roleInput").value = role;
+      localStorage.setItem("userType", role); // 리다이렉트 후 서버에서 활용
+
+      // 카카오 로그인 링크 업데이트
+      const encodedRedirect = encodeURIComponent(redirectBase);
+      const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodedRedirect}&response_type=code`;
+
+      document.getElementById("kakao-login-link").setAttribute("href", kakaoLoginUrl);
+      document.getElementById("kakao-login-link").onclick = null; // 링크 활성화
     });
   });
 

@@ -47,7 +47,7 @@
                                     <img id="preview" class="preview-img"
                                             <c:choose>
                                                 <c:when test="${freelancer.profileImg} ne null"> src="../img/${freelancer.profileImg}"</c:when>
-                                                <c:otherwise> src= "../img/basic_profile_img.png"</c:otherwise>
+                                                <c:otherwise> src= "../img/basic_profile_img2.png"</c:otherwise>
                                             </c:choose> alt="프로필 사진"/>
                                 </label>
                                 <input type="file" name="profileImg" id="profileImg" accept="image/*"
