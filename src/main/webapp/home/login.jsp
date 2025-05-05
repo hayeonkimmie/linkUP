@@ -43,7 +43,7 @@
     </div>
 
     <div class="sns-login">
-        <a id="kakao-login-link" href="#" onclick="return false;"><!-- 카카오 로그인 -->
+        <a id="kakao-login-link" href="#"><!-- 카카오 로그인 -->
             <img alt="카카오 로그인" src="${contextPath }/img/kakao_login_medium_narrow.png"/>
         </a>
         <%--    <button class="google-btn">구글 계정으로 로그인하기</button>--%>
@@ -106,7 +106,8 @@
             btn.classList.add("selected");
 
             // 역할 저장
-            const role = btn.getAttribute("data-role");
+            let role = btn.getAttribute("data-role");
+            if(role == null) role = "recruiter";
             document.getElementById("roleInput").value = role;
             localStorage.setItem("userType", role); // 리다이렉트 후 서버에서 활용
 
@@ -118,27 +119,62 @@
             const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=406379efec436984eb3393e7024851df&redirect_uri=http://localhost:8080/linkup/kakao&response_type=code`;
 
             document.getElementById("kakao-login-link").setAttribute("href", kakaoLoginUrl);
-            document.getElementById("kakao-login-link").onclick = null; // 링크 활성화
+            document.getElementById("kakao-login-link").addEventListener("click", function (e) {
+                const role = document.getElementById("roleInput").value || "recruiter";
+                const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=406379efec436984eb3393e7024851df&redirect_uri=http://localhost:8080/linkup/kakao&response_type=code`;
+
+                // 링크 강제 이동
+                window.location.href = kakaoLoginUrl;
+            });
+
         });
     });
-    document.addEventListener('DOMContentLoaded', function () {
-      var inputValue = document.getElementById('roleInput').value;
-      console.log(inputValue);
-        const kakaoLoginLink = document.getElementById('kakao-login-link');
+    document.addEventListener("DOMContentLoaded", () => {
+        const roleButtons = document.querySelectorAll(".role-btn");
+        const roleInput = document.getElementById("roleInput");
+        const kakaoLoginLink = document.getElementById("kakao-login-link");
 
-        // 기본 클릭 이벤트 설정 - 역할 선택 확인
-        kakaoLoginLink.addEventListener('click', function (event) {
-            const roleInput = document.getElementById('roleInput');
+        // ✅ 역할 선택 버튼 클릭 시
+        roleButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+        // 역할 버튼 UI 갱신
+        roleButtons.forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
 
-            // roleInput 값이 없으면 (역할 선택 안 됨) alert 표시 및 이동 방지
-            if (!roleInput.value) {
-                event.preventDefault();
-                alert('로그인하기 전에 역할을 선택해주세요.');
-            }
-        });
+        // 역할 값 저장
+        const role = btn.getAttribute("data-role") || "recruiter";
+        roleInput.value = role;
+        localStorage.setItem("userType", role);
+
+        console.log("[역할 선택] roleInput value:", role);
+    });
     });
 
-    function showPopup(id) {
+        // ✅ 카카오 로그인 링크 클릭 시
+        kakaoLoginLink.addEventListener("click", function (event) {
+            const role = roleInput.value || "recruiter";
+
+            // 디버깅 로그 출력
+            console.log("[카카오 로그인 클릭됨]");
+            console.log("role =", role);
+
+            if (!role) {
+            event.preventDefault();
+            alert("로그인하기 전에 역할을 선택해주세요.");
+            return;
+        }
+
+        const clientId = "406379efec436984eb3393e7024851df";
+        const redirectUri = "http://localhost:8080/linkup/kakao";
+        const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
+
+        console.log("카카오 로그인 URL:", kakaoLoginUrl);
+        window.location.href = kakaoLoginUrl;
+    });
+    });
+
+
+function showPopup(id) {
         const popup = document.getElementById(id);
         popup.style.display = 'flex';
 

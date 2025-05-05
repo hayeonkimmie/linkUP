@@ -163,7 +163,10 @@
     </select>
 
     <select id="selectSettleTargetsByClient" parameterType="map" resultType="dto.ClientSettleTarget">
+
         SELECT u.name AS freelancerName,
+               c.id as contract_id,
+               c.client_status,
                IF((SELECT COUNT(*)
                    FROM settlelist s
                    WHERE s.project_id = c.project_id) = 0, CONCAT(

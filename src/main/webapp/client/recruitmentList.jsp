@@ -1,34 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- if, forEach, c:set사용 위함 -->
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!-- 함수사용 - -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- 숫자 포맷팅 -->
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%
-    // 세션에서 플래그 확인 - 페이지 상단으로 이동
-    Boolean projectUpdated = (Boolean) session.getAttribute("projectUpdated");
-    // URL에 timestamp 파라미터가 있는지 확인
-    String timestamp = request.getParameter("timestamp");
 
-    if (projectUpdated != null && projectUpdated) {
-        // 플래그 제거
-        session.removeAttribute("projectUpdated");
-
-        // timestamp 파라미터가 없으면 리다이렉트
-        if (timestamp == null) {
-            String redirectURL = request.getRequestURI() + "?timestamp=" + System.currentTimeMillis();
-            // 기존 파라미터 유지
-            String queryString = request.getQueryString();
-            if (queryString != null && !queryString.isEmpty()) {
-                redirectURL += "&" + queryString;
-            }
-            response.sendRedirect(redirectURL);
-            return; // 페이지 처리 중단
-        }
-    }
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,17 +15,11 @@
     <link rel="stylesheet" href="${contextPath}/css/client/recruitmentList.css"/>
     <link rel="stylesheet" href="${contextPath}/css/client/sideBar.css"/>
 </head>
-
-<script>
-    window.contextPath = '${contextPath}';
-</script>
-
 <body>
 <input type="hidden" id="contextPath" value="${contextPath}"/>
 <div id="header-placeholder"></div>
 
 <div class="layout">
-    <!-- 구인자 공통 사이드바 include -->
     <jsp:include page="../common/sidebar.jsp"/>
 
     <main class="main">
@@ -58,14 +27,13 @@
 
         <!-- 필터 탭 -->
         <div class="filter-tabs">
-            <div class="filter-tab active" data-status="all">전체보기</div>
-            <div class="filter-tab" data-status="open">구인중</div>
-            <div class="filter-tab" data-status="done-start">시작전</div>
-            <div class="filter-tab" data-status="done-progress">진행중</div>
-            <div class="filter-tab" data-status="done-end">종료됨</div>
+            <div class="filter-tab ${status eq 'all' ? 'active' : ''}" data-status="all">전체보기</div>
+            <div class="filter-tab ${status eq 'open' ? 'active' : ''}" data-status="open">구인중</div>
+            <div class="filter-tab ${status eq 'done-start' ? 'active' : ''}" data-status="done-start">시작전</div>
+            <div class="filter-tab ${status eq 'done-progress' ? 'active' : ''}" data-status="done-progress">진행중</div>
+            <div class="filter-tab ${status eq 'done-end' ? 'active' : ''}" data-status="done-end">종료됨</div>
         </div>
 
-        <!-- 카드 출력 -->
         <c:forEach var="project" items="${projectList}">
             <c:set var="statusClass" value="none"/>
             <c:choose>
@@ -152,10 +120,10 @@
                             </c:when>
                             <c:when test="${project.status eq '구인완료'}">
                                 <c:choose>
-<%--                                    시작전일 경우 '수정'불가능 하게 변경--%>
-<%--                                    <c:when test="${project.projectProgress eq '시작전'}">--%>
-<%--                                        <button class="btn btn-edit">수정하기</button>--%>
-<%--                                    </c:when>--%>
+                                    <%--                                    시작전일 경우 '수정'불가능 하게 변경--%>
+                                    <%--                                    <c:when test="${project.projectProgress eq '시작전'}">--%>
+                                    <%--                                        <button class="btn btn-edit">수정하기</button>--%>
+                                    <%--                                    </c:when>--%>
                                     <c:when test="${project.projectProgress eq '진행중'}">
                                         <a href="<c:url value='/request-settlement'>
                                                 <c:param name='projectId' value='${project.projectId}'/>
@@ -175,53 +143,44 @@
 
             </c:if>
         </c:forEach>
+
+        <!-- 페이징 영역 -->
+        <div class="pagination">
+            <c:if test="${pageInfo.curPage > pageInfo.startPage}">
+                <a href="${contextPath}/clientRecruitMgt?page=${pageInfo.curPage - 1}&status=${status}">&lt;</a>
+            </c:if>
+
+            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
+                <c:choose>
+                    <c:when test="${page eq pageInfo.curPage}">
+                        <a href="${contextPath}/clientRecruitMgt?page=${page}&status=${status}" class="select">${page}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${contextPath}/clientRecruitMgt?page=${page}&status=${status}" class="btn">${page}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${pageInfo.curPage < pageInfo.allPage}">
+                <a href="${contextPath}/clientRecruitMgt?page=${pageInfo.curPage + 1}&status=${status}">&gt;</a>
+            </c:if>
+        </div>
     </main>
 </div>
 
-<%--<!-- 페이징 -->--%>
-<%--<div class="pagination">--%>
-<%--    <c:choose>--%>
-<%--        <c:when test="${pageInfo.curPage > 1}">--%>
-<%--            <a href="${contextPath}/clientRecruitMgt?page=${pageInfo.curPage - 1}&sort=${param.sort}">&lt;</a>--%>
-<%--        </c:when>--%>
-<%--        <c:otherwise><a>&lt;</a></c:otherwise>--%>
-<%--    </c:choose>--%>
-
-<%--    <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${page eq pageInfo.curPage}">--%>
-<%--                <a href="${contextPath}/clientRecruitMgt?page=${page}&sort=${param.sort}" class="select">${page}</a>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <a href="${contextPath}/clientRecruitMgt?page=${page}&sort=${param.sort}" class="btn">${page}</a>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-<%--    </c:forEach>--%>
-
-<%--    <c:choose>--%>
-<%--        <c:when test="${pageInfo.curPage < pageInfo.allPage}">--%>
-<%--            <a href="${contextPath}/clientRecruitMgt?page=${pageInfo.curPage + 1}&sort=${param.sort}">&gt;</a>--%>
-<%--        </c:when>--%>
-<%--        <c:otherwise><a>&gt</a></c:otherwise>--%>
-<%--    </c:choose>--%>
-<%--</div>--%>
-
-
-<!--  recruitmentList.js 로딩 -->
 <script>
     const contextPath = '${pageContext.request.contextPath}';
-
-    // DOMContentLoaded 이벤트에 새로고침 코드 추가
-    document.addEventListener('DOMContentLoaded', function() {
-        // URL에서 timestamp 파라미터 확인
-        const urlParams = new URLSearchParams(window.location.search);
-        const timestamp = urlParams.get('timestamp');
-
-        // 현재 시간과 timestamp 비교 (5초 이내면 새로고침하지 않음)
-        const now = new Date().getTime();
-        if (timestamp && (now - timestamp < 5000)) {
-            console.log('페이지 최신화 완료');
-        }
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabs = document.querySelectorAll('.filter-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                const selectedStatus = this.dataset.status;
+                const url = new URL(window.location.href);
+                url.searchParams.set("status", selectedStatus);
+                url.searchParams.set("page", 1);
+                window.location.href = url.toString();
+            });
+        });
     });
 </script>
 

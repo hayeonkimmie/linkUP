@@ -86,8 +86,7 @@
             u.name,
             MIN(ca.join_date) AS joinDate,
             MAX(ca.resign_date) AS resignDate,
-            IFNULL(SUM(TIMESTAMPDIFF(YEAR, ca.join_date, ca.resign_date)), 0) AS careerYear,
-            (SELECT ROUND(AVG(r.star), 1) FROM review r WHERE r.r_user_id = a.freelancer_id) AS star
+            IFNULL(SUM(TIMESTAMPDIFF(YEAR, ca.join_date, ca.resign_date)), 0) AS careerYear
         FROM project pj
                  LEFT JOIN apply a ON pj.project_id = a.project_id
                  LEFT JOIN freelancer f ON a.freelancer_id = f.freelancer_id

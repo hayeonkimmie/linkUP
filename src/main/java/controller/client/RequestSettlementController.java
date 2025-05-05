@@ -35,28 +35,23 @@ public class RequestSettlementController extends HttpServlet {
             String clientId = (String) request.getSession().getAttribute("userId");
             if (clientId == null) clientId = "client005"; // fallback for testing
             ISettlementDAO settlementDAO = new SettlementDAO();
-            // 정산 대상 목록 조회
             List<ClientSettleTarget> settleTargets = clientSettlementDAO.selectSettleTargetsByClient(clientId, projectId);
-
-            // 정산 회차 판단 로직
+            for(ClientSettleTarget target : settleTargets) {
+                System.out.println("ClientSettleTarget: " + target);
+            }
             int nextRound = settleService.getNextSettleRound(projectId);
             if(nextRound == 0) nextRound =1;
-//            ProjectDetail project = projectService.selectProjectById(projectId);
             ClientProjectSummary project = settlementDAO.selectSettlementHistoryDetailByClientId(projectId);
-            System.out.println("Project : "+project);
-            // 값 전달
-            // 예시 코드
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate start = LocalDate.parse(project.getStartDate(), formatter);
             LocalDate end = LocalDate.parse(project.getEndDate(), formatter);
             Period period = Period.between(start.withDayOfMonth(1), end.withDayOfMonth(1)); // 월 단위 비교
-
             int months = period.getYears() * 12 + period.getMonths() + 1;
+
             request.setAttribute("projectMonthCount", months);
             request.setAttribute("settleTargets", settleTargets);
             request.setAttribute("projectInfo", project);
             request.setAttribute("round", nextRound);
-            System.out.println("ProjectInfo : "+project);
             request.getRequestDispatcher("/client/monthlyPayment.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

@@ -27,19 +27,34 @@
 
         <div class="project-info">
             <h2>${projectInfo.projectName}</h2>
+
+            <!-- ✅ 정산 회차 추가 -->
+            <div class="round-info">
+                <p><strong>정산 회차:</strong> ${round}회차</p>
+            </div>
+
             <div class="project-details">
                 <div class="detail-item">
-                    <p><strong>프로젝트 기간:</strong> ${projectInfo.startDate} ~ ${projectInfo.endDate}</p>
+                    <p class="inline-flex">
+                        <strong>프로젝트 기간:</strong>
+                        <span class="nowrap">${projectInfo.startDate} ~ ${projectInfo.endDate}</span>
+                    </p>
                 </div>
                 <div class="detail-item">
-                    <p><strong>총 프로젝트 금액:</strong> <fmt:formatNumber value="${projectInfo.totalAmount}" type="number" groupingUsed="true" />원</p>
+                    <p class="inline-flex">
+                        <strong>총 프로젝트 금액:</strong>
+                        <span><fmt:formatNumber value="${projectInfo.totalAmount}" type="number" groupingUsed="true" />원</span>
+                    </p>
                 </div>
                 <div class="detail-item">
-                    <p><strong>총 개월 수:</strong> ${projectMonthCount}개월</p>
+                    <p class="inline-flex">
+                        <strong>총 개월 수:</strong>
+                        <span>${projectMonthCount}개월</span>
+                    </p>
                 </div>
             </div>
-        </div>
 
+        </div>
 
         <form action="${contextPath}/submit-settlement" method="post" id="settleForm">
             <input type="hidden" name="round" value="${round}"/>
@@ -57,13 +72,22 @@
                     </thead>
                     <tbody>
                     <c:forEach var="target" items="${settleTargets}" varStatus="status">
-                        <tr>
+                        <tr class="${target.clientStatus == 'C' ? 'already-requested' : ''}">
                             <td>${status.index + 1}</td>
                             <td>${target.freelancerName}</td>
                             <td>${target.settlePeriod}</td>
                             <td><fmt:formatNumber value="${target.pay}" type="number" groupingUsed="true"/>원</td>
                             <td>
-                                <input type="checkbox" name="freelancerNames" value="${target.freelancerName}"/>
+                                <c:choose>
+                                    <c:when test="${target.clientStatus == 'C'}">
+                                        <input type="checkbox" disabled />
+                                        <span class="status-label">요청됨</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" name="freelancerNames" value="${target.freelancerName}" />
+                                        <input type="hidden" name="contractIds" value="${target.contractId}" />
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </tr>
                     </c:forEach>
@@ -76,6 +100,7 @@
                 <a href="${contextPath}/clientRecruitMgt" class="btn btn-secondary">돌아가기</a>
             </div>
         </form>
+
     </div>
 </div>
 
