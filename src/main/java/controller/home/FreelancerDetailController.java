@@ -34,12 +34,14 @@ public class FreelancerDetailController extends HttpServlet {
             freelancer = freelancerService.selectBasicFreelancerById(freelancerId);
             if(clientId != null || !clientId.isEmpty()) {
                 isLiked = service.isFreelancerLiked(clientId, freelancerId);
+                System.out.println("isLiked : " + isLiked);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         request.setAttribute("isLiked", isLiked);
         request.setAttribute("freelancer", freelancer);
+        request.setAttribute("freelancerId", freelancerId);
         request.getRequestDispatcher("./home/freelancer_detail.jsp").forward(request,response);
     }
 

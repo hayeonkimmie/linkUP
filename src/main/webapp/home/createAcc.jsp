@@ -24,8 +24,8 @@
     </a>
     <p class="description">10초의 간단한 가입으로,<br>Link up의 여러 기능을 사용해보자!</p>
 
-    <button class="btn kakao">카카오톡 간편 가입 하기</button>
-    <button class="btn google">구글 간편 가입 하기</button>
+<%--    <button class="btn kakao">카카오톡 간편 가입 하기</button>
+    <button class="btn google">구글 간편 가입 하기</button>--%>
 
     <hr class="divider">
     <!-- divider은 얇은 구분선임 -->

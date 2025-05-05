@@ -18,22 +18,15 @@ import service.common.IKakaoLoginService;
 @WebServlet("/kakao")
 public class KakaoLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public KakaoLoginController() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String code = request.getParameter("code");
-//		System.out.println(code);
+		System.out.println("kakao 29 "+code);
 		User user = new User();
 		IKakaoLoginService service = new KakaoLoginService();
 		try {

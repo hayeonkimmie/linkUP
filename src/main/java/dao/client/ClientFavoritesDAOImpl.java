@@ -35,6 +35,7 @@ public class ClientFavoritesDAOImpl implements IClientFavoritesDAO {
     // 찜 등록
     @Override
     public void insertFavorite(Map<String, String> param) {
+        System.out.println("ClientFavoritesDAOImpl.java 38" + param);
         sqlSession.insert("mapper.jjimfree.insertFavorite", param);
         // 데이터 변경하는 쿼리라 반드새 commit() 필수
         sqlSession.commit();

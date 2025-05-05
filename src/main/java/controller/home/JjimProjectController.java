@@ -33,37 +33,35 @@ public class JjimProjectController extends HttpServlet {
         }
         String projectId = request.getParameter("projectId");
         String action = request.getParameter("action");
+        if(action==null || action.isEmpty()) {
+            action = "like";
+        }
         boolean result = false;
         IProjectService service = new ProjectService();
         System.out.println("projectId " + projectId);
         System.out.println("userId " + userId);
         try {
-            if(action.equals("cancel")) {
-                System.out.println("cancel " );
-                service.cancelProjectlike(userId, Integer.parseInt(projectId));
-            } else if(action==null || action.isEmpty()) {
-                System.out.println("!!!" );
-                if(userId == null) {
-                    // 세션에서 다시 가져오기 시도
-                    System.out.println("projectId " + projectId);
-                    System.out.println("userId " + userId);
-                    userId = (String) session.getAttribute("userId");
-                    System.out.println("Retrieved userId again: " + userId);
-                }
-                System.out.println("체크포인트1 " );
-                service.likeProject(userId, Integer.parseInt(projectId));
-                System.out.println("체크포인트2 " );
-
+            if(userId == null) {
+                // 세션에서 다시 가져오기 시도
+                userId = (String) session.getAttribute("userId");
+                System.out.println("Retrieved userId again: " + userId);
             }
-            result = true;
+            if(!(action.equals("cancel"))) {
+               int cnt = service.likeProject(userId, Integer.parseInt(projectId));
+                result = cnt==1;
+            } else {
+                service.cancelProjectlike(userId, Integer.parseInt(projectId));
+                result = true;
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         if (result) { // 성공
             response.setContentType("text/html; charset=UTF-8");
             if(action.equals("cancel")){
                 response.getWriter().println("<script>location.href='" + request.getContextPath() + "/project?projectid="+projectId+"';</script>");
-            } else if(action==null || action.isEmpty()){
+            } else {
                 response.getWriter().println("<script>location.href='" + request.getContextPath() + "/project?projectid="+projectId+"';</script>");
             }
         } else { // 실패

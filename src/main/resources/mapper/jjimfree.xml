@@ -37,7 +37,7 @@
         u.name AS name,
         f.desired_location AS desired_location,
         f.skill AS skill,
-        (SELECT ROUND(AVG(r.star), 1) FROM review r WHERE r.r_user_id = f.freelancer_id) AS rating,
+       -- (SELECT ROUND(AVG(r.star), 1) FROM review r WHERE r.r_user_id = f.freelancer_id) AS rating,
         (SELECT COUNT(*) FROM contract c WHERE c.freelancer_id = jf.freelancer_id) AS project_count
         FROM jjimFree jf
         LEFT JOIN freelancer f ON jf.freelancer_id = f.freelancer_id

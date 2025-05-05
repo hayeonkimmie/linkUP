@@ -63,7 +63,7 @@
                                 </a>
                             </c:when>
                             <c:otherwise>
-                                <a href="${contextPath}/JJimProject?projectId=${projectId}'">
+                                <a href="${contextPath}/JJimProject?projectId=${projectId}&action=like">
                                     <i class="bi bi-heart text-danger" style="color: red;"></i>
                                 </a>
                             </c:otherwise>

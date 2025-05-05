@@ -99,8 +99,9 @@
     });
   });
   const clientId = '73b91541c6bc7af0e57ea1cd1eb73773';
-  const redirectBase = 'http://localhost:8080/linkup/kakao';
+  const redirectBase = 'http://localhost:8080/${contextPath}/kakao';
   // 카카오 로그인 버튼 클릭 이벤트
+ // https://kauth.kakao.com/oauth/authorize?client_id=65cb7db65c21cdeeb8256766bde4f47e&redirect_uri=http://localhost:8080/social/kakao&response_type=code
   document.querySelectorAll(".role-btn").forEach(btn => {
     btn.addEventListener("click", function () {
       // 선택 표시 처리
