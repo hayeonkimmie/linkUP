@@ -6,8 +6,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -16,11 +14,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class KakaoLoginService implements IKakaoLoginService {
-    public void kakaoLogin(String code) throws Exception {
+    public User kakaoLogin(String code) throws Exception {
         String token = getKakaoToken(code);
         System.out.println(token);
         User user = getKakaoUserInfo(token);
         System.out.println(user);
+        return user;
     }
     String getKakaoToken(String code) throws Exception{
         String tokenUrl = "https://kauth.kakao.com/oauth/token";
@@ -31,7 +30,7 @@ public class KakaoLoginService implements IKakaoLoginService {
         conn.setDoOutput(true);
         StringBuilder param = new StringBuilder();
         param.append("grant_type=authorization_code");
-        param.append("&client_id=73b91541c6bc7af0e57ea1cd1eb73773");
+        param.append("&client_id=406379efec436984eb3393e7024851df");
         param.append("&redirect_uri=http://localhost:8080/linkup/kakao");
         param.append("&code="+code);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
@@ -85,17 +84,24 @@ public class KakaoLoginService implements IKakaoLoginService {
         System.out.println(resBuilder.toString());
         JSONParser parser = new JSONParser();
         JSONObject jsonObj = (JSONObject)parser.parse(resBuilder.toString());
+        System.out.println(jsonObj.toJSONString());
         Long id = (Long)jsonObj.get("id");
+        JSONObject kakao_account = (JSONObject)jsonObj.get("kakao_account");
         JSONObject properties = (JSONObject)jsonObj.get("properties");
         String nickname = (String)properties.get("nickname");
-        String profile_image = (String)properties.get("profile_image");
-//		String thumbnail_image = (String)properties.get("thumbnail_image");
-//		String kakao_account = (String)properties.get("kakao_account");
+        String profileImg = (String)properties.get("profile_image");
+        String email = (String)kakao_account.get("email");
 
         User user = new User();
         user.setUserId(id+"");
+        user.setName("");
+        user.setPassword("");
         user.setNickname(nickname);
-        user.setProfileImg(profile_image);
+        user.setProfileImg(profileImg);
+        user.setEmail(email);
+        user.setPhoneNum("");
+        user.setSnsType("Kakao");
+        System.out.println(user);
         return user;
     }
 }

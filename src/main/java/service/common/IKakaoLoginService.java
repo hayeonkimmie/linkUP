@@ -1,5 +1,7 @@
 package service.common;
 
+import dto.User;
+
 public interface IKakaoLoginService {
-    void kakaoLogin(String code) throws Exception;
+    User kakaoLogin(String code) throws Exception;
 }
