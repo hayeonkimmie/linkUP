@@ -22,6 +22,12 @@ public class FreelancerService implements IFreelancerService{
         System.out.println("FreelancerService.java 24 freelancer "+freelancer);
         return freelancer;
     }
+/*    @Override
+    public void likeFreelancer(String freelancerId, String clientId) throws Exception {
+        ifreelancerDAO.likeFreelancer(freelancerId, clientId);
+    }*/
+
+
     @Override
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception {
         Freelancer freelancer = ifreelancerDAO.selectExpertFreelancerById(freelancerId);

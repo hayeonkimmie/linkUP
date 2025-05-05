@@ -15,4 +15,8 @@ public interface IClientFavoritesService {
     String toggleFavorite(String clientId, String freelancerId) throws Exception;
 
     String removeFavoriteOnly(String clientId, String freelancerId) throws Exception;
+    boolean isFreelancerLiked(String clientId, String freelancerId) throws Exception;
+    void likeFreelancer(String freelancerId, String clientId) throws Exception;
+    void cancelLikeFreelancer(String freelancerId, String clientId) throws Exception;
+
 }

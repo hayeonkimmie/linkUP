@@ -1,6 +1,7 @@
 .container {
     font-family: 'Noto Sans KR', sans-serif;
 }
+a{text-decoration: none;}
 .profile-box {
     text-align: center;
     margin-bottom: 40px;

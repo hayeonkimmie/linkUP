@@ -4,11 +4,15 @@
 <mapper namespace="mapper.jjimfree">
 
 
-    <insert id="insertJjimFree" parameterType="jjimFree">
-        insert jjimFree (jjim_id, client_id, freelancer_id)
-        values (#{jjim_id}, #{client_id}, #{freelancer_id})
+    <insert id="insertJjimFree" parameterType="Map">
+        insert jjimFree (client_id, freelancer_id)
+        values (#{client_id}, #{freelancer_id})
     </insert>
-
+    <select id="isFreelancerLiked" parameterType="Map" resultType="Integer">
+        select count(*)
+        from jjimFree
+        where freelancer_id = #{freelancerId} and client_id = #{clientId}
+    </select>
 <!--    페이징 처리 -->
     <select id="selectJjimFree" parameterType="Integer" resultType="jjimFree">
         select * from jjimFree where client_id = #{clientId} order by jjim_id desc limit #{row}, 9

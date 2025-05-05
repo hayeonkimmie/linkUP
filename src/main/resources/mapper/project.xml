@@ -18,8 +18,8 @@
             p.sub_category_id,
             sc.sub_category_name,
             c.category_name,
-            u.profile_img,
-            COALESCE(AVG(r.star), 0) AS avg_star
+            u.profile_img
+     --       COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
                  LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
                  LEFT JOIN category c ON sc.category_id = c.category_id
@@ -45,8 +45,8 @@
             p.sub_category_id,
             sc.sub_category_name,
             c.category_name,
-            u.profile_img,
-            COALESCE(AVG(r.star), 0) AS avg_star
+            u.profile_img
+      --      COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
                  LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
                  LEFT JOIN category c ON sc.category_id = c.category_id
@@ -71,8 +71,8 @@
         p.sub_category_id,
         sc.sub_category_name,
         c.category_name,
-        u.profile_img,
-        COALESCE(AVG(r.star), 0) AS avg_star
+        u.profile_img
+      --  COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
         LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id
@@ -109,8 +109,8 @@
         p.sub_category_id,
         sc.sub_category_name,
         c.category_name,
-        u.profile_img,
-        COALESCE(AVG(r.star), 0) AS avg_star
+        u.profile_img
+     --   COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
         LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id

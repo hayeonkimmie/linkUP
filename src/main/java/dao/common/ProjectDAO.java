@@ -10,6 +10,7 @@ import util.SingleTonSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ProjectDAO implements IProjectDAO {
 
@@ -65,6 +66,48 @@ public class ProjectDAO implements IProjectDAO {
         return null;
     }
 
+    @Override
+    public boolean isProjectLiked(String freelancerId, Integer projectId) throws Exception {
+        try (SqlSession session = sqlSession.openSession()) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("freelancerId", freelancerId);
+            param.put("projectId", projectId);
+            Integer cnt = session.selectOne("mapper.jjimProj.isProjectLiked", param);
+            return cnt == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Integer likeProject(String freelancerId, Integer projectId) {
+        System.out.println("dao 도착.java 85" + freelancerId + " " + projectId);
+        try (SqlSession session = sqlSession.openSession()) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("projectId", projectId);
+            param.put("freelancerId", freelancerId);
+            System.out.println("likeProject.java 89" + param);
+            int result = session.insert("mapper.jjimProj.insertJjimProj", param);
+            session.commit();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public void cancelProjectLike(String freelancerId, Integer projectId) {
+        try (SqlSession session = sqlSession.openSession()) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("freelancerId", freelancerId);
+            param.put("projectId", projectId);
+            System.out.println("cancelProjectLike.java 100" + param);
+            session.delete("mapper.jjimProj.cancelProjectLike", param);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void insertProject(Project project) {
         try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {

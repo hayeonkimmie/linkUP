@@ -48,7 +48,7 @@
                         <c:otherwise>
                             <c:forEach var="jp" items="${jjimProjList}">
                                 <tr>
-                                    <td><a href="${jp.projectId}">${jp.projectName}</a></td>
+                                    <td><a href="${contextPath}/project?projectid=${jp.projectId}">${jp.projectName}</a></td>
                                     <td>${jp.category}</td>
                                     <td>${jp.duration}</td>
                                     <td>${jp.qualification}</td>

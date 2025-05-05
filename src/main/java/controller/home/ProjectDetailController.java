@@ -27,20 +27,30 @@ public class ProjectDetailController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 //        request.getSession().setAttribute("userId", "free002");
         String projectId = request.getParameter("projectid");
+        String freelancerId = (String) request.getSession().getAttribute("userId");
         ProjectDetail selectedProject = null;
         List<Pay> projectPayList = null;
         IProjectService projectService = new ProjectService();
         IPayService payService = new PayService();
+        boolean isLiked = false;
         try {
             selectedProject = projectService.selectProjectById(Integer.parseInt(projectId));
             projectPayList = payService.selectPayByProjectId(Integer.parseInt(projectId));
+            if(freelancerId != null || !freelancerId.isEmpty()) {
+                isLiked = projectService.isProjectLiked(freelancerId, Integer.parseInt(projectId));
+            } else {
+                isLiked = false;
+            }
+            System.out.println("42 "+isLiked );
             System.out.println(selectedProject);
         } catch (Exception e) {
             e.printStackTrace();
         }
         request.setAttribute("projectPayList", projectPayList);
-        request.setAttribute("userid", request.getSession().getAttribute("userId"));
+        request.setAttribute("userId", request.getSession().getAttribute("userId"));
         request.setAttribute("project", selectedProject);
+        request.setAttribute("projectId", projectId);
+        request.setAttribute("isLiked", isLiked);
         request.getRequestDispatcher("/home/project_detail.jsp").forward(request, response);
     }
 

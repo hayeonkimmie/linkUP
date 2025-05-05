@@ -162,4 +162,26 @@ public class FreelancerDAO implements IFreelancerDAO {
         }
         sqlSession.commit();
     }
+
+/*    @Override
+    public boolean isFreelancerLiked(String freelancerId, String clientId) throws Exception {
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("freelancerId", freelancerId);
+            param.put("clientId", clientId);
+            Integer cnt = sqlSession.selectOne("mapper.jjimfree.isFreelancerLiked", param);
+            return cnt == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Integer likeFreelancer(String freelancerId, String clientId) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("freelancerId", freelancerId);
+        param.put("clientId", clientId);
+        return  sqlSession.insert("mapper.jjimfree.insertJjimFree", param);
+    }*/
 }

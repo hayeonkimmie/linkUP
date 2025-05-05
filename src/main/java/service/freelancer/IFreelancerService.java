@@ -9,6 +9,7 @@ import java.util.Map;
 
 public interface IFreelancerService {
     Freelancer selectBasicFreelancerById(String freelancerId) throws Exception;
+
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception;
 //    void insertCareer(Career career) throws Exception;
     void updateFreelancer(Freelancer freelancer) throws Exception;
@@ -17,6 +18,5 @@ public interface IFreelancerService {
     List<Career> selectCareerListById (String freelancerId) throws Exception;
     Map<Integer, String> selectAllPortfolioInfoMap(String userId) throws Exception;
     List<Portfolio> selectedPortfolioListForProfile(String freelancerId) throws Exception;
-
     void updateCareer(List<Career> careerList, String freelancerId) throws Exception;
 }

@@ -77,7 +77,7 @@
                                 <c:forEach var="jp" items="${jjimProjList}">
                                     <tr>
                                         <td><input class="row-check"  type="checkbox" name="jjimId" value="${jp.jjimId}"/></td>
-                                        <td>${jp.projectName}</td>
+                                        <td><a href="${contextPath}/project?projectid=${jp.projectId}">${jp.projectName}</a></td>
                                         <td>${jp.category}</td>
                                         <td class="center">${jp.duration}</td>
                                         <td>${jp.workingEnvironment}

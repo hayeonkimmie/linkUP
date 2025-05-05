@@ -128,4 +128,25 @@ public class ClientFavoritesServiceImpl implements IClientFavoritesService {
             return "not_found";
         }
     }
+
+    @Override
+    public boolean isFreelancerLiked(String clientId, String freelancerId) throws Exception {
+        return clientFavoritesDAO.isFavoriteExists(clientId, freelancerId);
+    }
+
+    @Override
+    public void likeFreelancer(String freelancerId, String clientId) throws Exception {
+        Map<String ,String> param = new HashMap<>();
+        param.put("clientId", clientId);
+        param.put("freelancerId", freelancerId);
+        clientFavoritesDAO.insertFavorite(param);
+    }
+
+    @Override
+    public void cancelLikeFreelancer(String freelancerId, String clientId) throws Exception {
+        Map<String ,String> param = new HashMap<>();
+        param.put("clientId", clientId);
+        param.put("freelancerId", freelancerId);
+        clientFavoritesDAO.deleteFavorite(param);
+    }
 }

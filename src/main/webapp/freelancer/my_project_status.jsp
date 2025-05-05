@@ -64,7 +64,7 @@
                         </c:when>
                         <c:otherwise>
                             <c:forEach items="${onGoingProjectList}" var="project">
-                                <tr class="clickable" onclick="toggleDetails(this)">
+                                <tr class="clickable" onclick="toggleDetails(event)">
                                     <td>
                                         <a href="${project.projectId}">${project.projectName}</a>
                                     </td>

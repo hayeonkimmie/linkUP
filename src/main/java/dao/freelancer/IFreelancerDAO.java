@@ -19,4 +19,8 @@ public interface IFreelancerDAO {
     public String selectFreelancerProfileImg(String freelancerId) throws Exception;
     void updateCareer(List<Career> careerList, String freelancerId) throws Exception;
     void updateFreelancer(Freelancer freelancer) throws Exception;
+
+   /* boolean isFreelancerLiked(String freelancerId, String clientId) throws Exception;
+    Integer likeFreelancer(String freelancerId, String clientId) throws Exception;*/
+
 }

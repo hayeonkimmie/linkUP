@@ -36,6 +36,7 @@ img{
   border: none;
   cursor: pointer;
   float: right;
+  font-weight: bold;
 }
 
 /* 포트폴리오 카드 전체 목록 */
