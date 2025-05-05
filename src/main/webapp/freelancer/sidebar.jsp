@@ -14,7 +14,7 @@
            <%-- <img src="<c:url value='/img/basic_profile_img.png' />" alt="프로필 이미지"/>--%>
         <%--            <img src="<c:url value='/img/${user.profile_img}' />" alt="${user.nickname }님의 프로필 이미지" />
                     <p>${user.nickname }</p>--%>
-        <img src="${contextPath}/img/basic_profile_img.png" alt="프로필 이미지" />
+        <img src="${contextPath}/img/basic_profile_img2.png" alt="프로필 이미지" />
         <p><%= session.getAttribute("userId") %>&nbsp;</p>
         <p>마이페이지</p>
     </div>

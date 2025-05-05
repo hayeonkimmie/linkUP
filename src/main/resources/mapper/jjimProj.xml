@@ -4,13 +4,24 @@
 
 <mapper namespace="mapper.jjimProj">
     <insert id="insertJjimProj" parameterType="Map">
-        insert jjimProj (project_id, freelancer_id)
-        values (#{project_id}, #{freelancerId})
+        insert into jjimProj (project_id, freelancer_id)
+        values (#{projectId}, #{freelancerId})
     </insert>
+    <delete id="cancelProjectLike" parameterType="Map">
+        DELETE FROM jjimProj
+        WHERE freelancer_id = #{freelancerId} and project_id = #{projectId}
+    </delete>
+
     <select id="selectCntJjimProj" parameterType="String" resultType="Integer">
         select count(*)
         from jjimProj
         where freelancer_id = #{freelancerId}
+    </select>
+
+    <select id="isProjectLiked" parameterType="Map" resultType="Integer">
+        select count(*)
+        from jjimProj
+        where freelancer_id = #{freelancerId} and project_id = #{projectId}
     </select>
     <select id="selectJjimProjlistForMain" parameterType="String" resultType="jjimProj">
         <![CDATA[

@@ -1,14 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>프로젝트 상세</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/css/home/project_detail.css"/>
-    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
+    <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css"/>
 </head>
 <body>
 <div class="header">
@@ -41,21 +42,47 @@
                                 <button class="apply-button" onclick="openModal()">지원하기</button>
                             </c:if>
                         </div>
-
+                        <%--<button>
+                            <c:choose>
+                                <c:when test="${isLiked}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16" onclick="location.href='${contextPath}/JJimProject?projectId=${projectId}&action=cancel'"/>
+                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                    </svg>
+                                </c:when>
+                                <c:otherwise>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16" onclick="location.href='${contextPath}/JJimProject?projectId=${projectId}&action=like'"/>
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                                    </svg>
+                                </c:otherwise>
+                            </c:choose>
+                        </button>--%>
+                        <c:choose>
+                            <c:when test="${isLiked}">
+                                <a href="${contextPath}/JJimProject?projectId=${projectId}&action=cancel">
+                                    <i class="bi bi-heart-fill text-danger" style="color: red;"></i>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${contextPath}/JJimProject?projectId=${projectId}&action=like">
+                                    <i class="bi bi-heart text-danger" style="color: red;"></i>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <hr class="divider"/>
                     <div class="meta-info">
-<%--                        <div class="meta-item">--%>
-<%--                            <div class="meta-label">정산일</div>--%>
-<%--                            <div class="meta-value"><fmt:formatDate value="${project.settleDay}" pattern="yyyy-MM-dd"/></div>--%>
-<%--                        </div>--%>
+                        <%--                        <div class="meta-item">--%>
+                        <%--                            <div class="meta-label">정산일</div>--%>
+                        <%--                            <div class="meta-value"><fmt:formatDate value="${project.settleDay}" pattern="yyyy-MM-dd"/></div>--%>
+                        <%--                        </div>--%>
                         <div class="meta-item">
                             <div class="meta-label">프로젝트 기간</div>
                             <div class="meta-value">${project.duration}일</div>
                         </div>
                         <div class="meta-item">
                             <div class="meta-label">마감일</div>
-                            <div class="meta-value"><fmt:formatDate value="${project.deadlineDate}" pattern="yyyy-MM-dd"/></div>
+                            <div class="meta-value"><fmt:formatDate value="${project.deadlineDate}"
+                                                                    pattern="yyyy-MM-dd"/></div>
                         </div>
                         <div class="meta-item full">
                             <div class="meta-label">담당자 연락처</div>

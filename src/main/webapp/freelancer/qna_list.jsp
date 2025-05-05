@@ -30,8 +30,6 @@
                 <h2>문의 내역</h2>
                 <a href="${contextPath}/home/QnA.jsp" class="btn-submit">+ 문의하기</a>
             </div>
-            <c:choose>
-            <c:when test="${empty QnAList}">
             <table class="inquiry-table">
                 <thead>
                 <tr>
@@ -41,12 +39,15 @@
                 </tr>
                 </thead>
                 <tbody>
+            <c:choose>
+            <c:when test="${empty QnAList}">
+
                 <tr class="qna-empty empty">
-                    <td colspan="3">등록된 문의사항이 없습니다.</td>
+                    <td colspan="3" style="width: 100%; text-align: center;">등록된 문의사항이 없습니다.</td>
                 </tr>
                 </c:when>
                 <c:otherwise>
-                <table class="inquiry-table">
+                <%--<table class="inquiry-table">
                     <thead>
                     <tr>
                         <th>제목</th>
@@ -54,7 +55,7 @@
                         <th>등록일</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody>--%>
                     <c:forEach var="qna" items="${QnAList }">
                         <tr class="accordion-toggle">
                             <td>${qna.questionTitle}</td>

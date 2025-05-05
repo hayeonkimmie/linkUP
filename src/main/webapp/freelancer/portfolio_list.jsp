@@ -75,16 +75,16 @@
                                 <div class="portfolio-body">
                                     <div class="list-thumbnail">
                                         <img
-<%--                                        <c:choose>
+                                        <c:choose>
                                            <c:when test="${portfolio.thumbnail ne null}">
                                             src="image?filename=${portfolio.thumbnail}"
                                             </c:when>
                                             <c:otherwise>
                                                 src="../img/no_img.png"
                                             </c:otherwise>
-                                        </c:choose>--%>
-                                                src="../img/no_img.png"
-                                        alt='포트폴리오 썸네일 이미지'/>
+                                        </c:choose>
+                                                <%--src="../img/no_img.png"
+                                        alt='포트폴리오 썸네일 이미지'--%>/>
                                     </div>
                                     <div class="portfolio-info">
                                         <h3>

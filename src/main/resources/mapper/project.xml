@@ -18,12 +18,12 @@
             p.sub_category_id,
             sc.sub_category_name,
             c.category_name,
-            u.profile_img,
-            COALESCE(AVG(r.star), 0) AS avg_star
+            u.profile_img
+     --       COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
                  LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
                  LEFT JOIN category c ON sc.category_id = c.category_id
-                 LEFT JOIN review r ON p.client_id = r.r_user_id
+               --  LEFT JOIN review r ON p.client_id = r.r_user_id
                  LEFT JOIN user u ON p.client_id = u.user_id
         WHERE c.category_name = #{category}
         GROUP BY p.project_id
@@ -45,13 +45,13 @@
             p.sub_category_id,
             sc.sub_category_name,
             c.category_name,
-            u.profile_img,
-            COALESCE(AVG(r.star), 0) AS avg_star
+            u.profile_img
+      --      COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
                  LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
                  LEFT JOIN category c ON sc.category_id = c.category_id
                  LEFT JOIN user u ON p.client_id = u.user_id
-                 LEFT JOIN review r ON p.client_id = r.r_user_id
+             --    LEFT JOIN review r ON p.client_id = r.r_user_id
         WHERE c.category_name = #{category}
         GROUP BY p.project_id
         ORDER BY p.created_date DESC
@@ -71,13 +71,13 @@
         p.sub_category_id,
         sc.sub_category_name,
         c.category_name,
-        u.profile_img,
-        COALESCE(AVG(r.star), 0) AS avg_star
+        u.profile_img
+      --  COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
         LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id
         LEFT JOIN user u ON p.client_id = u.user_id
-        LEFT JOIN review r ON p.client_id = r.r_user_id
+      --  LEFT JOIN review r ON p.client_id = r.r_user_id
         WHERE 1=1
         <if test="category != null and category != '' and category != '전체'">
             AND c.category_name = #{category}
@@ -109,13 +109,13 @@
         p.sub_category_id,
         sc.sub_category_name,
         c.category_name,
-        u.profile_img,
-        COALESCE(AVG(r.star), 0) AS avg_star
+        u.profile_img
+     --   COALESCE(AVG(r.star), 0) AS avg_star
         FROM project p
         LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id
         LEFT JOIN user u ON p.client_id = u.user_id
-        LEFT JOIN review r ON p.client_id = r.r_user_id
+     --   LEFT JOIN review r ON p.client_id = r.r_user_id
         WHERE 1=1
         <if test="category != null and category != ''">
             AND c.category_name = #{category}

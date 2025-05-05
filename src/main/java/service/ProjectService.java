@@ -88,4 +88,14 @@ public class ProjectService implements IProjectService {
         applyDAO.makeProjectApply(apply);
         return null;
     }
+    public boolean isProjectLiked(String freelancerId, Integer projectId) throws Exception {
+       return projectDAO.isProjectLiked(freelancerId, projectId);
+    }
+    public Integer likeProject (String freelancerId, Integer projectId) throws Exception {
+        System.out.println("서비스 도착 likeProject freelancerId = " + freelancerId + ", projectId = " + projectId);
+        return projectDAO.likeProject(freelancerId, projectId);
+    }
+    public void cancelProjectlike (String freelancerId, Integer projectId) {
+        projectDAO.cancelProjectLike(freelancerId, projectId);
+    }
 }

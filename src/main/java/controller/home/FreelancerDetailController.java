@@ -1,6 +1,9 @@
 package controller.home;
 
 import dto.Freelancer;
+import service.admin.ClientService;
+import service.client.ClientFavoritesServiceImpl;
+import service.client.IClientFavoritesService;
 import service.freelancer.FreelancerService;
 
 import javax.servlet.ServletException;
@@ -23,13 +26,22 @@ public class FreelancerDetailController extends HttpServlet {
 
         String freelancerId = request.getParameter("freelancerid");
         FreelancerService freelancerService = new FreelancerService();
+        IClientFavoritesService service = new ClientFavoritesServiceImpl();
         Freelancer freelancer = null;
+        String clientId = (String) request.getSession().getAttribute("userId");
+        boolean isLiked = false;
         try {
             freelancer = freelancerService.selectBasicFreelancerById(freelancerId);
+            if(clientId != null || !clientId.isEmpty()) {
+                isLiked = service.isFreelancerLiked(clientId, freelancerId);
+                System.out.println("isLiked : " + isLiked);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        request.setAttribute("isLiked", isLiked);
         request.setAttribute("freelancer", freelancer);
+        request.setAttribute("freelancerId", freelancerId);
         request.getRequestDispatcher("./home/freelancer_detail.jsp").forward(request,response);
     }
 

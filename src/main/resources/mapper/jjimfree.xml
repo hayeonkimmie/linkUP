@@ -4,11 +4,15 @@
 <mapper namespace="mapper.jjimfree">
 
 
-    <insert id="insertJjimFree" parameterType="jjimFree">
-        insert jjimFree (jjim_id, client_id, freelancer_id)
-        values (#{jjim_id}, #{client_id}, #{freelancer_id})
+    <insert id="insertJjimFree" parameterType="Map">
+        insert jjimFree (client_id, freelancer_id)
+        values (#{client_id}, #{freelancer_id})
     </insert>
-
+    <select id="isFreelancerLiked" parameterType="Map" resultType="Integer">
+        select count(*)
+        from jjimFree
+        where freelancer_id = #{freelancerId} and client_id = #{clientId}
+    </select>
 <!--    페이징 처리 -->
     <select id="selectJjimFree" parameterType="Integer" resultType="jjimFree">
         select * from jjimFree where client_id = #{clientId} order by jjim_id desc limit #{row}, 9
@@ -33,7 +37,7 @@
         u.name AS name,
         f.desired_location AS desired_location,
         f.skill AS skill,
-        (SELECT ROUND(AVG(r.star), 1) FROM review r WHERE r.r_user_id = f.freelancer_id) AS rating,
+       -- (SELECT ROUND(AVG(r.star), 1) FROM review r WHERE r.r_user_id = f.freelancer_id) AS rating,
         (SELECT COUNT(*) FROM contract c WHERE c.freelancer_id = jf.freelancer_id) AS project_count
         FROM jjimFree jf
         LEFT JOIN freelancer f ON jf.freelancer_id = f.freelancer_id

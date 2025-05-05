@@ -20,6 +20,7 @@
     <script>
         const defaultOpenMenuId = "userMenu";
     </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css" />
     <style>
         .content {
@@ -54,6 +55,19 @@
                     <a href="${contextPath}/portfolio-list?freelancerid=${freelancer.freelancerId}"
                        class="portfolio-btn">이 전문가의 포트폴리오 보기</a>
                 </div>
+
+                <c:choose>
+                    <c:when test="${isLiked}">
+                        <a href="${contextPath}/JJimFree?freelancerId=${freelancerId}&action=cancel">
+                            <i class="bi bi-heart-fill text-danger" style="color: red;"></i>
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${contextPath}/JJimFree?freelancerId=${freelancerId}&action=like'">
+                            <i class="bi bi-heart text-danger" style="color: red;"></i>
+                        </a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 

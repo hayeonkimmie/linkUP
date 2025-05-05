@@ -5,154 +5,195 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Link up - 로그인</title>
-  <link rel="stylesheet" href="${contextPath}/css/home/login.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Link up - 로그인</title>
+    <link rel="stylesheet" href="${contextPath}/css/home/login.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-  <a href="${contextPath}/mainPage"  class="logo">
-    <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
-  </a>
+    <a href="${contextPath}/mainPage" class="logo">
+        <img src="${contextPath}/img/링크업 로고.png" alt="Link up 로고">
+    </a>
 
-  <div class="role-toggle">
-    <button class="role-btn selected" data-role="recruiter">사업자</button>
-    <button class="role-btn" data-role="jobseeker">일반</button>
-  </div>
-
-  <!-- 에러 메시지 출력 -->
-  <c:if test="${not empty errorMsg}">
-    <div class="error-message" style="color: red; margin-bottom: 10px; text-align: center;">
-        ${errorMsg}
+    <div class="role-toggle">
+        <button class="role-btn selected" data-role="recruiter">사업자</button>
+        <button class="role-btn" data-role="jobseeker">일반</button>
     </div>
-  </c:if>
 
-  <form action="${contextPath}/login" method="post" id="loginForm">
-    <input type="hidden" name="role" id="roleInput" value="recruiter" />
-    <input type="text" name="id" placeholder="아이디를 입력하세요" required />
-    <input type="password" name="password" placeholder="비밀번호를 입력하세요" required />
-    <button type="submit" class="login-btn">로그인 하기</button>
-  </form>
+    <!-- 에러 메시지 출력 -->
+    <c:if test="${not empty errorMsg}">
+        <div class="error-message" style="color: red; margin-bottom: 10px; text-align: center;">
+                ${errorMsg}
+        </div>
+    </c:if>
 
-  <div class="sub-links">
-    <a href="#" onclick="showPopup('id-popup')">아이디 찾기</a>
-    <span>|</span>
-    <a href="#" onclick="showPopup('pw-popup')">비밀번호 찾기</a>
-  </div>
+    <form action="${contextPath}/login" method="post" id="loginForm">
+        <input type="hidden" name="role" id="roleInput" value="recruiter"/>
+        <input type="text" name="id" placeholder="아이디를 입력하세요" required/>
+        <input type="password" name="password" placeholder="비밀번호를 입력하세요" required/>
+        <button type="submit" class="login-btn">로그인 하기</button>
+    </form>
 
-  <div class="sns-login">
-    <button class="kakao-btn">카카오톡으로 로그인하기</button>
-    <button class="google-btn">구글 계정으로 로그인하기</button>
-  </div>
+    <div class="sub-links">
+        <a href="#" onclick="showPopup('id-popup')">아이디 찾기</a>
+        <span>|</span>
+        <a href="#" onclick="showPopup('pw-popup')">비밀번호 찾기</a>
+    </div>
 
-  <a href="${contextPath}/createAcc" class="signup-link">회원가입 하러가기</a>
+    <div class="sns-login">
+        <a id="kakao-login-link" href="#" onclick="return false;"><!-- 카카오 로그인 -->
+            <img alt="카카오 로그인" src="${contextPath }/img/kakao_login_medium_narrow.png"/>
+        </a>
+        <%--    <button class="google-btn">구글 계정으로 로그인하기</button>--%>
+    </div>
+
+    <a href="${contextPath}/createAcc" class="signup-link">회원가입 하러가기</a>
 </div>
 
 <!-- 비밀번호 찾기 팝업 -->
 <div class="popup" id="pw-popup">
-  <div class="popup-content">
-    <h2>비밀번호 찾기</h2>
-    <p>가입 시 등록한 이메일 주소를 입력해 주세요.<br>비밀번호 재설정 링크를 보내드려요.</p>
-    <label>이메일 주소</label>
-    <input type="email" placeholder="이메일을 입력해 주세요." />
-    <button class="disabled-btn" disabled>비밀번호 재설정 링크 받기</button>
-  </div>
+    <div class="popup-content">
+        <h2>비밀번호 찾기</h2>
+        <p>가입 시 등록한 이메일 주소를 입력해 주세요.<br>비밀번호 재설정 링크를 보내드려요.</p>
+        <label>이메일 주소</label>
+        <input type="email" placeholder="이메일을 입력해 주세요."/>
+        <button class="disabled-btn" disabled>비밀번호 재설정 링크 받기</button>
+    </div>
 </div>
 
 <!-- 아이디 찾기 팝업 -->
 <div class="popup" id="id-popup">
-  <div class="popup-content">
-    <h2>아이디 찾기</h2>
-    <p>본인인증 정보를 입력해 주세요.<br>이메일로 아이디를 보내드려요.</p>
-    <label>전화번호</label>
-    <input type="text" placeholder="전화번호를 입력해 주세요." />
-    <button class="disabled-btn" disabled>아이디 받기</button>
-  </div>
+    <div class="popup-content">
+        <h2>아이디 찾기</h2>
+        <p>본인인증 정보를 입력해 주세요.<br>이메일로 아이디를 보내드려요.</p>
+        <label>전화번호</label>
+        <input type="text" placeholder="전화번호를 입력해 주세요."/>
+        <button class="disabled-btn" disabled>아이디 받기</button>
+    </div>
 </div>
 
 <!-- 성공 팝업들 -->
 <div class="popup" id="successpw-popup">
-  <div class="popup-content" style="text-align: center;">
-    <h2>링크 발송 완료</h2>
-    <p>입력하신 이메일로<br>비밀번호 재설정 링크를 보내드렸습니다.</p>
-  </div>
+    <div class="popup-content" style="text-align: center;">
+        <h2>링크 발송 완료</h2>
+        <p>입력하신 이메일로<br>비밀번호 재설정 링크를 보내드렸습니다.</p>
+    </div>
 </div>
 
 <div class="popup" id="successid-popup">
-  <div class="popup-content" style="text-align: center;">
-    <h2>링크 발송 완료</h2>
-    <p>입력하신 이메일로<br>아이디를 보내드렸습니다.</p>
-  </div>
+    <div class="popup-content" style="text-align: center;">
+        <h2>링크 발송 완료</h2>
+        <p>입력하신 이메일로<br>아이디를 보내드렸습니다.</p>
+    </div>
 </div>
 
 <script>
-  // 역할 버튼 클릭 시 hidden input 값 변경
-  document.querySelectorAll(".role-btn").forEach(btn => {
-    btn.addEventListener("click", function () {
-      document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("selected"));
-      btn.classList.add("selected");
-      document.getElementById("roleInput").value = btn.getAttribute("data-role");
+    // 역할 버튼 클릭 시 hidden input 값 변경
+    document.querySelectorAll(".role-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            document.getElementById("roleInput").value = btn.getAttribute("data-role");
+        });
     });
-  });
+    // 카카오 로그인 버튼 클릭 이벤트
+    document.querySelectorAll(".role-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            // 선택 표시 처리
+            document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
 
-  function showPopup(id) {
-    const popup = document.getElementById(id);
-    popup.style.display = 'flex';
+            // 역할 저장
+            const role = btn.getAttribute("data-role");
+            document.getElementById("roleInput").value = role;
+            localStorage.setItem("userType", role); // 리다이렉트 후 서버에서 활용
 
-    if (id === 'success-popup') {
-      setTimeout(() => closePopup(id), 3000);
-      return;
-    }
+            // 카카오 로그인 링크 업데이트
+ /*           const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?
+            client_id=${clientId}
+            &redirect_uri=${encodedRedirect}
+            &response_type=code`;*/
+            const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=406379efec436984eb3393e7024851df&redirect_uri=http://localhost:8080/linkup/kakao&response_type=code`;
 
-    const inputs = popup.querySelectorAll("input");
-    const button = popup.querySelector("button.disabled-btn");
-
-    if (!inputs.length || !button) return;
-
-    function checkInputs() {
-      let allFilled = [...inputs].every(input => input.value.trim() !== "");
-      button.disabled = !allFilled;
-      button.classList.toggle("active-btn", allFilled);
-      button.classList.toggle("disabled-btn", !allFilled);
-    }
-
-    inputs.forEach(input => input.addEventListener("input", checkInputs));
-    checkInputs();
-  }
-
-  function closePopup(id) {
-    document.getElementById(id).style.display = 'none';
-  }
-
-  window.addEventListener('click', function (e) {
-    document.querySelectorAll('.popup').forEach(popup => {
-      if (e.target === popup) popup.style.display = 'none';
+            document.getElementById("kakao-login-link").setAttribute("href", kakaoLoginUrl);
+            document.getElementById("kakao-login-link").onclick = null; // 링크 활성화
+        });
     });
-  });
+    document.addEventListener('DOMContentLoaded', function () {
+      var inputValue = document.getElementById('roleInput').value;
+      console.log(inputValue);
+        const kakaoLoginLink = document.getElementById('kakao-login-link');
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const pwBtn = document.querySelector("#pw-popup button:not(.close-btn)");
-    if (pwBtn) {
-      pwBtn.addEventListener("click", () => {
-        if (!pwBtn.disabled) {
-          closePopup('pw-popup');
-          showPopup('successpw-popup');
+        // 기본 클릭 이벤트 설정 - 역할 선택 확인
+        kakaoLoginLink.addEventListener('click', function (event) {
+            const roleInput = document.getElementById('roleInput');
+
+            // roleInput 값이 없으면 (역할 선택 안 됨) alert 표시 및 이동 방지
+            if (!roleInput.value) {
+                event.preventDefault();
+                alert('로그인하기 전에 역할을 선택해주세요.');
+            }
+        });
+    });
+
+    function showPopup(id) {
+        const popup = document.getElementById(id);
+        popup.style.display = 'flex';
+
+        if (id === 'success-popup') {
+            setTimeout(() => closePopup(id), 3000);
+            return;
         }
-      });
+
+        const inputs = popup.querySelectorAll("input");
+        const button = popup.querySelector("button.disabled-btn");
+
+        if (!inputs.length || !button) return;
+
+        function checkInputs() {
+            let allFilled = [...inputs].every(input => input.value.trim() !== "");
+            button.disabled = !allFilled;
+            button.classList.toggle("active-btn", allFilled);
+            button.classList.toggle("disabled-btn", !allFilled);
+        }
+
+        inputs.forEach(input => input.addEventListener("input", checkInputs));
+        checkInputs();
     }
 
-    const idBtn = document.querySelector("#id-popup button:not(.close-btn)");
-    if (idBtn) {
-      idBtn.addEventListener("click", () => {
-        if (!idBtn.disabled) {
-          closePopup('id-popup');
-          showPopup('successid-popup');
-        }
-      });
+    function closePopup(id) {
+        document.getElementById(id).style.display = 'none';
     }
-  });
+
+    window.addEventListener('click', function (e) {
+        document.querySelectorAll('.popup').forEach(popup => {
+            if (e.target === popup) popup.style.display = 'none';
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const pwBtn = document.querySelector("#pw-popup button:not(.close-btn)");
+        if (pwBtn) {
+            pwBtn.addEventListener("click", () => {
+                if (!pwBtn.disabled) {
+                    closePopup('pw-popup');
+                    showPopup('successpw-popup');
+                }
+            });
+        }
+
+        const idBtn = document.querySelector("#id-popup button:not(.close-btn)");
+        if (idBtn) {
+            idBtn.addEventListener("click", () => {
+                if (!idBtn.disabled) {
+                    closePopup('id-popup');
+                    showPopup('successid-popup');
+                }
+            });
+        }
+    });
 </script>
 </body>
 </html>

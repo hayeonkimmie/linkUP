@@ -20,4 +20,8 @@ public interface IProjectService {
     List<Project> catalogProjectByConditions(Map<String, String> param);
     ProjectDetail selectProjectById(Integer projectId) throws Exception;
     Apply createApply(Integer projectId, String freelancerId, String position) throws Exception;
+
+    boolean isProjectLiked(String freelancerId, Integer projectId) throws Exception;
+    Integer likeProject(String freelancerId, Integer projectId) throws Exception;
+    void cancelProjectlike(String freelancerId, Integer projectId) throws Exception;
 }

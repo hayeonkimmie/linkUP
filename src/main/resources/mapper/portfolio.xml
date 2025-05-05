@@ -33,12 +33,10 @@
         ORDER BY portfolio_id DESC
     </select>
     <select id="selectedPortfolioInfoForProfile" resultType="portfolio" parameterType="String">
-        SELECT portfolio_id, title, priority
+        SELECT portfolio_id, title
         FROM portfolio
         WHERE freelancer_id = #{freelancerId} and is_deleted = false
-        ORDER BY
-            priority ASC,
-            portfolio_id DESC
+        ORDER BY portfolio_id DESC
     </select>
 
     <!--포츠폴리오 상세 조회-->
