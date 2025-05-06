@@ -56,6 +56,8 @@
         SET title = #{title},
             thumbnail = #{thumbnail},
             introduce = #{introduce},
+            port_proj_start = #{portProjStart},
+            port_proj_end = #{portProjEnd},
             skill_description = #{skillDescription},
             attachment = #{attachment},
             external_url = #{externalUrl},

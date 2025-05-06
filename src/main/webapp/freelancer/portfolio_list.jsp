@@ -77,7 +77,7 @@
                                         <img
                                         <c:choose>
                                            <c:when test="${portfolio.thumbnail ne null}">
-                                            src="image?filename=${portfolio.thumbnail}"
+                                            src="../img/${portfolio.thumbnail}" <%--src="image?filename=${portfolio.thumbnail}"--%>
                                             </c:when>
                                             <c:otherwise>
                                                 src="../img/no_img.png"

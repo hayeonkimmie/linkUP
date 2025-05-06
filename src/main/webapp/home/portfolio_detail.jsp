@@ -33,7 +33,6 @@
 <div class="container">
     <script>console.log(${err})</script>
     <!-- 사이드바 -->
-    <jsp:include page="/freelancer/sidebar.jsp"/>
     <!-- 메인 콘텐츠 -->
     <main class="content">
         <section class="section">
@@ -117,13 +116,9 @@
         </section>
         <script>console.log(${portfolio.portfolioId})</script>
         <div class="action-buttons">
-            <button class="edit-btn" onclick="location.href='${contextPath}/my-page/portfolio-modify?id=${portfolio.portfolioId }'">
-                포트폴리오 수정
-            </button>
+
             <button id="list-btn" type="button" class="list-btn" onclick="location.href='${contextPath}/my-page/portfolio-list'">목록</button>
-            <button class="delete-btn" onclick="location.href='${contextPath}/my-page/portfolio-delete?id=${portfolio.portfolioId}'">
-                포트폴리오 삭제
-            </button>
+
         </div>
     </main>
 </div>

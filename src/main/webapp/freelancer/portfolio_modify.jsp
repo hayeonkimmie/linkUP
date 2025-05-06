@@ -31,7 +31,7 @@
             <div class="portfolio-register-container">
                 <!-- 포트폴리오 제목 -->
                 <div class="portfolio-title-section">
-                    <span>포트폴리오 제목</span><br/>
+                    <span style="font-size: 20px;">포트폴리오 제목</span><br/>
                     <input type="text" name="title" id="title" class="portfolio-title-input"
                            placeholder="포트폴리오 제목을 입력해 주세요" required value="${portfolio.title}"/>
                 </div>
@@ -41,7 +41,7 @@
                     <div class="thumbnail-upload-section">
                         <div class="thumbnail-upload-box">
                             <label class="upload-placeholder">
-                                <img src="image?filename=${portfolio.thumbnail}" alt="이미지선택" id="preview" width="100px"
+                                <img src="../img/${portfolio.thumbnail}"  alt="이미지선택" id="preview" width="100px"
                                      height="inherit" onclick="document.getElementById('thumbnail').click();"/>
                             </label>
                         </div>

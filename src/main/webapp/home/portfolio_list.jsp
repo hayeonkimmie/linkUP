@@ -57,11 +57,11 @@
                             <div class="portfolio-content">
                                 <div class="portfolio-body">
                                     <div class="list-thumbnail">
-                                        <img src="../img/no_img.png" alt='포트폴리오 썸네일 이미지'/>
+                                        <img src="./img/${portfolio.thumbnail}" alt='포트폴리오 썸네일 이미지'/>
                                     </div>
                                     <div class="portfolio-info">
                                         <h3>
-                                            <a href="${contextPath}/my-page/portfolio-detail?id=${portfolio.portfolioId}">${portfolio.title }</a>
+                                            <a href="${contextPath}/portfolio-detail?id=${portfolio.portfolioId}">${portfolio.title }</a>
                                         </h3>
                                         <p class="description">${portfolio.introduce }</p>
                                         <div class="tags">
