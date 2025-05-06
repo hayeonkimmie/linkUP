@@ -50,6 +50,7 @@ public class PortfolioList extends HttpServlet {
                 request.setAttribute("portfolioList", portfolioList);
                 request.setAttribute("name", f.getName());
             } else if (portfolioCnt == 0){
+                request.setAttribute("name", f.getName());
                 request.setAttribute("portfolioList", null);
             }
 

@@ -32,7 +32,9 @@ public class FreelancerDetailController extends HttpServlet {
         boolean isLiked = false;
         try {
             freelancer = freelancerService.selectBasicFreelancerById(freelancerId);
-            if(clientId != null || !clientId.isEmpty()) {
+            if(clientId == null) {
+                isLiked = false;
+            } else if(clientId != null || !clientId.isEmpty()) {
                 isLiked = service.isFreelancerLiked(clientId, freelancerId);
                 System.out.println("isLiked : " + isLiked);
             }

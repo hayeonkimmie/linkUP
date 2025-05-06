@@ -43,7 +43,20 @@
         <div class="profile-banner">
             <img class="profile-image" src="${contextPath}/img/${freelancer.profileImg}" alt="프로필 이미지"/>
             <div class="profile-info">
-                <h1 class="name">${freelancer.name} <sapan>(${freelancer.nickname})</sapan></h1>
+                <h1 class="name">${freelancer.name} <sapan>(${freelancer.nickname})</sapan>
+                <c:choose>
+                    <c:when test="${isLiked}">
+                        <a style="text-decoration: none;" href="${contextPath}/JJimFree?freelancerId=${freelancerId}&action=cancel">
+                            <i class="bi bi-heart-fill text-danger" style="color: red;"></i>
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a style="text-decoration: none;" href="${contextPath}/JJimFree?freelancerId=${freelancerId}&action=like'">
+                            <i class="bi bi-heart text-danger" style="color: red;"></i>
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+                </h1>
                 <div class="skill-badges">
                     <c:forEach var="tag" items="${fn:split(freelancer.skill, '^')}">
                         <span class="badge">${tag}</span>
@@ -55,19 +68,6 @@
                     <a href="${contextPath}/portfolio-list?freelancerid=${freelancer.freelancerId}"
                        class="portfolio-btn">이 전문가의 포트폴리오 보기</a>
                 </div>
-
-                <c:choose>
-                    <c:when test="${isLiked}">
-                        <a href="${contextPath}/JJimFree?freelancerId=${freelancerId}&action=cancel">
-                            <i class="bi bi-heart-fill text-danger" style="color: red;"></i>
-                        </a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${contextPath}/JJimFree?freelancerId=${freelancerId}&action=like'">
-                            <i class="bi bi-heart text-danger" style="color: red;"></i>
-                        </a>
-                    </c:otherwise>
-                </c:choose>
             </div>
         </div>
 
