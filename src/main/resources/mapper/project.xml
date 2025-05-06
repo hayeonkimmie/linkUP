@@ -141,7 +141,7 @@
     <select id="selectProjectById" parameterType="int" resultType="dto.ProjectDetail">
         SELECT
             p.project_id,
-            p.client_id,
+            u.nickname AS client_id,
             p.advertisement_title,
             p.project_name,
             p.thumbnail,
