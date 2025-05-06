@@ -61,7 +61,7 @@
           <th>지원자</th>
           <th>지원 레벨</th>
           <th>경력(년)</th>
-          <th>평점</th>
+          <%--<th>평점</th>--%>
           <th>상태</th>
           <th>액션</th>
         </tr>
@@ -72,10 +72,10 @@
             <input type="hidden" class="apply-id" value="${applicant.applyId}" />
             <input type="hidden" class="settle-day" value="${applicant.settleDay}" />
               <%-- 경력 (년), 평점 다른 필드로 교체해야할 듯 --%>
-            <td><strong>${applicant.name}</strong></td> <%-- 지원자 이름 --%>
+            <td><a href="${contextPath}/freelancer?freelancerid=${applicant.freelancerId}" style="text-decoration: none; color:black; " ><strong>${applicant.name}</strong></a></td> <%-- 지원자 이름 --%>
             <td>${applicant.applyPosition}</td> <%-- 지원한 레벨 (초급, 중급, 고급) --%>
             <td>${applicant.careerYear}</td> <%-- 경력 (년) --%>
-            <td>⭐ ${applicant.star}</td> <%-- 평점 --%>
+            <%--<td>⭐ ${applicant.star}</td> &lt;%&ndash; 평점 &ndash;%&gt;--%>
             <td class="apply-status">
               <c:choose>
                 <c:when test="${applicant.applyStatus == 1}">합격</c:when>

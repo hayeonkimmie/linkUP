@@ -20,7 +20,6 @@
                 ELSE '지원취소'
                 END AS apply_status, -- 상태
             p.project_id, -- 프로젝트 ID
-            -- 카테고리명과 서브카테고리명을 JOIN으로 가져와서 표시
             subcat.sub_category_name AS category,
             a.sub_category_name AS apply_category, -- 내가 지원한 분야
             p.advertisement_title, -- 공고 제목
@@ -50,7 +49,7 @@
                  JOIN client c ON p.client_id = c.client_id
                  LEFT JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
                  LEFT JOIN category cat ON subcat.category_id = cat.category_id
-                 join linkup.pay p2 on a.project_pay_id = p2.project_pay_id
+                 join pay p2 on a.project_pay_id = p2.project_pay_id
         WHERE a.freelancer_id = #{freelancerId}
         ORDER BY
             CASE
