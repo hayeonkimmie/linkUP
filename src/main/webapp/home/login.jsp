@@ -143,7 +143,6 @@
         console.log("카카오 로그인 URL:", kakaoLoginUrl);
         window.location.href = kakaoLoginUrl;
     });
-    });
 
 
 function showPopup(id) {
