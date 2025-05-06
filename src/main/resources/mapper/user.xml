@@ -4,8 +4,8 @@
 
 <mapper namespace="mapper.user">
     <insert id="insertUser" parameterType="user">
-        insert user (user_id,name,nickname,email,password,phone_num,profile_img,accept_noti,registration_date,withdrawal_date)
-        values (#{userId}, #{name},#{nickname},#{email}, #{password},#{phoneNum},#{profileImg},#{acceptNoti},#{registrationDate}, #{withdrawalDate})
+        insert user (user_id,name,nickname,email,password,phone_num,profile_img,registration_date,withdrawal_date)
+        values (#{userId}, #{name},#{nickname},#{email}, #{password},#{phoneNum},#{profileImg},#{registrationDate}, #{withdrawalDate})
     </insert>
     <select id="selectUserById" parameterType="String" resultType="user">
         select * from user where user_id = #{userId}

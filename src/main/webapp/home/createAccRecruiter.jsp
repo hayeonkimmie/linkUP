@@ -11,10 +11,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원가입 - 구인자</title>
-    <link rel="stylesheet" href="${contextPath}/css/home/createAccRecruiter.css"/>
+    <link rel="stylesheet" href="${contextPath}/css/home/createAccRecruiter.css" />
 </head>
 <body>
 
@@ -27,65 +27,31 @@
 
     <form action="${contextPath}/createAccRecruiter" method="post">
         <label>이메일 <span class="required">*</span></label>
-        <input type="text" name="email" id="email" placeholder="이메일을 입력해주세요"
-        <c:choose>
-          <c:when test="${not empty user.email }">
-             value="${user.email}"/>
-          </c:when>
-          <c:otherwise>
-            value=""
-          </c:otherwise>
-      </c:choose> />
+        <input type="text" name="email" id="email" placeholder="이메일을 입력해주세요" />
+
         <label>아이디 <span class="required">*</span></label>
-        <input type="text" name="id" id="id" placeholder="아이디를 입력해주세요"
-                <c:choose>
-                    <c:when test="${not empty user.id }">
-                        value="${user.id}" disabled
-                    </c:when>
-                    <c:otherwise>
-                        value=""
-                    </c:otherwise>
-                </c:choose>/>
+        <input type="text" name="id" id="id" placeholder="아이디를 입력해주세요" />
 
         <label>비밀번호 <span class="required">*</span></label>
+        <input type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요 (8자리 이상)" />
 
-        <input type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요 (8자리 이상)"
-                <c:choose>
-                  <c:when test="${not empty user.id }">
-                    disabled
-                  </c:when>
-                  <c:otherwise>
-                  </c:otherwise>
-                </c:choose>
-        />
-
-        <input type="password" id="confirmPassword" placeholder="비밀번호를 한번 더 입력해주세요"
-                <c:choose>
-                  <c:when test="${not empty user.id }">
-                    disabled
-                  </c:when>
-                  <c:otherwise>
-                  </c:otherwise>
-                </c:choose>
-        />
+        <input type="password" id="confirmPassword" placeholder="비밀번호를 한번 더 입력해주세요" />
 
         <label>전화번호 <span class="required">*</span></label>
-        <input type="text" name="phone" id="phone" placeholder="전화번호를 입력해주세요"/>
+        <input type="text" name="phone" id="phone" placeholder="전화번호를 입력해주세요" />
 
         <label>회사명 <span class="required">*</span></label>
-        <input type="text" name="company" id="company" placeholder="회사명을 입력해주세요"/>
+        <input type="text" name="company" id="company" placeholder="회사명을 입력해주세요" />
 
         <label>사업자 번호 <span class="required">*</span></label>
-        <input type="text" name="bizNumber" id="bizNumber" placeholder="사업자 번호를 입력해주세요"/>
+        <input type="text" name="bizNumber" id="bizNumber" placeholder="사업자 번호를 입력해주세요" />
 
         <div class="checkbox-group">
-            <label><input type="checkbox" id="allAgree"/> 모두 동의합니다.</label>
-            <label><input type="checkbox" class="agree required"/> 만 14세 이상입니다.<span
-                    class="required">(필수)</span></label>
-            <label><input type="checkbox" class="agree required"/> 서비스 이용약관에 동의합니다. <span
-                    class="required">(필수)</span></label>
-            <label><input type="checkbox" class="agree required"/> 개인정보 수집/이용에 동의합니다. <span class="required">(필수)</span></label>
-            <label><input type="checkbox" class="agree"/> 마케팅 수신 · 홍보 목적의 개인정보 수집 및 이용에 동의합니다. (선택)</label>
+            <label><input type="checkbox" id="allAgree" /> 모두 동의합니다.</label>
+            <label><input type="checkbox" class="agree required" /> 만 14세 이상입니다.<span class="required">(필수)</span></label>
+            <label><input type="checkbox" class="agree required" /> 서비스 이용약관에 동의합니다. <span class="required">(필수)</span></label>
+            <label><input type="checkbox" class="agree required" /> 개인정보 수집/이용에 동의합니다. <span class="required">(필수)</span></label>
+            <label><input type="checkbox" class="agree" /> 마케팅 수신 · 홍보 목적의 개인정보 수집 및 이용에 동의합니다. (선택)</label>
         </div>
 
         <a href="${contextPath}/login">

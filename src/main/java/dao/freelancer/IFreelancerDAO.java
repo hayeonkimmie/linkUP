@@ -20,6 +20,8 @@ public interface IFreelancerDAO {
     void updateCareer(List<Career> careerList, String freelancerId) throws Exception;
     void updateFreelancer(Freelancer freelancer) throws Exception;
 
+    int insertFreelancer(Freelancer freelancer) throws Exception;
+
    /* boolean isFreelancerLiked(String freelancerId, String clientId) throws Exception;
     Integer likeFreelancer(String freelancerId, String clientId) throws Exception;*/
 
