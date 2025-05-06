@@ -29,12 +29,29 @@ public class ClientRecruitMgtList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 로그인한 사용자 아이디 가져오기
+        HttpSession session = request.getSession();
+        String clientId = (String) session.getAttribute("userId"); // 세션에서 userId를 가져옴
+
+        // 로그인 확인
+        if (clientId == null || clientId.isEmpty()) {
+            // 로그인되지 않은 경우, 로그인 페이지로 리다이렉트
+            response.sendRedirect("login.jsp"); // 실제 로그인 페이지 경로로 수정
+            return;
+        }
+
+        // 테스트용 출력 - 디버깅 확인
+        System.out.println("로그인한 사용자 ID: " + clientId);
+
+        // 디버깅: 특정 사용자 ID로 테스트하고 싶다면 아래 줄의 주석을 해제
+        // clientId = "client006"; // 테스트용으로 특정 ID 강제 지정
+
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
 
         try {
-            HttpSession session = request.getSession();
+            // 프로젝트 업데이트 확인
             Boolean projectUpdated = (Boolean) session.getAttribute("projectUpdated");
             if (projectUpdated != null && projectUpdated) {
                 session.removeAttribute("projectUpdated");
@@ -45,12 +62,6 @@ public class ClientRecruitMgtList extends HttpServlet {
             statusParam.put("today", new java.sql.Date(System.currentTimeMillis()));
             service.updateProgressToOngoing(statusParam);
             service.updateProgressToEnd(statusParam);
-
-            // 로그인 사용자 ID
-            String clientId = (String) session.getAttribute("userId");
-            if (clientId == null || clientId.isEmpty()) {
-                clientId = "client001"; // 테스트용
-            }
 
             // 필터 상태 파라미터 처리
             String statusParamRaw = request.getParameter("status");
@@ -83,15 +94,15 @@ public class ClientRecruitMgtList extends HttpServlet {
                 }
             }
 
-            // 전체 프로젝트 수 조회
+            // 전체 프로젝트 수 조회 - 디버깅 로그 추가
             Map<String, Object> countParam = new HashMap<>();
             countParam.put("clientId", clientId);
             countParam.put("status", dbStatus);
+            System.out.println("프로젝트 수 조회 파라미터: clientId=" + clientId + ", status=" + dbStatus);
             int totalCount = service.getProjectCountByStatus(countParam);
+            System.out.println("조회된 프로젝트 수: " + totalCount);
 
             // 페이징 계산
-            int PAGE_SIZE = 5;
-            int PAGE_BLOCK = 5;
             int allPage = (int) Math.ceil((double) totalCount / PAGE_SIZE);
             int startRow = (curPage - 1) * PAGE_SIZE;
             int startPage = ((curPage - 1) / PAGE_BLOCK) * PAGE_BLOCK + 1;
@@ -103,18 +114,28 @@ public class ClientRecruitMgtList extends HttpServlet {
             pageInfo.setStartPage(startPage);
             pageInfo.setEndPage(endPage);
 
-            // 프로젝트 리스트 조회
+            // 프로젝트 리스트 조회 - 디버깅 로그 추가
             Map<String, Object> param = new HashMap<>();
             param.put("clientId", clientId);
             param.put("status", dbStatus);
             param.put("startRow", startRow);
             param.put("pageSize", PAGE_SIZE);
+            System.out.println("프로젝트 리스트 조회 파라미터: clientId=" + clientId + ", status=" + dbStatus
+                    + ", startRow=" + startRow + ", pageSize=" + PAGE_SIZE);
 
             List<ProjectMgt> projectList = service.getProjectByStatus(param);
-            for (ProjectMgt project : projectList) {
-                if (!"구인완료".equals(project.getStatus())) {
-                    project.setProjectProgress("");
+            System.out.println("조회된 프로젝트 리스트 크기: " + (projectList != null ? projectList.size() : "null"));
+
+            // 프로젝트 리스트가 있는 경우 각 프로젝트 정보 출력
+            if (projectList != null && !projectList.isEmpty()) {
+                for (ProjectMgt project : projectList) {
+                    System.out.println("프로젝트 ID: " + project.getProjectId());
+                    if (!"구인완료".equals(project.getStatus())) {
+                        project.setProjectProgress("");
+                    }
                 }
+            } else {
+                System.out.println("해당 조건에 맞는 프로젝트가 없습니다.");
             }
 
             // 전달
@@ -126,6 +147,7 @@ public class ClientRecruitMgtList extends HttpServlet {
             request.getRequestDispatcher("./client/recruitmentList.jsp").forward(request, response);
 
         } catch (Exception e) {
+            System.out.println("에러 발생: " + e.getMessage());
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "데이터 조회 중 오류 발생");
         }
