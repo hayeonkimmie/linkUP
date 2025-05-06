@@ -12,9 +12,7 @@
     <link rel="stylesheet" href="${contextPath}/css/common/headerSt.css"/>
 </head>
 <body>
-<div class="header">
-    <div id="header-placeholder"></div>
-</div>
+<div id="header-placeholder"></div>
 
 <div class="background">
     <div class="job-detail-wrapper">

@@ -154,7 +154,7 @@
     </delete>
 
     <select id="selectQnaById" parameterType="int" resultType="dto.QnA">
-        SELECT * FROM qna WHERE qna_id = #{qnaId} AND user_id = #{userId}
+        SELECT * FROM qna WHERE qna_id = #{qnaId}
     </select>
 
     <update id="updateAnswer" parameterType="map">
