@@ -75,14 +75,26 @@ public class ProjectService implements IProjectService {
         System.out.println("position : " + pay);
         System.out.println("Freelancer : " + freelancer);
         System.out.println("Project : " + project);
-        Apply apply = new Apply();
-        apply.setFreelancerId(freelancerId);
-        apply.setProjectId(projectId);
-        apply.setApplyDate(new Date(System.currentTimeMillis()));
-        apply.setCancelDate(null);
-        apply.setIsApproved(false);
-        apply.setProjectPayId(pay.getProjectPayId());
-        apply.setSubCategoryName(pay.getCategoryName());
+//        Apply apply = new Apply();
+//        apply.setFreelancerId(freelancerId);
+//        apply.setProjectId(projectId);
+//        apply.setApplyDate(new Date(System.currentTimeMillis()));
+//        apply.setCancelDate(null);
+//        apply.setIsApproved(false);
+//        apply.setProjectPayId(pay.getProjectPayId());
+//        apply.setSubCategoryName(pay.getCategoryName());
+
+        Date now = new Date(System.currentTimeMillis());
+
+        Apply apply = new Apply(
+                freelancerId,
+                projectId,
+                now,
+                null, // cancelDate는 명시적으로 null
+                false,
+                pay.getProjectPayId(),
+                pay.getCategoryName()
+        );
 
         ApplyDAO applyDAO = new ApplyDAO();
         applyDAO.makeProjectApply(apply);

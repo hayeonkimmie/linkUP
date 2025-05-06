@@ -25,20 +25,11 @@ public class ClientCandidateMgt extends HttpServlet {
             // 1. 세션 및 기본 파라미터 읽기
             HttpSession session = request.getSession();
             String clientId = (String) session.getAttribute("userId"); // clientId 파라미터 받기
-
-            //테스트용 기본값
-            if (clientId == null || clientId.isEmpty()) {
-                clientId = "client001";
-            }
-
             // status 파라미터 받기
             String status = request.getParameter("status");
             if (status == null || status.isEmpty()) {
                 status = "all"; //기본값 전체
             }
-
-            // projectId 파라미터 받기 (정확하게 비교를 위해 int, 실 DB project_id는 int)
-            // 2. 프로젝트 아이디 읽기 (NULL여부 검증)
             String projectIdStr = request.getParameter("projectId");
             int projectId = 0; // 초기화
             if (projectIdStr != null && !projectIdStr.isEmpty()) {
@@ -59,8 +50,10 @@ public class ClientCandidateMgt extends HttpServlet {
             // 서비스 호출해서 지원자 목록 가져오기
             List<dto.ClientCandidateMgt> applicants = service.getCandidateMgtList(param);
 
+            System.out.println("프로젝트 정보 : " + projectInfo);
+            System.out.println("지원자 목록 : " + applicants);
             // 5. 결과 저장해서 JSP로 값 전달
-            request.setAttribute("projectInfo", projectInfo);
+            request.setAttribute("project", projectInfo);
             request.setAttribute("applicants", applicants);
             request.getRequestDispatcher("./client/candidateMgt.jsp").forward(request, response);
         } catch (Exception e) {

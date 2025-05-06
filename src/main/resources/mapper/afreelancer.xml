@@ -29,8 +29,6 @@
             u.password,
             u.phone_num,
             u.profile_img,
-            u.accept_noti,
-            u.token,
             u.registration_date,
             u.withdrawal_date,
             u.accept_consent,

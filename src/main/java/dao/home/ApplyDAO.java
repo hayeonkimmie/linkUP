@@ -13,6 +13,7 @@ public class ApplyDAO implements IApplyDAO {
     @Override
     public Apply makeProjectApply(Apply apply) throws Exception {
         Integer result = 0;
+        System.out.println("생성할 Apply : \n" + apply);
         try(SqlSession session = this.sqlSession.openSession()) {
             result = session.insert("mapper.apply.makeProjectApply", apply);
             session.commit();

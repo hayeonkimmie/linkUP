@@ -71,9 +71,10 @@ public class ApplyProject extends HttpServlet {
         Gson gson = new Gson();
         Response json = gson.fromJson(jsonData, Response.class);
         ProjectService projectService = new ProjectService();
-
+        System.out.println(json);
+        System.out.println(request.getSession().getAttribute("userId"));
         try {
-            projectService.createApply(json.getProjectId(), json.getUserId(), json.getPosition());
+            projectService.createApply(json.getProjectId(), (String) request.getSession().getAttribute("userId"), json.getPosition());
         } catch (Exception e) {
             e.printStackTrace();
         }
