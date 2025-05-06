@@ -43,7 +43,7 @@
     </div>
 
     <div class="sns-login">
-        <a id="kakao-login-link" href="#" onclick="return false;"><!-- 카카오 로그인 -->
+        <a id="kakao-login-link" href="https://kauth.kakao.com/oauth/authorize?client_id=406379efec436984eb3393e7024851df&redirect_uri=http://localhost:8080/linkup/kakao-recruiter&response_type=code"><!-- 카카오 로그인 -->
             <img alt="카카오 로그인" src="${contextPath }/img/kakao_login_medium_narrow.png"/>
         </a>
         <%--    <button class="google-btn">구글 계정으로 로그인하기</button>--%>
@@ -93,47 +93,31 @@
     // 역할 버튼 클릭 시 hidden input 값 변경
     document.querySelectorAll(".role-btn").forEach(btn => {
         btn.addEventListener("click", function () {
+            // 모든 버튼에서 selected 클래스 제거
             document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-            document.getElementById("roleInput").value = btn.getAttribute("data-role");
-        });
-    });
-    // 카카오 로그인 버튼 클릭 이벤트
-    document.querySelectorAll(".role-btn").forEach(btn => {
-        btn.addEventListener("click", function () {
-            // 선택 표시 처리
-            document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("selected"));
+
+            // 클릭한 버튼에 selected 클래스 추가
             btn.classList.add("selected");
 
-            // 역할 저장
-            const role = btn.getAttribute("data-role");
-            document.getElementById("roleInput").value = role;
-            localStorage.setItem("userType", role); // 리다이렉트 후 서버에서 활용
+            // roleInput의 값을 버튼의 data-role 속성으로 설정 (기존 기능 유지)
+            if (document.getElementById("roleInput")) {
+                document.getElementById("roleInput").value = btn.getAttribute("data-role");
+            }
 
-            // 카카오 로그인 링크 업데이트
- /*           const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?
-            client_id=${clientId}
-            &redirect_uri=${encodedRedirect}
-            &response_type=code`;*/
-            const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=406379efec436984eb3393e7024851df&redirect_uri=http://localhost:8080/linkup/kakao&response_type=code`;
+            // kakao-login-link의 href 값 변경 (새로 추가하는 기능)
+            const kakaoLink = document.querySelector('#kakao-login-link');
+            if (kakaoLink) {
+                // 클릭한 버튼의 텍스트 확인
+                const buttonText = btn.textContent.trim();
 
-            document.getElementById("kakao-login-link").setAttribute("href", kakaoLoginUrl);
-            document.getElementById("kakao-login-link").onclick = null; // 링크 활성화
-        });
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-      var inputValue = document.getElementById('roleInput').value;
-      console.log(inputValue);
-        const kakaoLoginLink = document.getElementById('kakao-login-link');
+                // 버튼에 따라 다른 URL 설정
+                if (buttonText === '사업자') {
+                    kakaoLink.href = "https://kauth.kakao.com/oauth/authorize?client_id=406379efec436984eb3393e7024851df&redirect_uri=http://localhost:8080/linkup/kakao-recruiter&response_type=code";
+                } else if (buttonText === '일반') {
+                    kakaoLink.href = "https://kauth.kakao.com/oauth/authorize?client_id=406379efec436984eb3393e7024851df&redirect_uri=http://localhost:8080/linkup/kakao-freelancer&response_type=code";
+                }
 
-        // 기본 클릭 이벤트 설정 - 역할 선택 확인
-        kakaoLoginLink.addEventListener('click', function (event) {
-            const roleInput = document.getElementById('roleInput');
-
-            // roleInput 값이 없으면 (역할 선택 안 됨) alert 표시 및 이동 방지
-            if (!roleInput.value) {
-                event.preventDefault();
-                alert('로그인하기 전에 역할을 선택해주세요.');
+                console.log(buttonText + " 버튼 클릭됨: 링크 변경됨 - " + kakaoLink.href);
             }
         });
     });

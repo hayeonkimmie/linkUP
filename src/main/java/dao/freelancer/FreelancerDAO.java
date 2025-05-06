@@ -14,6 +14,19 @@ public class FreelancerDAO implements IFreelancerDAO {
     public Freelancer selectBasicFreelancerById(String freelancerId) throws Exception {
         return sqlSession.selectOne("mapper.freelancer.selectBasicFreelancerById", freelancerId);
     }
+    public int insertFreelancer(Freelancer freelancer) {
+        int result = 0;
+        try {
+            result = sqlSession.insert("mapper.freelancer.insertFreelancer", freelancer);
+            sqlSession.commit();
+        } catch (Exception e) {
+            if (sqlSession != null) sqlSession.rollback();
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) sqlSession.close();
+        }
+        return result;
+    }
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception {
         System.out.println("FreelancerDAO 18 + selectExpertFreelancerById "+freelancerId);
         Freelancer freelancer = sqlSession.selectOne("mapper.freelancer.selectExpertFreelancerById", freelancerId);

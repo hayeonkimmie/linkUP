@@ -1,5 +1,7 @@
 package service.freelancer;
 
+import dao.common.IUserDAO;
+import dao.common.UserDAO;
 import dao.freelancer.FreelancerDAO;
 import dao.freelancer.IFreelancerDAO;
 import dto.*;
@@ -11,6 +13,7 @@ public class FreelancerService implements IFreelancerService{
     private IFreelancerDAO ifreelancerDAO;
     private InfoSerializer infoSerializer;
 
+    private IUserDAO userDAO = new UserDAO();
     public FreelancerService() {
         super();
         ifreelancerDAO = new FreelancerDAO();
@@ -21,6 +24,20 @@ public class FreelancerService implements IFreelancerService{
         Freelancer freelancer = ifreelancerDAO.selectBasicFreelancerById(freelancerId);
         System.out.println("FreelancerService.java 24 freelancer "+freelancer);
         return freelancer;
+    }
+    @Override
+    public boolean registerFreelancer(User user, Freelancer freelancer) {
+        boolean isSuccess = false;
+        try {
+            int userResult = userDAO.insertUser(user);
+            int freelancerResult = ifreelancerDAO.insertFreelancer(freelancer);
+            if (userResult > 0 && freelancerResult > 0) {
+                isSuccess = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isSuccess;
     }
 /*    @Override
     public void likeFreelancer(String freelancerId, String clientId) throws Exception {

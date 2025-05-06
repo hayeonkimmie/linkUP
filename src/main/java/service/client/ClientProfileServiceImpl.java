@@ -23,7 +23,6 @@ public class ClientProfileServiceImpl implements IClientProfileService {
         // DAO통해서 받아온 Map<String ,Object> 데이터를 ClientProfile DTO에 담아서 리턴
         // 1. DAO에서 정보 조회
         Map<String, Object> param = clientProfileDAO.selectClientProfile(userId);
-
         // DAO에서 받은 결과를 각 DTO필드에 맞게 담아줘야하므로 set사용
 
         // 2. ClientUserInfo 객체 만들기

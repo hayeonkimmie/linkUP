@@ -3,12 +3,15 @@ package service.freelancer;
 import dto.Career;
 import dto.Freelancer;
 import dto.Portfolio;
+import dto.User;
 
 import java.util.List;
 import java.util.Map;
 
 public interface IFreelancerService {
     Freelancer selectBasicFreelancerById(String freelancerId) throws Exception;
+
+    boolean registerFreelancer(User user, Freelancer freelancer);
 
     public Freelancer selectExpertFreelancerById(String freelancerId) throws Exception;
 //    void insertCareer(Career career) throws Exception;

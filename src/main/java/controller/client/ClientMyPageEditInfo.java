@@ -26,7 +26,7 @@ public class ClientMyPageEditInfo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(); // 로그인 정보자 사용자 상태 저장
         String clientId = (String) session.getAttribute("userId"); // 세션에 저장된 로그인 유저ID
-
+        System.out.println(clientId);
         // 테스트용 기본값 (로그인 구현 코드로 교체 필요함)
         if (clientId == null) {
             clientId = "client001";
