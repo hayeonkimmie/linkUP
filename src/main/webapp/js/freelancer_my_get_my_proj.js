@@ -86,7 +86,7 @@ function openSettlementModal(settlementList) {
         }
 
         // 테이블 데이터 렌더링
-        settlementList.forEach((settle, index) => {
+        /*settlementList.forEach((settle, index) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>${index + 1} 회차</td>
@@ -94,6 +94,28 @@ function openSettlementModal(settlementList) {
                 <td><span class="status ${settle.status === '정산완료' ? 'complete' : ''}">${settle.status}</span></td>
                 <td>${settle.settleDate}</td>
             `;
+            tbody.appendChild(tr);
+        });*/
+        settlementList.forEach((settle, index) => {
+            let statusClass = '';
+            switch (settle.status) {
+                case '정산완료':
+                    statusClass = 'complete';
+                    break;
+                case '정산대기':
+                    statusClass = 'pending';
+                    break;
+                default:
+                    statusClass = 'pending';
+            }
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+        <td>${index + 1} 회차</td>
+        <td>₩${parseInt(settle.ammount, 10).toLocaleString()}</td>
+        <td><span class="status ${statusClass}">${settle.status}</span></td>
+        <td>${settle.settleDate}</td>
+    `;
             tbody.appendChild(tr);
         });
 

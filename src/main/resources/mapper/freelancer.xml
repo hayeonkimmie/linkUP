@@ -155,7 +155,7 @@
         p.manager AS projectManager,
         p.mphone AS managerPhone,
         CONCAT(FORMAT(c.pay, 0), ' 원') AS totalBudget,
-        p.deadline_date,
+        c.end_date as deadlineDate,
         CASE
         WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
         WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
@@ -235,24 +235,24 @@
             p.mphone AS managerPhone,
             CONCAT(FORMAT(c.pay, 0), '원') AS totalBudget,
             subcat.sub_category_name as categories,
-            p.deadline_date,
+            c.end_date as deadlineDate,
             CASE
-                WHEN DATEDIFF(p.deadline_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(p.deadline_date, CURDATE()))
-                WHEN DATEDIFF(p.deadline_date, CURDATE()) = 0 THEN 'D-Day'
-                ELSE CONCAT('+', ABS(DATEDIFF(p.deadline_date, CURDATE())))
+                WHEN DATEDIFF(c.end_date, CURDATE()) > 0 THEN CONCAT('D-', DATEDIFF(c.end_date, CURDATE()))
+                WHEN DATEDIFF(c.end_date, CURDATE()) = 0 THEN 'D-Day'
+                ELSE CONCAT('+', ABS(DATEDIFF(c.end_date, CURDATE())))
                 END AS d_day
         FROM contract c
                  JOIN project p ON c.project_id = p.project_id
                  JOIN client cl ON p.client_id = cl.client_id
                  JOIN subCategory subcat ON p.sub_category_id = subcat.sub_category_id
         WHERE c.freelancer_id = #{freelancerId}
-          AND p.end_date <= CURDATE()
-        ORDER BY p.end_date ASC
+          AND c.end_date <= CURDATE()
+        ORDER BY c.end_date ASC
         LIMIT #{row}, 10
         ]]>
     </select>
     <select id="selectSettlementListForMyPage" resultType="dto.SettlementListForF" parameterType="Map">
-        SELECT sm.pname as projectName, sl.project_id, sm.ammount, sm.settleday as settleDate, sm.status
+        SELECT sm.settlement_id ,sm.pname as projectName, sl.project_id, sm.ammount, sm.settleday as settleDate, sm.status
         FROM settlement sm
                  JOIN settlelist sl ON sm.slist_id = sl.slist_id
         WHERE sm.freelancer_id = #{freelancerId}

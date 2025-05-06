@@ -66,7 +66,7 @@
                             <c:forEach items="${onGoingProjectList}" var="project">
                                 <tr class="clickable" onclick="toggleDetails(event)">
                                     <td>
-                                        <a href="${project.projectId}">${project.projectName}</a>
+                                        <a href="${contextPath}/project?projectid=${project.projectId}">${project.projectName}</a>
                                     </td>
                                     <%--<td>${project.categories}</td>--%>
                                     <td>${project.projectDuration}</td>

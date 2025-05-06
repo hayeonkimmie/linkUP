@@ -18,6 +18,7 @@ public class FreelancerSettlementService {
             Map<String, Object> param = new HashMap<>();
             param.put("freelancerId",freelancerId);
             param.put("projectId",projectId);
+            System.out.println("FreelancerSettlementService.java 21 param = " + param);
             settlementList = sqlSession.selectList("mapper.freelancer.selectSettlementListForMyPage", param);
         } catch (Exception e) {
             e.printStackTrace();
