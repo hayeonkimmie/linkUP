@@ -198,4 +198,5 @@ public class SettlementService implements ISettlementService {
         param.put("endDate", endDate);
         return settlementDAO.countHistorySummary(param);
     }
+
 }

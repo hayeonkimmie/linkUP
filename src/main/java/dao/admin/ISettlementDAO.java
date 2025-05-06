@@ -62,4 +62,5 @@ public interface ISettlementDAO {
     List<SettlementDetailDTO> selectSettlementHistory(String freelancerName, int projectId) throws Exception;
 
     ClientProjectSummary selectSettlementHistoryDetailByClientId(Integer projectId) throws Exception;
+    public Integer selectFirstSlistIdByProjectId(Integer projectId) throws Exception;
 }

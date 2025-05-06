@@ -214,5 +214,11 @@
         ORDER BY sl.cnt DESC
     </select>
 
+    <select id="selectFirstSlistIdByProjectId" parameterType="int" resultType="int">
+        SELECT slist_id
+        FROM settlelist
+        WHERE project_id = #{projectId}
+        LIMIT 1
+    </select>
 
 </mapper>

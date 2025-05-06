@@ -289,6 +289,11 @@ public class SettlementDAO implements ISettlementDAO {
         }
     }
 
-
+    @Override
+    public Integer selectFirstSlistIdByProjectId(Integer projectId) throws Exception{
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectOne("mapper.settlelist.selectFirstSlistIdByProjectId", projectId);
+        }
+    }
 
 }
