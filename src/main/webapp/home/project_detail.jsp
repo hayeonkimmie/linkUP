@@ -36,7 +36,7 @@
                         <div class="header-logo-box vertical-center">
                             <%--<img src="${contextPath}/img/${project.profileImg != null ? project.profileImg : 'default_logo.png'}"
                                  alt="회사 로고" class="logo-img"/>--%>
-                            <img src="${contextPath}/img/cprofile3.jpg"
+                            <img src="${contextPath}/img/${project.thumbnail}"
                                  alt="회사 로고" class="logo-img"/>
                             <c:if test="${sessionScope.role eq 'jobseeker'}">
                                 <button class="apply-button" onclick="openModal()">지원하기</button>

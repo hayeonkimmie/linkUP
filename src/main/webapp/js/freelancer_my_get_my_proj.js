@@ -97,7 +97,16 @@ function openSettlementModal(settlementList) {
             tbody.appendChild(tr);
         });*/
         settlementList.forEach((settle, index) => {
-            let statusClass = '';
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+        <td>${index + 1} 회차</td>
+        <td>₩${parseInt(settle.ammount, 10).toLocaleString()}</td>
+        <td>${settle.settleDate}</td>
+    `;
+            tbody.appendChild(tr);
+        });
+        /*        settlementList.forEach((settle, index) => {
+            /!*let statusClass = '';
             switch (settle.status) {
                 case '정산완료':
                     statusClass = 'complete';
@@ -107,7 +116,7 @@ function openSettlementModal(settlementList) {
                     break;
                 default:
                     statusClass = 'pending';
-            }
+            }*!/
 
             const tr = document.createElement("tr");
             tr.innerHTML = `
@@ -117,7 +126,7 @@ function openSettlementModal(settlementList) {
         <td>${settle.settleDate}</td>
     `;
             tbody.appendChild(tr);
-        });
+        });*/
 
         // 총액 계산 함수 호출
         calculateCompletedSettlementTotal();
@@ -142,7 +151,7 @@ function openSettlementModal(settlementList) {
 }*/
 
 
-function calculateCompletedSettlementTotal() {
+/*function calculateCompletedSettlementTotal() {
     let total = 0;
     const rows = document.querySelectorAll('.settlement-table tbody tr');
     let statusCellFound = false;
@@ -170,55 +179,32 @@ function calculateCompletedSettlementTotal() {
         }
     }
     document.getElementById("settlementModal").style.display = "block"; // 모달 열기
-}
-/*document.querySelectorAll('.settlement-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        event.stopPropagation();
-        const projectId = btn.dataset.projectId;
-        let settlementList = null;
+}*/
+function calculateCompletedSettlementTotal() {
+    let total = 0;
+    const rows = document.querySelectorAll('.settlement-table tbody tr');
+    let validRowFound = false;
 
-        if (window.onGoingProjSettlementMap && window.onGoingProjSettlementMap[projectId]) {
-            settlementList = window.onGoingProjSettlementMap[projectId];
-        } else if (window.completedProjSettlementMap && window.completedProjSettlementMap[projectId]) {
-            settlementList = window.completedProjSettlementMap[projectId];
+    rows.forEach(row => {
+        const amountText = row.children[1]?.textContent?.replace(/[₩,]/g, '');
+        const amount = parseInt(amountText);
+        if (!isNaN(amount)) {
+            validRowFound = true;
+            total += amount;
         }
-        openSettlementModal(settlementList);
     });
-});
 
-function openSettlementModal(settlementList) {
-    const tbody = document.getElementById("settlementTableBody");
-    const projectNameSpan = document.getElementById("modalProjectName");
-
-    tbody.innerHTML = ""; // 테이블 초기화
-
-    // 프로젝트 이름 세팅
-    if (projectNameSpan && settlementList[0]?.projectName) {
-        projectNameSpan.textContent = settlementList[0].projectName;
-    }
-    let hasCntValue = false;
-
-    // 테이블 데이터 렌더링
-    settlementList.forEach(settle => {
-        const tr = document.createElement("tr");
-        // 명시적으로 확인 - null 체크
-        if (settle.cnt == null) {
-            tr.innerHTML = `
-            <td colspan="4" style="text-align: center; width: 100%; height: auto">조회된 정산내역이 없습니다</td>
-            `;
-            tbody.appendChild(tr);
+    const totalCell = document.querySelector('.settlement-table tfoot .total strong');
+    if (totalCell) {
+        if (!validRowFound) {
+            totalCell.textContent = '';
         } else {
-            hasCntValue = true; // cnt 값이 있는 항목 발견
-            tr.innerHTML = `
-            <td>${settle.cnt}</td>
-            <td>₩${parseInt(settle.ammount, 10).toLocaleString()}</td>
-            <td class="status ${settle.status === '정산완료' ? 'complete' : ''}">${settle.status}</td>
-            <td>${settle.settleDate}</td>
-            `;
-            tbody.appendChild(tr);
-            calculateCompletedSettlementTotal();
+            totalCell.textContent = `₩${total.toLocaleString()}`;
         }
-    });*/
+    }
+
+    document.getElementById("settlementModal").style.display = "block"; // 모달 열기
+}
 
 function closeSettlementModal() {
     document.getElementById('settlementModal').style.display = 'none';

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,12 +28,12 @@
           <a href="#">
             <div class="company-card">
               <div class="info">
-                <h2>● ${company.companyName} <span class="rating">⭐ 4.0 (125)</span></h2>
+                <h2> ${company.companyName} <%--<span class="rating">⭐ 4.0 (125)</span>--%></h2>
                 <p>업종 : ${company.businessType}</p>
                 <p>회사소개 : ${company.companyDescription}</p>
-                <p>대표자명 : ${company.ceo} | 설립일자 : ${company.foundedDate}</p>
+                <p>대표자명 : ${company.ceo} | 설립일자 : <fmt:formatDate value='${company.foundedDate}' pattern='yyyy-MM-dd'/></p>
               </div>
-              <img src="../img/회사사진.png" alt="logo">
+              <%--<img src="../img/회사사진.png" alt="logo">--%>
             </div>
           </a>
         </c:forEach>

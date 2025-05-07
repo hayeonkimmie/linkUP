@@ -41,7 +41,8 @@
 <div class="layout-wrapper">
     <div class="content">
         <div class="profile-banner">
-            <img class="profile-image" src="${contextPath}/img/${freelancerBasic.profileImg}" alt="프로필 이미지"/>
+            <img class="profile-image" src="./img/${freelancerBasic.profileImg}" alt="프로필 이미지"/>
+            <%--<img class="profile-image" src="${contextPath}/img/${freelancerBasic.profileImg}" alt="프로필 이미지"/>--%>
             <div class="profile-info">
                 <h1 class="name">${freelancerBasic.name} <sapan>(${freelancerBasic.nickname})</sapan>
                 <c:choose>
