@@ -41,7 +41,7 @@
     <div class="category-item">
         <a href="${contextPath}/catalog?category=웹 제작">
             <img src="${contextPath}/img/webDesign.png" alt="웹 제작" />
-            <div class="category-label">웹제작</div>
+            <div class="category-label">웹 제작</div>
         </a>
     </div>
     <div class="category-item">
@@ -102,10 +102,10 @@
             <c:forEach var="project" items="${devProjects}">
                 <a href="${contextPath}/project?projectid=${project.projectId}" class="card-link">
                 <div class="card">
-                    <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
+                    <img src="./img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
                     <div class="card-text">
                         <strong>${project.projectName}</strong><br/>
-                            ${project.clientId}
+                            ${project.companyName}
                     </div>
                 </div>
                 </a>
@@ -126,7 +126,7 @@
                     <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
                     <div class="card-text">
                         <strong>${project.projectName}</strong><br/>
-                            ${project.clientId}
+                            ${project.companyName}
                     </div>
                 </div>
                 </a>
@@ -147,7 +147,7 @@
                     <img src="${contextPath}/img/${project.profileImg}" alt="프로필 이미지" class="profile-img"/>
                     <div class="card-text">
                         <strong>${project.projectName}</strong><br/>
-                            ${project.clientId}
+                            ${project.companyName}
                     </div>
                 </div>
                 </a>

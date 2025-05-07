@@ -31,6 +31,7 @@ public class PortfolioList extends HttpServlet {
         IPortfolioService service = new PortfolioService();
         IFreelancerService freelancerService = new FreelancerService();
         String freelancerId = request.getParameter("freelancerid");
+        System.out.println(freelancerId + " freelancerId");
         String pageStr = request.getParameter("page");
         Integer page = null;
         if(pageStr == null) {

@@ -73,6 +73,10 @@ public class CatalogController extends HttpServlet {
             }
         }
 
+        for(Project project : projectList) {
+            System.out.println("Project: " + project);
+        }
+
         request.setAttribute("category", category);
         request.setAttribute("subCategory", subCategory);
         request.setAttribute("keyword", keyword);

@@ -41,9 +41,10 @@
 <div class="layout-wrapper">
     <div class="content">
         <div class="profile-banner">
-            <img class="profile-image" src="${contextPath}/img/${freelancer.profileImg}" alt="프로필 이미지"/>
+            <img class="profile-image" src="./img/${freelancerBasic.profileImg}" alt="프로필 이미지"/>
+            <%--<img class="profile-image" src="${contextPath}/img/${freelancerBasic.profileImg}" alt="프로필 이미지"/>--%>
             <div class="profile-info">
-                <h1 class="name">${freelancer.name} <sapan>(${freelancer.nickname})</sapan>
+                <h1 class="name">${freelancerBasic.name} <sapan>(${freelancerBasic.nickname})</sapan>
                 <c:choose>
                     <c:when test="${isLiked}">
                         <a style="text-decoration: none;" href="${contextPath}/JJimFree?freelancerId=${freelancerId}&action=cancel">
@@ -58,14 +59,14 @@
                 </c:choose>
                 </h1>
                 <div class="skill-badges">
-                    <c:forEach var="tag" items="${fn:split(freelancer.skill, '^')}">
+                    <c:forEach var="tag" items="${fn:split(freelancerExpert.skill, '^')}">
                         <span class="badge">${tag}</span>
                     </c:forEach>
                 </div>
 
                 <!-- ✅ 포트폴리오 보기 버튼 -->
                 <div style="margin-top: 20px;">
-                    <a href="${contextPath}/portfolio-list?freelancerid=${freelancer.freelancerId}"
+                    <a href="${contextPath}/portfolio-list?freelancerid=${freelancerId}"
                        class="portfolio-btn">이 전문가의 포트폴리오 보기</a>
                 </div>
             </div>
@@ -75,7 +76,7 @@
         <%--    <hr class="section-divider" />--%>
         <div class="card">
             <h2>자기소개</h2>
-            <p class="introduction-text">${freelancer.introduction}</p>
+            <p class="introduction-text">${freelancerExpert.introduction}</p>
             <h2>경력사항</h2>
             <c:choose>
                 <c:when test="${not empty careerList}">
@@ -87,7 +88,7 @@
                                 <p class="department">${career.departmentName}</p>
                                 <p class="job-desc">${career.jobDescription}</p>
                                 <ul class="career-meta">
-                                    <li><strong>연봉:</strong> <fmt:formatNumber value="${career.salary}" pattern="#,###"/> 만원</li>
+                                    <c:if test="${not empty career.salary}"><li><strong>연봉:</strong> <fmt:formatNumber value="${career.salary}" pattern="#,###"/> 만원</li></c:if>
                                     <li><strong>재직 기간:</strong>
                                         <fmt:formatDate value="${career.joinDate}" pattern="yyyy-MM-dd"/> ~
                                         <c:choose>
@@ -109,31 +110,49 @@
 
 
             <h2>자격증</h2>
-            <c:set var="licenseArray" value="${fn:split(freelancer.license, '^')}" />
+            <%--<c:set var="licenseArray" value="${fn:split(freelancer.license, '^')}" />
             <c:if test="${not empty licenseArray}">
                 <div class="license-card">
                     <p><strong>자격증명:</strong> ${licenseArray[0]}</p>
-
                     <c:choose>
                         <c:when test="${not empty licenseArray[1] and fn:length(licenseArray) >= 4}">
                             <p><strong>급수:</strong> ${licenseArray[1]}</p>
                             <p><strong>발급처:</strong> ${licenseArray[2]}</p>
-                            <p><strong>취득일:</strong> ${licenseArray[3]}</p>
+                            <fmt:parseDate var="parsedDate" value="${licenseArray[3]}" pattern="yyyy-MM-dd" />
+                            <p><strong>취득일:</strong> <fmt:formatDate value="${parsedDate}" pattern="yyyy-MM" /></p>
                         </c:when>
                         <c:otherwise>
-                            <p><strong>발급처:</strong> ${licenseArray[1]}</p>
-                            <p><strong>취득일:</strong> ${licenseArray[2]}</p>
+                            <p><strong>발급처:</strong> ${licenseArray[2]}</p>
+                            <fmt:parseDate var="parsedDate" value="${licenseArray[3]}" pattern="yyyy-MM-dd" />
+                            <p><strong>취득일:</strong> <fmt:formatDate value="${parsedDate}" pattern="yyyy-MM" /></p>
                         </c:otherwise>
                     </c:choose>
                 </div>
+            </c:if>--%>
+            <c:if test="${not empty freelancerExpert.licenseList}">
+                <c:forEach items="${freelancerExpert.licenseList}" var="license" varStatus="status">
+                    <div class="license-card">
+                        <p><strong>자격증명:</strong> ${license.licenseName}</p>
+                        <c:choose>
+                            <c:when test="${not empty license.licenseGrade}">
+                                <p><strong>급수:</strong> ${license.licenseGrade}</p>
+                                <p><strong>발급처:</strong> ${license.licenseDate}</p>
+                                <p><strong>취득일:</strong> <fmt:formatDate value="${license.licenseDate}" pattern="yyyy-MM" /></p>
+                            </c:when>
+                            <c:otherwise>
+                                <p><strong>발급처:</strong> ${license.licenseDate}</p>
+                                <p><strong>취득일:</strong> <fmt:formatDate value="${license.licenseDate}" pattern="yyyy-MM" /></p>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </c:forEach>
             </c:if>
-
             <h2>기타 정보</h2>
             <ul class="info-list">
-                <li><strong>이메일:</strong> ${freelancer.email}</li>
-                <li><strong>전화번호:</strong> ${freelancer.phoneNum}</li>
-                <li><strong>주소:</strong> ${freelancer.address}</li>
-                <li><strong>기타 요청사항:</strong> ${freelancer.otherRequest}</li>
+                <li><strong>이메일:</strong> ${freelancerBasic.email}</li>
+                <li><strong>전화번호:</strong> ${freelancerBasic.phoneNum}</li>
+                <li><strong>주소:</strong> ${freelancerBasic.address}</li>
+                <li><strong>기타 요청사항:</strong> ${freelancerExpert.otherRequest}</li>
             </ul>
         </div>
     </div>

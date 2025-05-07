@@ -247,7 +247,7 @@
             <tr>
                 <th>회차</th>
                 <th>금액</th>
-                <th>상태</th>
+                <%--<th>상태</th>--%>
                 <th>정산일</th>
             </tr>
             </thead>
@@ -256,7 +256,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="4" class="total" style="text-align:right; font-weight:bold;">
+                <td colspan="3" class="total" style="text-align:right; font-weight:bold;">
                     총 합계: <strong>₩0</strong>
                 </td>
             </tr>
@@ -274,7 +274,7 @@
                     <div class="settlement-row"
                          data-cnt="${settlement.cnt}"
                          data-ammount="${settlement.ammount}"
-                         data-status="${settlement.status}"
+                       <%--  data-status="${settlement.status}"--%>
                          data-settle-date="${settlement.settleDate}">
                     </div>
                 </c:forEach>

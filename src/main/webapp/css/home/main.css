@@ -240,3 +240,76 @@ header {
 .arrow-button:hover {
   background-color: #3b0034;
 }
+
+.category-item a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+
+.search-type {
+  padding: 10px;
+  border-radius: 20px;
+  border: 0px solid #ffffff;
+  font-size: 16px;
+  background-color: #940683;
+  margin-right: 12px;
+  color: white;
+}
+
+.search-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #940683;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.card {
+  background-color: #5e455a;
+  border-radius: 30px;
+  width: 250px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden; /* 넘치는 이미지 짤라줌 */
+  padding: 0;
+  margin-bottom: 2rem;
+  position: relative; /* 내부 요소 제어를 위해 */
+}
+
+.card-text {
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  padding: 10px 5px;
+  font-size: 0.9rem;
+  background-color: #5e455a; /* 텍스트 영역 색상 고정 */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.profile-img {
+  display: block; /* ⭐ 추가 */
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+/*  background-color: black;*/
+  background-color: white;
+  border-radius: 20px;
+}

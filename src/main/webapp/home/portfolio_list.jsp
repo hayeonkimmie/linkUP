@@ -25,9 +25,7 @@
 </head>
 
 <body>
-<div class="header">
     <div id="header-placeholder"></div>
-</div>
 
 <div class="container">
     <main class="content" style="max-width: 1150px; margin: 0 auto;">

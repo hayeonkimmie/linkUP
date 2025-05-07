@@ -104,22 +104,23 @@
 
         <!-- 🔹 프로젝트 리스트 -->
         <div id="projects" class="tab-content active">
-            <div class="filters">
-                <button class="dropdown-toggle">인기순 ▼</button>
-                <ul class="dropdown-menu">
-                    <li>인기순</li>
-                    <li>최신 등록 순</li>
-                    <li>작업량 많은 순</li>
-                </ul>
-            </div>
+<%--            <div class="filters">--%>
+<%--                <button class="dropdown-toggle">인기순 ▼</button>--%>
+<%--                <ul class="dropdown-menu">--%>
+<%--                    <li>인기순</li>--%>
+<%--                    <li>최신 등록 순</li>--%>
+<%--                    <li>작업량 많은 순</li>--%>
+<%--                </ul>--%>
+<%--            </div>--%>
 
             <div class="job-list">
                 <c:forEach var="p" items="${projectList}">
                     <a href="${contextPath}/project?projectid=${p.projectId}" class="card-link">
                     <div class="job-card">
-                        <div class="job-image"></div>
+                        <div class="job-image">
+                            <img src="${contextPath}/img/${p.thumbnail}" alt="웹 제작" />
+                        </div>
                         <h3>${p.advertisementTitle}</h3>
-                        <p>${p.duration}일</p>
                         <div class="profile">
                             <div class="avatar"></div>
                             <span>${p.manager}</span>
