@@ -20,7 +20,9 @@
   <br>
   <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
     <h1 class="text-2xl font-bold mb-4">구인 등록</h1>
-    <form id="job-form" action="${contextPath}/makeProject" method="post" class="space-y-6">
+<%--    <form id="job-form" action="${contextPath}/makeProject" method="post" class="space-y-6">--%>
+      <form id="job-form" action="${contextPath}/makeProject" method="post" enctype="multipart/form-data" class="space-y-6">
+
       <!-- ✨ form에 action, method 추가 -->
 
       <!-- 기본 정보 -->
@@ -31,6 +33,10 @@
 
         <label class="block font-medium mt-4">프로젝트명 <span class="text-red-500">*</span>
           <input name="projectName" type="text" class="mt-1 w-full border p-2 rounded" required>
+        </label>
+
+        <label class="block font-medium mt-4">썸네일 이미지 <span class="text-red-500">*</span>
+          <input name="thumbnail" type="file" accept="image/*" class="mt-1 w-full border p-2 rounded" required>
         </label>
 
         <label class="block font-medium mt-4">모집 분야

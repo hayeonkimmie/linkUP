@@ -68,14 +68,23 @@
 <%--                            <div class="meta-value">${project.duration}일</div>--%>
 <%--                        </div>--%>
                         <div class="meta-item">
+                            <div class="meta-label">예상 작업 기간</div>
+                            <div class="meta-value">
+                                <fmt:formatDate value="${project.startDate}" pattern="yyyy-MM-dd"/>
+                                &nbsp;~&nbsp;
+                                <fmt:formatDate value="${project.endDate}" pattern="yyyy-MM-dd"/>
+                            </div>
+
+                        </div>
+                        <div class="meta-item">
                             <div class="meta-label">구인 마감일</div>
                             <div class="meta-value"><fmt:formatDate value="${project.deadlineDate}"
                                                                     pattern="yyyy-MM-dd"/></div>
                         </div>
-                        <div class="meta-item full">
-                            <div class="meta-label">담당자 연락처</div>
-                            <div class="meta-value contact">${project.mphone}</div>
-                        </div>
+<%--                        <div class="meta-item full">--%>
+<%--                            <div class="meta-label">담당자 연락처</div>--%>
+<%--                            <div class="meta-value contact">${project.mphone}</div>--%>
+<%--                        </div>--%>
                         <div class="meta-item full">
                             <div class="meta-label">담당자</div>
                             <div class="meta-value contact">${project.manager}</div>

@@ -25,16 +25,11 @@ public class ProjectDetail {
     private String subCategoryName;
     private String email;
     private String profileImg;
+    private Date startDate;
+    private Date endDate;
+
 
     public ProjectDetail() {
-    }
-
-    public String getProfileImg() {
-        return profileImg;
-    }
-
-    public void setProfileImg(String profileImg) {
-        this.profileImg = profileImg;
     }
 
     public Integer getProjectId() {
@@ -205,6 +200,30 @@ public class ProjectDetail {
         this.email = email;
     }
 
+    public String getProfileImg() {
+        return profileImg;
+    }
+
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "ProjectDetail{" +
@@ -230,6 +249,8 @@ public class ProjectDetail {
                 ", subCategoryName='" + subCategoryName + '\'' +
                 ", email='" + email + '\'' +
                 ", profileImg='" + profileImg + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 '}';
     }
 }
