@@ -3,9 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.level">
-    <insert id="insertLevel" parameterType="level">
+    <insert id="insertLevel" parameterType="dto.Level">
         insert lv (Lv_id,Lv,start_month,end_month)
         values (#{LvId}, #{Lv},#{startMonth},#{endMonth})
     </insert>
 
+    <select id="selectLvById" resultType="dto.Level">
+        select Lv_id as level_id,
+               Lv as level,
+               start_month,
+               end_month
+        from lv where Lv_id = #{levelId}
+    </select>
+    
 </mapper>

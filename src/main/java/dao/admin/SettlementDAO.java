@@ -9,7 +9,6 @@ import util.SingleTonSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,16 @@ public class SettlementDAO implements ISettlementDAO {
     private final SqlSessionFactory sqlSessionFactory = SingleTonSession.getInstance();
 
     SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+
+    @Override
+    public HashMap<Integer, AdminSettleProject> selectProjectsForSettlementWithParams(Map<String, Object> params) throws SQLException {
+        HashMap<Integer, AdminSettleProject> projects = new HashMap<>();
+        List<AdminSettleProject> adminProjects = sqlSession.selectList("mapper.aproject.selectProjectsForSettlement", params);
+        for(AdminSettleProject project : adminProjects) {
+            projects.put(project.getProjectId(), project);
+        }
+        return projects;
+    }
 
     @Override
     public HashMap<Integer, AdminSettleProject> selectProjectsForSettlement() throws SQLException {
@@ -294,6 +303,11 @@ public class SettlementDAO implements ISettlementDAO {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return session.selectOne("mapper.settlelist.selectFirstSlistIdByProjectId", projectId);
         }
+    }
+
+    @Override
+    public HashMap<Integer, AdminSettleProject> selectProjectsForSettlementWithParams(HashMap<String, Object> params) {
+        return null;
     }
 
 }

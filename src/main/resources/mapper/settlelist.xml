@@ -129,6 +129,7 @@
                 AND sl.settle_date &lt;= #{endDate}
             </if>
         </where>
+        where s.status = '정산완료'
         GROUP BY sl.project_id, sl.settle_date, sl.cnt
         ORDER BY sl.settle_date DESC
         LIMIT #{offset}, #{limit}

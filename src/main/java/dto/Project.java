@@ -134,6 +134,7 @@ public class Project {
     }
 
 
+
     public Date getEndDate() {
         return endDate;
     }
@@ -361,7 +362,6 @@ public class Project {
         this.mphone = mphone;
     }
 
-
     @Override
     public String toString() {
         return "Project{" +
@@ -387,6 +387,13 @@ public class Project {
                 ", subCategoryName='" + subCategoryName + '\'' +
                 ", categoryName='" + categoryName + '\'' +
                 ", profileImg='" + profileImg + '\'' +
+                ", email='" + email + '\'' +
+                ", jobPosition='" + jobPosition + '\'' +
+                ", reqSkills='" + reqSkills + '\'' +
+                ", wantedSkills='" + wantedSkills + '\'' +
+                ", memail='" + memail + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 '}';
     }
 

@@ -63,12 +63,12 @@
                         <%--                            <div class="meta-label">정산일</div>--%>
                         <%--                            <div class="meta-value"><fmt:formatDate value="${project.settleDay}" pattern="yyyy-MM-dd"/></div>--%>
                         <%--                        </div>--%>
+<%--                        <div class="meta-item">--%>
+<%--                            <div class="meta-label">프로젝트 기간</div>--%>
+<%--                            <div class="meta-value">${project.duration}일</div>--%>
+<%--                        </div>--%>
                         <div class="meta-item">
-                            <div class="meta-label">프로젝트 기간</div>
-                            <div class="meta-value">${project.duration}일</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">마감일</div>
+                            <div class="meta-label">구인 마감일</div>
                             <div class="meta-value"><fmt:formatDate value="${project.deadlineDate}"
                                                                     pattern="yyyy-MM-dd"/></div>
                         </div>
@@ -109,6 +109,21 @@
                     <h3>자격 요건</h3>
                     <p>${project.qualification}</p>
 
+                    <h3>우대 사항</h3>
+                    <p>${project.preferentialConditions}</p>
+                </section>
+                <section class="job-section">
+                    <h3>모집 인원</h3>
+                    <c:forEach var="pl" items="${payLevelList}">
+                        <p>
+                            <c:out value="${pl.pay.work}"/>
+                            <c:out value="${pl.pay.people}"/>명,
+                            <c:out value="${pl.level.level}"/>
+                        </p>
+                    </c:forEach>
+                </section>
+
+                <section>
                     <h3>우대 사항</h3>
                     <p>${project.preferentialConditions}</p>
                 </section>
