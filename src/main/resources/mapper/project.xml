@@ -164,7 +164,9 @@
             p.sub_category_id,
             s.sub_category_name as sub_category_name,
             u.email AS email,
-            u.profile_img AS profile_img
+            u.profile_img AS profile_img,
+            p.start_date,
+            p.end_date
         FROM project p
                  JOIN subCategory s ON p.sub_category_id = s.sub_category_id
                  JOIN client c ON p.client_id = c.client_id

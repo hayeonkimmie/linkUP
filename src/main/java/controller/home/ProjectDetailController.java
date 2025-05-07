@@ -68,6 +68,7 @@ public class ProjectDetailController extends HttpServlet {
         }
 
         // ✅ 새로운 payLevelList 전달
+        System.out.println("Project : " + selectedProject);
         request.setAttribute("projectPayList", projectPayList);
         request.setAttribute("payLevelList", payLevelList);
         request.setAttribute("userId", freelancerId);
