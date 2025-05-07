@@ -16,6 +16,12 @@
         ORDER BY qna_id DESC
         LIMIT #{row}, 3
     </select>
+    <select id="selectQnAListByPageF" parameterType="Map" resultType="qna">
+        SELECT * FROM qna
+        WHERE user_id = #{userId}
+        ORDER BY qna_id DESC
+        LIMIT #{row}, 10
+    </select>
 
     <!-- 전체 QnA 목록 (페이지 처리 포함) -->
     <select id="selectQnAList" parameterType="Integer" resultType="qna">

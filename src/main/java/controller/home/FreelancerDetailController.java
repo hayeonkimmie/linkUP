@@ -1,5 +1,6 @@
 package controller.home;
 
+import dto.Career;
 import dto.Freelancer;
 import service.admin.ClientService;
 import service.client.ClientFavoritesServiceImpl;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/freelancer")
 public class FreelancerDetailController extends HttpServlet {
@@ -27,11 +29,16 @@ public class FreelancerDetailController extends HttpServlet {
         String freelancerId = request.getParameter("freelancerid");
         FreelancerService freelancerService = new FreelancerService();
         IClientFavoritesService service = new ClientFavoritesServiceImpl();
-        Freelancer freelancer = null;
+        Freelancer freelancerExpert = null;
+        Freelancer freelancerBasic = null;
+        List<Career> careerList = null;
+
         String clientId = (String) request.getSession().getAttribute("userId");
         boolean isLiked = false;
         try {
-            freelancer = freelancerService.selectBasicFreelancerById(freelancerId);
+            freelancerExpert = freelancerService.selectExpertFreelancerById(freelancerId);
+            freelancerBasic = freelancerService.selectBasicFreelancerById(freelancerId);
+            careerList = freelancerService.selectCareerListById(freelancerId);
             if(clientId == null) {
                 isLiked = false;
             } else if(clientId != null || !clientId.isEmpty()) {
@@ -42,7 +49,9 @@ public class FreelancerDetailController extends HttpServlet {
             e.printStackTrace();
         }
         request.setAttribute("isLiked", isLiked);
-        request.setAttribute("freelancer", freelancer);
+        request.setAttribute("freelancerBasic", freelancerBasic);
+        request.setAttribute("freelancerExpert", freelancerExpert);
+        request.setAttribute("careerList", careerList);
         request.setAttribute("freelancerId", freelancerId);
         request.getRequestDispatcher("./home/freelancer_detail.jsp").forward(request,response);
     }

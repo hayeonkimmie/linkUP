@@ -67,7 +67,7 @@ public class InfoSerializer {
                     safe(lc.getLicenseName()),
                     safe(lc.getLicenseGrade()),
                     safe(lc.getLicenseAgency()),
-                    lc.getLicenseDate() != null ? lc.getLicenseDate().toString() : ""
+                    lc.getLicenseDate() != null ? lc.getLicenseDate().toString()+"-01" : ""
             );
             parts.add(entry);
         }
@@ -90,7 +90,7 @@ public class InfoSerializer {
                 lc.setLicenseGrade(safe(fields[1]));
                 lc.setLicenseAgency(safe(fields[2]));
                 try {
-                    lc.setLicenseDate(fields[3].isEmpty() ? null : Date.valueOf(fields[3] + "-01"));
+                    lc.setLicenseDate(fields[3].isEmpty() ? null : Date.valueOf(fields[3]));
                 } catch (IllegalArgumentException e) {
                     lc.setLicenseDate(null); // 포맷이 잘못된 경우 null 처리
                 }
