@@ -33,6 +33,18 @@ public class Apply {
         super();
     }
 
+    public Apply(String freelancerId, Integer projectId, Date applyDate, Date cancelDate,
+                 boolean isApproved, Integer projectPayId, String subCategoryName) {
+        this.freelancerId = freelancerId;
+        this.projectId = projectId;
+        this.applyDate = applyDate;
+        this.cancelDate = cancelDate;
+        this.isApproved = isApproved;
+        this.projectPayId = projectPayId;
+        this.subCategoryName = subCategoryName;
+    }
+
+
     public String getSubCategoryName() {
         return subCategoryName;
     }
@@ -87,7 +99,7 @@ public class Apply {
     }
 
     public void setIsApproved(boolean isApproved) {
-        isApproved = isApproved;
+        this.isApproved = isApproved;
     }
 
     public String getApproved() {

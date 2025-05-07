@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ISettlementDAO {
+    HashMap<Integer, AdminSettleProject> selectProjectsForSettlementWithParams(Map<String, Object> params) throws SQLException;
+
     HashMap<Integer, AdminSettleProject> selectProjectsForSettlement() throws SQLException;
 
     List<AdminProject> selectProjectsForSettlementList() throws SQLException;
@@ -62,4 +64,7 @@ public interface ISettlementDAO {
     List<SettlementDetailDTO> selectSettlementHistory(String freelancerName, int projectId) throws Exception;
 
     ClientProjectSummary selectSettlementHistoryDetailByClientId(Integer projectId) throws Exception;
+    public Integer selectFirstSlistIdByProjectId(Integer projectId) throws Exception;
+
+    HashMap<Integer, AdminSettleProject> selectProjectsForSettlementWithParams(HashMap<String, Object> params);
 }

@@ -1,24 +1,24 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-
-.card-link {
-  text-decoration: none;
-  color: inherit;
-}
-
 
 * {
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
   font-family: "Noto Sans KR", sans-serif;
-margin: 0;
-
 }
 
 body {
   background-color: #ffffff;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+
+/* ---------------- Header ---------------- */
 header {
   padding: 1.5rem 3rem;
   display: flex;
@@ -28,6 +28,114 @@ header {
   font-size: 1.5rem;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.auth-buttons a {
+  margin-left: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+
+.signup {
+  background-color: #000000;
+  color: white !important;
+}
+
+/* ---------------- Title ---------------- */
+.main-title {
+  text-align: center;
+  font-weight: bold;
+  margin: 1rem 0;
+  font-size: 40px;
+  color: #940683;
+}
+
+/* ---------------- Search ---------------- */
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.search-input {
+  width: 700px;
+  padding: 1rem;
+  border-radius: 50px;
+  border: none;
+  font-size: 25px;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+.search-type {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  background-color: #940683;
+  margin-right: 12px;
+  color: white;
+}
+
+.search-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #940683;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ---------------- Categories ---------------- */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1rem 0 2rem;
+  flex-wrap: wrap;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-item a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categories img {
+  width: 50px;
+  height: 50px;
+}
+
+.category-label {
+  font-size: 0.85rem;
+  color: #333;
+  text-align: center;
+}
+
+/* ---------------- Section Wrapper ---------------- */
+.section-wrapper {
+  background-color: #f8f8f8;
+  padding: 1rem 0;
+}
+
+.section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 3rem;
 }
 
 .section-row {
@@ -49,97 +157,53 @@ header {
 .section-row .cards {
   display: flex;
   justify-content: center;
-  gap: 10rem;
+  gap: 2rem;
   flex-wrap: wrap;
   flex: 1;
 }
 
-.auth-buttons a {
-margin-left: 10px;
-text-decoration: none;
-font-size: 14px;
-color: #333;
-padding: 6px 12px;
-border-radius: 5px;
-}
-.signup {
-background-color: #000000;
-color: white !important;
+/* ---------------- Card ---------------- */
+.card-link {
+  text-decoration: none;
+  color: inherit;
 }
 
-.main-title {
-  text-align: center;
-  font-weight: bold;
-  margin: 2rem 0 1rem;
-  font-size: 40px;
-  color: #940683;
-}
-
-.search-box {
+.card {
+  background-color: #5e455a;
+  border-radius: 30px;
+  width: 250px;
+  height: 300px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  margin: 1rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  position: relative;
 }
 
-.search-input {
-  width: 700px;
-  padding: 1rem;
-  border-radius: 50px;
-  border: 0px solid #ffffff;
-  font-size: 25px;
-  text-align: center;
-  background-color: #f0f0f0;
+.profile-img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background-color: black;
+  border-radius: 20px;
 }
-
-.categories {
-  display: flex ;
-  justify-content: center ;
-  gap: 3rem ;
-  margin: 2rem 0 ;
-  flex-wrap: wrap ;
-}
-
-.categories img {
-  width: 50px;
-  height: 50px;
-}
-
-.section-wrapper {
-  background-color: #f8f8f8; /* 배경색만 전체로 */
-  padding: 2rem 0; /* 위아래 여백 (선택사항) */
-}
-
-.section {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1rem 3rem;
-  /* 배경색 삭제! */
-}
-
-.section-title {
-font-size: 15px;
-font-weight: bold;
-color: #940683;
-margin-bottom: 1rem;
-display: flex;
-flex-direction: row; 
-align-items: flex-start; 
-gap: 0.8rem;
-}
-
 
 .card-text {
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  padding: 10px 5px;
   font-size: 0.9rem;
-  color: #fff;
-  margin-top: 0.5rem;
+  background-color: #5e455a;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.rating {
-  color: black;
-  font-size: 0.8rem;
-}
-
+/* ---------------- Footer ---------------- */
 .footer {
   margin-top: 4rem;
   background: #fff;
@@ -161,31 +225,20 @@ gap: 0.8rem;
   margin: 0.5rem 0;
 }
 
-.category-item {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 0.5rem;
-}
-
-.category-label {
-font-size: 0.85rem;
-color: #333;
-text-align: center;
-}
+/* ---------------- Utility ---------------- */
 .arrow-button {
-background-color: #940683;
-color: white;
-border: none;
-border-radius: 999px;
-padding: 5px 7px;
-font-size: 9px;
-cursor: pointer;
-transition: background-color 0.2s ease;
+  background-color: #940683;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 5px 7px;
+  font-size: 9px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .arrow-button:hover {
-background-color: #3b0034;
+  background-color: #3b0034;
 }
 
 .category-item a {

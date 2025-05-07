@@ -22,7 +22,7 @@ public class QnADAO implements IQnADAO{
         Map<String, Object> param = new HashMap<>();
         param.put("userId", userId);
         param.put("row", row);
-        return sqlSession.selectList("mapper.qna.selectQnAListByPageF", param);
+        return sqlSession.selectList("mapper.qna.selectQnAListByPageFree", param);
     }
 
     @Override

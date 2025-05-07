@@ -69,7 +69,7 @@
         <mapper resource="mapper/freelancer.xml"/>
         <mapper resource="mapper/jjimfree.xml"/>
         <mapper resource="mapper/jjimProj.xml"/>
-<!--        <mapper resource="mapper/lv.xml"/>-->
+        <mapper resource="mapper/lv.xml"/>
         <mapper resource="mapper/portfolio.xml"/>
         <mapper resource="mapper/dashboardproject.xml"/>
         <mapper resource="mapper/qna.xml"/>

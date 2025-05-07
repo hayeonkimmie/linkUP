@@ -28,9 +28,9 @@
   <div class="content">
     <div class="page-header">
       <h2>${client.name}</h2>
-      <a href="<c:url value='/admin/client-list' />?companyid=${client.id}" class="back-link">
-        ${client.name}의 프로젝트 목록 보기 →
-      </a>
+<%--      <a href="<c:url value='/admin/client-list' />?companyid=${client.id}" class="back-link">--%>
+<%--        ${client.name}의 프로젝트 목록 보기 →--%>
+<%--      </a>--%>
 
     </div>
 

@@ -6,6 +6,9 @@ public class Level {
     private int startMonth;
     private int endMonth;
 
+    public Level() {
+    }
+
     public Level(int levelId, String level, int startMonth, int endMonth) {
         this.levelId = levelId;
         this.level = level;
@@ -43,5 +46,15 @@ public class Level {
 
     public void setEndMonth(int endMonth) {
         this.endMonth = endMonth;
+    }
+
+    @Override
+    public String toString() {
+        return "Level{" +
+                "levelId=" + levelId +
+                ", level='" + level + '\'' +
+                ", startMonth=" + startMonth +
+                ", endMonth=" + endMonth +
+                '}';
     }
 }

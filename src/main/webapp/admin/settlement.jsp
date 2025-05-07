@@ -99,7 +99,14 @@
                             <c:choose>
                                 <c:when test="${p.clientStatus eq 'C'}">
                                     <a href="<c:url value='/admin/settlement'><c:param name='contractid' value='${p.projectId}'/></c:url>" class="settlement-btn">정산하기</a>
-                                    <a href="<c:url value='/admin/settlement'><c:param name='slistid' value='${p.projectId}'/></c:url>" class="settlement-btn light">정산내역</a>
+                                    <a href="<c:url value='/admin/settlement'>
+                                        <c:param name='slistid' value='${slistId}'/>
+                                        <c:param name='projectId' value='${p.projectId}'/>
+                                        <c:param name='pay' value='${p.totalAmount}'/>
+                                        <c:param name='format' value='json'/>
+                                    </c:url>"
+                                       class="settlement-btn light">정산내역</a>
+
                                 </c:when>
                                 <c:when test="${p.clientStatus eq 'T'}">
                                     <a href="<c:url value='/admin/settlement'><c:param name='slistid' value='${p.projectId}'/></c:url>" class="settlement-btn light">정산내역</a>

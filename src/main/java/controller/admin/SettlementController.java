@@ -38,6 +38,9 @@ public class SettlementController extends HttpServlet {
         try {
             HashMap<Integer, AdminSettleProject> projectList;
             if (slistIdParam != null) {
+                if(slistIdParam.isEmpty()){
+                    slistIdParam = String.valueOf(settlementDAO.selectFirstSlistIdByProjectId(Integer.parseInt(request.getParameter("projectId"))));
+                }
                 Integer slistId = Integer.parseInt(slistIdParam);
                 HashMap<Integer, AdminSettleHistory> projects = settlementDAO.selectSettlementHistoryDetail(slistId);
                 if ("json".equals(formatParam)) {

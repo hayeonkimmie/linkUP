@@ -177,5 +177,12 @@
           AND answer_content != '(답변대기 중)'
     </select>
 
+    <select id="selectQnAListByPageFree" parameterType="Map" resultType="qna">
+        select *
+        from qna
+        where user_id = #{userId}
+        order by qna_id desc
+        limit #{row}, 10
+    </select>
 
 </mapper>

@@ -41,20 +41,20 @@ public class SettlementService implements ISettlementService {
         }
 
         // 최초 정산일 + (회차-1)개월 로 실제 정산일자 계산
-        LocalDate targetSettleDate = firstSettleDay.plusMonths(nextCnt - 1);
+//        LocalDate targetSettleDate = firstSettleDay.plusMonths(nextCnt - 1);
         LocalDate today = LocalDate.now();
 
-        System.out.println("[디버그] 계산된 정산일: " + targetSettleDate);
+        System.out.println("[디버그] 계산된 정산일: " + firstSettleDay);
         System.out.println("[디버그] 현재 날짜: " + today);
 
         // 정산일이 아직 미래라면 (단, 미정산 인원이 남아있는 경우는 허용)
-        if (today.isBefore(targetSettleDate) && isAllSettled) {
+        if (today.isBefore(firstSettleDay) && isAllSettled) {
             System.out.println("정산일이 오늘보다 미래입니다. 정산을 진행할 수 없습니다.");
             return null;
         }
 
         // 기존에 정산리스트가 있나 체크
-        Settlelist existingList = settlementDAO.selectAnySettlelistByProjectIdAndDate(projectId, Date.valueOf(targetSettleDate));
+        Settlelist existingList = settlementDAO.selectAnySettlelistByProjectIdAndDate(projectId, Date.valueOf(firstSettleDay));
         int cnt = nextCnt;
 
         Settlelist settlelist = new Settlelist(
@@ -64,7 +64,7 @@ public class SettlementService implements ISettlementService {
                 prepareSettle.getClientId(),
                 project.getProjectName(),
                 item.getAmount(),
-                Date.valueOf(targetSettleDate),
+                Date.valueOf(firstSettleDay),
                 cnt
         );
 
@@ -118,9 +118,12 @@ public class SettlementService implements ISettlementService {
 
     @Override
     public HashMap<Integer, AdminSettleProject> filterProjectsWithUnsettled() throws Exception {
-        HashMap<Integer, AdminSettleProject> fullList = settlementDAO.selectProjectsForSettlement();
-        HashMap<Integer, AdminSettleProject> filtered = new HashMap<>();
         LocalDate today = LocalDate.now();
+        HashMap<String, Object> params = new HashMap<>();
+        LocalDate targetSettleDay = LocalDate.of(today.getYear(), today.getMonth(), 6); // 정산일을 6일로 고정하거나 동적으로 설정 가능
+        params.put("targetSettleDay", targetSettleDay);
+        HashMap<Integer, AdminSettleProject> fullList = settlementDAO.selectProjectsForSettlementWithParams(params);
+        HashMap<Integer, AdminSettleProject> filtered = new HashMap<>();
 
         for (Integer key : fullList.keySet()) {
             AdminSettleProject p = fullList.get(key);
@@ -198,4 +201,5 @@ public class SettlementService implements ISettlementService {
         param.put("endDate", endDate);
         return settlementDAO.countHistorySummary(param);
     }
+
 }

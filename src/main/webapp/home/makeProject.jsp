@@ -54,9 +54,14 @@
           </div>
         </div>
 
-        <label class="block font-medium mt-4">근무 기간 <span class="text-red-500">*</span>
-          <input name="duration" type="text" class="mt-1 w-full border p-2 rounded" required>
+        <label class="block font-medium mt-2">프로젝트 시작일 <span class="text-red-500">*</span>
+          <input name="startDate" type="date" class="mt-1 w-full border p-2 rounded" required>
         </label>
+
+        <label class="block font-medium mt-2">프로젝트 종료일 <span class="text-red-500">*</span>
+          <input name="endDate" type="date" class="mt-1 w-full border p-2 rounded" required>
+        </label>
+
 
         <label class="block font-medium mt-4">근무 지역 <span class="text-red-500">*</span>
           <input name="workingEnvironment" type="text" class="mt-1 w-full border p-2 rounded" required>

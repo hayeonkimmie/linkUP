@@ -100,7 +100,7 @@
     </select>
 
 
-    <select id="selectProjectsForSettlement" resultType="dto.AdminSettleProject">
+    <select id="selectProjectsForSettlement" parameterType="map" resultType="dto.AdminSettleProject">
 <![CDATA[
         SELECT
             p.project_id,
@@ -122,12 +122,10 @@
             (
                 SELECT COUNT(DISTINCT s.freelancer_id)
                 FROM settlement s
-                         JOIN settlelist sl2 ON s.slist_id = sl2.slist_id
-                WHERE sl2.project_id = p.project_id
-                  AND s.status = '정산완료'
-                  AND sl2.settle_date = sl.settle_day
+                         JOIN settlelist sl ON s.slist_id = sl.slist_id
+                WHERE sl.project_id = p.project_id
+                  AND sl.settle_date = #{targetSettleDay}
             ) AS settled_count,
-
 
             (
                 SELECT COUNT(DISTINCT a2.freelancer_id)
@@ -164,6 +162,8 @@
         ORDER BY p.settle_day DESC
         ]]>
 </select>
+
+
 
     <select id="countAllProjects" resultType="int">
         SELECT COUNT(*) FROM project

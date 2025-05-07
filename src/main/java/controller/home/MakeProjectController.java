@@ -75,7 +75,25 @@ public class MakeProjectController extends HttpServlet {
         project.setMemail(request.getParameter("memail"));
 
         // 안전한 정수 변환 처리
-        project.setDuration(safeParseInt(request.getParameter("duration"), 0));
+        // ✅ 변경된 부분: 시작일, 종료일 처리 및 duration 자동 계산
+        try {
+            Date startDate = Date.valueOf(request.getParameter("startDate"));
+            Date endDate = Date.valueOf(request.getParameter("endDate"));
+            project.setStartDate(startDate);
+            project.setEndDate(endDate);
+
+            // duration 계산
+            long duration = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+            if (duration < 0) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "종료일은 시작일 이후여야 합니다.");
+                return;
+            }
+            project.setDuration((int) duration);
+        } catch (IllegalArgumentException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "시작일과 종료일을 올바르게 입력해주세요.");
+            return;
+        }
+
 
         String subCategoryIdStr = request.getParameter("subCategoryId");
         if (subCategoryIdStr == null || subCategoryIdStr.trim().isEmpty()) {
@@ -92,6 +110,7 @@ public class MakeProjectController extends HttpServlet {
         }
 
         // 프로젝트 저장
+        System.out.println("등록할 프로젝트 정보 : " + project);
         projectService.registerProject(project);
 
         // 포지션 처리

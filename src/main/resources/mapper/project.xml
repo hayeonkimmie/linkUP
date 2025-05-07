@@ -130,13 +130,16 @@
         INSERT INTO project (
             client_id, advertisement_title, project_name, job_position, working_method, working_hours,
             duration, working_environment, req_skills, wanted_skills, project_description, job_details,
-            qualification, preferential_conditions, deadline_date, manager, mphone, memail, sub_category_id
+            qualification, preferential_conditions, deadline_date, manager, mphone, memail, sub_category_id,
+            start_date, end_date
         ) VALUES (
                      #{clientId}, #{advertisementTitle}, #{projectName}, #{jobPosition}, #{workingMethod}, #{workingHours},
                      #{duration}, #{workingEnvironment}, #{reqSkills}, #{wantedSkills}, #{projectDescription}, #{jobDetails},
-                     #{qualification}, #{preferentialConditions}, #{deadlineDate}, #{manager}, #{mphone}, #{memail}, #{subCategoryId}
+                     #{qualification}, #{preferentialConditions}, #{deadlineDate}, #{manager}, #{mphone}, #{memail}, #{subCategoryId},
+                     #{startDate}, #{endDate}
                  )
     </insert>
+
 
     <select id="selectProjectById" parameterType="int" resultType="dto.ProjectDetail">
         SELECT

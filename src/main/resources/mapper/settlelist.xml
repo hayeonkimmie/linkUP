@@ -129,6 +129,7 @@
                 AND sl.settle_date &lt;= #{endDate}
             </if>
         </where>
+        where s.status = '정산완료'
         GROUP BY sl.project_id, sl.settle_date, sl.cnt
         ORDER BY sl.settle_date DESC
         LIMIT #{offset}, #{limit}
@@ -214,5 +215,11 @@
         ORDER BY sl.cnt DESC
     </select>
 
+    <select id="selectFirstSlistIdByProjectId" parameterType="int" resultType="int">
+        SELECT slist_id
+        FROM settlelist
+        WHERE project_id = #{projectId}
+        LIMIT 1
+    </select>
 
 </mapper>
