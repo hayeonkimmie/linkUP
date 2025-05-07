@@ -41,24 +41,18 @@
     </div>
 </header>
 
-<br/>
 
 <div class="main-title">사람과 사람을 연결해주는 사이트 <strong>LINK UP!</strong></div>
-
 <br/>
-
 <div class="search-box">
     <select id="search-type" class="search-type">
         <option value="company">회사명</option>
         <option value="project">구인 구직</option>
-
     </select>
     <input class="search-input" type="text" id="search-keyword" placeholder="검색어를 입력하세요" />
     <button class="search-button" onclick="handleSearch()">검색</button>
 </div>
-
-<br/><br/><br/>
-
+<br/>
 <div class="categories">
     <div class="category-item">
         <a href="${contextPath}/catalog?category=웹 제작">
@@ -109,8 +103,8 @@
         </a>
     </div>
 </div>
-<br/><br/><br/><br/><br/><br/>
 
+<br/><br/>
 <div class="section-wrapper">
     <div class="section">
 
