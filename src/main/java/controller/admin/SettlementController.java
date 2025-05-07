@@ -29,7 +29,7 @@ public class SettlementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        Integer slistId = 0;
         ISettlementDAO settlementDAO = new SettlementDAO();
         ISettlementService settlementService = new SettlementService(null,null,settlementDAO);
         String contractIdParam = request.getParameter("contractid");
@@ -39,9 +39,11 @@ public class SettlementController extends HttpServlet {
             HashMap<Integer, AdminSettleProject> projectList;
             if (slistIdParam != null) {
                 if(slistIdParam.isEmpty()){
-                    slistIdParam = String.valueOf(settlementDAO.selectFirstSlistIdByProjectId(Integer.parseInt(request.getParameter("projectId"))));
+                    slistId = settlementDAO.selectFirstSlistIdByProjectId(Integer.parseInt(request.getParameter("projectId")));
+                }else{
+                    slistId = Integer.parseInt(slistIdParam);
                 }
-                Integer slistId = Integer.parseInt(slistIdParam);
+                System.out.println(slistId);
                 HashMap<Integer, AdminSettleHistory> projects = settlementDAO.selectSettlementHistoryDetail(slistId);
                 if ("json".equals(formatParam)) {
                     response.setContentType("application/json; charset=UTF-8");

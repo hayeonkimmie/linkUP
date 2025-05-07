@@ -40,7 +40,7 @@
 
         <!-- ✅ 포트폴리오 보기 버튼 -->
         <div style="margin-top: 20px;">
-          <a href="${contextPath}/portfolio-list?freelancerid=${freelancer.freelancerId}"
+          <a href="${contextPath}/admin/portfolio-list?freelancerid=${freelancer.freelancerId}&?name=${freelancer.name}"
              class="portfolio-btn">이 전문가의 포트폴리오 보기</a>
         </div>
       </div>

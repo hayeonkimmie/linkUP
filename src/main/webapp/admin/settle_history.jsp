@@ -173,7 +173,7 @@
                     return; // slistId 없으면 요청 안 보냄
                 }
 
-                console.log("✅ 가져온 slistId:", slistId);
+                console.log("✅ 가져온 slistId:", projectId);
 
                 const otherData = {
                     projectId: projectId,

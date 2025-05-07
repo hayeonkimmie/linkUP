@@ -119,13 +119,14 @@
             IFNULL(SUM(ct.total_pay), 0) AS total_settlement,
             COUNT(DISTINCT ct.id) AS total_contracts,
 
-            (
-                SELECT COUNT(DISTINCT s.freelancer_id)
-                FROM settlement s
-                         JOIN settlelist sl ON s.slist_id = sl.slist_id
-                WHERE sl.project_id = p.project_id
-                  AND sl.settle_date = #{targetSettleDay}
-            ) AS settled_count,
+            COALESCE((
+                         SELECT COUNT(DISTINCT s.freelancer_id)
+                         FROM settlement s
+                                  JOIN settlelist sl ON s.slist_id = sl.slist_id
+                         WHERE sl.project_id = p.project_id
+                           AND sl.settle_date = #{targetSettleDay}
+                     ), 0) AS settled_count,
+
 
             (
                 SELECT COUNT(DISTINCT a2.freelancer_id)

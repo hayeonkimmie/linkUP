@@ -122,11 +122,15 @@ public class SettlementService implements ISettlementService {
         HashMap<String, Object> params = new HashMap<>();
         LocalDate targetSettleDay = LocalDate.of(today.getYear(), today.getMonth(), 6); // 정산일을 6일로 고정하거나 동적으로 설정 가능
         params.put("targetSettleDay", targetSettleDay);
+        System.out.println("params = " + params);
         HashMap<Integer, AdminSettleProject> fullList = settlementDAO.selectProjectsForSettlementWithParams(params);
         HashMap<Integer, AdminSettleProject> filtered = new HashMap<>();
-
+        if (fullList==null){
+            fullList = settlementDAO.selectProjectsForSettlement();
+        }
         for (Integer key : fullList.keySet()) {
             AdminSettleProject p = fullList.get(key);
+
             System.out.println("\n🎯 대상 프로젝트: " + p.getProjectName());
 
             LocalDate calculatedSettleDate = null;

@@ -24,13 +24,28 @@ public class SettlementDAO implements ISettlementDAO {
 
     @Override
     public HashMap<Integer, AdminSettleProject> selectProjectsForSettlementWithParams(Map<String, Object> params) throws SQLException {
+        System.out.println("🛠️ [DAO] selectProjectsForSettlementWithParams 실행");
+        System.out.println("📥 입력 파라미터: " + params);
+
         HashMap<Integer, AdminSettleProject> projects = new HashMap<>();
+
         List<AdminSettleProject> adminProjects = sqlSession.selectList("mapper.aproject.selectProjectsForSettlement", params);
-        for(AdminSettleProject project : adminProjects) {
+
+        if (adminProjects == null || adminProjects.isEmpty()) {
+            System.out.println("⚠️ 조회 결과 없음 (adminProjects == null 또는 size == 0)");
+            return projects;  // ❗ null 대신 빈 HashMap 반환
+        }
+
+        System.out.println("📊 조회된 프로젝트 수: " + adminProjects.size());
+
+        for (AdminSettleProject project : adminProjects) {
+            System.out.println("➡️ 프로젝트: ID=" + project.getProjectId() + ", 이름=" + project.getProjectName());
             projects.put(project.getProjectId(), project);
         }
+
         return projects;
     }
+
 
     @Override
     public HashMap<Integer, AdminSettleProject> selectProjectsForSettlement() throws SQLException {

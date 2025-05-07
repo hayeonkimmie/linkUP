@@ -133,14 +133,14 @@
 
         <!-- 🔹 프리랜서 리스트 -->
         <div id="experts" class="tab-content">
-            <div class="filters">
-                <button class="dropdown-toggle">인기순 ▼</button>
-                <ul class="dropdown-menu">
-                    <li>인기순</li>
-                    <li>최신 등록 순</li>
-                    <li>작업량 많은 순</li>
-                </ul>
-            </div>
+<%--            <div class="filters">--%>
+<%--                <button class="dropdown-toggle">인기순 ▼</button>--%>
+<%--                <ul class="dropdown-menu">--%>
+<%--                    <li>인기순</li>--%>
+<%--                    <li>최신 등록 순</li>--%>
+<%--                    <li>작업량 많은 순</li>--%>
+<%--                </ul>--%>
+<%--            </div>--%>
 
             <div class="job-list">
                 <c:forEach var="f" items="${freelancerList}">

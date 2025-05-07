@@ -55,7 +55,7 @@
                             <div class="portfolio-content">
                                 <div class="portfolio-body">
                                     <div class="list-thumbnail">
-                                        <img src="../img/no_img.png" alt='포트폴리오 썸네일 이미지'/>
+                                        <img src="${contextPath}/img/${portfolio.thumbnail}" alt='포트폴리오 썸네일 이미지'/>
                                     </div>
                                     <div class="portfolio-info">
                                         <h3>
@@ -115,6 +115,4 @@
 <script>
     const contextPath = '${pageContext.request.contextPath}';
 </script>
-<script src="${contextPath}/js/header.js"></script>
-<script src="${contextPath}/js/headerLogin.js"></script>
 </body>
