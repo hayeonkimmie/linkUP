@@ -10,6 +10,7 @@
             p.project_id,
             p.project_name,
             p.client_id,
+            c2.company_name,
             p.advertisement_title,
             p.thumbnail,
             p.duration,
@@ -25,6 +26,7 @@
                  LEFT JOIN category c ON sc.category_id = c.category_id
                --  LEFT JOIN review r ON p.client_id = r.r_user_id
                  LEFT JOIN user u ON p.client_id = u.user_id
+                LEFT JOIN client c2 on p.client_id = c2.client_id
         WHERE c.category_name = #{category}
         GROUP BY p.project_id
         ORDER BY RAND()

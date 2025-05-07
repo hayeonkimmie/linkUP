@@ -6,6 +6,7 @@ public class Project {
     private int projectId;
     private String clientId;
     private String advertisementTitle;
+    private String companyName;
     private String projectName;
     private String thumbnail;
     int duration;
@@ -39,9 +40,10 @@ public class Project {
     public Project() {
     }
 
-    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String profileImg, String email) {
+    public Project(int projectId, String clientId, String companyName, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String profileImg, String email) {
         this.projectId = projectId;
         this.clientId = clientId;
+        this.companyName = companyName;
         this.advertisementTitle = advertisementTitle;
         this.projectName = projectName;
         this.thumbnail = thumbnail;
@@ -86,9 +88,10 @@ public class Project {
         this.projectId = projectId;
     }
 
-    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date deadlineDate) {
+    public Project(int projectId, String clientId, String companyName, String advertisementTitle, String projectName, String thumbnail, int duration, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date deadlineDate) {
         this.projectId = projectId;
         this.clientId = clientId;
+        this.companyName = companyName;
         this.advertisementTitle = advertisementTitle;
         this.projectName = projectName;
         this.thumbnail = thumbnail;
@@ -103,9 +106,10 @@ public class Project {
         this.deadlineDate = deadlineDate;
     }
 
-    public Project(int projectId, String clientId, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String jobPosition, String reqSkills, String wantedSkills, String memail, String profileImg, double avgStar) {
+    public Project(int projectId, String clientId, String companyName, String advertisementTitle, String projectName, String thumbnail, int duration, Date createdDate, Date deadlineDate, String projectDescription, String jobDetails, String workingMethod, String workingEnvironment, String workingHours, String qualification, String preferentialConditions, Date settleDay, String manager, String mphone, int subCategoryId, String subCategoryName, String categoryName, String jobPosition, String reqSkills, String wantedSkills, String memail, String profileImg, double avgStar) {
         this.projectId = projectId;
         this.clientId = clientId;
+        this.companyName = companyName;
         this.advertisementTitle = advertisementTitle;
         this.projectName = projectName;
         this.thumbnail = thumbnail;
@@ -233,6 +237,13 @@ public class Project {
         this.clientId = clientId;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public String getAdvertisementTitle() {
         return advertisementTitle;

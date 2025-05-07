@@ -60,7 +60,7 @@ public class ProjectDetailController extends HttpServlet {
                 payLevelList.add(new PayLevelDTO(pay, level));
             }
 
-            if(freelancerId != null) {
+            if(freelancerId != null && freelancerId.isEmpty() == false) {
                 isLiked = projectService.isProjectLiked(freelancerId, Integer.parseInt(projectId));
             }
         } catch (Exception e) {
