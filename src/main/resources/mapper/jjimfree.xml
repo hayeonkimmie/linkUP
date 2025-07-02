@@ -41,7 +41,7 @@
         (SELECT COUNT(*) FROM contract c WHERE c.freelancer_id = jf.freelancer_id) AS project_count
         FROM jjimFree jf
         LEFT JOIN freelancer f ON jf.freelancer_id = f.freelancer_id
-        LEFT JOIN user u ON f.freelancer_id = u.user_id
+        LEFT JOIN "user" u ON f.freelancer_id = u.user_id
         WHERE jf.client_id = #{clientId}
         ORDER BY
         <choose>
@@ -56,7 +56,7 @@
         SELECT COUNT(*)
         FROM jjimFree jf
                  JOIN freelancer f ON jf.freelancer_id = f.freelancer_id
-                 JOIN user u ON f.freelancer_id = u.user_id
+                 JOIN "user" u ON f.freelancer_id = u.user_id
         WHERE jf.client_id = #{clientId}
     </select>
 

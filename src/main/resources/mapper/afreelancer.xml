@@ -11,12 +11,12 @@
                u.phone_num,
                '구직자' AS type
         FROM freelancer f
-                 INNER JOIN user u ON f.freelancer_id = u.user_id
+                 INNER JOIN "user" u ON f.freelancer_id = u.user_id
     </select>
     
     <select id="searchFreelancersByKeyword" resultType="freelancer" parameterType="String">
         SELECT *  FROM freelancer f
-        JOIN user u ON f.freelancer_id = u.user_id
+        JOIN "user" u ON f.freelancer_id = u.user_id
         WHERE u.name LIKE #{keyword} OR freelancer_id LIKE #{keyword} OR email LIKE #{keyword}
     </select>
 
@@ -48,7 +48,7 @@
             f.attachment,
             f.external_url
         FROM freelancer f
-                 JOIN user u ON f.freelancer_id = u.user_id
+                 JOIN "user" u ON f.freelancer_id = u.user_id
         WHERE f.freelancer_id = #{freelancerId}
     </select>
 </mapper>

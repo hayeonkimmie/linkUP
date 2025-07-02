@@ -19,7 +19,7 @@
             c.end_date
         FROM contract c
                  JOIN freelancer f ON c.freelancer_id = f.freelancer_id
-                    JOIN user u ON f.freelancer_id = u.user_id
+                    JOIN "user" u ON f.freelancer_id = u.user_id
         WHERE c.id = #{id}
     </select>
 

@@ -51,28 +51,36 @@
           AND name = #{freelancerName}
     </select>
 
-    <select id="selectSettlementHistoryDetail" parameterType="int" resultType="dto.AdminSettleHistory">
-        SELECT
-            s.slist_id,
-            sl.project_id,
-            sl.cnt,
-            p.project_name AS projectName,
-            u.name AS freelancerName,
-            pmanager AS position,
-            s.ammount AS amount,
-            c.account,
-            DATE_FORMAT(c.start_date, '%Y-%m-%d') AS startDate,
-            DATE_FORMAT(c.end_date, '%Y-%m-%d') AS endDate,
-            DATE_FORMAT(sl.settle_date, '%Y-%m-%d') AS settleDate,
-            s.status
-        FROM settlement s
-                 JOIN settlelist sl ON s.slist_id = sl.slist_id
-                 JOIN contract c ON sl.contract_id = c.id
-                 JOIN project p ON sl.project_id = p.project_id
-                 JOIN user u ON c.freelancer_id = u.user_id
-        WHERE sl.slist_id = #{slistId}
 
-        ORDER BY u.name
+    <select id="selectSettlementHistoryDetailByClientId" resultType="dto.ClientProjectSummary">
+        SELECT
+            p.project_id,
+            p.project_name,
+            (SELECT SUM(pay) FROM contract WHERE project_id = #{projectId}) AS total_amount,
+            (SELECT TO_CHAR(MIN(start_date), 'YYYY-MM-DD') FROM contract WHERE project_id = #{projectId}) AS startDate,
+            (SELECT TO_CHAR(MAX(end_date), 'YYYY-MM-DD') FROM contract WHERE project_id = #{projectId}) AS endDate,
+            (SELECT
+                 CASE
+                     WHEN COALESCE((
+                                       SELECT COUNT(*) FROM settlement s
+                                       WHERE s.slist_id IN (
+                                           SELECT slist_id FROM settlelist
+                                           WHERE project_id = #{projectId}
+                                             AND cnt = (
+                                               SELECT MAX(cnt) FROM settlelist WHERE project_id = #{projectId}
+                                           )
+                                       )
+                                   ), 0)
+                         =
+                          (SELECT COUNT(*) FROM contract WHERE project_id = #{projectId})
+                         THEN
+                             (SELECT MAX(cnt) + 1 FROM settlelist WHERE project_id = #{projectId})
+                     ELSE
+                             (SELECT MAX(cnt) FROM settlelist WHERE project_id = #{projectId})
+                     END
+            ) AS nextRound
+        FROM project p
+        WHERE p.project_id = #{projectId}
     </select>
 
     <select id="selectSettledFreelancers" parameterType="int" resultType="dto.SettledInfoDTO">
@@ -110,7 +118,7 @@
         FROM contract c
                  JOIN apply a ON c.apply_id = a.apply_id
                  JOIN freelancer f ON c.freelancer_id = f.freelancer_id
-                 JOIN user u ON f.freelancer_id = u.user_id
+                 JOIN "user" u ON f.freelancer_id = u.user_id
                  JOIN settlelist sl ON c.project_id = sl.project_id
             -- 이번 회차의 예상 정산 대상 기간 계산
                  JOIN (
@@ -173,7 +181,7 @@
                      JOIN settlelist sl ON s.slist_id = sl.slist_id
             WHERE sl.project_id = c.project_id
               AND sl.cnt = #{cnt}
-              AND s.name = (SELECT u.name FROM user u WHERE u.user_id = c.freelancer_id)
+              AND s.name = (SELECT u.name FROM "user" u WHERE u.user_id = c.freelancer_id)
         )
     </select>
 
@@ -218,7 +226,7 @@
         FROM contract c
                  JOIN apply a ON c.apply_id = a.apply_id
                  JOIN freelancer f ON c.freelancer_id = f.freelancer_id
-                 JOIN user u ON f.freelancer_id = u.user_id
+                 JOIN "user" u ON f.freelancer_id = u.user_id
                  JOIN pay p ON c.project_pay_id = p.project_pay_id
                  JOIN settlelist sl ON c.project_id = sl.project_id
         WHERE c.project_id = #{projectId}

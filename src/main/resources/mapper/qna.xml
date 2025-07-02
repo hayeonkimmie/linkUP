@@ -102,8 +102,9 @@
         answer_date AS answerDate
         FROM qna
         <where>
+            <!-- 키워드 검색 수정 -->
             <if test="keyword != null and keyword != ''">
-                (question_title LIKE CONCAT('%', #{keyword}, '%') OR user_id LIKE CONCAT('%', #{keyword}, '%'))
+                AND question_title LIKE '%' || #{keyword} || '%'
             </if>
             <if test="category != null and category != ''">
                 AND (question_title LIKE CONCAT('%', #{category}, '%'))
@@ -114,11 +115,12 @@
             <if test="answerStatus == '미답변'">
                 AND (answer_content IS NULL)
             </if>
+            <!-- 날짜 비교 수정 -->
             <if test="startDate != null and startDate != ''">
-                AND question_date &gt;= #{startDate}
+                AND question_date >= #{startDate}::date
             </if>
             <if test="endDate != null and endDate != ''">
-                AND question_date &lt;= #{endDate}
+                AND question_date <= #{endDate}::date
             </if>
         </where>
         ORDER BY qna_id DESC

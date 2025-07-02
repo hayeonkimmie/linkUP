@@ -44,10 +44,13 @@
         <environment id="deveLopment">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://svc.sel4.cloudtype.app:32176/linkup2?serverTimezone=Asia/Seoul"/>
-                <property name="username" value="root"/>
-                <property name="password" value="wy12wy10"/>
+                <!-- PostgreSQL 드라이버 -->
+                <property name="driver" value="org.postgresql.Driver"/>
+                <!-- PostgreSQL 연결 URL -->
+                <property name="url" value="jdbc:postgresql://localhost:5432/itlinkup"/>
+                <!-- 사용자 정보 -->
+                <property name="username" value="postgres"/>
+                <property name="password" value="hailey"/>
                 <property name="poolMaximumActiveConnections" value="500"/>
                 <property name="poolMaximumIdleConnections" value="500"/>
             </dataSource>

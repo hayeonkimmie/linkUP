@@ -52,7 +52,7 @@
         (SELECT SUM(p2.project_fee) FROM pay p2 WHERE p2.project_id = pj.project_id) AS total_amount
         FROM project pj
         JOIN client c ON pj.client_id = c.client_id
-        JOIN user u ON c.client_id = u.user_id
+        JOIN "user" u ON c.client_id = u.user_id
         LEFT JOIN pay p ON pj.project_id = p.project_id
         LEFT JOIN lv l ON p.lv_id = l.Lv_id
         LEFT JOIN subCategory sc ON pj.sub_category_id =  sc.sub_category_id
@@ -72,20 +72,17 @@
 
     <!--    구인확정하기 기능 (구인중 => 시작전) -->
     <update id="updateStatusToConfirmed" parameterType="map">
-    <![CDATA[
         UPDATE project
         SET status = '구인완료',
-            project_progress =
-                CASE
-                    WHEN start_date IS NULL THEN '시작전' -- 날짜 없으면 무조건 시작전
-#                 날짜비교
-                    WHEN start_date > DATE(#{today}) THEN '시작전'
-                    WHEN start_date <= DATE(#{today}) THEN '진행중'
-                    ELSE NULL
-                    END
+        project_progress =
+        CASE
+        WHEN start_date IS NULL THEN '시작전'
+        WHEN start_date > #{today}::date THEN '시작전'
+        WHEN start_date <= #{today}::date THEN '진행중'
+        ELSE NULL
+        END
         WHERE project_id = #{projectId}
-        ]]>
-</update>
+    </update>
 
 
     <!--    나의 프로젝트 삭제 (is_deleted) 물리삭제가 아닌 논리삭제 -->
@@ -98,15 +95,12 @@
 
     <!--    프로젝트 시작 전 -> 진행 중 로직 (프로젝트 시작일 되는 순간 시작전 => 진행중으로 변경 됨) -->
     <update id="updateProgressToOngoing" parameterType="map">
-        <![CDATA[
         UPDATE project
         SET project_progress = '진행중'
         WHERE project_progress = '시작전'
-          AND start_date IS NOT NULL
-          AND start_date <= DATE(#{today})
-        ]]>
+        AND start_date IS NOT NULL
+        AND start_date <= #{today}::date
     </update>
-
     <!--   구인중 : 수정하기, 삭제하기, 모집 확정하기-->
     <!--    구인완료 : 시작전 (모집확정했고, 프로젝트 시작은 안된 상태) - 수정하기 가능-->
     <!--    구인완료 : 진행중 (모집확정했고, 프로젝트 시작한 상태) -->

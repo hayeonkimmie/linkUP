@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mapper.user">
     <insert id="insertUser" parameterType="user">
-        insert user (user_id,name,nickname,email,password,phone_num,profile_img,registration_date,withdrawal_date)
-        values (#{userId}, #{name},#{nickname},#{email}, #{password},#{phoneNum},#{profileImg},#{registrationDate}, #{withdrawalDate})
+        INSERT INTO "user" (user_id, name, nickname, email, password, phone_num, profile_img, registration_date, withdrawal_date)
+        VALUES (#{userId}, #{name}, #{nickname}, #{email}, #{password}, #{phoneNum}, #{profileImg}, #{registrationDate}, #{withdrawalDate})
     </insert>
+
     <select id="selectUserById" parameterType="String" resultType="user">
-        select * from user where user_id = #{userId}
+        SELECT * FROM "user" WHERE user_id = #{userId}
     </select>
+
     <select id="minSelectUserById" parameterType="String" resultType="user">
-        select nickname, profile_img from user where user_id = #{userId}
+        SELECT nickname, profile_img FROM "user" WHERE user_id = #{userId}
     </select>
+
     <select id="checkNickName" parameterType="String" resultType="Integer">
-        select count(*) from user where nickname = #{nickname}
+        SELECT COUNT(*) FROM "user" WHERE nickname = #{nickname}
     </select>
+
     <select id="checkPassWord" parameterType="String" resultType="String">
-        select password from user where user_id = #{userId}
+        SELECT password FROM "user" WHERE user_id = #{userId}
     </select>
 </mapper>

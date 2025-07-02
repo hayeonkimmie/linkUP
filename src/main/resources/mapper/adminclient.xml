@@ -14,7 +14,7 @@
             '구인자' as type
         FROM
             client c
-                INNER JOIN user u ON c.client_id = u.user_id
+                INNER JOIN "user" u ON c.client_id = u.user_id
     </select>
 
     <select id="selectClientById" resultType="adminuserdetail">
@@ -32,7 +32,7 @@
             c.company_address,
             c.company_phone_number,
             c.company_fax_num
-        FROM user u
+        FROM "user" u
                  JOIN client c ON u.user_id = c.client_id
         WHERE u.user_id = #{clientId}
     </select>
@@ -47,7 +47,7 @@
             c.company_phone_number AS phone_number,
             '구인자' AS type
         FROM client c
-                 JOIN user u ON c.client_id = u.user_id
+                 JOIN "user" u ON c.client_id = u.user_id
         WHERE (c.company_name LIKE #{keyword} OR u.user_id LIKE #{keyword} OR u.email LIKE #{keyword} )
     </select>
 

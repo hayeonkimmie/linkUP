@@ -28,7 +28,7 @@
             DAY(c.settle_day) AS settle_day
         FROM contract c
                  JOIN freelancer f ON c.freelancer_id = f.freelancer_id
-                 JOIN user u ON f.freelancer_id = u.user_id
+                 JOIN "user" u ON f.freelancer_id = u.user_id
                  JOIN pay p ON c.project_pay_id = p.project_pay_id
         WHERE c.project_id = #{projectId}
           AND NOT EXISTS (
@@ -181,7 +181,7 @@
                                                               )) AS settlePeriod,
                c.pay                                             AS pay
         FROM contract c
-                 JOIN user u ON c.freelancer_id = u.user_id
+                 JOIN "user" u ON c.freelancer_id = u.user_id
         WHERE c.client_id = #{clientId}
           and c.project_id = #{projectId}
           AND c.status = '진행중'

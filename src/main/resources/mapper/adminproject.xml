@@ -49,10 +49,10 @@
 
         FROM project p
                  JOIN client c ON p.client_id = c.client_id
-                 JOIN user u ON c.client_id = u.user_id
+                 JOIN "user" u ON c.client_id = u.user_id
                  LEFT JOIN apply a ON p.project_id = a.project_id AND a.is_approved = TRUE
                  LEFT JOIN freelancer f ON a.freelancer_id = f.freelancer_id
-                 LEFT JOIN user u2 ON f.freelancer_id = u2.user_id
+                 LEFT JOIN "user" u2 ON f.freelancer_id = u2.user_id
         WHERE p.project_id = #{projectId}
     </select>
 

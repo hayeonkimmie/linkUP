@@ -90,7 +90,7 @@
         FROM project pj
                  LEFT JOIN apply a ON pj.project_id = a.project_id
                  LEFT JOIN freelancer f ON a.freelancer_id = f.freelancer_id
-                 LEFT JOIN user u ON f.freelancer_id = u.user_id
+                 LEFT JOIN "user" u ON f.freelancer_id = u.user_id
                  LEFT JOIN pay p ON a.project_pay_id = p.project_pay_id
                  LEFT JOIN lv l ON p.lv_id = l.Lv_id
                  LEFT JOIN career ca ON f.freelancer_id = ca.freelancer_id

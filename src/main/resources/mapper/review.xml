@@ -17,15 +17,17 @@
             comment = #{comment}
         where review_id = #{reviewId} and w_user_id = #{wUserId}
     </update>
+    <!-- 문자열 연결 수정 -->
     <select id="selectReceiveReviewByFreelancerId" parameterType="Map" resultType="review">
-        select r.*, CONCAT('(',u.name, ') ', c.company_name) as wUserInfo, u.profile_img as wUserProfileImg, p.project_name
+        select r.*, '(' || u.name || ') ' || c.company_name as wUserInfo,
+               u.profile_img as wUserProfileImg, p.project_name
         from review r
-            join user u on r.w_user_id = u.user_id
-            join project p on r.project_id = p.project_id
-            join client c on c.client_id = u.user_id
+                 join "user" u on r.w_user_id = u.user_id
+                 join project p on r.project_id = p.project_id
+                 join client c on c.client_id = u.user_id
         where r_user_id = #{freelancerId} and comment is not null
         order by create_date desc, review_id desc
-        limit #{row}, 10
+        limit 10 offset #{row}
     </select>
     <select id="selectWrittenReviewByFreelancerId" parameterType="Map" resultType="review">
         SELECT
@@ -34,7 +36,7 @@
             u.profile_img AS rUserProfileImg,
             p.project_name
         FROM review r
-                 JOIN user u ON r.r_user_id = u.user_id
+                 JOIN "user" u ON r.r_user_id = u.user_id
                  JOIN project p ON r.project_id = p.project_id
                  JOIN client c ON c.client_id = u.user_id
         WHERE r.w_user_id = #{freelancerId} and comment is not null

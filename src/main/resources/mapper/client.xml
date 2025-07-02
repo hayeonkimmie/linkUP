@@ -30,7 +30,6 @@
 
 <!--    구인자 마이페이지 프로필설정 조회-->
     <select id="selectClientProfile" parameterType="String" resultType="map">
-#     parameter는 userId (String type)
             SELECT u.name,
                    u.user_id,
                    u.email,
@@ -41,7 +40,7 @@
                    c.company_reg_no,
                    c.company_description,
                    c.company_fax_num
-                FROM user u JOIN client c
+                FROM "user" u JOIN client c
             ON u.user_id = c.client_id
             WHERE u.user_id = #{userId}
     </select>
@@ -68,7 +67,7 @@
 
 <!--    비밀번호 조회-->
     <select id="getPasswordByUserId" parameterType="String" resultType="String">
-        SELECT password FROM user WHERE user_id = #{userId}
+        SELECT password FROM "user" WHERE user_id = #{userId}
     </select>
 
 <!--    비밀번호 변경-->

@@ -20,7 +20,7 @@
                u.phone_num,
                '구직자' AS type
         FROM freelancer f
-                 INNER JOIN user u ON f.freelancer_id = u.user_id
+                 INNER JOIN "user" u ON f.freelancer_id = u.user_id
     </select>
     <select id="selectBasicFreelancerById" parameterType="String" resultType="freelancer">
         SELECT u.user_id as freelancer_id,
@@ -33,13 +33,13 @@
                f.address,
                f.bank,
                f.account_num
-        FROM user u
+        FROM "user" u
                  INNER JOIN freelancer f ON f.freelancer_id = u.user_id
         where u.user_id = #{freelancerId}
     </select>
     <select id="selectProfileImgById" parameterType="String" resultType="String">
         SELECT profile_img
-        FROM user
+        FROM "user"
         where user_id = #{freelancerId}
     </select>
     <update id="updateFreelancer" parameterType="freelancer">
@@ -281,7 +281,7 @@
             u.nickname,
             u.profile_img
         FROM freelancer f
-            LEFT JOIN user u ON f.freelancer_id = u.user_id
+            LEFT JOIN "user" u ON f.freelancer_id = u.user_id
         WHERE f.sub_category_id = #{category}
     </select>
 
@@ -299,7 +299,7 @@
             c.category_name,
             COALESCE(AVG(r.star), 0) AS avg_star
         FROM freelancer f
-                 LEFT JOIN user u ON f.freelancer_id = u.user_id
+                 LEFT JOIN "user" u ON f.freelancer_id = u.user_id
         WHERE f.category = #{category}
           AND (
             f.introduction LIKE CONCAT('%', #{keyword}, '%')
@@ -323,7 +323,7 @@
         FROM freelancer f
         LEFT JOIN subCategory sc ON f.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id
-        LEFT JOIN user u ON f.freelancer_id = u.user_id
+        LEFT JOIN "user" u ON f.freelancer_id = u.user_id
        -- LEFT JOIN review r ON f.freelancer_id = r.r_user_id
         WHERE 1=1
         <if test="keyword != null and keyword != ''">
@@ -355,7 +355,7 @@
         FROM freelancer f
         LEFT JOIN subCategory sc ON f.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id
-        LEFT JOIN user u ON f.freelancer_id = u.user_id
+        LEFT JOIN "user" u ON f.freelancer_id = u.user_id
       --  LEFT JOIN review r ON f.freelancer_id = r.r_user_id
         WHERE f.sub_category_id IN
         <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
@@ -381,7 +381,7 @@
         FROM freelancer f
                  LEFT JOIN subCategory sc ON f.sub_category_id = sc.sub_category_id
                  LEFT JOIN category c ON sc.category_id = c.category_id
-                 LEFT JOIN user u ON f.freelancer_id = u.user_id
+                 LEFT JOIN "user" u ON f.freelancer_id = u.user_id
           --       LEFT JOIN review r ON f.freelancer_id = r.r_user_id
         GROUP BY f.freelancer_id
         ORDER BY f.freelancer_id DESC

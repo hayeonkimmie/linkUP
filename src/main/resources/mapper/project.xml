@@ -25,11 +25,11 @@
                  LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
                  LEFT JOIN category c ON sc.category_id = c.category_id
                --  LEFT JOIN review r ON p.client_id = r.r_user_id
-                 LEFT JOIN user u ON p.client_id = u.user_id
+                 LEFT JOIN "user" u ON p.client_id = u.user_id
                 LEFT JOIN client c2 on p.client_id = c2.client_id
         WHERE c.category_name = #{category}
         GROUP BY p.project_id
-        ORDER BY RAND()
+        ORDER BY RANDOM()()
             LIMIT 3
     </select>
 
@@ -52,7 +52,7 @@
         FROM project p
                  LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
                  LEFT JOIN category c ON sc.category_id = c.category_id
-                 LEFT JOIN user u ON p.client_id = u.user_id
+                 LEFT JOIN "user" u ON p.client_id = u.user_id
              --    LEFT JOIN review r ON p.client_id = r.r_user_id
         WHERE c.category_name = #{category}
         GROUP BY p.project_id
@@ -78,7 +78,7 @@
         FROM project p
         LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id
-        LEFT JOIN user u ON p.client_id = u.user_id
+        LEFT JOIN "user" u ON p.client_id = u.user_id
       --  LEFT JOIN review r ON p.client_id = r.r_user_id
         WHERE 1=1
         <if test="category != null and category != '' and category != '전체'">
@@ -116,7 +116,7 @@
         FROM project p
         LEFT JOIN subCategory sc ON p.sub_category_id = sc.sub_category_id
         LEFT JOIN category c ON sc.category_id = c.category_id
-        LEFT JOIN user u ON p.client_id = u.user_id
+        LEFT JOIN "user" u ON p.client_id = u.user_id
      --   LEFT JOIN review r ON p.client_id = r.r_user_id
         WHERE 1=1
         <if test="category != null and category != ''">
@@ -172,7 +172,7 @@
         FROM project p
                  JOIN subCategory s ON p.sub_category_id = s.sub_category_id
                  JOIN client c ON p.client_id = c.client_id
-                    JOIN user u ON c.client_id = u.user_id
+                    JOIN "user" u ON c.client_id = u.user_id
         WHERE p.project_id = #{project_id}
     </select>
 
@@ -263,13 +263,13 @@
 
 <!--        FROM project p-->
 <!--                 LEFT JOIN review r ON p.client_id = r.r_user_id-->
-<!--                 LEFT JOIN user u ON p.client_id = u.user_id &#45;&#45; user 테이블 조인 추가-->
+<!--                 LEFT JOIN "user" u ON p.client_id = u.user_id &#45;&#45; user 테이블 조인 추가-->
 
 <!--        WHERE p.category = #{category}-->
 
 <!--        GROUP BY p.project_id-->
 
-<!--        ORDER BY RAND()-->
+<!--        ORDER BY RANDOM()()-->
 <!--            LIMIT 3-->
 <!--    </select>-->
 
@@ -287,7 +287,7 @@
 <!--            u.profile_img,-->
 <!--            COALESCE(AVG(r.star), 0) AS avg_star  &lt;!&ndash; ⭐ 별점 평균 추가 &ndash;&gt;-->
 <!--        FROM project p-->
-<!--                 LEFT JOIN user u ON p.client_id = u.user_id-->
+<!--                 LEFT JOIN "user" u ON p.client_id = u.user_id-->
 <!--                 LEFT JOIN review r ON p.client_id = r.r_user_id  &lt;!&ndash; 리뷰 테이블 조인 &ndash;&gt;-->
 <!--        WHERE p.category = #{category}-->
 <!--        GROUP BY p.project_id-->
@@ -308,7 +308,7 @@
 <!--        u.profile_img,-->
 <!--        COALESCE(AVG(r.star), 0) AS avg_star-->
 <!--        FROM project p-->
-<!--        LEFT JOIN user u ON p.client_id = u.user_id-->
+<!--        LEFT JOIN "user" u ON p.client_id = u.user_id-->
 <!--        LEFT JOIN review r ON p.client_id = r.r_user_id-->
 <!--        WHERE 1=1-->
 <!--        <if test="category != null and category != '' and category != '전체'">-->
@@ -342,7 +342,7 @@
 <!--        u.profile_img,-->
 <!--        COALESCE(AVG(r.star), 0) AS avg_star-->
 <!--        FROM project p-->
-<!--        LEFT JOIN user u ON p.client_id = u.user_id-->
+<!--        LEFT JOIN "user" u ON p.client_id = u.user_id-->
 <!--        LEFT JOIN review r ON p.client_id = r.r_user_id-->
 <!--        WHERE p.category = #{category}-->
 <!--        <if test="subCategory != null and subCategory != ''">-->
